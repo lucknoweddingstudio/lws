@@ -115,6 +115,27 @@
         const PHONE_1 = "+91 73940 19474";
         const PHONE_2 = "+91 88088 08840";
 
+        const DUMMY_GALLERY_IMAGES = [
+            "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1000",
+            "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1000",
+            "https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1000",
+            "https://images.unsplash.com/photo-1544078751-58fee2d8a03b?q=80&w=1000",
+            "https://images.unsplash.com/photo-1591604466107-ec97de577aff?q=80&w=1000",
+            "https://images.unsplash.com/photo-1510076857177-7470076d4098?q=80&w=1000",
+            "https://images.unsplash.com/photo-1606293926075-69a00dbfde81?q=80&w=1000",
+            "https://images.unsplash.com/photo-1532712938310-34cb3982ef74?q=80&w=1000",
+            "https://images.unsplash.com/photo-1522673607200-1648832cee98?q=80&w=1000",
+            "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=1000",
+            "https://images.unsplash.com/photo-1465495910483-0d6749830383?q=80&w=1000",
+            "https://images.unsplash.com/photo-1546032996-6dfacbacbf3f?q=80&w=1000",
+            "https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=1000",
+            "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=1000",
+            "https://images.unsplash.com/photo-1550005816-193a68a15db9?q=80&w=1000",
+            "https://images.unsplash.com/photo-1529636798458-92182e662485?q=80&w=1000",
+            "https://images.unsplash.com/photo-1494955858141-ad918a392162?q=80&w=1000",
+            "https://images.unsplash.com/photo-1509315811347-6743111444bc?q=80&w=1000"
+        ];
+
         const PRICING_DATA = {
             wedding: [
                 { name: "SILVER WEDDING PLAN", price: "₹40,000", scope: "WEDDING SHOOT", team: ["Traditional Photographer", "Traditional Videographer"], deliverables: ["Traditional Photographs", "Traditional Video", "Album of 40 Sheets"] },
@@ -164,7 +185,7 @@
                                     {pkg.deliverables.map((d, idx) => <li key={idx} className="flex items-center gap-2">✓ {d}</li>)}
                                 </ul>
                             </div>
-                            <button className="mt-8 w-full py-3 md:py-4 bg-premium-gold text-black font-bold uppercase tracking-[0.4em] text-[9px] rounded-full hover:bg-white transition-all shadow-lg">Inquire Now</button>
+                            <button className="mt-8 w-full py-3 md:py-4 bg-premium-gold text-black font-bold uppercase tracking-[0.4em] text-[9px] rounded-full hover:bg-white transition-colors shadow-lg">Inquire Now</button>
                         </div>
                     ))}
                 </div>
@@ -391,21 +412,106 @@
             </section>
         );
 
-        const Gallery = () => (
-            <section className="py-24 md:py-48 px-6 section-bg" style={{backgroundImage: "url('https://images.unsplash.com/photo-1544078751-58fee2d8a03b?auto=format&fit=crop&q=95&w=2000')"}}>
-                <div className="overlay opacity-90 backdrop-blur-sm"></div>
-                <div className="relative z-10 max-w-7xl mx-auto">
-                    <h2 className="text-center font-serif text-3xl md:text-5xl uppercase tracking-[0.4em] md:tracking-[0.6em] text-premium-gold mb-16 md:mb-24 italic text-gold-gradient">The Exhibition</h2>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-                        {[1,2,3,4,5,6,7,8,1,2,3,4].map((i, idx) => (
-                            <div key={idx} className="aspect-[3/4] glass-card rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden group shadow-2xl relative">
-                                <img src={`https://lucknowweddingstudio.com/wp-content/uploads/2021/08/IMG_000${i}.jpg`} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-125 grayscale group-hover:grayscale-0" />
+        const Gallery = () => {
+            const [displayCount, setDisplayCount] = useState(8);
+            const [lightboxIndex, setLightboxIndex] = useState(null);
+
+            const handleLoadMore = () => {
+                setDisplayCount(prev => Math.min(prev + 4, DUMMY_GALLERY_IMAGES.length));
+            };
+
+            const nextImage = (e) => {
+                e.stopPropagation();
+                setLightboxIndex(prev => (prev + 1) % displayCount);
+            };
+
+            const prevImage = (e) => {
+                e.stopPropagation();
+                setLightboxIndex(prev => (prev - 1 + displayCount) % displayCount);
+            };
+
+            return (
+                <section className="py-24 md:py-48 px-6 section-bg" style={{backgroundImage: "url('https://images.unsplash.com/photo-1544078751-58fee2d8a03b?auto=format&fit=crop&q=95&w=2000')"}}>
+                    <div className="overlay opacity-90 backdrop-blur-sm"></div>
+                    <div className="relative z-10 max-w-7xl mx-auto">
+                        <h2 className="text-center font-serif text-3xl md:text-5xl uppercase tracking-[0.4em] md:tracking-[0.6em] text-premium-gold mb-16 md:mb-24 italic text-gold-gradient">The Exhibition</h2>
+                        
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-16">
+                            {DUMMY_GALLERY_IMAGES.slice(0, displayCount).map((img, idx) => (
+                                <div 
+                                    key={idx} 
+                                    onClick={() => setLightboxIndex(idx)}
+                                    className="aspect-[3/4] glass-card rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden group shadow-2xl relative cursor-pointer"
+                                >
+                                    <img src={img} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-125 grayscale group-hover:grayscale-0" alt={`Wedding Capture ${idx + 1}`} />
+                                    <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center backdrop-blur-[2px]">
+                                        <div className="w-10 h-10 rounded-full border border-premium-gold flex items-center justify-center text-premium-gold">
+                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        {displayCount < DUMMY_GALLERY_IMAGES.length && (
+                            <div className="text-center">
+                                <button 
+                                    onClick={handleLoadMore}
+                                    className="px-10 py-3 md:py-4 glass border border-premium-gold/30 text-premium-gold font-bold uppercase tracking-[0.4em] text-[9px] rounded-full hover:bg-premium-gold hover:text-black transition-all"
+                                >
+                                    LOAD MORE CAPTURES
+                                </button>
                             </div>
-                        ))}
+                        )}
                     </div>
-                </div>
-            </section>
-        );
+
+                    {/* Lightbox Modal */}
+                    {lightboxIndex !== null && (
+                        <div 
+                            className="fixed inset-0 z-[300] flex items-center justify-center bg-black/95 backdrop-blur-xl animate-fade-in p-4"
+                            onClick={() => setLightboxIndex(null)}
+                        >
+                            {/* Close Button */}
+                            <button 
+                                className="absolute top-8 right-8 text-white hover:text-premium-gold transition-colors z-[310]"
+                                onClick={() => setLightboxIndex(null)}
+                            >
+                                <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                            </button>
+
+                            {/* Previous Button */}
+                            <button 
+                                className="absolute left-4 md:left-10 text-white/50 hover:text-premium-gold transition-colors z-[310]"
+                                onClick={prevImage}
+                            >
+                                <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"/></svg>
+                            </button>
+
+                            {/* Image Wrapper */}
+                            <div className="relative max-w-5xl max-h-[85vh] flex items-center justify-center p-2 glass rounded-3xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.8)] overflow-hidden">
+                                <img 
+                                    src={DUMMY_GALLERY_IMAGES[lightboxIndex]} 
+                                    className="max-w-full max-h-[80vh] object-contain rounded-2xl animate-fade-in" 
+                                    alt="Elite Capture" 
+                                    onClick={(e) => e.stopPropagation()}
+                                />
+                                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 px-6 py-2 glass rounded-full border border-white/5">
+                                    <p className="text-[10px] uppercase tracking-[0.4em] font-bold text-premium-gold">LWS | {lightboxIndex + 1} / {displayCount}</p>
+                                </div>
+                            </div>
+
+                            {/* Next Button */}
+                            <button 
+                                className="absolute right-4 md:right-10 text-white/50 hover:text-premium-gold transition-colors z-[310]"
+                                onClick={nextImage}
+                            >
+                                <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"/></svg>
+                            </button>
+                        </div>
+                    )}
+                </section>
+            );
+        };
 
         const Reviews = () => (
             <section className="py-24 md:py-48 px-6 section-bg" style={{backgroundImage: "url('https://images.unsplash.com/photo-1510076857177-7470076d4098?auto=format&fit=crop&q=95&w=2000')"}}>
