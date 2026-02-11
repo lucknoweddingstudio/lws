@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucknow Wedding Studio | Elite Cinematic Experience</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Montserrat:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        premium: { 
+                            gold: '#D4AF37', 
+                            dark: '#050505', 
+                            card: 'rgba(255, 255, 255, 0.03)'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass { 
+            background: rgba(0, 0, 0, 0.7); 
+            backdrop-filter: blur(30px); 
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: #D4AF37;
+        }
+        .text-gold-gradient { 
+            background: linear-gradient(45deg, #D4AF37, #FBF5B7, #AA771C); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+        }
+        .section-bg {
+            background-size: cover;
+            background-position: center;
+            background-attachment: scroll;
+            position: relative;
+        }
+        @media (min-width: 1024px) {
+            .section-bg { background-attachment: fixed; }
+        }
+        .overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.85), rgba(0,0,0,0.65), rgba(0,0,0,0.95));
+        }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 10px; }
+        
+        .nav-item { 
+            position: relative;
+            transition: all 0.3s ease;
+            letter-spacing: 0.15em;
+        }
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: #D4AF37;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px #D4AF37;
+            transform: translateX(-50%);
+        }
+        .nav-item:hover::after {
+            width: 100%;
+        }
+
+        .insta-gradient { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
+        .fb-blue { background: #1877F2; }
+        .yt-red { background: #FF0000; }
+        .wa-green { background: #25D366; }
+    </style>
+</head>
+<body class="bg-black text-white font-sans overflow-x-hidden selection:bg-premium-gold selection:text-black">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        const SOCIAL_LINKS = {
+            instagram: "https://www.instagram.com/lucknow_wedding_studio/",
+            facebook: "https://www.facebook.com/lucknowweddingstudio",
+            youtube: "https://www.youtube.com/channel/UC5U91LTdm-WEJkSeUl91ohQ",
+            whatsapp: "https://api.whatsapp.com/send?phone=7394019474",
+            google: "https://g.co/kgs/FF82v3",
+            maps: "https://maps.app.goo.gl/qp6bjKQk2uhK9M6N6",
+            call: "tel:+917394019474"
+        };
+
+        const ADDRESS_TEXT = "4th Floor, 94, Mahatma Gandhi Marg, Raj Bhavan Colony, Hazratganj, Lucknow, UP 226001";
+        const PHONE_1 = "+91 73940 19474";
+        const PHONE_2 = "+91 88088 08840";
+
+        const PRICING_DATA = {
+            wedding: [
+                { name: "SILVER WEDDING PLAN", price: "₹40,000", scope: "WEDDING SHOOT", team: ["Traditional Photographer", "Traditional Videographer"], deliverables: ["Traditional Photographs", "Traditional Video", "Album of 40 Sheets"] },
+                { name: "GOLD WEDDING PLAN", price: "₹80,000", scope: "WEDDING SHOOT", team: ["Traditional Photographer", "Traditional Videographer", "Candid Photographer", "Cinematographer"], deliverables: ["Candid & Traditional Photos", "Cinematic Teaser & Highlight", "Advance Album of 40 Sheets"] },
+                { name: "PLATINUM WEDDING PLAN", price: "₹1,25,000", scope: "HALDI, MEHANDI & WEDDING", team: ["Full Production Team", "Drone Videographer"], deliverables: ["All Events Covered", "Cinematic Masterpiece", "Premium Album of 50 Sheets"] }
+            ],
+            engagement: [
+                { name: "SILVER ENGAGEMENT", price: "₹20,000", scope: "ENGAGEMENT SHOOT", team: ["Traditional Photographer", "Traditional Videographer"], deliverables: ["Standard Photos/Video", "Album of 15 Sheets"] },
+                { name: "CUSTOM ENGAGEMENT", price: "₹30,000", scope: "ENGAGEMENT SHOOT", team: ["Traditional + Candid Mix"], deliverables: ["Candid Highlights", "Advance Album of 20 Sheets"] },
+                { name: "GOLD ENGAGEMENT", price: "₹42,000", scope: "ENGAGEMENT SHOOT", team: ["Traditional Photographer", "Traditional Videographer", "Candid Photographer", "Cinematographer"], deliverables: ["Cinematic Teaser", "Premium Album of 20 Sheets"] }
+            ],
+            preWedding: [
+                { name: "SILVER PRE-WEDDING", price: "₹25,000", scope: "PRE-WEDDING", team: ["Candid Photographer", "Cinematographer"], deliverables: ["25 Edited Photos", "2 Reels", "Teaser Film"] },
+                { name: "GOLD PRE-WEDDING", price: "₹35,000", scope: "PRE-WEDDING", team: ["Candid Photographer", "Cinematographer"], deliverables: ["40 Edited Photos", "Teaser + Reels", "15 Sheet Album"] },
+                { name: "PLATINUM PRE-WEDDING", price: "₹55,000", scope: "PRE-WEDDING", team: ["Production Team", "Make-up Artist", "Drone"], deliverables: ["Paid Location", "Premium Edited Gallery", "High-End Teaser"] }
+            ],
+            fullCollections: [
+                { name: "PLATINUM FULL WEDDING", price: "₹1,60,000", scope: "COMPLETE COVERAGE", team: ["All Crew Members", "Drone"], deliverables: ["Engagement to Wedding", "Premium Master Album"] },
+                { name: "GRAND PLATINUM COMBO", price: "₹1,90,000", scope: "ULTIMATE PACKAGE", team: ["Full Media Crew", "Luxury Equipment"], deliverables: ["Pre-Wedding Included", "Same Day Edit", "Grand Masterpiece"] }
+            ]
+        };
+
+        const Icons = {
+            Instagram: () => <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>,
+            Facebook: () => <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>,
+            Youtube: () => <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>,
+            Whatsapp: () => <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.496.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.501-.669-.51l-.57-.011c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>,
+            Google: () => <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307c-1.973-1.92-4.507-3.413-8.213-3.413-6.52 0-11.893 5.373-11.893 11.893s5.373 11.893 11.893 11.893c3.52 0 6.187-1.173 8.24-3.333 2.12-2.12 2.787-5.12 2.787-7.48 0-.72-.067-1.387-.187-1.96h-10.84z"/></svg>
+        };
+
+        const PackageGrid = ({ title, items }) => (
+            <div className="mb-16 md:mb-24 px-4">
+                <h3 className="text-lg md:text-xl font-serif text-premium-gold uppercase tracking-[0.4em] mb-8 md:mb-12 text-center">{title}</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-full">
+                    {items.map((pkg, i) => (
+                        <div key={i} className="glass-card p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] flex flex-col hover:border-premium-gold/30">
+                            <span className="text-[8px] md:text-[9px] uppercase tracking-[0.3em] text-gray-500 mb-2 font-bold">{pkg.scope}</span>
+                            <h4 className="text-base md:text-lg font-serif mb-3 tracking-widest text-white uppercase">{pkg.name}</h4>
+                            <div className="text-2xl md:text-3xl font-bold text-premium-gold mb-6 tracking-tighter">{pkg.price}</div>
+                            <div className="flex-grow space-y-4 md:space-y-6">
+                                <ul className="text-[9px] md:text-[10px] text-gray-400 uppercase tracking-widest space-y-2">
+                                    <li className="text-premium-gold font-bold border-b border-white/5 pb-1">Production Crew</li>
+                                    {pkg.team.map((t, idx) => <li key={idx} className="flex items-center gap-2 italic">○ {t}</li>)}
+                                </ul>
+                                <ul className="text-[9px] md:text-[10px] text-gray-300 uppercase tracking-widest space-y-2 pt-4 border-t border-white/5">
+                                    <li className="text-premium-gold font-bold border-b border-white/5 pb-1">Deliverables</li>
+                                    {pkg.deliverables.map((d, idx) => <li key={idx} className="flex items-center gap-2">✓ {d}</li>)}
+                                </ul>
+                            </div>
+                            <button className="mt-8 w-full py-3 md:py-4 bg-premium-gold text-black font-bold uppercase tracking-[0.4em] text-[9px] rounded-full hover:bg-white transition-all shadow-lg">Inquire Now</button>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+
+        const FloatingSocial = () => {
+            const [open, setOpen] = useState(false);
+            return (
+                <div className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-[250] flex flex-col items-center gap-2 md:gap-3">
+                    <div className={`flex flex-col gap-2 md:gap-3 transition-all duration-500 transform ${open ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-10 scale-75 pointer-events-none'}`}>
+                        <a href={SOCIAL_LINKS.maps} target="_blank" className="w-10 h-10 md:w-11 md:h-11 rounded-full glass flex items-center justify-center text-white shadow-xl hover:scale-110 transition-transform"><Icons.Google /></a>
+                        <a href={SOCIAL_LINKS.youtube} target="_blank" className="w-10 h-10 md:w-11 md:h-11 rounded-full yt-red flex items-center justify-center text-white shadow-xl hover:scale-110 transition-transform"><Icons.Youtube /></a>
+                        <a href={SOCIAL_LINKS.facebook} target="_blank" className="w-10 h-10 md:w-11 md:h-11 rounded-full fb-blue flex items-center justify-center text-white shadow-xl hover:scale-110 transition-transform"><Icons.Facebook /></a>
+                        <a href={SOCIAL_LINKS.whatsapp} target="_blank" className="w-10 h-10 md:w-11 md:h-11 rounded-full wa-green flex items-center justify-center text-white shadow-xl hover:scale-110 transition-transform"><Icons.Whatsapp /></a>
+                        <a href={SOCIAL_LINKS.instagram} target="_blank" className="w-10 h-10 md:w-11 md:h-11 rounded-full insta-gradient flex items-center justify-center text-white shadow-xl hover:scale-110 transition-transform"><Icons.Instagram /></a>
+                        <a href={SOCIAL_LINKS.call} className="w-10 h-10 md:w-11 md:h-11 rounded-full bg-blue-500 flex items-center justify-center text-white shadow-xl hover:scale-110 transition-transform"><svg className="w-5 h-5 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></a>
+                    </div>
+                    <button onClick={() => setOpen(!open)} className={`w-12 h-12 md:w-14 md:h-14 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 ${open ? 'bg-black text-white' : 'bg-premium-gold text-black'}`}>
+                        <span className={`text-xl md:text-2xl font-bold transition-transform duration-300 ${open ? 'rotate-45 scale-125' : 'rotate-0'}`}>+</span>
+                    </button>
+                </div>
+            );
+        };
+
+        const Navbar = ({ setPage, page }) => {
+            const [isOpen, setIsOpen] = useState(false);
+            return (
+                <nav className="fixed top-0 w-full z-[200] flex justify-center py-4 px-4">
+                    <div className="w-full max-w-7xl glass rounded-full px-6 md:px-10 py-2.5 flex items-center justify-between border border-white/5 shadow-2xl">
+                        <div className="flex items-center gap-3 cursor-pointer group" onClick={() => {setPage('home'); setIsOpen(false);}}>
+                            <div className="w-8 h-8 bg-premium-gold rounded-full flex items-center justify-center shadow-[0_0_15px_#D4AF37]">
+                                <span className="font-serif text-black font-bold text-base">L</span>
+                            </div>
+                            <span className="font-serif font-bold text-[9px] md:text-[10px] tracking-[0.3em] uppercase hidden sm:block text-premium-gold">Lucknow Wedding Studio</span>
+                        </div>
+                        
+                        <div className="hidden lg:flex items-center gap-6 xl:gap-10 text-[9px] uppercase tracking-[0.2em] font-bold">
+                            {['HOME', 'ABOUT', 'SERVICES', 'GALLERY', 'REVIEWS', 'CONTACT'].map(item => (
+                                <button 
+                                    key={item} 
+                                    onClick={() => setPage(item.toLowerCase())}
+                                    className={`nav-item transition-all ${page === item.toLowerCase() ? 'text-premium-gold' : 'text-gray-400 hover:text-white'}`}
+                                >
+                                    {item}
+                                </button>
+                            ))}
+                        </div>
+
+                        <div className="flex items-center gap-4">
+                            <button onClick={() => setIsOpen(!isOpen)} className="lg:hidden text-premium-gold p-2">
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16m-7 6h7"}/></svg>
+                            </button>
+                            <button onClick={() => setPage('contact')} className="hidden md:block bg-premium-gold text-black px-6 py-2 rounded-full text-[8px] font-bold uppercase tracking-[0.4em] hover:bg-white transition-all shadow-md">RESERVE</button>
+                        </div>
+                    </div>
+                    {isOpen && (
+                        <div className="lg:hidden absolute top-20 left-4 right-4 glass rounded-3xl p-6 border border-white/10 flex flex-col gap-5 text-center animate-fade-in shadow-2xl">
+                            {['HOME', 'ABOUT', 'SERVICES', 'GALLERY', 'REVIEWS', 'CONTACT'].map(item => (
+                                <button 
+                                    key={item} 
+                                    onClick={() => {setPage(item.toLowerCase()); setIsOpen(false);}}
+                                    className={`text-[9px] uppercase tracking-[0.4em] font-bold ${page === item ? 'text-premium-gold' : 'text-gray-300'}`}
+                                >
+                                    {item}
+                                </button>
+                            ))}
+                        </div>
+                    )}
+                </nav>
+            );
+        };
+
+        const Footer = () => (
+            <footer className="py-16 glass border-t border-white/10 relative z-10 px-6 md:px-10 mt-20">
+                <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                    <div className="lg:col-span-2">
+                        <h4 className="font-serif text-premium-gold text-xl tracking-[0.4em] mb-6 uppercase font-bold">Lucknow Wedding Studio</h4>
+                        <p className="text-[10px] text-gray-400 uppercase tracking-widest leading-loose max-w-md mb-8 font-light">Documenting luxury with a cinematic heart. Specialized boutique visual storytelling for the elite Indian weddings.</p>
+                        <div className="flex gap-6 items-center">
+                            <a href={SOCIAL_LINKS.instagram} target="_blank" className="text-gray-500 hover:text-premium-gold transition-all"><Icons.Instagram /></a>
+                            <a href={SOCIAL_LINKS.facebook} target="_blank" className="text-gray-500 hover:text-premium-gold transition-all"><Icons.Facebook /></a>
+                            <a href={SOCIAL_LINKS.youtube} target="_blank" className="text-gray-500 hover:text-premium-gold transition-all"><Icons.Youtube /></a>
+                            <a href={SOCIAL_LINKS.whatsapp} target="_blank" className="text-gray-500 hover:text-premium-gold transition-all"><Icons.Whatsapp /></a>
+                            <a href={SOCIAL_LINKS.google} target="_blank" className="text-gray-500 hover:text-premium-gold transition-all"><Icons.Google /></a>
+                        </div>
+                    </div>
+                    <div>
+                        <h5 className="text-[9px] font-bold uppercase tracking-[0.5em] mb-6 text-premium-gold">Production HQ</h5>
+                        <p className="text-[10px] text-gray-400 mb-6 tracking-widest leading-relaxed uppercase font-light border-l border-premium-gold/20 pl-4">{ADDRESS_TEXT}</p>
+                    </div>
+                    <div className="flex flex-col justify-between items-start md:items-end">
+                        <div className="text-left md:text-right space-y-4">
+                            <a href={SOCIAL_LINKS.call} className="block text-premium-gold text-base font-bold tracking-widest hover:text-white transition-colors">{PHONE_1}</a>
+                            <p className="text-[8px] text-gray-500 uppercase tracking-[0.5em]">© 2026 LWS DIGITAL ARTISTRY</p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        );
+
+        const Home = ({ setPage }) => (
+            <div className="animate-fade-in">
+                <section className="h-screen flex items-center justify-center section-bg" style={{backgroundImage: "url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=95&w=2000')"}}>
+                    <div className="overlay opacity-80"></div>
+                    <div className="relative z-10 text-center px-6 animate-slide-up max-w-5xl">
+                        <span className="text-[8px] text-premium-gold font-bold uppercase tracking-[0.6em] mb-6 block opacity-80 underline underline-offset-8">Elite Cinematography Hub</span>
+                        <h1 className="font-serif text-4xl sm:text-6xl md:text-[5.5rem] mb-8 uppercase tracking-tighter leading-tight font-black">
+                            <span className="block opacity-40 uppercase">LUCKNOW WEDDING</span>
+                            <span className="italic text-gold-gradient uppercase">STUDIO</span>
+                        </h1>
+                        <p className="text-[8px] sm:text-[9px] max-w-xl mx-auto uppercase tracking-[0.5em] opacity-70 mb-10 leading-loose font-medium">Boutique Cinematography & Luxury Documentation in Hazratganj</p>
+                        <div className="flex flex-col sm:flex-row justify-center gap-4">
+                            <button onClick={() => setPage('gallery')} className="px-12 py-3 bg-premium-gold text-black font-bold uppercase tracking-[0.4em] text-[9px] rounded-full shadow-[0_0_20px_rgba(212,175,55,0.4)] hover:bg-white transition-all">THE PORTFOLIO</button>
+                            <button onClick={() => setPage('services')} className="px-12 py-3 border border-white/20 rounded-full uppercase tracking-[0.4em] text-[9px] hover:bg-white hover:text-black transition-all">THE COLLECTIONS</button>
+                        </div>
+                    </div>
+                </section>
+
+                <section className="py-20 md:py-40 px-6 section-bg" style={{backgroundImage: "url('https://lucknowweddingstudio.com/wp-content/uploads/2021/08/WhatsApp-Image-2021-08-23-at-1.37.52-PM.jpeg')"}}>
+                    <div className="overlay opacity-90 backdrop-blur-sm"></div>
+                    <div className="max-w-7xl mx-auto relative z-10 grid lg:grid-cols-2 gap-12 md:gap-24 items-center">
+                        <div className="glass-card p-8 md:p-14 rounded-[2rem] md:rounded-[4rem]">
+                            <h2 className="font-serif text-3xl md:text-4xl uppercase tracking-[0.4em] text-premium-gold mb-6 md:mb-8 italic leading-snug">The Legacy</h2>
+                            <p className="text-[10px] md:text-[11px] uppercase tracking-[0.3em] md:tracking-[0.4em] leading-[2.2] md:leading-[2.5] text-gray-300 font-light mb-8 md:mb-12">Lucknow Wedding Studio (LWS) represents the zenith of high-fashion wedding documentation. With 8 years of elite experience in Hazratganj, we bring an architectural eye to every royal celebration.</p>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="p-4 border-l-2 border-premium-gold/40 glass">
+                                    <h4 className="text-2xl font-serif text-premium-gold font-bold">08+</h4>
+                                    <p className="text-[8px] uppercase tracking-[0.3em] text-gray-500 font-bold">Elite Years</p>
+                                </div>
+                                <div className="p-4 border-l-2 border-premium-gold/40 glass">
+                                    <h4 className="text-2xl font-serif text-premium-gold font-bold">500+</h4>
+                                    <p className="text-[8px] uppercase tracking-[0.3em] text-gray-500 font-bold">Journeys Told</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl border border-white/10 mt-8 md:mt-12"><img src="https://lucknowweddingstudio.com/wp-content/uploads/2021/08/IMG_0001.jpg" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" /></div>
+                            <div className="aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl border border-white/10"><img src="https://lucknowweddingstudio.com/wp-content/uploads/2021/08/IMG_0002.jpg" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" /></div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        );
+
+        const About = () => (
+            <div className="animate-fade-in">
+                <section className="py-24 md:py-48 px-6 section-bg" style={{backgroundImage: "url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=95&w=2000')"}}>
+                    <div className="overlay opacity-95 backdrop-blur-md"></div>
+                    <div className="relative z-10 max-w-6xl mx-auto">
+                        
+                        {/* 1. Expertise Section (Top Priority) */}
+                        <div className="glass-card p-6 md:p-12 rounded-[2.5rem] md:rounded-[4rem] mb-12">
+                            <h3 className="text-center font-serif text-xl md:text-3xl uppercase tracking-[0.4em] text-premium-gold mb-10 italic">Signature Specialties</h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                                {[
+                                    { title: "CANDID ARTISTRY", desc: "Capturing real moments and unscripted raw emotions." },
+                                    { title: "CINEMATIC FILMS", desc: "Short teasers and long-form grand cinematic narratives." },
+                                    { title: "TRADITIONAL ROOTS", desc: "Classic portraits for albums and timeless family keepsakes." },
+                                    { title: "PRE-WEDDING TALES", desc: "Creative locations and bespoke storytelling sessions." },
+                                    { title: "AERIAL VISION", desc: "Drone coverage for grand, majestic aerial storytelling." },
+                                    { title: "MASTER POST", desc: "Professional colour-grading and polished deliverables." },
+                                ].map((spec, i) => (
+                                    <div key={i} className="glass p-5 md:p-8 rounded-2xl border border-white/5 group hover:border-premium-gold/30 transition-all">
+                                        <div className="w-7 h-7 rounded-full bg-premium-gold/10 flex items-center justify-center mb-4 group-hover:bg-premium-gold group-hover:text-black transition-all">
+                                            <span className="font-serif italic text-xs">{i+1}</span>
+                                        </div>
+                                        <h5 className="text-premium-gold font-bold tracking-[0.1em] mb-2 uppercase text-[8px] md:text-[9px]">{spec.title}</h5>
+                                        <p className="text-[8px] md:text-[10px] uppercase tracking-widest leading-relaxed text-gray-400 font-light">{spec.desc}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* 2. Team Spotlight */}
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-stretch mb-12">
+                            <div className="glass-card p-6 md:p-10 rounded-[2.5rem] text-center flex flex-col justify-center">
+                                <h3 className="font-serif text-premium-gold text-xl md:text-2xl uppercase tracking-widest mb-6 italic">Meet The Visionary</h3>
+                                <div className="mb-6 relative inline-block group">
+                                    <div className="absolute -inset-2 bg-premium-gold opacity-10 blur-lg rounded-full group-hover:opacity-20 transition-all"></div>
+                                    <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-2 border-premium-gold relative mx-auto shadow-2xl">
+                                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" alt="Avneesh Kumar Yadav" />
+                                    </div>
+                                </div>
+                                <h4 className="text-base font-bold tracking-[0.2em] mb-1 uppercase text-white">Avneesh Kumar Yadav</h4>
+                                <p className="text-[8px] uppercase tracking-[0.4em] text-premium-gold font-bold">Lead Storyteller</p>
+                            </div>
+                            <div className="glass-card p-6 md:p-10 rounded-[2.5rem] flex flex-col justify-center">
+                                <h3 className="font-serif text-premium-gold text-xl md:text-2xl uppercase tracking-widest mb-6 italic text-center md:text-left">Our Creative Crew</h3>
+                                <p className="text-[9px] md:text-[10px] uppercase tracking-[0.2em] leading-[2] text-gray-400 font-light text-center md:text-left mb-6 px-2">
+                                    A multi-skilled crew of photographers and cinematographers led by Avneesh. From candid specialists to drone operators, we work as one soul.
+                                </p>
+                                <div className="aspect-video rounded-xl overflow-hidden shadow-xl border border-white/5">
+                                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000" alt="The LWS Crew" />
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* 3. Narrative (Compact Bottom) */}
+                        <div className="glass-card p-8 md:p-14 rounded-[2.5rem] md:rounded-[4rem]">
+                            <h2 className="text-center font-serif text-xl md:text-3xl uppercase tracking-[0.4em] text-premium-gold mb-10 md:mb-12 italic border-b border-premium-gold/10 pb-6 mx-auto max-w-sm">The Studio Legacy</h2>
+                            <div className="space-y-8 text-[9px] md:text-[10px] uppercase tracking-[0.2em] md:tracking-[0.3em] leading-[2.4] text-gray-400 text-center font-light px-2 md:px-12">
+                                <p>Lucknow Wedding Studio is a contemporary photography and cinematography hub based in Lucknow, crafting emotive stories since 2018. We blend documentary-style candid shots with elegant portraits for a full-spectrum wedding experience.</p>
+                                <p>Every wedding has its own rhythm; we tailor our lighting and storytelling to reflect your unique traditions. Final deliverables are delivered within one month, with raw photos provided on request.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        );
+
+        const Services = () => (
+            <section className="py-24 md:py-48 px-6 section-bg" style={{backgroundImage: "url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&q=95&w=2000')"}}>
+                <div className="overlay opacity-95 backdrop-blur-xl"></div>
+                <div className="relative z-10 max-w-7xl mx-auto">
+                    <h2 className="text-center font-serif text-3xl md:text-5xl uppercase tracking-[0.6em] text-premium-gold mb-16 italic">Collections</h2>
+                    <PackageGrid title="Wedding Signature Plans" items={PRICING_DATA.wedding} />
+                    <PackageGrid title="Engagement Packages" items={PRICING_DATA.engagement} />
+                    <PackageGrid title="Pre-Wedding Tales" items={PRICING_DATA.preWedding} />
+                    <div className="max-w-5xl mx-auto">
+                        <PackageGrid title="Full Event Legacy Sets" items={PRICING_DATA.fullCollections} />
+                    </div>
+                </div>
+            </section>
+        );
+
+        const Gallery = () => (
+            <section className="py-24 md:py-48 px-6 section-bg" style={{backgroundImage: "url('https://images.unsplash.com/photo-1544078751-58fee2d8a03b?auto=format&fit=crop&q=95&w=2000')"}}>
+                <div className="overlay opacity-90 backdrop-blur-sm"></div>
+                <div className="relative z-10 max-w-7xl mx-auto">
+                    <h2 className="text-center font-serif text-3xl md:text-5xl uppercase tracking-[0.4em] md:tracking-[0.6em] text-premium-gold mb-16 md:mb-24 italic text-gold-gradient">The Exhibition</h2>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                        {[1,2,3,4,5,6,7,8,1,2,3,4].map((i, idx) => (
+                            <div key={idx} className="aspect-[3/4] glass-card rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden group shadow-2xl relative">
+                                <img src={`https://lucknowweddingstudio.com/wp-content/uploads/2021/08/IMG_000${i}.jpg`} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-125 grayscale group-hover:grayscale-0" />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+        );
+
+        const Reviews = () => (
+            <section className="py-24 md:py-48 px-6 section-bg" style={{backgroundImage: "url('https://images.unsplash.com/photo-1510076857177-7470076d4098?auto=format&fit=crop&q=95&w=2000')"}}>
+                <div className="overlay opacity-95 backdrop-blur-md"></div>
+                <div className="relative z-10 max-w-7xl mx-auto">
+                    <h2 className="text-center font-serif text-3xl md:text-5xl uppercase tracking-[0.4em] md:tracking-[0.6em] text-premium-gold mb-16 italic">Voices</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+                        {[
+                            { name: "ARVIND KUMAR", text: "Excellent Service. Captured my photos exactly as envisioned. Professional and comfortable throughout." },
+                            { name: "ANJALI SINGH", text: "Truly satisfied. Supportive, gentle and responsive team. Best decision for our grand day." },
+                            { name: "VIJAYA", text: "Amazing work! Happy and fully satisfied. Keep growing LWS!" }
+                        ].map((r, i) => (
+                            <div key={i} className="glass-card p-10 md:p-16 rounded-[2.5rem] md:rounded-[4rem] text-center flex flex-col items-center">
+                                <div className="text-premium-gold mb-6 md:mb-10 text-xl tracking-[0.3em] opacity-60">★★★★★</div>
+                                <p className="text-[10px] md:text-[11px] uppercase tracking-[0.3em] md:tracking-[0.4em] text-gray-300 leading-[2.2] mb-8 font-light italic">"{r.text}"</p>
+                                <h4 className="text-[9px] font-bold text-premium-gold tracking-[0.5em] uppercase border-t border-white/10 pt-6 w-full">{r.name}</h4>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+        );
+
+        const Contact = () => (
+            <section className="py-24 md:py-40 px-6 section-bg" style={{backgroundImage: "url('https://images.unsplash.com/photo-1510076857177-7470076d4098?auto=format&fit=crop&q=95&w=2000')"}}>
+                <div className="overlay opacity-95 backdrop-blur-2xl"></div>
+                <div className="relative z-10 max-w-7xl mx-auto">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-stretch mb-12">
+                        <div className="glass-card p-8 md:p-12 rounded-[2.5rem] md:rounded-[3.5rem] flex flex-col justify-center">
+                            <h2 className="font-serif text-3xl md:text-4xl uppercase tracking-[0.3em] text-premium-gold mb-8 text-center md:text-left italic">CONTACT US</h2>
+                            <div className="space-y-8">
+                                <div>
+                                    <p className="text-[8px] uppercase tracking-[0.5em] text-gray-500 mb-3 font-bold">THE FLAGSHIP HUB</p>
+                                    <p className="text-xs md:text-sm font-sans tracking-[0.1em] uppercase leading-relaxed text-gray-200">
+                                        {ADDRESS_TEXT}
+                                    </p>
+                                </div>
+                                <div>
+                                    <p className="text-[8px] uppercase tracking-[0.5em] text-gray-500 mb-3 font-bold">VOICE CONNECT</p>
+                                    <div className="space-y-2">
+                                        <a href={`tel:${PHONE_1}`} className="block text-lg md:text-xl font-bold tracking-[0.2em] text-premium-gold hover:text-white transition-colors">{PHONE_1}</a>
+                                        <a href={`tel:${PHONE_2}`} className="block text-lg md:text-xl font-bold tracking-[0.2em] text-premium-gold hover:text-white transition-colors">{PHONE_2}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="h-80 md:h-auto min-h-[350px] rounded-[2.5rem] md:rounded-[3.5rem] overflow-hidden border border-white/10 shadow-2xl relative">
+                            <iframe 
+                                loading="lazy" 
+                                src="https://maps.google.com/maps?q=Lucknow%20Wedding%20Studio&amp;t=m&amp;z=16&amp;output=embed&amp;iwloc=near" 
+                                title="Lucknow Wedding Studio" 
+                                aria-label="Lucknow Wedding Studio"
+                                className="w-full h-full border-0 grayscale hover:grayscale-0 transition-all duration-700"
+                            ></iframe>
+                        </div>
+                    </div>
+
+                    <div className="glass-card p-8 md:p-16 rounded-[3rem] md:rounded-[4rem] w-full mx-auto">
+                        <h3 className="text-xl md:text-2xl font-serif mb-12 text-center uppercase tracking-[0.4em] text-white">INQUIRY TERMINAL</h3>
+                        <form className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+                            <div className="space-y-3">
+                                <label className="text-[8px] uppercase tracking-[0.5em] text-premium-gold font-bold">PRODUCTION NAME</label>
+                                <input type="text" placeholder="ENTER FULL NAME" className="w-full bg-transparent border-b border-white/20 py-3 outline-none focus:border-premium-gold text-[10px] tracking-[0.3em] font-light placeholder:opacity-30 uppercase" />
+                            </div>
+                            <div className="space-y-3">
+                                <label className="text-[8px] uppercase tracking-[0.5em] text-premium-gold font-bold">CONTACT SEQUENCE</label>
+                                <input type="tel" placeholder="+91 00000 00000" className="w-full bg-transparent border-b border-white/20 py-3 outline-none focus:border-premium-gold text-[10px] tracking-[0.3em] font-light placeholder:opacity-30" />
+                            </div>
+                            <div className="col-span-full space-y-3">
+                                <label className="text-[8px] uppercase tracking-[0.5em] text-premium-gold font-bold">PROJECT SCOPE</label>
+                                <textarea rows="3" placeholder="DATE, VENUE, & VISION..." className="w-full bg-transparent border-b border-white/20 py-3 outline-none focus:border-premium-gold text-[10px] tracking-[0.3em] font-light placeholder:opacity-30 uppercase"></textarea>
+                            </div>
+                            <div className="col-span-full">
+                                <button className="w-full py-5 md:py-7 bg-premium-gold text-black font-bold uppercase tracking-[0.6em] text-[10px] rounded-full shadow-[0_20px_50px_rgba(212,175,55,0.3)] hover:bg-white transition-all">SUBMIT PROTOCOL</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        );
+
+        const App = () => {
+            const [page, setPage] = useState('home');
+            useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); }, [page]);
+            return (
+                <div className="min-h-screen">
+                    <Navbar setPage={setPage} page={page} />
+                    <main>
+                        {page === 'home' && <Home setPage={setPage} />}
+                        {page === 'about' && <About />}
+                        {page === 'services' && <Services />}
+                        {page === 'gallery' && <Gallery />}
+                        {page === 'reviews' && <Reviews />}
+                        {page === 'contact' && <Contact />}
+                    </main>
+                    <FloatingSocial />
+                    <Footer />
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
