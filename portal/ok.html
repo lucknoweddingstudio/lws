@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucknow Wedding Studio | Premium Manager</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+        /* Permanent Dark Theme Variables - High Contrast */
+        :root {
+            --glass: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --bg-main: #020617;
+            --text-main: #cbd5e1;
+            --text-heading: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.45);
+            --card-bg: rgba(255, 255, 255, 0.02);
+            --input-bg: rgba(0, 0, 0, 0.4);
+            --accent: #6366f1;
+            --blob-opacity: 0.25;
+            --shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.6);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg-main);
+            color: var(--text-main);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .liquid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+        }
+
+        .liquid-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 30%, rgba(99, 102, 241, var(--blob-opacity)), transparent),
+                radial-gradient(circle at 70% 70%, rgba(168, 85, 247, var(--blob-opacity)), transparent),
+                rgba(2, 6, 23, 0.9);
+        }
+
+        .blob {
+            position: absolute;
+            width: 45vw;
+            height: 45vw;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(168, 85, 247, 0.2));
+            filter: blur(100px);
+            border-radius: 50%;
+            animation: move 30s infinite alternate ease-in-out;
+            z-index: 0;
+        }
+
+        @keyframes move {
+            0% { transform: translate(-10%, -10%) rotate(0deg); }
+            100% { transform: translate(25%, 35%) rotate(360deg); }
+        }
+
+        .glass-panel {
+            background: var(--glass);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow);
+        }
+
+        .ios-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-ios {
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+            font-weight: 700;
+            color: white !important;
+        }
+
+        .input-ios {
+            background: var(--input-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 0.8rem;
+            color: var(--text-main);
+            transition: 0.3s;
+        }
+
+        .detail-expanded {
+            max-height: 5000px;
+            opacity: 1;
+            padding-bottom: 2rem;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .detail-collapsed {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            padding-bottom: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .custom-scroll::-webkit-scrollbar { width: 4px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 10px; }
+
+        #auth-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(2, 6, 23, 0.85);
+            backdrop-filter: blur(20px);
+        }
+
+        .label-premium { color: var(--text-muted); font-weight: 700; text-transform: uppercase; font-size: 10px; letter-spacing: 0.05em; }
+        .heading-premium { color: var(--text-heading); font-weight: 800; }
+
+        /* --- ADVANCED RESPONSIVE LEDGER CSS --- */
+        @media (max-width: 1024px) {
+            .ledger-table thead { display: none; }
+            .ledger-table, .ledger-table tbody, .ledger-table tr, .ledger-table td { display: block; width: 100%; }
+            .ledger-table tr { 
+                margin-bottom: 1.5rem; 
+                border-radius: 1.5rem; 
+                background: rgba(255, 255, 255, 0.03); 
+                border: 1px solid var(--glass-border); 
+                padding: 1.25rem; 
+                box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            }
+            .ledger-table td { 
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0.75rem 0; 
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05); 
+                font-size: 0.95rem;
+            }
+            .ledger-table td:last-child { border-bottom: none; }
+            .ledger-table td::before { 
+                content: attr(data-label); 
+                font-weight: 700; 
+                text-transform: uppercase; 
+                font-size: 0.65rem; 
+                color: var(--accent); 
+                letter-spacing: 0.1em;
+                opacity: 0.8;
+            }
+            
+            /* Highlight Client Name on Mobile */
+            .ledger-table td[data-label="Client Node"] {
+                display: block;
+                text-align: center;
+                font-size: 1.25rem;
+                font-weight: 900;
+                background: rgba(99, 102, 241, 0.15);
+                margin: -1.25rem -1.25rem 1rem -1.25rem;
+                padding: 1.25rem;
+                border-radius: 1.5rem 1.5rem 0 0;
+                border-bottom: 2px solid rgba(99, 102, 241, 0.2);
+                color: white;
+            }
+            .ledger-table td[data-label="Client Node"]::before { display: none; }
+
+            /* Special Summary Row Styling on Mobile */
+            .ledger-table tr.summary-row {
+                background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(168, 85, 247, 0.2) 100%);
+                border: 2px solid var(--accent);
+                margin-top: 2rem;
+            }
+            .ledger-table tr.summary-row td[data-label="Summary"] {
+                display: block;
+                text-align: center;
+                font-size: 1.1rem;
+                padding: 1.25rem;
+                background: rgba(255,255,255,0.05);
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                color: white;
+            }
+            .ledger-table tr.summary-row td[data-label="Summary"]::before { display: none; }
+        }
+    </style>
+
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, query } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDFpvjS-Iq6A8s5QtNDDvfCcI235cEdEN0",
+            authDomain: "studiohub-management-finance.firebaseapp.com",
+            projectId: "studiohub-management-finance",
+            storageBucket: "studiohub-management-finance.firebasestorage.app",
+            messagingSenderId: "614221287416",
+            appId: "1:614221287416:web:3f85c7e284875ef21ad00d",
+            measurementId: "G-8H3KNFFXWL"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        const appId = "lucknow-wedding-studio";
+        const SECRET_CODE = "lws0006148";
+
+        let state = {
+            clients: [],
+            photographers: [],
+            eventMeta: [],
+            user: null,
+            expandedProjectId: null,
+            editingStaffId: null,
+            editingClientId: null,
+            selectedYear: new Date().getFullYear().toString()
+        };
+
+        // --- CORE UTILITY FUNCTIONS ---
+        const getClientFinancials = (c) => {
+            const rev = Number(c.finalAmount || 0);
+            const totalPaid = Number(c.advance || 0) + (c.installments || []).reduce((a, b) => a + Number(b), 0);
+            const staffCosts = (c.events || []).reduce((acc, ev) => acc + (ev.team || []).reduce((t, m) => t + Number(m.fee || 0), 0), 0);
+            const otherCosts = Number(c.albumCost || 0) + Number(c.editingCost || 0) + Number(c.otherCost || 0);
+            const totalExp = staffCosts + otherCosts;
+            const profit = rev - totalExp;
+            const margin = rev > 0 ? ((profit / rev) * 100).toFixed(1) : 0;
+            return { rev, paid: totalPaid, rem: rev - totalPaid, exp: totalExp, profit, margin };
+        };
+
+        // --- ATTACH LOGIC TO WINDOW FOR GLOBAL ACCESS ---
+
+        window.calculateModalProfit = () => {
+            const form = document.getElementById('clientForm');
+            if (!form) return;
+            const revenue = Number(form.elements['cFinal'].value || 0);
+            const album = Number(form.elements['cAlbum'].value || 0);
+            const edit = Number(form.elements['cEdit'].value || 0);
+            const misc = Number(form.elements['cMisc'].value || 0);
+            let staffTotal = 0;
+            document.querySelectorAll('.member-fee').forEach(input => staffTotal += Number(input.value || 0));
+            const totalExp = staffTotal + album + edit + misc;
+            const profit = revenue - totalExp;
+
+            if (document.getElementById('modalRevDisplay')) document.getElementById('modalRevDisplay').innerText = revenue.toLocaleString();
+            if (document.getElementById('modalExpDisplay')) document.getElementById('modalExpDisplay').innerText = totalExp.toLocaleString();
+            const profDisp = document.getElementById('modalProfitDisplay');
+            if (profDisp) {
+                profDisp.innerText = profit.toLocaleString();
+                profDisp.className = profit >= 0 ? "text-xl font-black text-green-500" : "text-xl font-black text-red-500";
+            }
+            const profHead = document.getElementById('modalProfitHeader');
+            if (profHead) {
+                profHead.innerText = "₹" + profit.toLocaleString();
+                profHead.className = profit >= 0 ? "text-green-500" : "text-red-500";
+            }
+        };
+
+        window.autoFillFee = (selectEl) => {
+            const row = selectEl.closest('.team-member-row');
+            if (!row) return;
+            const name = row.querySelector('.member-name').value;
+            const type = row.querySelector('.member-type').value;
+            const staff = state.photographers.find(p => p.name === name);
+            if (staff) row.querySelector('.member-fee').value = (type === 'full') ? (staff.fullFee || 0) : (staff.shortFee || 0);
+            window.calculateModalProfit();
+        };
+
+        window.addTeamMemberSlot = (containerId, memberData = null) => {
+            const container = document.getElementById(containerId);
+            if(!container) return;
+            const div = document.createElement('div');
+            div.className = "flex items-center gap-2 mt-2 team-member-row";
+            div.innerHTML = `
+                <select class="member-name flex-1 p-2 input-ios text-xs font-bold" onchange="window.autoFillFee(this)">
+                    <option value="">Name</option>
+                    ${state.photographers.map(p => `<option value="${p.name}" ${memberData?.name === p.name ? 'selected' : ''}>${p.name}</option>`).join('')}
+                </select>
+                <select class="member-type w-16 p-2 input-ios text-[9px] font-black" onchange="window.autoFillFee(this)">
+                    <option value="short" ${memberData?.chargeType === 'short' ? 'selected' : (memberData ? '' : 'selected')}>Short</option>
+                    <option value="full" ${memberData?.chargeType === 'full' ? 'selected' : ''}>Full</option>
+                </select>
+                <input type="number" oninput="window.calculateModalProfit()" class="member-fee w-24 p-2 input-ios font-black text-red-500 text-right text-xs" value="${memberData?.fee || 0}">
+                <button type="button" onclick="this.parentElement.remove(); window.calculateModalProfit();" class="text-red-500 p-1"><i data-lucide="x" size="14"></i></button>
+            `;
+            container.appendChild(div);
+            lucide.createIcons();
+            window.calculateModalProfit();
+        };
+
+        window.addEventSlot = (eventData = null) => {
+            const container = document.getElementById('eventsContainer');
+            if(!container) return;
+            const eventId = 'ev_' + Math.random().toString(36).substr(2, 5);
+            const div = document.createElement('div');
+            div.id = eventId;
+            div.className = "p-3 rounded-[1rem] bg-indigo-500/5 border border-indigo-500/10 mb-3 animate-pop shadow-inner";
+            div.innerHTML = `
+                <div class="flex flex-col sm:flex-row justify-between items-center gap-2 mb-2">
+                    <select class="ev-type w-full sm:flex-1 p-2 input-ios font-bold text-xs">
+                        <option value="">Event Type</option>
+                        ${state.eventMeta.map(m => `<option value="${m.name}" ${eventData?.type === m.name ? 'selected' : ''}>${m.name}</option>`).join('')}
+                    </select>
+                    <input type="date" class="ev-date w-full sm:w-auto p-2 input-ios text-xs" value="${eventData?.date || ''}">
+                    <input type="text" class="ev-location w-full sm:w-40 p-2 input-ios text-[9px] font-black uppercase" placeholder="Loc" value="${eventData?.location || 'Lucknow'}">
+                    <button type="button" onclick="document.getElementById('${eventId}').remove(); window.calculateModalProfit();" class="text-red-500 p-1 shrink-0"><i data-lucide="trash-2" size="18"></i></button>
+                </div>
+                <div class="space-y-1 team-container" id="team_${eventId}"></div>
+                <button type="button" onclick="window.addTeamMemberSlot('team_${eventId}')" class="mt-3 text-[9px] font-black uppercase text-indigo-500 bg-indigo-500/10 px-4 py-2 rounded-full tracking-tighter">+ Team Member</button>
+            `;
+            container.appendChild(div);
+            if (eventData?.team) eventData.team.forEach(m => window.addTeamMemberSlot(`team_${eventId}`, m));
+            else window.addTeamMemberSlot(`team_${eventId}`);
+            lucide.createIcons();
+            window.calculateModalProfit();
+        };
+
+        // --- RENDER FUNCTIONS ---
+        function renderFinanceSummary(filteredData = []) {
+            let tRev = 0, tExp = 0, tPaid = 0;
+            filteredData.forEach(c => {
+                const fin = getClientFinancials(c);
+                tRev += fin.rev; tExp += fin.exp; tPaid += fin.paid;
+            });
+            const tProf = tRev - tExp;
+            const tRem = tRev - tPaid;
+            const tMargin = tRev > 0 ? ((tProf / tRev) * 100).toFixed(1) : 0;
+
+            const up = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
+            up('ledRev', `₹${tRev.toLocaleString()}`); up('ledExp', `₹${tExp.toLocaleString()}`);
+            up('ledProf', `₹${tProf.toLocaleString()}`); up('ledMargin', `${tMargin}%`);
+            up('ledReceived', `₹${tPaid.toLocaleString()}`); up('ledRemaining', `₹${tRem.toLocaleString()}`);
+        }
+
+        function renderStaffList() {
+            const list = document.getElementById('staffList');
+            if (!list) return;
+            list.innerHTML = state.photographers.map(p => `
+                <div class="ios-card p-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-indigo-500/10 hover:bg-white/5 transition-all animate-pop group">
+                    <div class="flex items-center gap-4 w-full sm:w-auto text-left">
+                        <div class="w-12 h-12 btn-ios rounded-xl flex items-center justify-center font-black text-lg shrink-0 text-white">${p.name ? p.name[0] : '?'}</div>
+                        <div class="overflow-hidden">
+                            <h4 class="font-black text-base heading-premium text-white truncate">${p.name}</h4>
+                            <p class="text-[9px] text-indigo-500 font-bold uppercase tracking-widest mt-1">${p.role}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 w-full sm:w-auto justify-center sm:justify-end">
+                        <div class="text-right mr-2 hidden sm:block">
+                            <p class="text-[8px] font-black text-orange-400">Short: ₹${p.shortFee || 0}</p>
+                            <p class="text-[8px] font-black text-green-400">Full: ₹${p.fullFee || 0}</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="window.editStaff('${p.id}')" class="opacity-40 hover:opacity-100 text-indigo-500 transition"><i data-lucide="edit-2" size="14"></i></button>
+                            <button onclick="window.deleteDocHandler('photographers', '${p.id}')" class="opacity-40 hover:opacity-100 text-red-500 transition"><i data-lucide="trash-2" size="14"></i></button>
+                        </div>
+                    </div>
+                </div>`).join('');
+            lucide.createIcons();
+        }
+
+        function renderProjectList(filteredData = []) {
+            const container = document.getElementById('projectDetailedList');
+            if (!container) return;
+            if (filteredData.length === 0) {
+                container.innerHTML = `<p class="text-center py-10 opacity-40 uppercase tracking-[0.3em] text-xs">No Assignments for ${state.selectedYear}</p>`;
+                return;
+            }
+            container.innerHTML = filteredData.map(c => {
+                const fin = getClientFinancials(c);
+                const isExpanded = state.expandedProjectId === c.id;
+                const summary = (c.events || []).map(ev => `<div class="flex items-center gap-1.5 bg-indigo-600/10 border border-indigo-500/20 px-2 py-1 rounded-lg"><span class="text-[9px] font-black text-indigo-400 uppercase">${ev.type}</span><span class="text-[9px] font-bold text-slate-300">${ev.date || 'TBD'}</span></div>`).join('') || `<p class="text-[10px] label-premium opacity-30 mt-1">Standby</p>`;
+
+                return `
+                    <div class="ios-card mb-6 overflow-hidden animate-pop shadow-md border border-indigo-500/10">
+                        <div onclick="window.toggleProjectDetail('${c.id}')" class="p-8 cursor-pointer flex flex-wrap justify-between items-center gap-6 hover:bg-white/5 transition-all text-left">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-500 border border-indigo-500/20"><i data-lucide="${isExpanded ? 'chevron-up' : 'chevron-down'}"></i></div>
+                                <div><h4 class="text-xl font-black heading-premium text-white">${c.name}</h4><div class="flex flex-wrap gap-2 mt-2">${summary}</div></div>
+                            </div>
+                            <div class="flex gap-8 text-right ml-auto">
+                                <div class="hidden sm:block"><p class="label-premium mb-1">Due</p><span class="font-black text-orange-500 text-lg">₹${fin.rem.toLocaleString()}</span></div>
+                                <div><p class="label-premium mb-1 text-indigo-500 font-bold">Quotation</p><p class="text-2xl font-black text-white">₹${fin.rev.toLocaleString()}</p></div>
+                            </div>
+                        </div>
+                        <div class="${isExpanded ? 'detail-expanded' : 'detail-collapsed'} px-8">
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 pt-8 border-t border-indigo-500/10">
+                                <div class="space-y-6">
+                                    <h5 class="text-[11px] font-black text-indigo-500 uppercase tracking-widest">Financial breakdown</h5>
+                                    <div class="flex flex-col gap-4">
+                                        <div class="p-6 rounded-[2rem] bg-indigo-600 shadow-xl text-white"><p class="text-[10px] uppercase mb-1 opacity-80 font-black">Contract Value</p><p class="text-4xl font-black">₹${fin.rev.toLocaleString()}</p></div>
+                                        <div class="grid grid-cols-2 gap-4">
+                                            <div class="p-5 rounded-[1.5rem] bg-slate-900 border border-slate-700 text-center"><p class="label-premium mb-1">Paid</p><p class="text-2xl font-black text-white">₹${fin.paid.toLocaleString()}</p></div>
+                                            <div class="p-5 rounded-[1.8rem] bg-green-500/10 border border-green-500/30 text-center"><p class="label-premium mb-1 text-green-500">Profit</p><p class="text-2xl font-black text-green-600">₹${fin.profit.toLocaleString()}</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space-y-6">
+                                    <h5 class="text-[11px] font-black text-indigo-500 uppercase tracking-widest">Team Assigned</h5>
+                                    <div class="space-y-4">
+                                        ${(c.events || []).map(ev => `
+                                            <div class="p-5 rounded-[2rem] bg-slate-900/60 border border-indigo-500/10 shadow-md">
+                                                <div class="flex justify-between items-start mb-3 text-white">
+                                                    <div><span class="text-xl font-black leading-none">${ev.type}</span><p class="text-[9px] text-indigo-500 uppercase mt-1"><i data-lucide="map-pin" size="10"></i> ${ev.location || 'Lucknow'}</p></div>
+                                                    <div class="bg-slate-900 rounded-2xl px-3 py-1.5 border border-slate-700 shadow-xl"><span class="text-[10px] font-black uppercase">${ev.date || 'TBD'}</span></div>
+                                                </div>
+                                                <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-white/5">
+                                                    ${(ev.team || []).map(m => {
+                                                        const pData = state.photographers.find(p => p.name === m.name);
+                                                        return `<div class="px-3 py-1.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-indigo-500"></div><span class="text-[10px] font-black text-slate-200">${m.name}${pData ? ` <span class="opacity-40 font-medium">(${pData.role})</span>`: ''}</span></div>`;
+                                                    }).join('')}
+                                                </div>
+                                            </div>`).join('')}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-10 flex justify-end gap-3 border-t border-indigo-500/10 pt-8">
+                                <button onclick="window.editClient('${c.id}', event)" class="px-8 py-3 rounded-2xl bg-indigo-500 text-white text-[10px] font-black uppercase tracking-widest transition hover:scale-105">Modify</button>
+                                <button onclick="window.deleteDocHandler('clients', '${c.id}')" class="px-8 py-3 rounded-2xl bg-red-500/10 text-red-500 text-[10px] font-black uppercase transition">Archive</button>
+                            </div>
+                        </div>
+                    </div>`;
+            }).join('');
+            lucide.createIcons();
+        }
+
+        function renderFinanceTable(filteredData = []) {
+            const rows = document.getElementById('financeRows');
+            if (!rows) return;
+            if (filteredData.length === 0) {
+                rows.innerHTML = `<tr><td colspan="7" class="text-center py-10 opacity-40 italic uppercase tracking-widest text-xs text-white">No financial data for ${state.selectedYear}.</td></tr>`;
+                return;
+            }
+            let tRev = 0, tExp = 0, tProf = 0, tPaid = 0, tRem = 0;
+            const clientRows = filteredData.map(c => {
+                const fin = getClientFinancials(c);
+                tRev += fin.rev; tExp += fin.exp; tProf += fin.profit; tPaid += fin.paid; tRem += fin.rem;
+                return `<tr class="border-b border-white/5 hover:bg-indigo-500/5 transition text-white">
+                    <td class="px-10 py-6 font-bold heading-premium" data-label="Client Node">${c.name}</td>
+                    <td class="px-10 py-6 text-indigo-500 font-bold" data-label="Revenue">₹${fin.rev.toLocaleString()}</td>
+                    <td class="px-10 py-6 text-red-500 font-medium" data-label="Expense">₹${fin.exp.toLocaleString()}</td>
+                    <td class="px-10 py-6 text-green-600 font-extrabold" data-label="Profit">₹${fin.profit.toLocaleString()}</td>
+                    <td class="px-10 py-6 opacity-70 font-bold" data-label="Received">₹${fin.paid.toLocaleString()}</td>
+                    <td class="px-10 py-6 text-orange-500 font-black" data-label="Remaining">₹${fin.rem.toLocaleString()}</td>
+                    <td class="px-10 py-6 text-indigo-400 font-black" data-label="Profit %">${fin.margin}%</td>
+                </tr>`;
+            }).join('');
+            const totalMargin = tRev > 0 ? ((tProf / tRev) * 100).toFixed(2) : 0;
+            const totalRow = `<tr class="summary-row bg-indigo-600/10 border-t-4 border-indigo-600 font-black animate-pop shadow-inner text-white">
+                <td class="px-10 py-8 text-xl font-black heading-premium uppercase" data-label="Summary">Overall Profit Percentage</td>
+                <td class="px-10 py-8 text-2xl font-black text-indigo-600" data-label="Revenue Sum">₹${tRev.toLocaleString()}</td>
+                <td class="px-10 py-8 text-xl font-black text-red-500" data-label="Expense Sum">₹${tExp.toLocaleString()}</td>
+                <td class="px-10 py-8 text-3xl font-black text-green-600" data-label="Net Profit Sum">₹${tProf.toLocaleString()}</td>
+                <td class="px-10 py-8 text-xl font-black opacity-70" data-label="Paid Sum">₹${tPaid.toLocaleString()}</td>
+                <td class="px-10 py-8 text-2xl font-black text-orange-600" data-label="Remaining Sum">₹${tRem.toLocaleString()}</td>
+                <td class="px-10 py-8 text-2xl font-black text-indigo-400" data-label="Overall Profit %">${totalMargin}%</td>
+            </tr>`;
+            rows.innerHTML = clientRows + totalRow;
+        }
+
+        function renderEverything() {
+            const filteredData = state.clients.filter(c => (c.events || []).some(ev => ev.date && ev.date.startsWith(state.selectedYear)));
+            renderFinanceSummary(filteredData);
+            renderStaffList();
+            renderProjectList(filteredData);
+            renderFinanceTable(filteredData);
+            lucide.createIcons();
+        }
+
+        // --- EVENT HANDLERS ---
+        window.handleYearChange = (val) => { state.selectedYear = val; renderEverything(); };
+        
+        window.toggleModal = (id, show = true) => {
+            const el = document.getElementById(id);
+            if (el) el.style.display = show ? 'flex' : 'none';
+            if (!show && id === 'clientModal') { 
+                state.editingClientId = null; 
+                const form = document.getElementById('clientForm');
+                if(form) form.reset(); 
+                const container = document.getElementById('eventsContainer');
+                if(container) container.innerHTML = ''; 
+            }
+            window.calculateModalProfit();
+        };
+
+        window.toggleProjectDetail = (id) => { state.expandedProjectId = (state.expandedProjectId === id) ? null : id; renderEverything(); };
+        
+        window.editClient = (id, event) => {
+            if (event) event.stopPropagation();
+            const c = state.clients.find(x => x.id === id); 
+            if (!c) return;
+            state.editingClientId = id; 
+            const form = document.getElementById('clientForm');
+            if(!form) return;
+            form.elements['cName'].value = c.name || '';
+            form.elements['cContact'].value = c.contact || '';
+            form.elements['cFinal'].value = c.finalAmount || 0;
+            form.elements['cAdvance'].value = c.advance || 0;
+            form.elements['cAlbum'].value = c.albumCost || 0;
+            form.elements['cEdit'].value = c.editingCost || 0;
+            form.elements['cMisc'].value = c.otherCost || 0;
+            const inst = c.installments || [0, 0, 0, 0];
+            form.elements['i1'].value = inst[0] || 0; form.elements['i2'].value = inst[1] || 0; form.elements['i3'].value = inst[2] || 0; form.elements['i4'].value = inst[3] || 0;
+            const container = document.getElementById('eventsContainer');
+            if (container) { container.innerHTML = ''; (c.events || []).forEach(ev => window.addEventSlot(ev)); }
+            window.toggleModal('clientModal', true);
+        };
+
+        window.saveClient = async (e) => {
+            e.preventDefault(); 
+            const f = e.target;
+            const events = Array.from(document.querySelectorAll('#eventsContainer > div')).map(block => ({
+                type: block.querySelector('.ev-type').value, date: block.querySelector('.ev-date').value, location: block.querySelector('.ev-location').value,
+                team: Array.from(block.querySelectorAll('.team-container > div')).map(row => ({ name: row.querySelector('.member-name').value, chargeType: row.querySelector('.member-type').value, fee: Number(row.querySelector('.member-fee').value) }))
+            }));
+            const payload = { name: f.cName.value, contact: f.cContact.value, finalAmount: Number(f.cFinal.value), advance: Number(f.cAdvance.value), albumCost: Number(f.cAlbum.value), editingCost: Number(f.cEdit.value), otherCost: Number(f.cMisc.value), installments: [Number(f.i1.value), Number(f.i2.value), Number(f.i3.value), Number(f.i4.value)], events, lastUpdated: new Date().toISOString() };
+            try {
+                if (state.editingClientId) await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'clients', state.editingClientId), payload);
+                else await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'clients'), payload);
+                window.toggleModal('clientModal', false);
+            } catch (err) { console.error(err); }
+        };
+
+        window.editStaff = (id) => {
+            const s = state.photographers.find(p => p.id === id); if (!s) return;
+            state.editingStaffId = id; const f = document.getElementById('staffForm');
+            if(!f) return;
+            f.pName.value = s.name; f.pRole.value = s.role; f.pShort.value = s.shortFee || 0; f.pFull.value = s.fullFee || 0;
+            document.getElementById('staffModalTitle').innerText = "Update Staff Node"; window.toggleModal('staffModal', true);
+        };
+
+        window.saveStaff = async (e) => {
+            e.preventDefault(); 
+            const d = { name: e.target.pName.value, role: e.target.pRole.value, shortFee: Number(e.target.pShort.value), fullFee: Number(e.target.pFull.value) };
+            try {
+                if (state.editingStaffId) await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'photographers', state.editingStaffId), d);
+                else await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'photographers'), d);
+                e.target.reset(); window.toggleModal('staffModal', false);
+            } catch (e) { console.error(e); }
+        };
+
+        window.deleteDocHandler = async (col, id) => { if (confirm("Confirm deletion?")) await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', col, id)); };
+        
+        window.switchTab = (tab) => {
+            document.querySelectorAll('.tab-page').forEach(el => el.classList.add('hidden'));
+            const t = document.getElementById(tab + 'Tab'); if (t) t.classList.remove('hidden');
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('tab-active', 'bg-indigo-600/20', 'text-indigo-500'));
+            const a = document.querySelector(`[data-tab="${tab}"]`); if (a) a.classList.add('tab-active', 'bg-indigo-600/20', 'text-indigo-500');
+        };
+
+        window.handleLogin = async (e) => {
+            e.preventDefault();
+            try { await signInWithEmailAndPassword(auth, e.target.email.value, e.target.password.value); }
+            catch (err) { alert("Login Failed"); }
+        };
+
+        window.handleRegister = async (e) => {
+            e.preventDefault();
+            if (e.target.secret_code.value.trim() !== SECRET_CODE) { alert("Invalid Secret Code!"); return; }
+            try { await createUserWithEmailAndPassword(auth, e.target.email.value, e.target.password.value); window.showAuthView('login'); }
+            catch (err) { alert("Failed"); }
+        };
+
+        window.handleLogout = () => signOut(auth);
+        
+        window.showAuthView = (view) => {
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            if (loginForm) loginForm.classList.toggle('hidden', view !== 'login');
+            if (registerForm) registerForm.classList.toggle('hidden', view !== 'register');
+        };
+
+        // --- LISTENERS ---
+        onAuthStateChanged(auth, (user) => {
+            state.user = user;
+            if (user) { document.getElementById('auth-overlay').style.display = 'none'; document.getElementById('app-content').classList.remove('hidden'); startListeners(); }
+            else { document.getElementById('auth-overlay').style.display = 'flex'; document.getElementById('app-content').classList.add('hidden'); }
+        });
+
+        function startListeners() {
+            if (!state.user) return;
+            onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'clients'), (snapshot) => { state.clients = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); renderEverything(); });
+            onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'photographers'), (snapshot) => { state.photographers = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); renderEverything(); });
+            onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'event_meta'), (snapshot) => { state.eventMeta = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); });
+        }
+
+    </script>
+</head>
+
+<body class="custom-scroll">
+    <div class="liquid-bg">
+        <div class="blob" style="top: -10%; left: -10%; background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(236, 72, 153, 0.3));"></div>
+        <div class="blob" style="bottom: -10%; right: -10%; animation-duration: 30s; animation-delay: -5s; background: linear-gradient(168, 85, 247, 0.3), rgba(59, 130, 246, 0.3));"></div>
+    </div>
+
+    <!-- AUTH OVERLAY -->
+    <div id="auth-overlay">
+        <div class="glass-panel p-10 sm:p-14 rounded-[3.5rem] w-full max-w-md border border-white/20 shadow-2xl animate-pop mx-4 text-center text-white">
+            <div class="w-16 h-16 btn-ios rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl font-black text-xl">LWS</div>
+            <h1 class="text-3xl font-black tracking-tighter leading-tight">Lucknow Wedding Studio</h1>
+            <p class="opacity-50 text-[10px] font-bold uppercase tracking-[0.2em] mt-2 mb-10 text-white/70">Authorized Access Only</p>
+            <form id="login-form" onsubmit="window.handleLogin(event)" class="space-y-6">
+                <input name="email" type="email" placeholder="Email Address" required class="w-full p-4 input-ios text-sm font-medium">
+                <input name="password" type="password" placeholder="Password" required class="w-full p-4 input-ios text-sm font-medium">
+                <button type="submit" class="w-full py-4 btn-ios text-white font-black rounded-2xl uppercase tracking-widest text-[11px] shadow-2xl transition-transform active:scale-95">Sign In Access</button>
+                <p class="text-center text-[11px] opacity-40 font-bold uppercase tracking-wider mt-4 text-white/50">
+                    Node? <button type="button" onclick="window.showAuthView('register')" class="text-indigo-500 font-black">Register</button></p>
+            </form>
+            <form id="register-form" onsubmit="window.handleRegister(event)" class="space-y-5 hidden">
+                <input name="email" type="email" placeholder="Studio Email" required class="w-full p-4 input-ios text-sm font-medium">
+                <input name="password" type="password" placeholder="Access Key" required class="w-full p-4 input-ios text-sm font-medium">
+                <div class="p-4 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-left">
+                    <label class="text-[9px] font-black uppercase text-indigo-500 block mb-1">Verification Code</label>
+                    <input name="secret_code" placeholder="lws..." required class="w-full bg-transparent border-none outline-none font-bold text-lg text-white">
+                </div>
+                <button type="submit" class="w-full py-4 btn-ios text-white font-black rounded-2xl uppercase tracking-widest text-[11px]">Request Account</button>
+                <button type="button" onclick="window.showAuthView('login')" class="w-full text-center text-[10px] font-bold opacity-40 uppercase mt-4 text-white/50">Back to Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MAIN APP CONTENT -->
+    <div id="app-content" class="hidden min-h-screen pb-20">
+        <nav class="sticky top-2 z-50 glass-panel mx-2 sm:mx-6 my-2 px-4 sm:px-8 py-3 flex flex-col sm:flex-row justify-between items-center rounded-[1.5rem] sm:rounded-[2.5rem] border border-white/20 shadow-2xl gap-3 sm:gap-4 text-white">
+            <div class="flex items-center gap-3 w-full sm:w-auto text-left">
+                <div class="w-10 h-10 btn-ios rounded-2xl flex items-center justify-center text-white shadow-lg font-black text-xs">LWS</div>
+                <div>
+                    <h1 class="text-sm sm:text-lg font-black tracking-tight uppercase leading-none text-white">Lucknow Wedding Studio</h1>
+                    <p class="text-[8px] font-bold text-indigo-400 uppercase tracking-widest mt-1">Authorized Hub</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-4 w-full sm:w-auto overflow-x-auto no-scrollbar py-1">
+                <div class="flex items-center bg-white/10 rounded-xl px-3 border border-white/10 shrink-0">
+                    <span class="text-[8px] font-black uppercase opacity-40 mr-2 text-indigo-400">Year</span>
+                    <select onchange="window.handleYearChange(this.value)" class="bg-transparent text-white font-bold text-xs outline-none py-1.5 cursor-pointer">
+                        <option value="2024" class="text-black">2024</option>
+                        <option value="2025" class="text-black">2025</option>
+                        <option value="2026" class="text-black" selected>2026</option>
+                        <option value="2027" class="text-black">2027</option>
+                    </select>
+                </div>
+
+                <div class="flex p-1 bg-white/5 rounded-2xl border border-white/10 w-full shadow-inner text-white">
+                    <button onclick="window.switchTab('dash')" data-tab="dash" class="nav-btn flex-1 whitespace-nowrap px-4 sm:px-8 py-2 rounded-xl text-[9px] sm:text-[11px] font-black uppercase tracking-widest tab-active bg-indigo-600/20 text-indigo-500 transition-all">Hub</button>
+                    <button onclick="window.switchTab('projects')" data-tab="projects" class="nav-btn flex-1 whitespace-nowrap px-4 sm:px-8 py-2 rounded-xl text-[9px] sm:text-[11px] font-black uppercase tracking-widest text-slate-400 transition-all">Assess</button>
+                    <button onclick="window.switchTab('finance')" data-tab="finance" class="nav-btn flex-1 whitespace-nowrap px-4 sm:px-8 py-2 rounded-xl text-[9px] sm:text-[11px] font-black uppercase tracking-widest text-slate-400 transition-all">Ledger</button>
+                </div>
+            </div>
+            <div class="flex items-center gap-2 absolute sm:relative top-3 right-4 sm:top-0 sm:right-0">
+                <button onclick="window.handleLogout()" class="w-9 h-9 flex items-center justify-center rounded-xl bg-red-500/10 border border-red-500/20 text-red-500 transition-all hover:bg-red-600 hover:text-white"><i data-lucide="log-out" size="16"></i></button>
+            </div>
+        </nav>
+
+        <main class="max-w-[98%] mx-auto px-2 sm:px-6 pt-4 sm:pt-10 text-white">
+            <!-- DASHBOARD HUB -->
+            <section id="dashTab" class="tab-page animate-in fade-in duration-700 space-y-12">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-8 px-2">
+                    <div class="text-left">
+                        <h2 class="text-3xl sm:text-7xl font-black tracking-tighter">Lucknow Wedding Studio Hub</h2>
+                        <p class="opacity-50 font-bold mt-2 text-indigo-500 uppercase tracking-widest text-xs"> Registry Node Hub.</p>
+                    </div>
+                    <div class="flex gap-3 w-full sm:w-auto">
+                        <button onclick="window.toggleModal('staffModal')" class="flex-1 sm:flex-none btn-ios text-white px-8 py-4 rounded-[1.2rem] font-black shadow-2xl uppercase text-[10px] tracking-widest transition-transform hover:scale-105">+ New Member</button>
+                        <button onclick="window.toggleModal('clientModal')" class="flex-1 sm:flex-none bg-indigo-500/10 px-8 py-4 rounded-[1.2rem] border border-indigo-500/20 font-black text-[10px] text-indigo-500 uppercase tracking-widest transition-transform hover:scale-105">+ Project</button>
+                    </div>
+                </div>
+                <div id="staffList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-2"></div>
+            </section>
+
+            <!-- ASSIGNMENTS SECTION -->
+            <section id="projectsTab" class="tab-page hidden animate-in slide-in-from-bottom-6 duration-700 px-2 text-left">
+                <div class="mb-10"><h2 class="text-5xl font-black tracking-tighter">Assignments</h2><p class="opacity-50 font-bold mt-2 text-lg text-slate-400 uppercase tracking-widest text-xs">Project timeline audit nodes.</p></div>
+                <div id="projectDetailedList" class="space-y-6"></div>
+            </section>
+
+            <!-- LEDGER SECTION -->
+            <section id="financeTab" class="tab-page hidden animate-in slide-in-from-bottom-6 px-2 text-left">
+                <div class="glass-panel rounded-[2rem] sm:rounded-[3.5rem] border border-white/10 shadow-2xl overflow-hidden">
+                    <div class="p-6 sm:p-12 border-b border-white/10 bg-white/5">
+                        <h2 class="text-3xl sm:text-5xl font-black tracking-tight mb-10 text-white">Financial Ledger</h2>
+                        <!-- Dashboard Metrics -->
+                        <div class="grid grid-cols-2 lg:grid-cols-6 gap-3 sm:gap-4">
+                            <div class="bg-indigo-600/10 p-5 rounded-2xl border border-indigo-600/20 shadow-lg text-center"><p class="label-premium mb-1">Billing</p><h3 id="ledRev" class="text-sm sm:text-xl font-black leading-none">₹0</h3></div>
+                            <div class="bg-red-600/10 p-5 rounded-2xl border border-red-600/20 shadow-lg text-center"><p class="label-premium mb-1">Expense</p><h3 id="ledExp" class="text-sm sm:text-xl font-black text-red-500 leading-none">₹0</h3></div>
+                            <div class="bg-green-600/10 p-5 rounded-2xl border border-green-600/20 shadow-lg text-center"><p class="label-premium mb-1">Profit</p><h3 id="ledProf" class="text-sm sm:text-xl font-black text-green-600 leading-none">₹0</h3></div>
+                            <div class="bg-slate-900 p-5 rounded-2xl border border-slate-700 shadow-lg text-center"><p class="label-premium mb-1 text-slate-400">Received</p><h3 id="ledReceived" class="text-sm sm:text-xl font-black text-slate-100 leading-none">₹0</h3></div>
+                            <div class="bg-orange-600/10 p-5 rounded-2xl border border-orange-600/20 shadow-lg text-center"><p class="label-premium mb-1 text-orange-400">Remaining</p><h3 id="ledRemaining" class="text-sm sm:text-xl font-black text-orange-500 leading-none">₹0</h3></div>
+                            <div class="bg-white/5 p-5 rounded-2xl border border-white/10 shadow-lg text-center"><p class="label-premium mb-1">Margin</p><h3 id="ledMargin" class="text-sm sm:text-xl font-black text-white leading-none">0%</h3></div>
+                        </div>
+                    </div>
+                    <!-- Detailed Table (Responsive) -->
+                    <div class="p-2 sm:p-6 overflow-hidden">
+                        <table class="w-full text-left ledger-table">
+                            <thead class="bg-indigo-500/5 text-white font-black text-[10px] uppercase tracking-widest">
+                                <tr><th class="px-10 py-8">Client Node</th><th class="px-10 py-8 text-indigo-500">Revenue</th><th class="px-10 py-8 text-red-400">Expenses</th><th class="px-10 py-8 text-green-500">Profit</th><th class="px-10 py-8">Received</th><th class="px-10 py-8 text-orange-500">Remaining</th><th class="px-10 py-8 text-indigo-400">Profit %</th></tr>
+                            </thead>
+                            <tbody id="financeRows" class="text-sm font-medium"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- CLIENT MODAL -->
+    <div id="clientModal" class="fixed inset-0 bg-slate-950/92 backdrop-blur-xl z-[100] hidden items-center justify-center p-2 sm:p-4 text-left">
+        <div class="glass-panel w-full max-w-4xl rounded-[3rem] shadow-2xl overflow-hidden flex flex-col max-h-[96vh] border border-white/20 animate-pop text-white">
+            <header class="p-4 sm:p-6 border-b border-white/10 flex justify-between items-center bg-white/5">
+                <div><h3 class="text-2xl sm:text-3xl font-black tracking-tighter">Assignment</h3><p class="text-[9px] font-bold text-green-500 uppercase mt-1 opacity-80">Live Audit: <span id="modalProfitHeader">₹0</span></p></div>
+                <button onclick="window.toggleModal('clientModal', false)" class="p-2.5 bg-white/5 hover:bg-white/10 rounded-full border border-white/10 text-white"><i data-lucide="x" size="20"></i></button>
+            </header>
+            <form id="clientForm" onsubmit="window.saveClient(event)" class="overflow-y-auto p-5 sm:p-8 custom-scroll space-y-8">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+                    <div class="bg-indigo-500/5 p-4 rounded-[1.5rem] border border-indigo-500/10 shadow-inner"><p class="label-premium">Billing</p><p class="text-xl font-black text-indigo-500">₹<span id="modalRevDisplay">0</span></p></div>
+                    <div class="bg-red-500/5 p-4 rounded-[1.5rem] border border-red-100 shadow-inner"><p class="label-premium text-red-400">Costs</p><p class="text-xl font-black text-red-500">₹<span id="modalExpDisplay">0</span></p></div>
+                    <div class="bg-green-500/5 p-4 rounded-[1.5rem] border border-green-100 shadow-inner"><p class="label-premium text-green-500 font-black">Profit</p><p id="modalProfitDisplay" class="text-xl font-black text-green-500 font-black">₹0</p></div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div class="space-y-1.5"><label class="label-premium ml-5 font-bold">Client Identity</label><input name="cName" required class="w-full p-3 input-ios font-bold text-base rounded-[1.2rem] text-slate-100" placeholder="Name"></div><div class="space-y-1.5"><label class="label-premium ml-5 font-bold">Contact Access</label><input name="cContact" class="w-full p-3 input-ios font-bold text-base rounded-[1.2rem] text-slate-100" placeholder="+91 ..."></div></div>
+                <div class="ios-card p-5 bg-indigo-600/10 border-indigo-500/30 shadow-xl"><div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-white text-left"><div class="space-y-2"><label class="text-[9px] font-black uppercase text-indigo-300 tracking-widest ml-2">Contract Billing</label><div class="flex items-center gap-3 bg-black/10 p-3 rounded-[1.2rem] border border-white/5"><span class="text-xl font-black text-indigo-400">₹</span><input name="cFinal" type="number" oninput="window.calculateModalProfit()" required class="bg-transparent text-2xl font-black w-full outline-none text-white tracking-tighter" placeholder="0"></div></div><div class="space-y-2"><label class="text-[9px] font-black uppercase text-green-400 tracking-widest ml-2 font-bold">Advance Deposit</label><div class="flex items-center gap-3 bg-black/10 p-3 rounded-[1.2rem] border border-white/5"><span class="text-xl font-black text-green-500 font-bold">₹</span><input name="cAdvance" type="number" oninput="window.calculateModalProfit()" class="bg-transparent text-2xl font-black w-full outline-none text-green-400" placeholder="0"></div></div></div></div>
+                <div class="space-y-6"><div class="flex justify-between items-center px-2 text-left"><h4 class="text-xs font-black uppercase text-indigo-500 tracking-[0.2em]">Timeline Sequences</h4><button type="button" onclick="window.addEventSlot()" class="px-5 py-2.5 bg-indigo-500 text-white rounded-xl text-[9px] font-black uppercase tracking-widest shadow-lg active:scale-95 transition-transform">+ Add Event</button></div><div id="eventsContainer" class="space-y-4"></div></div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4"><div class="space-y-1.5"><label class="label-premium ml-5 font-bold">Album</label><input name="cAlbum" type="number" oninput="window.calculateModalProfit()" placeholder="₹ 0" class="p-3 input-ios w-full font-bold rounded-[1rem] text-slate-100 text-sm shadow-sm"></div><div class="space-y-1.5"><label class="label-premium ml-5 font-bold">Editing</label><input name="cEdit" type="number" oninput="window.calculateModalProfit()" placeholder="₹ 0" class="p-3 input-ios w-full font-bold rounded-[1rem] text-slate-100 text-sm shadow-sm"></div><div class="space-y-1.5"><label class="label-premium ml-5 font-bold">Misc Node</label><input name="cMisc" type="number" oninput="window.calculateModalProfit()" placeholder="₹ 0" class="p-3 input-ios w-full font-bold rounded-[1rem] text-slate-100 text-sm shadow-sm"></div></div>
+                <div class="space-y-4"><h4 class="font-black text-xs ml-4 uppercase text-slate-500 tracking-[0.2em]">Installment Milestones</h4><div class="grid grid-cols-2 md:grid-cols-4 gap-3"><input name="i1" type="number" oninput="window.calculateModalProfit()" placeholder="M1" class="p-3 input-ios font-bold rounded-[1rem] text-xs text-slate-100 text-center"><input name="i2" type="number" oninput="window.calculateModalProfit()" placeholder="M2" class="p-3 input-ios font-bold rounded-[1rem] text-xs text-slate-100 text-center"><input name="i3" type="number" oninput="window.calculateModalProfit()" placeholder="M3" class="p-3 input-ios font-bold rounded-[1rem] text-xs text-slate-100 text-center"><input name="i4" type="number" oninput="window.calculateModalProfit()" placeholder="M4" class="p-3 input-ios font-bold rounded-[1rem] text-xs text-slate-100 text-center"></div></div>
+                <div class="pt-6 flex flex-col sm:flex-row gap-4 sticky bottom-0 bg-slate-900/90 backdrop-blur-3xl p-4 rounded-3xl border-t border-white/5 shadow-2xl transition-all"><button type="submit" class="flex-1 py-4 btn-ios text-white font-black rounded-2xl shadow-lg uppercase tracking-widest text-[10px] transition-transform hover:scale-[1.02]">Commit Assignment</button><button type="button" onclick="window.toggleModal('clientModal', false)" class="px-10 py-4 bg-white/5 border border-white/10 opacity-60 font-black rounded-2xl uppercase tracking-widest text-[9px] text-white hover:bg-white/10">Discard</button></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- STAFF MODAL -->
+    <div id="staffModal" class="fixed inset-0 bg-slate-950/92 backdrop-blur-xl z-[101] hidden items-center justify-center p-4 text-white">
+        <div class="glass-panel p-8 sm:p-12 rounded-[2.5rem] shadow-2xl w-full max-w-md border border-white/20 animate-pop">
+            <h3 id="staffModalTitle" class="text-3xl font-black mb-8 tracking-tighter text-center">Staff Node</h3>
+            <form id="staffForm" onsubmit="window.saveStaff(event)" class="space-y-6">
+                <input name="pName" placeholder="Full Identity Name" required class="w-full p-4 input-ios font-bold rounded-xl text-slate-100">
+                <input name="pRole" placeholder="Skill Descriptor" required class="w-full p-4 input-ios rounded-xl text-slate-100">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-1 text-left"><label class="label-premium text-orange-500 font-bold">Short Fee</label><input name="pShort" type="number" required class="w-full p-4 rounded-xl bg-orange-500/10 border border-orange-500/20 font-black text-orange-500 outline-none shadow-inner"></div>
+                    <div class="space-y-1 text-left"><label class="label-premium text-green-500 font-bold">Full Fee</label><input name="pFull" type="number" required class="w-full p-4 rounded-xl bg-green-500/10 border border-green-500/20 font-black text-green-500 outline-none shadow-inner"></div>
+                </div><button id="staffSubmitBtn" type="submit" class="w-full py-5 btn-ios text-white font-black rounded-2xl shadow-lg uppercase tracking-widest text-[11px] mt-4 transition-transform hover:scale-[1.02]">Commit Staff Node</button>
+                <button type="button" onclick="window.toggleModal('staffModal', false)" class="w-full py-4 font-bold opacity-40 text-[10px] uppercase mt-2 text-white transition-opacity hover:opacity-100">Abort Access</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

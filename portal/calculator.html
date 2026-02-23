@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucknow Wedding Studio - Premium Agency Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --accent: #818cf8;
+            --yellow: #facc15;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #0f172a;
+            background-image: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.75)), 
+                              url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .liquid-glass {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        .input-glass {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 10px 14px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .btn-category {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .btn-category:hover:not(:disabled) {
+            background: var(--accent);
+            transform: scale(1.03);
+        }
+
+        /* Selected Event Styling */
+        .btn-category:disabled {
+            background: var(--yellow) !important;
+            color: #000 !important;
+            opacity: 1 !important;
+            font-weight: 800;
+            border-color: #000;
+            cursor: not-allowed;
+            box-shadow: 0 0 15px rgba(250, 204, 21, 0.4);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .badge-active {
+            background: white !important;
+            color: #0f172a !important;
+            border-color: white !important;
+            font-weight: 800;
+        }
+
+        .discount-highlight {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px dashed rgba(239, 68, 68, 0.4);
+            border-radius: 12px;
+            padding: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .inclusion-tag {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 10px;
+            color: #cbd5e1;
+        }
+
+        /* Print Layout for One-Page PDF */
+        @media print {
+            body { background: white !important; color: #1a1a1a !important; padding: 0 !important; font-size: 11px !important; }
+            .no-print, header p, .no-pdf { display: none !important; }
+            .liquid-glass { 
+                background: white !important; 
+                border: 1px solid #ddd !important; 
+                backdrop-filter: none !important; 
+                color: black !important;
+                box-shadow: none !important;
+                margin-bottom: 10px !important;
+                padding: 15px !important;
+            }
+            .grid { display: grid !important; grid-template-columns: repeat(12, 1fr) !important; gap: 15px !important; }
+            .lg\:col-span-8 { grid-column: span 12 / span 12 !important; }
+            .lg\:col-span-4 { grid-column: span 12 / span 12 !important; border-top: 2px solid #312e81; padding-top: 15px; margin-top: 15px; }
+            #final-total { color: #312e81 !important; font-size: 32px !important; }
+            .print-header { display: flex !important; justify-content: space-between; border-bottom: 2px solid #312e81; margin-bottom: 15px; padding-bottom: 10px; }
+            .print-only { display: block !important; }
+            .inclusion-tag { color: #333 !important; border: 1px solid #ccc !important; }
+            .badge-active { border: 1px solid #000 !important; background: #eee !important; color: #000 !important; }
+            * { page-break-inside: avoid; }
+        }
+        .print-only { display: none; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+    <div class="max-w-6xl mx-auto">
+        <!-- Dashboard Header -->
+        <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
+            <div>
+                <h1 class="text-3xl md:text-5xl font-extrabold tracking-tighter text-white">
+                    Lucknow Wedding Studio
+                </h1>
+                <p class="text-indigo-300 text-sm font-medium tracking-[0.3em] uppercase mt-1">
+                    Best Photographer In Lucknow
+                </p>
+            </div>
+            <div class="text-right">
+                <span id="header-final-total" class="text-2xl font-black text-indigo-400 bg-white/5 px-6 py-2 rounded-2xl border border-white/10 no-print">₹0</span>
+            </div>
+        </header>
+
+        <!-- Print PDF Header -->
+        <div class="print-only print-header">
+            <div>
+                <h1 style="font-size: 24px; font-weight: 900; color: #312e81;">Lucknow Wedding Studio</h1>
+                <p style="font-size: 11px; letter-spacing: 2px; color: #666;">PREMIUM PHOTOGRAPHY QUOTATION</p>
+            </div>
+            <div style="text-align: right;">
+                <p id="print-client-display" style="font-weight: bold;"></p>
+                <p id="print-date-display" style="font-size: 11px;"></p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <!-- Left Side -->
+            <div class="lg:col-span-8 space-y-6">
+                <!-- Client Info -->
+                <div class="liquid-glass p-6 rounded-2xl">
+                    <h2 class="text-xs font-black uppercase tracking-[0.2em] text-indigo-400 mb-6 flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span> Client Metadata
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-[10px] font-bold text-gray-400 uppercase mb-2 block">Client Identity</label>
+                            <input type="text" id="client-name" oninput="updatePrintInfo()" class="input-glass w-full" placeholder="Full Name">
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-gray-400 uppercase mb-2 block">Contact Protocol</label>
+                            <input type="tel" id="client-contact" class="input-glass w-full" value="+91 ">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category Selection (Add Event) -->
+                <div class="liquid-glass p-6 rounded-2xl no-print">
+                    <h2 class="text-xs font-black uppercase tracking-[0.2em] text-indigo-400 mb-4">Add Event To Itinerary</h2>
+                    <div id="category-buttons-container" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
+                        <!-- Buttons injected via render() -->
+                    </div>
+                </div>
+
+                <!-- Events List -->
+                <div id="events-container" class="space-y-4"></div>
+
+                <!-- Albums -->
+                <div class="liquid-glass p-6 rounded-2xl">
+                    <h2 class="text-xs font-black uppercase tracking-[0.2em] text-purple-400 flex items-center gap-2 mb-4">
+                        <span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span> Premium Print Assets
+                    </h2>
+                    <div class="flex gap-2 no-print mb-4">
+                        <button onclick="addAlbum(40)" class="px-4 py-2 border border-white/10 rounded-xl text-[10px] font-bold hover:bg-white/10">+ 40 SEATS</button>
+                        <button onclick="addAlbum(50)" class="px-4 py-2 border border-white/10 rounded-xl text-[10px] font-bold hover:bg-white/10">+ 50 SEATS</button>
+                    </div>
+                    <div id="albums-container" class="space-y-3"></div>
+                </div>
+
+                <!-- Glossary -->
+                <div class="liquid-glass p-6 rounded-2xl">
+                    <h2 class="text-xs font-black uppercase tracking-[0.2em] text-indigo-400 mb-6">Service Glossary</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-[10px] text-gray-400">
+                        <div class="border-l-2 border-indigo-500/20 pl-4">
+                            <h4 class="text-white font-bold uppercase mb-2">Half Team</h4>
+                            <ul class="space-y-1">
+                                <li>• Traditional Photo</li>
+                                <li>• Traditional Video</li>
+                            </ul>
+                        </div>
+                        <div class="border-l-2 border-purple-500/20 pl-4">
+                            <h4 class="text-white font-bold uppercase mb-2">Full Team</h4>
+                            <ul class="space-y-1">
+                                <li>• Traditional Photo & Video</li>
+                                <li>• Candid Photo & Cinematic</li>
+                            </ul>
+                        </div>
+                        <div class="border-l-2 border-emerald-500/20 pl-4">
+                            <h4 class="text-white font-bold uppercase mb-2">Premium Team</h4>
+                            <ul class="space-y-1">
+                                <li>• Candid Specialist</li>
+                                <li>• Cinematic Director</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Sidebar -->
+            <div class="lg:col-span-4 sticky top-10" id="valuation-sidebar">
+                <div class="liquid-glass p-8 rounded-3xl border-indigo-500/30">
+                    <h2 class="text-lg font-bold mb-8 border-b border-white/10 pb-4 text-white uppercase tracking-tighter">Valuation Summary</h2>
+                    
+                    <div class="space-y-5">
+                        <div class="flex justify-between">
+                            <span class="summary-label">Primary Services</span>
+                            <span id="summary-event-total" class="font-bold">₹0</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="summary-label">Post-Production</span>
+                            <span id="summary-editing-total" class="font-bold">₹0</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="summary-label">Premium Albums</span>
+                            <span id="summary-album-total" class="font-bold">₹0</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="summary-label">Tech Gear</span>
+                            <span id="summary-gear-total" class="font-bold">₹0</span>
+                        </div>
+
+                        <!-- Travel -->
+                        <div class="pt-4 border-t border-white/10">
+                            <label class="text-[10px] font-black text-indigo-300 uppercase mb-2 block">Travelling Expenses</label>
+                            <input type="number" id="travel-cost" oninput="render()" class="input-glass w-full text-center" placeholder="0">
+                        </div>
+                        
+                        <!-- Discount Engine -->
+                        <div class="pt-4 no-print">
+                            <label class="text-[10px] font-black text-indigo-300 uppercase mb-2 block">Rewards / Discount</label>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="relative">
+                                    <input type="number" id="discount-pct" oninput="render()" class="input-glass w-full text-center text-xs" placeholder="%">
+                                    <span class="absolute right-3 top-1/2 -translate-y-1/2 text-indigo-400 font-bold text-[10px]">%</span>
+                                </div>
+                                <div class="relative">
+                                    <input type="number" id="discount-flat" oninput="render()" class="input-glass w-full text-center text-xs" placeholder="Flat ₹">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Highlighted Discount Display -->
+                        <div id="discount-layer" class="discount-highlight flex justify-between items-center text-red-400 font-bold text-xs">
+                            <span class="uppercase tracking-widest">Discount Applied</span>
+                            <span id="summary-discount-total">- ₹0</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 bg-indigo-500/10 p-6 rounded-3xl border border-indigo-400/20 text-center">
+                        <p class="text-[9px] text-indigo-300 uppercase tracking-[0.4em] font-bold mb-2">Final Investment</p>
+                        <p id="final-total" class="text-4xl font-black text-white">₹0</p>
+                    </div>
+
+                    <button class="w-full mt-6 btn-primary py-4 rounded-2xl text-xs font-black no-print" onclick="window.print()">
+                        DOWNLOAD PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const PRICING = {
+            halfTeam: 5000, 
+            fullTeam: 15000,
+            premiumTeam: 20000, 
+            drone: 4000,
+            ledWall: 8000,
+            crane: 8000,
+            droneMarkup: 1000,
+            ledMarkup: 2000,
+            craneMarkup: 2000
+        };
+
+        const TEAM_BREAKDOWN = {
+            half: ["Traditional Photo", "Traditional Video"],
+            full: ["Traditional Photo", "Traditional Video", "Candid Photo", "Cinematographer"],
+            premium: ["Candid Photographer", "Cinematographer"]
+        };
+
+        const ALL_EVENT_TYPES = ['Wedding', 'Haldi', 'Mehandi', 'Reception', 'Engagement', 'Pre-Wedding'];
+
+        let events = [];
+        let albums = [];
+
+        function addEvent(type) {
+            if (events.some(e => e.type === type)) return;
+            const id = Date.now();
+            let initialTeams = (type === 'Pre-Wedding') ? ['premium'] : ['half'];
+            events.push({ id, type, teamSelections: initialTeams, date: '' });
+            render();
+        }
+
+        function removeEvent(id) {
+            events = events.filter(e => e.id !== id);
+            render();
+        }
+
+        function addAlbum(sheets) {
+            const id = Date.now();
+            albums.push({ id, sheets: sheets || 20 });
+            render();
+        }
+
+        function removeAlbum(id) {
+            albums = albums.filter(a => a.id !== id);
+            render();
+        }
+
+        function updateEvent(id, field, value) {
+            const event = events.find(e => e.id === id);
+            if (!event) return;
+            if (field === 'team') {
+                const coreTeams = ['half', 'full', 'premium'];
+                if (coreTeams.includes(value)) {
+                    if (event.teamSelections.includes(value)) {
+                        event.teamSelections = event.teamSelections.filter(v => v !== value);
+                    } else {
+                        event.teamSelections = event.teamSelections.filter(v => !coreTeams.includes(v));
+                        event.teamSelections.push(value);
+                    }
+                } else {
+                    if (event.teamSelections.includes(value)) {
+                        event.teamSelections = event.teamSelections.filter(v => v !== value);
+                    } else {
+                        event.teamSelections.push(value);
+                    }
+                }
+            } else if (field === 'date') {
+                event.date = value;
+            }
+            render();
+        }
+
+        function updateAlbum(id, sheets) {
+            const album = albums.find(a => a.id === id);
+            if (album) album.sheets = parseInt(sheets) || 0;
+            render();
+        }
+
+        function updatePrintInfo() {
+            const name = document.getElementById('client-name').value;
+            const today = new Date().toLocaleDateString();
+            document.getElementById('print-client-display').innerText = name ? "Client: " + name : "";
+            document.getElementById('print-date-display').innerText = "Date: " + today;
+        }
+
+        function calculateDetailedCost(ev) {
+            const mult = (ev.type === "Wedding") ? 2 : 1;
+            const isFullTeam = ev.teamSelections.includes('full');
+            const isPremiumTeam = ev.teamSelections.includes('premium');
+            
+            let markupableTeamBase = 0;
+            if (ev.teamSelections.includes('half')) markupableTeamBase += (PRICING.halfTeam * mult);
+            if (isFullTeam) markupableTeamBase += (PRICING.fullTeam * mult);
+            let premiumTeamFlat = isPremiumTeam ? PRICING.premiumTeam : 0;
+
+            let gearTotal = 0;
+            if (ev.teamSelections.includes('drone')) gearTotal += (PRICING.drone + PRICING.droneMarkup); 
+            if (ev.teamSelections.includes('led_crane')) gearTotal += (PRICING.ledWall + PRICING.crane + PRICING.ledMarkup + PRICING.craneMarkup); 
+
+            let editBase = (ev.type === "Wedding" || ev.type === "Reception") ? 3000 : 1500;
+            if (isFullTeam || isPremiumTeam) editBase += 2000;
+
+            const eventTotal = (markupableTeamBase + editBase) * 2 + gearTotal + premiumTeamFlat;
+            return { teamFinal: (markupableTeamBase * 2) + premiumTeamFlat, editFinal: editBase * 2, gearFinal: gearTotal, total: eventTotal };
+        }
+
+        function render() {
+            // Category Buttons
+            const categoryContainer = document.getElementById('category-buttons-container');
+            const activeTypes = events.map(e => e.type);
+            categoryContainer.innerHTML = ALL_EVENT_TYPES.map(type => {
+                const isAdded = activeTypes.includes(type);
+                return `<button onclick="addEvent('${type}')" ${isAdded ? 'disabled' : ''} class="btn-category py-3 rounded-xl text-[10px] font-bold">
+                    ${type} ${isAdded ? '✓' : ''}
+                </button>`;
+            }).join('');
+
+            // Events
+            const eventsContainer = document.getElementById('events-container');
+            eventsContainer.innerHTML = events.map(ev => {
+                const c = calculateDetailedCost(ev);
+                const teamOptions = [
+                    {id: 'half', label: 'Half Team'},
+                    {id: 'full', label: 'Full Team'},
+                    {id: 'premium', label: 'Premium Team'},
+                    {id: 'drone', label: 'Drone'},
+                    {id: 'led_crane', label: 'LED & Crane'}
+                ];
+                const inclusionsHtml = ev.teamSelections.filter(t => TEAM_BREAKDOWN[t]).map(t => {
+                    return TEAM_BREAKDOWN[t].map(item => `<span class="inclusion-tag">${item}</span>`).join('');
+                }).join('');
+                const buttonsHtml = teamOptions.map(btn => {
+                    const isActive = ev.teamSelections.includes(btn.id);
+                    const btnClass = isActive ? 'badge-active' : 'hover:bg-white/10';
+                    return `<button onclick="updateEvent(${ev.id}, 'team', '${btn.id}')" class="px-3 py-1.5 rounded-lg text-[10px] font-bold border border-white/10 transition-all ${btnClass}">${btn.label}</button>`;
+                }).join('');
+
+                return `<div class="liquid-glass p-5 rounded-2xl">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex-1">
+                            <span class="text-[9px] font-black text-indigo-400 uppercase">Phase</span>
+                            <div class="flex items-center gap-4 mt-1">
+                                <h3 class="text-base font-extrabold text-white">${ev.type}</h3>
+                                <input type="date" value="${ev.date}" onchange="updateEvent(${ev.id}, 'date', this.value)" class="bg-white/5 border-none rounded-full px-3 py-1 text-[10px] font-bold cursor-pointer">
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-[9px] font-bold text-gray-500 uppercase">Allocation</span>
+                            <div class="text-sm font-black text-indigo-300">₹${c.total.toLocaleString()}</div>
+                        </div>
+                        <button onclick="removeEvent(${ev.id})" class="ml-4 text-red-400/50 hover:text-red-400 no-print">
+                            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
+                        </button>
+                    </div>
+                    <div class="flex flex-wrap gap-2 pt-3 border-t border-white/5">${buttonsHtml}</div>
+                    ${inclusionsHtml ? `<div class="flex flex-wrap gap-2 mt-3 pt-3 border-t border-white/5">${inclusionsHtml}</div>` : ''}
+                </div>`;
+            }).join('');
+
+            // Albums
+            const albumsContainer = document.getElementById('albums-container');
+            albumsContainer.innerHTML = albums.map(al => {
+                const cost = (al.sheets * 200).toLocaleString();
+                return `<div class="bg-white/5 border border-white/10 rounded-xl p-4 flex items-center gap-6">
+                    <div class="flex-1">
+                        <span class="text-[9px] font-black text-purple-400 uppercase">${al.sheets} Seat Premium Album</span>
+                        <input type="number" value="${al.sheets}" oninput="updateAlbum(${al.id}, this.value)" class="input-glass w-full text-xs font-bold mt-1">
+                    </div>
+                    <div class="text-right"><span class="text-base font-black text-purple-300">₹${cost}</span></div>
+                    <button onclick="removeAlbum(${al.id})" class="text-red-400/50 hover:text-red-400 p-2 no-print">
+                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>`;
+            }).join('');
+
+            // Financials
+            let totalTeam = 0, totalEdit = 0, totalGear = 0;
+            events.forEach(ev => {
+                const c = calculateDetailedCost(ev);
+                totalTeam += c.teamFinal;
+                totalEdit += c.editFinal;
+                totalGear += c.gearFinal;
+            });
+            let albumFinal = 0;
+            albums.forEach(al => albumFinal += (al.sheets * 200));
+
+            const travelCost = parseFloat(document.getElementById('travel-cost').value) || 0;
+            const subtotal = totalTeam + totalEdit + totalGear + albumFinal + travelCost;
+            const dPct = parseFloat(document.getElementById('discount-pct').value) || 0;
+            const dFlat = parseFloat(document.getElementById('discount-flat').value) || 0;
+            const discountTotal = (subtotal * dPct / 100) + dFlat;
+            const final = subtotal - discountTotal;
+
+            document.getElementById('summary-event-total').innerText = `₹${totalTeam.toLocaleString()}`;
+            document.getElementById('summary-editing-total').innerText = `₹${totalEdit.toLocaleString()}`;
+            document.getElementById('summary-album-total').innerText = `₹${albumFinal.toLocaleString()}`;
+            document.getElementById('summary-gear-total').innerText = `₹${totalGear.toLocaleString()}`;
+            document.getElementById('summary-discount-total').innerText = `- ₹${discountTotal.toLocaleString()}`;
+            document.getElementById('final-total').innerText = `₹${Math.round(final).toLocaleString()}`;
+            document.getElementById('header-final-total').innerText = `₹${Math.round(final).toLocaleString()}`;
+            updatePrintInfo();
+        }
+
+        window.onload = () => render();
+    </script>
+</body>
+</html>

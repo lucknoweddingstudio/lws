@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="hi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,13 +9,13 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
-        
+
         /* Permanent Dark Theme Variables - High Contrast */
         :root {
             --glass: rgba(255, 255, 255, 0.08);
             --glass-border: rgba(255, 255, 255, 0.15);
             --bg-main: #020617;
-            --text-main: #cbd5e1; 
+            --text-main: #cbd5e1;
             --text-heading: #ffffff;
             --text-muted: rgba(255, 255, 255, 0.45);
             --card-bg: rgba(255, 255, 255, 0.02);
@@ -24,19 +25,22 @@
             --shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.6);
         }
 
-        body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            background: var(--bg-main); 
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg-main);
             color: var(--text-main);
             overflow-x: hidden;
             min-height: 100vh;
         }
-        
+
         .liquid-bg {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             z-index: -1;
-            background: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop'); 
+            background: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
             overflow: hidden;
@@ -47,8 +51,8 @@
             position: absolute;
             inset: 0;
             background: radial-gradient(circle at 30% 30%, rgba(99, 102, 241, var(--blob-opacity)), transparent),
-                        radial-gradient(circle at 70% 70%, rgba(168, 85, 247, var(--blob-opacity)), transparent),
-                        rgba(2, 6, 23, 0.9);
+                radial-gradient(circle at 70% 70%, rgba(168, 85, 247, var(--blob-opacity)), transparent),
+                rgba(2, 6, 23, 0.9);
         }
 
         .blob {
@@ -63,8 +67,13 @@
         }
 
         @keyframes move {
-            0% { transform: translate(-10%, -10%) rotate(0deg); }
-            100% { transform: translate(25%, 35%) rotate(360deg); }
+            0% {
+                transform: translate(-10%, -10%) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(25%, 35%) rotate(360deg);
+            }
         }
 
         .glass-panel {
@@ -107,11 +116,29 @@
         }
 
         /* Detail Animation */
-        .detail-expanded { max-height: 5000px; opacity: 1; padding-bottom: 2rem; transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
-        .detail-collapsed { max-height: 0; opacity: 0; overflow: hidden; padding-bottom: 0; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .detail-expanded {
+            max-height: 5000px;
+            opacity: 1;
+            padding-bottom: 2rem;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-        .custom-scroll::-webkit-scrollbar { width: 4px; }
-        .custom-scroll::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 10px; }
+        .detail-collapsed {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            padding-bottom: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .custom-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: var(--glass-border);
+            border-radius: 10px;
+        }
 
         #auth-overlay {
             position: fixed;
@@ -123,24 +150,74 @@
             background: rgba(2, 6, 23, 0.85);
             backdrop-filter: blur(20px);
         }
-        
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .animate-pop { animation: pop 0.3s ease-out; }
-        @keyframes pop {
-            0% { transform: scale(0.95); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
         }
 
-        .financial-label { color: var(--text-muted); font-weight: 700; }
-        
+        .animate-pop {
+            animation: pop 0.3s ease-out;
+        }
+
+        @keyframes pop {
+            0% {
+                transform: scale(0.95);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .financial-label {
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+
         /* Mobile Table Fix */
         @media (max-width: 768px) {
-            .ledger-table thead { display: none; }
-            .ledger-table, .ledger-table tbody, .ledger-table tr, .ledger-table td { display: block; width: 100%; }
-            .ledger-table tr { margin-bottom: 1.5rem; border-radius: 1.5rem; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); padding: 1rem; }
-            .ledger-table td { text-align: right; padding: 0.5rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); position: relative; }
-            .ledger-table td::before { content: attr(data-label); position: absolute; left: 1rem; font-weight: bold; text-transform: uppercase; font-size: 0.7rem; color: var(--accent); }
-            .ledger-table td:last-child { border-bottom: none; }
+            .ledger-table thead {
+                display: none;
+            }
+
+            .ledger-table,
+            .ledger-table tbody,
+            .ledger-table tr,
+            .ledger-table td {
+                display: block;
+                width: 100%;
+            }
+
+            .ledger-table tr {
+                margin-bottom: 1.5rem;
+                border-radius: 1.5rem;
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid var(--glass-border);
+                padding: 1rem;
+            }
+
+            .ledger-table td {
+                text-align: right;
+                padding: 0.5rem 1rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                position: relative;
+            }
+
+            .ledger-table td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 1rem;
+                font-weight: bold;
+                text-transform: uppercase;
+                font-size: 0.7rem;
+                color: var(--accent);
+            }
+
+            .ledger-table td:last-child {
+                border-bottom: none;
+            }
         }
     </style>
 
@@ -177,10 +254,10 @@
         };
 
         // --- GLOBAL FUNCTIONS ---
-        
+
         window.calculateModalProfit = () => {
             const form = document.getElementById('clientForm');
-            if(!form) return;
+            if (!form) return;
             const revenue = Number(form.cFinal.value || 0);
             const album = Number(form.cAlbum.value || 0);
             const edit = Number(form.cEdit.value || 0);
@@ -189,18 +266,18 @@
             document.querySelectorAll('.member-fee').forEach(input => staffTotal += Number(input.value || 0));
             const totalExp = staffTotal + album + edit + misc;
             const profit = revenue - totalExp;
-            
-            if(document.getElementById('modalRevDisplay')) document.getElementById('modalRevDisplay').innerText = revenue.toLocaleString();
-            if(document.getElementById('modalExpDisplay')) document.getElementById('modalExpDisplay').innerText = totalExp.toLocaleString();
-            
+
+            if (document.getElementById('modalRevDisplay')) document.getElementById('modalRevDisplay').innerText = revenue.toLocaleString();
+            if (document.getElementById('modalExpDisplay')) document.getElementById('modalExpDisplay').innerText = totalExp.toLocaleString();
+
             const profDisp = document.getElementById('modalProfitDisplay');
-            if(profDisp) {
+            if (profDisp) {
                 profDisp.innerText = profit.toLocaleString();
                 profDisp.className = profit >= 0 ? "text-xl font-black text-green-500" : "text-xl font-black text-red-500";
             }
-            
+
             const profHead = document.getElementById('modalProfitHeader');
-            if(profHead) {
+            if (profHead) {
                 profHead.innerText = "₹" + profit.toLocaleString();
                 profHead.className = profit >= 0 ? "text-green-500" : "text-red-500";
             }
@@ -208,14 +285,14 @@
 
         window.toggleModal = (id, show = true) => {
             const el = document.getElementById(id);
-            if(el) el.style.display = show ? 'flex' : 'none';
+            if (el) el.style.display = show ? 'flex' : 'none';
             if (!show) {
-                if(id === 'clientModal') {
+                if (id === 'clientModal') {
                     state.editingClientId = null;
                     document.getElementById('clientForm').reset();
                     document.getElementById('eventsContainer').innerHTML = '';
                 }
-                if(id === 'staffModal') {
+                if (id === 'staffModal') {
                     state.editingStaffId = null;
                     document.getElementById('staffForm').reset();
                 }
@@ -227,7 +304,7 @@
 
         window.toggleProjectDetail = (id) => {
             state.expandedProjectId = (state.expandedProjectId === id) ? null : id;
-            renderProjectList(); 
+            renderProjectList();
         };
 
         window.addTeamMemberSlot = (containerId, memberData = null) => {
@@ -365,16 +442,16 @@
             const margin = totalRev > 0 ? ((profit / totalRev) * 100).toFixed(1) : 0;
 
             // Hub Tab IDs
-            if(document.getElementById('dashRev')) document.getElementById('dashRev').innerText = `₹${totalRev.toLocaleString()}`;
-            if(document.getElementById('dashExp')) document.getElementById('dashExp').innerText = `₹${totalExp.toLocaleString()}`;
-            if(document.getElementById('dashProfit')) document.getElementById('dashProfit').innerText = `₹${profit.toLocaleString()}`;
-            if(document.getElementById('dashMargin')) document.getElementById('dashMargin').innerText = `${margin}%`;
+            if (document.getElementById('dashRev')) document.getElementById('dashRev').innerText = `₹${totalRev.toLocaleString()}`;
+            if (document.getElementById('dashExp')) document.getElementById('dashExp').innerText = `₹${totalExp.toLocaleString()}`;
+            if (document.getElementById('dashProfit')) document.getElementById('dashProfit').innerText = `₹${profit.toLocaleString()}`;
+            if (document.getElementById('dashMargin')) document.getElementById('dashMargin').innerText = `${margin}%`;
 
             // Ledger Tab Header IDs
-            if(document.getElementById('ledRev')) document.getElementById('ledRev').innerText = `₹${totalRev.toLocaleString()}`;
-            if(document.getElementById('ledExp')) document.getElementById('ledExp').innerText = `₹${totalExp.toLocaleString()}`;
-            if(document.getElementById('ledProf')) document.getElementById('ledProf').innerText = `₹${profit.toLocaleString()}`;
-            if(document.getElementById('ledMargin')) document.getElementById('ledMargin').innerText = `${margin}%`;
+            if (document.getElementById('ledRev')) document.getElementById('ledRev').innerText = `₹${totalRev.toLocaleString()}`;
+            if (document.getElementById('ledExp')) document.getElementById('ledExp').innerText = `₹${totalExp.toLocaleString()}`;
+            if (document.getElementById('ledProf')) document.getElementById('ledProf').innerText = `₹${profit.toLocaleString()}`;
+            if (document.getElementById('ledMargin')) document.getElementById('ledMargin').innerText = `${margin}%`;
         }
 
         function renderClientGrid() {
@@ -389,11 +466,11 @@
 
         function renderProjectList() {
             const container = document.getElementById('projectDetailedList');
-            if(!container) return;
+            if (!container) return;
             container.innerHTML = state.clients.map(c => {
                 const fin = getClientFinancials(c);
                 const isExpanded = state.expandedProjectId === c.id;
-                
+
                 return `
                     <div class="ios-card mb-6 overflow-hidden animate-pop shadow-md border border-indigo-500/10">
                         <div onclick="window.toggleProjectDetail('${c.id}')" class="p-8 cursor-pointer flex flex-wrap justify-between items-center gap-4 hover:bg-white/5 transition-all">
@@ -428,9 +505,9 @@
                                     <h5 class="text-[11px] font-black text-indigo-500 uppercase tracking-widest">Detailed Event Sequence</h5>
                                     <div class="space-y-4">
                                         ${(c.events || []).map((ev, idx) => {
-                                            const colors = ['border-indigo-500', 'border-purple-500', 'border-pink-500', 'border-blue-500'];
-                                            const colorClass = colors[idx % colors.length];
-                                            return `
+                    const colors = ['border-indigo-500', 'border-purple-500', 'border-pink-500', 'border-blue-500'];
+                    const colorClass = colors[idx % colors.length];
+                    return `
                                             <div class="p-5 rounded-[2rem] bg-slate-900/60 border-l-8 ${colorClass} shadow-md">
                                                 <div class="flex justify-between items-start mb-3">
                                                     <div><span class="text-xl font-black block heading-premium text-white leading-none mb-2">${ev.type}</span><span class="text-[10px] font-bold text-indigo-500 uppercase flex items-center gap-1"><i data-lucide="map-pin" size="10"></i>${ev.location || 'Lucknow'}</span></div>
@@ -440,7 +517,7 @@
                                                     ${(ev.team || []).map(m => `<div class="px-4 py-2 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center gap-2 shadow-sm transition-transform hover:scale-105"><div class="w-1.5 h-1.5 rounded-full bg-indigo-500 shadow-md"></div><span class="text-[10px] font-black text-slate-200">${m.name}</span></div>`).join('')}
                                                 </div>
                                             </div>`;
-                                        }).join('')}
+                }).join('')}
                                     </div>
                                 </div>
                             </div>
@@ -493,7 +570,7 @@
         };
 
         window.editStaff = (id) => {
-            const s = state.photographers.find(p => p.id === id); if(!s) return;
+            const s = state.photographers.find(p => p.id === id); if (!s) return;
             state.editingStaffId = id; const f = document.getElementById('staffForm');
             f.pName.value = s.name; f.pRole.value = s.role; f.pShort.value = s.shortFee; f.pFull.value = s.fullFee;
             document.getElementById('staffModalTitle').innerText = "Update Staff Node"; window.toggleModal('staffModal', true);
@@ -505,10 +582,10 @@
                 if (state.editingStaffId) await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'photographers', state.editingStaffId), d);
                 else await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'photographers'), d);
                 e.target.reset(); window.toggleModal('staffModal', false);
-            } catch(e) { alert("Action Failed"); }
+            } catch (e) { alert("Action Failed"); }
         };
 
-        window.deleteDocHandler = async (col, id) => { if(confirm("Confirm deletion?")) await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', col, id)); };
+        window.deleteDocHandler = async (col, id) => { if (confirm("Confirm deletion?")) await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', col, id)); };
 
         function renderStaffList() {
             const list = document.getElementById('staffList');
@@ -532,46 +609,67 @@
 
         window.switchTab = (tab) => {
             document.querySelectorAll('.tab-page').forEach(el => el.classList.add('hidden'));
-            const t = document.getElementById(tab + 'Tab'); if(t) t.classList.remove('hidden');
+            const t = document.getElementById(tab + 'Tab'); if (t) t.classList.remove('hidden');
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('tab-active', 'bg-indigo-600/20', 'text-indigo-500'));
-            const a = document.querySelector(`[data-tab="${tab}"]`); if(a) a.classList.add('tab-active', 'bg-indigo-600/20', 'text-indigo-500');
+            const a = document.querySelector(`[data-tab="${tab}"]`); if (a) a.classList.add('tab-active', 'bg-indigo-600/20', 'text-indigo-500');
         };
 
         window.saveMeta = async (e) => {
-            e.preventDefault(); const n = document.getElementById('metaName').value; if(!n) return;
+            e.preventDefault(); const n = document.getElementById('metaName').value; if (!n) return;
             await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'event_meta'), { name: n });
             document.getElementById('metaName').value = '';
         };
 
     </script>
 </head>
+
 <body class="custom-scroll">
     <div class="liquid-bg">
-        <div class="blob" style="top: -10%; left: -10%; background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(236, 72, 153, 0.3));"></div>
-        <div class="blob" style="bottom: -10%; right: -10%; animation-duration: 30s; animation-delay: -5s; background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(59, 130, 246, 0.3));"></div>
+        <div class="blob"
+            style="top: -10%; left: -10%; background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(236, 72, 153, 0.3));">
+        </div>
+        <div class="blob"
+            style="bottom: -10%; right: -10%; animation-duration: 30s; animation-delay: -5s; background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(59, 130, 246, 0.3));">
+        </div>
     </div>
 
     <!-- AUTH OVERLAY - Perfectly Centered -->
     <div id="auth-overlay">
-        <div class="glass-panel p-10 sm:p-14 rounded-[3.5rem] w-full max-w-md border border-white/20 shadow-2xl animate-pop mx-4 text-center">
-            <div class="w-16 h-16 btn-ios rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl"><i data-lucide="camera" class="text-white" size="32"></i></div>
+        <div
+            class="glass-panel p-10 sm:p-14 rounded-[3.5rem] w-full max-w-md border border-white/20 shadow-2xl animate-pop mx-4 text-center">
+            <div class="w-16 h-16 btn-ios rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl"><i
+                    data-lucide="camera" class="text-white" size="32"></i></div>
             <h1 class="text-3xl font-black tracking-tighter text-white leading-tight">Lucknow Wedding Studio</h1>
-            <p class="opacity-50 text-[10px] font-bold uppercase tracking-[0.2em] mt-2 mb-10 text-white/70">Authorized Access Only</p>
+            <p class="opacity-50 text-[10px] font-bold uppercase tracking-[0.2em] mt-2 mb-10 text-white/70">Authorized
+                Access Only</p>
             <form id="login-form" onsubmit="window.handleLogin(event)" class="space-y-6">
-                <input name="email" type="email" placeholder="Email Address" required class="w-full p-4 input-ios text-sm font-medium">
-                <input name="password" type="password" placeholder="Password" required class="w-full p-4 input-ios text-sm font-medium">
-                <button type="submit" class="w-full py-4 btn-ios text-white font-black rounded-2xl uppercase tracking-widest text-[11px] shadow-2xl transition-transform active:scale-95">Sign In Access</button>
-                <p class="text-center text-[11px] opacity-40 font-bold uppercase tracking-wider mt-4 text-white/50">Node? <button type="button" onclick="window.showAuthView('register')" class="text-indigo-500 font-black">Register</button></p>
+                <input name="email" type="email" placeholder="Email Address" required
+                    class="w-full p-4 input-ios text-sm font-medium">
+                <input name="password" type="password" placeholder="Password" required
+                    class="w-full p-4 input-ios text-sm font-medium">
+                <button type="submit"
+                    class="w-full py-4 btn-ios text-white font-black rounded-2xl uppercase tracking-widest text-[11px] shadow-2xl transition-transform active:scale-95">Sign
+                    In Access</button>
+                <p class="text-center text-[11px] opacity-40 font-bold uppercase tracking-wider mt-4 text-white/50">
+                    Node? <button type="button" onclick="window.showAuthView('register')"
+                        class="text-indigo-500 font-black">Register</button></p>
             </form>
             <form id="register-form" onsubmit="window.handleRegister(event)" class="space-y-5 hidden">
-                <input name="email" type="email" placeholder="Studio Email" required class="w-full p-4 input-ios text-sm font-medium">
-                <input name="password" type="password" placeholder="Access Key" required class="w-full p-4 input-ios text-sm font-medium">
+                <input name="email" type="email" placeholder="Studio Email" required
+                    class="w-full p-4 input-ios text-sm font-medium">
+                <input name="password" type="password" placeholder="Access Key" required
+                    class="w-full p-4 input-ios text-sm font-medium">
                 <div class="p-4 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-left">
                     <label class="text-[9px] font-black uppercase text-indigo-500 block mb-1">Verification Code</label>
-                    <input name="secret_code" placeholder="lws..." required class="w-full bg-transparent border-none outline-none font-bold text-lg text-white">
+                    <input name="secret_code" placeholder="lws..." required
+                        class="w-full bg-transparent border-none outline-none font-bold text-lg text-white">
                 </div>
-                <button type="submit" class="w-full py-4 btn-ios text-white font-black rounded-2xl uppercase tracking-widest text-[11px]">Request Account</button>
-                <button type="button" onclick="window.showAuthView('login')" class="w-full text-center text-[10px] font-bold opacity-40 uppercase mt-4 text-white/50">Back to Login</button>
+                <button type="submit"
+                    class="w-full py-4 btn-ios text-white font-black rounded-2xl uppercase tracking-widest text-[11px]">Request
+                    Account</button>
+                <button type="button" onclick="window.showAuthView('login')"
+                    class="w-full text-center text-[10px] font-bold opacity-40 uppercase mt-4 text-white/50">Back to
+                    Login</button>
             </form>
         </div>
     </div>
@@ -579,21 +677,34 @@
     <!-- MAIN APP CONTENT -->
     <div id="app-content" class="hidden min-h-screen pb-20">
         <!-- Responsive Header -->
-        <nav class="sticky top-2 z-50 glass-panel mx-2 sm:mx-6 my-2 px-4 sm:px-8 py-3 flex flex-col sm:flex-row justify-between items-center rounded-[1.5rem] sm:rounded-[2.5rem] border border-white/20 shadow-2xl gap-3 sm:gap-4">
+        <nav
+            class="sticky top-2 z-50 glass-panel mx-2 sm:mx-6 my-2 px-4 sm:px-8 py-3 flex flex-col sm:flex-row justify-between items-center rounded-[1.5rem] sm:rounded-[2.5rem] border border-white/20 shadow-2xl gap-3 sm:gap-4">
             <div class="flex items-center gap-3 w-full sm:w-auto">
-                <div class="w-10 h-10 btn-ios rounded-2xl flex items-center justify-center text-white shadow-lg"><i data-lucide="camera" size="20"></i></div>
-                <div><h1 class="text-sm sm:text-lg font-black tracking-tight uppercase leading-none text-white">Lucknow Wedding Studio</h1><p class="text-[8px] font-bold text-indigo-400 uppercase tracking-widest mt-1">Authorized Hub</p></div>
+                <div class="w-10 h-10 btn-ios rounded-2xl flex items-center justify-center text-white shadow-lg"><i
+                        data-lucide="camera" size="20"></i></div>
+                <div>
+                    <h1 class="text-sm sm:text-lg font-black tracking-tight uppercase leading-none text-white">Lucknow
+                        Wedding Studio</h1>
+                    <p class="text-[8px] font-bold text-indigo-400 uppercase tracking-widest mt-1">Authorized Hub</p>
+                </div>
             </div>
             <div class="flex items-center gap-2 w-full sm:w-auto overflow-x-auto no-scrollbar py-1">
                 <div class="flex p-1 bg-white/5 rounded-2xl border border-white/10 w-full shadow-inner">
-                    <button onclick="window.switchTab('dash')" data-tab="dash" class="nav-btn flex-1 whitespace-nowrap px-4 sm:px-8 py-2 rounded-xl text-[9px] sm:text-[11px] font-black uppercase tracking-widest tab-active bg-indigo-600/20 text-indigo-500 transition-all">Hub</button>
-                    <button onclick="window.switchTab('projects')" data-tab="projects" class="nav-btn flex-1 whitespace-nowrap px-4 sm:px-8 py-2 rounded-xl text-[9px] sm:text-[11px] font-black uppercase tracking-widest text-slate-400 transition-all">Assignments</button>
-                    <button onclick="window.switchTab('finance')" data-tab="finance" class="nav-btn flex-1 whitespace-nowrap px-4 sm:px-8 py-2 rounded-xl text-[9px] sm:text-[11px] font-black uppercase tracking-widest text-slate-400 transition-all">Ledger</button>
+                    <button onclick="window.switchTab('dash')" data-tab="dash"
+                        class="nav-btn flex-1 whitespace-nowrap px-4 sm:px-8 py-2 rounded-xl text-[9px] sm:text-[11px] font-black uppercase tracking-widest tab-active bg-indigo-600/20 text-indigo-500 transition-all">Hub</button>
+                    <button onclick="window.switchTab('projects')" data-tab="projects"
+                        class="nav-btn flex-1 whitespace-nowrap px-4 sm:px-8 py-2 rounded-xl text-[9px] sm:text-[11px] font-black uppercase tracking-widest text-slate-400 transition-all">Assignments</button>
+                    <button onclick="window.switchTab('finance')" data-tab="finance"
+                        class="nav-btn flex-1 whitespace-nowrap px-4 sm:px-8 py-2 rounded-xl text-[9px] sm:text-[11px] font-black uppercase tracking-widest text-slate-400 transition-all">Ledger</button>
                 </div>
             </div>
             <div class="flex items-center gap-2 absolute sm:relative top-3 right-4 sm:top-0 sm:right-0">
-                <button onclick="window.toggleModal('metaModal')" class="w-9 h-9 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 opacity-60"><i data-lucide="settings" size="16" class="text-white"></i></button>
-                <button onclick="window.handleLogout()" class="w-9 h-9 flex items-center justify-center rounded-xl bg-red-500/10 border border-red-500/20 text-red-500"><i data-lucide="log-out" size="16"></i></button>
+                <button onclick="window.toggleModal('metaModal')"
+                    class="w-9 h-9 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 opacity-60"><i
+                        data-lucide="settings" size="16" class="text-white"></i></button>
+                <button onclick="window.handleLogout()"
+                    class="w-9 h-9 flex items-center justify-center rounded-xl bg-red-500/10 border border-red-500/20 text-red-500"><i
+                        data-lucide="log-out" size="16"></i></button>
             </div>
         </nav>
 
@@ -603,24 +714,57 @@
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-8 px-2">
                     <div>
                         <h2 class="text-3xl sm:text-7xl font-black tracking-tighter text-white">Studio Hub</h2>
-                        <p class="opacity-50 font-bold mt-2 text-indigo-500 uppercase tracking-widest text-xs"> Lucknow Wedding Studio Node.</p>
+                        <p class="opacity-50 font-bold mt-2 text-indigo-500 uppercase tracking-widest text-xs"> Lucknow
+                            Wedding Studio Node.</p>
                     </div>
                     <div class="flex gap-3 w-full sm:w-auto">
-                        <button onclick="window.toggleModal('staffModal')" class="flex-1 sm:flex-none bg-indigo-500/10 px-6 py-4 rounded-[1.2rem] border border-indigo-500/20 font-black text-[10px] text-indigo-500 uppercase shadow-xl">Team Registry</button>
-                        <button onclick="window.toggleModal('clientModal')" class="flex-1 sm:flex-none btn-ios text-white px-8 py-4 rounded-[1.2rem] font-black shadow-2xl uppercase text-[10px] tracking-widest">+ Project</button>
+                        <button onclick="window.toggleModal('staffModal')"
+                            class="flex-1 sm:flex-none bg-indigo-500/10 px-6 py-4 rounded-[1.2rem] border border-indigo-500/20 font-black text-[10px] text-indigo-500 uppercase shadow-xl">Team
+                            Registry</button>
+                        <button onclick="window.toggleModal('clientModal')"
+                            class="flex-1 sm:flex-none btn-ios text-white px-8 py-4 rounded-[1.2rem] font-black shadow-2xl uppercase text-[10px] tracking-widest">+
+                            Project</button>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 px-2 mb-10">
-                    <div class="glass-panel p-4 sm:p-10 rounded-[1.5rem] border border-white/10"><p class="label-premium mb-1 text-[8px] sm:text-[10px]">Total Billing</p><h3 id="dashRev" class="text-lg sm:text-4xl font-black text-white truncate">₹0</h3></div>
-                    <div class="glass-panel p-4 sm:p-10 rounded-[1.5rem] border border-white/10"><p class="label-premium mb-1 text-orange-600 text-[8px] sm:text-[10px]">Total Costs</p><h3 id="dashExp" class="text-lg sm:text-4xl font-black text-orange-600 font-bold truncate">₹0</h3></div>
-                    <div class="glass-panel p-4 sm:p-10 rounded-[1.5rem] border border-green-500/20 shadow-sm"><p class="label-premium mb-1 text-green-600 font-bold text-[8px] sm:text-[10px]">Net Profit</p><h3 id="dashProfit" class="text-lg sm:text-4xl font-black text-green-600 truncate font-black">₹0</h3></div>
-                    <div class="glass-panel p-4 sm:p-10 rounded-[1.5rem] border border-white/10"><p class="label-premium mb-1 text-[8px] sm:text-[10px]">Margin %</p><h3 id="dashMargin" class="text-lg sm:text-4xl font-black text-white truncate">0%</h3></div>
+                    <div class="glass-panel p-4 sm:p-10 rounded-[1.5rem] border border-white/10">
+                        <p class="label-premium mb-1 text-[8px] sm:text-[10px]">Total Billing</p>
+                        <h3 id="dashRev" class="text-lg sm:text-4xl font-black text-white truncate">₹0</h3>
+                    </div>
+                    <div class="glass-panel p-4 sm:p-10 rounded-[1.5rem] border border-white/10">
+                        <p class="label-premium mb-1 text-orange-600 text-[8px] sm:text-[10px]">Total Costs</p>
+                        <h3 id="dashExp" class="text-lg sm:text-4xl font-black text-orange-600 font-bold truncate">₹0
+                        </h3>
+                    </div>
+                    <div class="glass-panel p-4 sm:p-10 rounded-[1.5rem] border border-green-500/20 shadow-sm">
+                        <p class="label-premium mb-1 text-green-600 font-bold text-[8px] sm:text-[10px]">Net Profit</p>
+                        <h3 id="dashProfit" class="text-lg sm:text-4xl font-black text-green-600 truncate font-black">₹0
+                        </h3>
+                    </div>
+                    <div class="glass-panel p-4 sm:p-10 rounded-[1.5rem] border border-white/10">
+                        <p class="label-premium mb-1 text-[8px] sm:text-[10px]">Margin %</p>
+                        <h3 id="dashMargin" class="text-lg sm:text-4xl font-black text-white truncate">0%</h3>
+                    </div>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-10 px-2">
-                    <div class="lg:col-span-3"><div class="glass-panel p-6 sm:p-8 rounded-[2rem] border border-white/10 shadow-md"><h3 class="font-black text-[10px] uppercase tracking-widest opacity-40 mb-6 text-indigo-500">Registry</h3><div id="staffList" class="space-y-3 max-h-[400px] overflow-y-auto custom-scroll pr-2"></div></div></div>
-                    <div class="lg:col-span-9"><h3 class="font-black text-[10px] uppercase tracking-widest opacity-40 mb-6 ml-1 text-indigo-500 font-black">Quick View Grid</h3><div id="clientGrid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-8"></div></div>
+                    <div class="lg:col-span-3">
+                        <div class="glass-panel p-6 sm:p-8 rounded-[2rem] border border-white/10 shadow-md">
+                            <h3
+                                class="font-black text-[10px] uppercase tracking-widest opacity-40 mb-6 text-indigo-500">
+                                Registry</h3>
+                            <div id="staffList" class="space-y-3 max-h-[400px] overflow-y-auto custom-scroll pr-2">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-9">
+                        <h3
+                            class="font-black text-[10px] uppercase tracking-widest opacity-40 mb-6 ml-1 text-indigo-500 font-black">
+                            Quick View Grid</h3>
+                        <div id="clientGrid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-8">
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -628,36 +772,65 @@
             <section id="projectsTab" class="tab-page hidden animate-in slide-in-from-bottom-6 duration-700 px-2">
                 <div class="mb-8">
                     <h2 class="text-4xl sm:text-6xl font-black tracking-tighter text-white">Assignments</h2>
-                    <p class="opacity-50 font-bold mt-2 text-sm text-slate-400">Micro-financial audit and event mapping nodes.</p>
+                    <p class="opacity-50 font-bold mt-2 text-sm text-slate-400">Micro-financial audit and event mapping
+                        nodes.</p>
                 </div>
                 <div id="projectDetailedList" class="space-y-6"></div>
             </section>
 
             <!-- LEDGER SECTION - RESTRICTED H-SCROLL -->
             <section id="financeTab" class="tab-page hidden animate-in slide-in-from-bottom-6 px-2">
-                <div class="glass-panel rounded-[2rem] sm:rounded-[3.5rem] overflow-hidden border border-white/10 shadow-2xl">
+                <div
+                    class="glass-panel rounded-[2rem] sm:rounded-[3.5rem] overflow-hidden border border-white/10 shadow-2xl">
                     <div class="p-6 sm:p-12 border-b border-white/10 bg-white/5">
                         <h2 class="text-2xl sm:text-5xl font-black tracking-tight text-white mb-6">Financial Ledger</h2>
-                        
+
                         <!-- Header Stats for Ledger as requested -->
                         <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-2">
-                            <div class="bg-indigo-600/10 p-4 rounded-2xl border border-indigo-600/20"><p class="text-[8px] sm:text-[10px] font-black uppercase text-indigo-400 mb-1">Total Billing</p><h3 id="ledRev" class="text-lg sm:text-3xl font-black text-white">₹0</h3></div>
-                            <div class="bg-red-600/10 p-4 rounded-2xl border border-red-600/20"><p class="text-[8px] sm:text-[10px] font-black uppercase text-red-400 mb-1">Total Costs</p><h3 id="ledExp" class="text-lg sm:text-3xl font-black text-red-500">₹0</h3></div>
-                            <div class="bg-green-600/10 p-4 rounded-2xl border border-green-600/20"><p class="text-[8px] sm:text-[10px] font-black uppercase text-green-400 mb-1">Total Profit</p><h3 id="ledProf" class="text-lg sm:text-3xl font-black text-green-600">₹0</h3></div>
-                            <div class="bg-white/5 p-4 rounded-2xl border border-white/10"><p class="text-[8px] sm:text-[10px] font-black uppercase text-white/50 mb-1">Efficiency</p><h3 id="ledMargin" class="text-lg sm:text-3xl font-black text-white">0%</h3></div>
+                            <div class="bg-indigo-600/10 p-4 rounded-2xl border border-indigo-600/20">
+                                <p class="text-[8px] sm:text-[10px] font-black uppercase text-indigo-400 mb-1">Total
+                                    Billing</p>
+                                <h3 id="ledRev" class="text-lg sm:text-3xl font-black text-white">₹0</h3>
+                            </div>
+                            <div class="bg-red-600/10 p-4 rounded-2xl border border-red-600/20">
+                                <p class="text-[8px] sm:text-[10px] font-black uppercase text-red-400 mb-1">Total Costs
+                                </p>
+                                <h3 id="ledExp" class="text-lg sm:text-3xl font-black text-red-500">₹0</h3>
+                            </div>
+                            <div class="bg-green-600/10 p-4 rounded-2xl border border-green-600/20">
+                                <p class="text-[8px] sm:text-[10px] font-black uppercase text-green-400 mb-1">Total
+                                    Profit</p>
+                                <h3 id="ledProf" class="text-lg sm:text-3xl font-black text-green-600">₹0</h3>
+                            </div>
+                            <div class="bg-white/5 p-4 rounded-2xl border border-white/10">
+                                <p class="text-[8px] sm:text-[10px] font-black uppercase text-white/50 mb-1">Efficiency
+                                </p>
+                                <h3 id="ledMargin" class="text-lg sm:text-3xl font-black text-white">0%</h3>
+                            </div>
                         </div>
                     </div>
-                    
+
                     <div class="p-2 sm:p-6">
                         <table class="w-full text-left ledger-table">
                             <thead class="bg-indigo-500/5">
                                 <tr>
-                                    <th class="px-10 py-8 text-[9px] font-black opacity-50 uppercase tracking-widest text-white/70">Client Node</th>
-                                    <th class="px-10 py-8 text-[9px] font-black text-indigo-500 uppercase tracking-widest">Revenue</th>
-                                    <th class="px-10 py-8 text-[9px] font-black text-red-400 uppercase tracking-widest">Expenses</th>
-                                    <th class="px-10 py-8 text-[9px] font-black text-green-500 uppercase tracking-widest">Profit</th>
-                                    <th class="px-10 py-8 text-[9px] font-black opacity-50 uppercase tracking-widest text-slate-400 font-bold">Received</th>
-                                    <th class="px-10 py-8 text-[9px] font-black text-orange-500 uppercase tracking-widest">Remaining</th>
+                                    <th
+                                        class="px-10 py-8 text-[9px] font-black opacity-50 uppercase tracking-widest text-white/70">
+                                        Client Node</th>
+                                    <th
+                                        class="px-10 py-8 text-[9px] font-black text-indigo-500 uppercase tracking-widest">
+                                        Revenue</th>
+                                    <th class="px-10 py-8 text-[9px] font-black text-red-400 uppercase tracking-widest">
+                                        Expenses</th>
+                                    <th
+                                        class="px-10 py-8 text-[9px] font-black text-green-500 uppercase tracking-widest">
+                                        Profit</th>
+                                    <th
+                                        class="px-10 py-8 text-[9px] font-black opacity-50 uppercase tracking-widest text-slate-400 font-bold">
+                                        Received</th>
+                                    <th
+                                        class="px-10 py-8 text-[9px] font-black text-orange-500 uppercase tracking-widest">
+                                        Remaining</th>
                                 </tr>
                             </thead>
                             <tbody id="financeRows" class="text-sm font-medium"></tbody>
@@ -669,37 +842,160 @@
     </div>
 
     <!-- MODAL - PROJECT WORKSPACE -->
-    <div id="clientModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-xl z-[100] hidden items-center justify-center p-2 sm:p-4">
-        <div class="glass-panel w-full max-w-4xl rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col max-h-[96vh] border border-white/20 animate-pop">
+    <div id="clientModal"
+        class="fixed inset-0 bg-slate-950/90 backdrop-blur-xl z-[100] hidden items-center justify-center p-2 sm:p-4">
+        <div
+            class="glass-panel w-full max-w-4xl rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col max-h-[96vh] border border-white/20 animate-pop">
             <header class="p-5 sm:p-8 border-b border-white/10 flex justify-between items-center bg-white/5 text-white">
-                <div><h3 class="text-2xl sm:text-4xl font-black tracking-tighter">Assignment Node</h3><p class="text-[10px] font-bold text-green-500 uppercase mt-1">Live Audit: <span id="modalProfitHeader">₹0</span></p></div>
-                <button onclick="window.toggleModal('clientModal', false)" class="p-2.5 bg-white/5 hover:bg-white/10 rounded-full text-white"><i data-lucide="x" size="20"></i></button>
-            </header>
-            <form id="clientForm" onsubmit="window.saveClient(event)" class="overflow-y-auto p-5 sm:p-10 custom-scroll space-y-10">
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-                    <div class="bg-indigo-500/5 p-5 rounded-[1.5rem] border border-indigo-500/10 shadow-sm"><p class="text-[9px] font-black uppercase opacity-40">Billing</p><p class="text-2xl font-black text-indigo-500">₹<span id="modalRevDisplay">0</span></p></div>
-                    <div class="bg-red-500/5 p-5 rounded-[1.5rem] border border-red-100 shadow-sm"><p class="text-[9px] font-black uppercase opacity-40 text-red-400">Costs</p><p class="text-2xl font-black text-red-500">₹<span id="modalExpDisplay">0</span></p></div>
-                    <div class="bg-green-500/5 p-5 rounded-[1.5rem] border border-green-100 shadow-sm"><p class="text-[9px] font-black uppercase opacity-40 text-green-500 font-black">Profit</p><p id="modalProfitDisplay" class="text-2xl font-black text-green-500">₹0</p></div>
+                <div>
+                    <h3 class="text-2xl sm:text-4xl font-black tracking-tighter">Assignment Node</h3>
+                    <p class="text-[10px] font-bold text-green-500 uppercase mt-1">Live Audit: <span
+                            id="modalProfitHeader">₹0</span></p>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div class="space-y-2"><label class="label-premium ml-5 font-bold text-[9px]">Client Identity</label><input name="cName" required class="w-full p-4 input-ios font-bold text-base rounded-[1.2rem] text-slate-100" placeholder="Name"></div><div class="space-y-2"><label class="label-premium ml-5 font-bold text-[9px]">Contact Access</label><input name="cContact" class="w-full p-4 input-ios font-bold text-base rounded-[1.2rem] text-slate-100" placeholder="+91 ..."></div></div>
-                <div class="ios-card p-6 sm:p-8 bg-indigo-600/10 border-indigo-500/30 shadow-xl"><div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-white"><div class="space-y-3"><label class="text-[9px] font-black uppercase text-indigo-300 tracking-[0.2em] ml-2">Total Contract Billing</label><div class="flex items-center gap-4 bg-black/10 p-4 rounded-[1.5rem] border border-white/5"><span class="text-2xl font-black text-indigo-300">₹</span><input name="cFinal" type="number" oninput="window.calculateModalProfit()" required class="bg-transparent text-4xl font-black w-full outline-none text-white tracking-tighter" placeholder="0"></div></div><div class="space-y-3"><label class="text-[9px] font-black uppercase text-green-400 tracking-[0.2em] ml-2 font-bold">Advance Deposit</label><div class="flex items-center gap-4 bg-black/10 p-4 rounded-[1.5rem] border border-white/5"><span class="text-2xl font-black text-green-500 font-bold">₹</span><input name="cAdvance" type="number" oninput="window.calculateModalProfit()" class="bg-transparent text-4xl font-black w-full outline-none text-green-400 tracking-tighter" placeholder="0"></div></div></div></div>
-                <div class="space-y-8"><div class="flex justify-between items-center px-4"><h4 class="text-xs font-black uppercase text-white tracking-widest opacity-60">Event Timeline sequences</h4><button type="button" onclick="window.addEventSlot()" class="px-5 py-2.5 bg-indigo-500 text-white rounded-xl text-[9px] font-black uppercase tracking-widest shadow-lg active:scale-95">+ Add Event</button></div><div id="eventsContainer" class="space-y-6"></div></div>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6"><div class="space-y-2"><label class="label-premium ml-5 font-bold text-[9px]">Album Cost</label><input name="cAlbum" type="number" oninput="window.calculateModalProfit()" placeholder="₹ 0" class="p-4 input-ios w-full font-bold rounded-2xl text-slate-100"></div><div class="space-y-2"><label class="label-premium ml-5 font-bold text-[9px]">Post-Prod Node</label><input name="cEdit" type="number" oninput="window.calculateModalProfit()" placeholder="₹ 0" class="p-4 input-ios w-full font-bold rounded-2xl text-slate-100"></div><div class="space-y-2"><label class="label-premium ml-5 font-bold text-[9px]">Misc Exp Node</label><input name="cMisc" type="number" oninput="window.calculateModalProfit()" placeholder="₹ 0" class="p-4 input-ios w-full font-bold rounded-2xl text-slate-100"></div></div>
-                <div class="space-y-6"><h4 class="font-black text-xl ml-4 opacity-40 uppercase text-[10px] tracking-widest text-white font-bold">Contract Milestones</h4><div class="grid grid-cols-2 md:grid-cols-4 gap-4"><input name="i1" type="number" oninput="window.calculateModalProfit()" placeholder="M1" class="p-4 input-ios font-bold rounded-2xl text-xs text-slate-100 text-center"><input name="i2" type="number" oninput="window.calculateModalProfit()" placeholder="M2" class="p-4 input-ios font-bold rounded-2xl text-xs text-slate-100 text-center"><input name="i3" type="number" oninput="window.calculateModalProfit()" placeholder="M3" class="p-4 input-ios font-bold rounded-2xl text-xs text-slate-100 text-center"><input name="i4" type="number" oninput="window.calculateModalProfit()" placeholder="M4" class="p-4 input-ios font-bold rounded-2xl text-xs text-slate-100 text-center"></div></div>
-                <div class="pt-8 flex flex-col sm:flex-row gap-4 sticky bottom-0 bg-transparent backdrop-blur-3xl p-6 rounded-3xl border border-white/10 shadow-2xl transition-all"><button type="submit" class="flex-1 py-5 btn-ios text-white font-black rounded-3xl shadow-2xl uppercase tracking-widest text-[11px] transition-transform hover:scale-[1.02]">Commit Assignment</button><button type="button" onclick="window.toggleModal('clientModal', false)" class="px-10 py-5 bg-white/5 border border-white/10 opacity-60 font-bold rounded-3xl uppercase tracking-widest text-[10px] text-white hover:bg-white/10">Discard Node</button></div>
+                <button onclick="window.toggleModal('clientModal', false)"
+                    class="p-2.5 bg-white/5 hover:bg-white/10 rounded-full text-white"><i data-lucide="x"
+                        size="20"></i></button>
+            </header>
+            <form id="clientForm" onsubmit="window.saveClient(event)"
+                class="overflow-y-auto p-5 sm:p-10 custom-scroll space-y-10">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+                    <div class="bg-indigo-500/5 p-5 rounded-[1.5rem] border border-indigo-500/10 shadow-sm">
+                        <p class="text-[9px] font-black uppercase opacity-40">Billing</p>
+                        <p class="text-2xl font-black text-indigo-500">₹<span id="modalRevDisplay">0</span></p>
+                    </div>
+                    <div class="bg-red-500/5 p-5 rounded-[1.5rem] border border-red-100 shadow-sm">
+                        <p class="text-[9px] font-black uppercase opacity-40 text-red-400">Costs</p>
+                        <p class="text-2xl font-black text-red-500">₹<span id="modalExpDisplay">0</span></p>
+                    </div>
+                    <div class="bg-green-500/5 p-5 rounded-[1.5rem] border border-green-100 shadow-sm">
+                        <p class="text-[9px] font-black uppercase opacity-40 text-green-500 font-black">Profit</p>
+                        <p id="modalProfitDisplay" class="text-2xl font-black text-green-500">₹0</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-2"><label class="label-premium ml-5 font-bold text-[9px]">Client
+                            Identity</label><input name="cName" required
+                            class="w-full p-4 input-ios font-bold text-base rounded-[1.2rem] text-slate-100"
+                            placeholder="Name"></div>
+                    <div class="space-y-2"><label class="label-premium ml-5 font-bold text-[9px]">Contact
+                            Access</label><input name="cContact"
+                            class="w-full p-4 input-ios font-bold text-base rounded-[1.2rem] text-slate-100"
+                            placeholder="+91 ..."></div>
+                </div>
+                <div class="ios-card p-6 sm:p-8 bg-indigo-600/10 border-indigo-500/30 shadow-xl">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-white">
+                        <div class="space-y-3"><label
+                                class="text-[9px] font-black uppercase text-indigo-300 tracking-[0.2em] ml-2">Total
+                                Contract Billing</label>
+                            <div class="flex items-center gap-4 bg-black/10 p-4 rounded-[1.5rem] border border-white/5">
+                                <span class="text-2xl font-black text-indigo-300">₹</span><input name="cFinal"
+                                    type="number" oninput="window.calculateModalProfit()" required
+                                    class="bg-transparent text-4xl font-black w-full outline-none text-white tracking-tighter"
+                                    placeholder="0"></div>
+                        </div>
+                        <div class="space-y-3"><label
+                                class="text-[9px] font-black uppercase text-green-400 tracking-[0.2em] ml-2 font-bold">Advance
+                                Deposit</label>
+                            <div class="flex items-center gap-4 bg-black/10 p-4 rounded-[1.5rem] border border-white/5">
+                                <span class="text-2xl font-black text-green-500 font-bold">₹</span><input
+                                    name="cAdvance" type="number" oninput="window.calculateModalProfit()"
+                                    class="bg-transparent text-4xl font-black w-full outline-none text-green-400 tracking-tighter"
+                                    placeholder="0"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-8">
+                    <div class="flex justify-between items-center px-4">
+                        <h4 class="text-xs font-black uppercase text-white tracking-widest opacity-60">Event Timeline
+                            sequences</h4><button type="button" onclick="window.addEventSlot()"
+                            class="px-5 py-2.5 bg-indigo-500 text-white rounded-xl text-[9px] font-black uppercase tracking-widest shadow-lg active:scale-95">+
+                            Add Event</button>
+                    </div>
+                    <div id="eventsContainer" class="space-y-6"></div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <div class="space-y-2"><label class="label-premium ml-5 font-bold text-[9px]">Album
+                            Cost</label><input name="cAlbum" type="number" oninput="window.calculateModalProfit()"
+                            placeholder="₹ 0" class="p-4 input-ios w-full font-bold rounded-2xl text-slate-100"></div>
+                    <div class="space-y-2"><label class="label-premium ml-5 font-bold text-[9px]">Post-Prod
+                            Node</label><input name="cEdit" type="number" oninput="window.calculateModalProfit()"
+                            placeholder="₹ 0" class="p-4 input-ios w-full font-bold rounded-2xl text-slate-100"></div>
+                    <div class="space-y-2"><label class="label-premium ml-5 font-bold text-[9px]">Misc Exp
+                            Node</label><input name="cMisc" type="number" oninput="window.calculateModalProfit()"
+                            placeholder="₹ 0" class="p-4 input-ios w-full font-bold rounded-2xl text-slate-100"></div>
+                </div>
+                <div class="space-y-6">
+                    <h4
+                        class="font-black text-xl ml-4 opacity-40 uppercase text-[10px] tracking-widest text-white font-bold">
+                        Contract Milestones</h4>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4"><input name="i1" type="number"
+                            oninput="window.calculateModalProfit()" placeholder="M1"
+                            class="p-4 input-ios font-bold rounded-2xl text-xs text-slate-100 text-center"><input
+                            name="i2" type="number" oninput="window.calculateModalProfit()" placeholder="M2"
+                            class="p-4 input-ios font-bold rounded-2xl text-xs text-slate-100 text-center"><input
+                            name="i3" type="number" oninput="window.calculateModalProfit()" placeholder="M3"
+                            class="p-4 input-ios font-bold rounded-2xl text-xs text-slate-100 text-center"><input
+                            name="i4" type="number" oninput="window.calculateModalProfit()" placeholder="M4"
+                            class="p-4 input-ios font-bold rounded-2xl text-xs text-slate-100 text-center"></div>
+                </div>
+                <div
+                    class="pt-8 flex flex-col sm:flex-row gap-4 sticky bottom-0 bg-transparent backdrop-blur-3xl p-6 rounded-3xl border border-white/10 shadow-2xl transition-all">
+                    <button type="submit"
+                        class="flex-1 py-5 btn-ios text-white font-black rounded-3xl shadow-2xl uppercase tracking-widest text-[11px] transition-transform hover:scale-[1.02]">Commit
+                        Assignment</button><button type="button" onclick="window.toggleModal('clientModal', false)"
+                        class="px-10 py-5 bg-white/5 border border-white/10 opacity-60 font-bold rounded-3xl uppercase tracking-widest text-[10px] text-white hover:bg-white/10">Discard
+                        Node</button></div>
             </form>
         </div>
     </div>
 
     <!-- STAFF MODAL -->
-    <div id="staffModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-xl z-[101] hidden items-center justify-center p-4">
-        <div class="glass-panel p-8 sm:p-12 rounded-[2.5rem] shadow-2xl w-full max-w-md border border-white/20 animate-pop text-white"><h3 id="staffModalTitle" class="text-3xl font-black mb-8 tracking-tighter text-white">Staff Node</h3><form id="staffForm" onsubmit="window.saveStaff(event)" class="space-y-6"><input name="pName" placeholder="Full Name" required class="w-full p-4 input-ios font-bold rounded-xl text-slate-100"><input name="pRole" placeholder="Skill Tag" required class="w-full p-4 input-ios rounded-xl text-slate-100"><div class="grid grid-cols-2 gap-4"><div class="space-y-1"><label class="label-premium text-orange-500 font-bold text-[9px]">Short Node</label><input name="pShort" type="number" required class="w-full p-4 rounded-xl bg-orange-500/10 border border-orange-500/20 font-black text-orange-500 outline-none shadow-inner"></div><div class="space-y-1"><label class="label-premium text-green-500 font-bold text-[9px]">Full Node</label><input name="pFull" type="number" required class="w-full p-4 rounded-xl bg-green-500/10 border border-green-500/20 font-black text-green-500 outline-none shadow-inner"></div></div><button id="staffSubmitBtn" type="submit" class="w-full py-5 btn-ios text-white font-black rounded-2xl shadow-lg uppercase tracking-widest text-[11px] mt-4">Commit Staff Node</button><button type="button" onclick="window.toggleModal('staffModal', false)" class="w-full py-4 font-bold opacity-40 text-[10px] uppercase tracking-widest mt-2 text-white hover:opacity-100 transition-opacity">Abort Access</button></form></div>
+    <div id="staffModal"
+        class="fixed inset-0 bg-slate-950/90 backdrop-blur-xl z-[101] hidden items-center justify-center p-4">
+        <div
+            class="glass-panel p-8 sm:p-12 rounded-[2.5rem] shadow-2xl w-full max-w-md border border-white/20 animate-pop text-white">
+            <h3 id="staffModalTitle" class="text-3xl font-black mb-8 tracking-tighter text-white">Staff Node</h3>
+            <form id="staffForm" onsubmit="window.saveStaff(event)" class="space-y-6"><input name="pName"
+                    placeholder="Full Name" required
+                    class="w-full p-4 input-ios font-bold rounded-xl text-slate-100"><input name="pRole"
+                    placeholder="Skill Tag" required class="w-full p-4 input-ios rounded-xl text-slate-100">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-1"><label class="label-premium text-orange-500 font-bold text-[9px]">Short
+                            Node</label><input name="pShort" type="number" required
+                            class="w-full p-4 rounded-xl bg-orange-500/10 border border-orange-500/20 font-black text-orange-500 outline-none shadow-inner">
+                    </div>
+                    <div class="space-y-1"><label class="label-premium text-green-500 font-bold text-[9px]">Full
+                            Node</label><input name="pFull" type="number" required
+                            class="w-full p-4 rounded-xl bg-green-500/10 border border-green-500/20 font-black text-green-500 outline-none shadow-inner">
+                    </div>
+                </div><button id="staffSubmitBtn" type="submit"
+                    class="w-full py-5 btn-ios text-white font-black rounded-2xl shadow-lg uppercase tracking-widest text-[11px] mt-4">Commit
+                    Staff Node</button><button type="button" onclick="window.toggleModal('staffModal', false)"
+                    class="w-full py-4 font-bold opacity-40 text-[10px] uppercase tracking-widest mt-2 text-white hover:opacity-100 transition-opacity">Abort
+                    Access</button>
+            </form>
+        </div>
     </div>
 
     <!-- SETTINGS MODAL (Meta) -->
-    <div id="metaModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-xl z-[101] hidden items-center justify-center p-4">
-        <div class="glass-panel p-8 sm:p-12 rounded-[2.5rem] shadow-2xl w-full max-w-md border border-white/20 animate-pop text-white text-center"><h3 class="text-2xl font-black mb-6 tracking-tighter heading-premium text-white uppercase text-slate-100">Dictionary Node</h3><form onsubmit="window.saveMeta(event)" class="flex gap-2 mb-8"><input id="metaName" placeholder="Node Descriptor" class="flex-1 p-4 input-ios font-bold rounded-xl text-slate-100"><button type="submit" class="w-12 h-12 btn-ios text-white rounded-xl shadow-xl flex items-center justify-center shrink-0 transition-transform active:rotate-90"><i data-lucide="plus" size="20"></i></button></form><div id="metaList" class="max-h-64 overflow-y-auto custom-scroll pr-2 space-y-2"></div><button onclick="window.toggleModal('metaModal', false)" class="w-full py-4 mt-8 font-black opacity-40 border-t border-white/10 uppercase text-[10px] tracking-widest text-white hover:opacity-100 transition-opacity">Exit Terminal</button></div>
+    <div id="metaModal"
+        class="fixed inset-0 bg-slate-950/90 backdrop-blur-xl z-[101] hidden items-center justify-center p-4">
+        <div
+            class="glass-panel p-8 sm:p-12 rounded-[2.5rem] shadow-2xl w-full max-w-md border border-white/20 animate-pop text-white text-center">
+            <h3 class="text-2xl font-black mb-6 tracking-tighter heading-premium text-white uppercase text-slate-100">
+                Dictionary Node</h3>
+            <form onsubmit="window.saveMeta(event)" class="flex gap-2 mb-8"><input id="metaName"
+                    placeholder="Node Descriptor"
+                    class="flex-1 p-4 input-ios font-bold rounded-xl text-slate-100"><button type="submit"
+                    class="w-12 h-12 btn-ios text-white rounded-xl shadow-xl flex items-center justify-center shrink-0 transition-transform active:rotate-90"><i
+                        data-lucide="plus" size="20"></i></button></form>
+            <div id="metaList" class="max-h-64 overflow-y-auto custom-scroll pr-2 space-y-2"></div><button
+                onclick="window.toggleModal('metaModal', false)"
+                class="w-full py-4 mt-8 font-black opacity-40 border-t border-white/10 uppercase text-[10px] tracking-widest text-white hover:opacity-100 transition-opacity">Exit
+                Terminal</button>
+        </div>
     </div>
 
 </body>
+
 </html>
