@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucknow Wedding Studio | Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.5s ease;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Glassmorphism Styling */
+        .glass {
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Light Mode Glass */
+        .glass {
+            background: rgba(255, 255, 255, 0.55); 
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Dark Mode Glass - High Contrast for White Text */
+        .dark .glass {
+            background: rgba(0, 0, 0, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.8);
+        }
+
+        /* iOS-style Button Interaction */
+        .ios-press:active {
+            transform: scale(0.96);
+            filter: brightness(0.9);
+        }
+
+        /* Indian Wedding Couple Background Image */
+        .bg-mesh {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: url('https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Theme Overlays to maintain readability */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: rgba(255, 255, 255, 0.45);
+            transition: background 0.5s ease;
+        }
+
+        .dark .overlay {
+            background: rgba(0, 0, 0, 0.85);
+        }
+
+        /* Strict Dark Mode Text Color (White) */
+        .dark h1, .dark h2, .dark p, .dark i, .dark span {
+            color: #ffffff !important;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 overflow-x-hidden">
+    <div class="bg-mesh"></div>
+    <div class="overlay"></div>
+
+    <div class="w-full max-w-lg relative z-10">
+        
+        <!-- Header Section -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-extrabold text-slate-900 dark:text-white mb-2 tracking-tight drop-shadow-lg transition-colors">
+                Lucknow Wedding Studio
+            </h1>
+            <p class="text-amber-900 dark:text-white text-lg font-semibold italic opacity-90 transition-colors">
+                Capturing Your Royal Moments
+            </p>
+        </div>
+
+        <!-- Links Grid (English Content) -->
+        <div class="space-y-5">
+            
+            <!-- Finance Portal -->
+            <a href="https://lucknowweddingphotographers-a11y.github.io/lws/portal/" 
+               class="glass ios-press flex items-center p-6 rounded-[2.5rem] group no-underline">
+                <div class="bg-blue-600/10 dark:bg-white/10 p-4 rounded-2xl mr-5 group-hover:scale-110 transition-transform">
+                    <i data-lucide="wallet" class="text-blue-700 dark:text-white w-8 h-8"></i>
+                </div>
+                <div class="flex-1">
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white">Finance Portal</h2>
+                    <p class="text-slate-600 dark:text-white/80 text-sm font-medium">Manage your payments and reports</p>
+                </div>
+                <i data-lucide="chevron-right" class="text-slate-400 dark:text-white group-hover:translate-x-1 transition-transform"></i>
+            </a>
+
+            <!-- Quotation Calculator -->
+            <a href="https://lucknowweddingphotographers-a11y.github.io/lws/calculator/" 
+               class="glass ios-press flex items-center p-6 rounded-[2.5rem] group no-underline">
+                <div class="bg-amber-600/10 dark:bg-white/10 p-4 rounded-2xl mr-5 group-hover:scale-110 transition-transform">
+                    <i data-lucide="calculator" class="text-amber-700 dark:text-white w-8 h-8"></i>
+                </div>
+                <div class="flex-1">
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white">Quotation</h2>
+                    <p class="text-slate-600 dark:text-white/80 text-sm font-medium">Calculate wedding packages and costing</p>
+                </div>
+                <i data-lucide="chevron-right" class="text-slate-400 dark:text-white group-hover:translate-x-1 transition-transform"></i>
+            </a>
+
+            <!-- Team Availability -->
+            <a href="https://lucknowweddingphotographers-a11y.github.io/lws/" 
+               class="glass ios-press flex items-center p-6 rounded-[2.5rem] group no-underline">
+                <div class="bg-emerald-600/10 dark:bg-white/10 p-4 rounded-2xl mr-5 group-hover:scale-110 transition-transform">
+                    <i data-lucide="calendar-check" class="text-emerald-700 dark:text-white w-8 h-8"></i>
+                </div>
+                <div class="flex-1">
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white">Team Availability</h2>
+                    <p class="text-slate-600 dark:text-white/80 text-sm font-medium">Check available booking dates and slots</p>
+                </div>
+                <i data-lucide="chevron-right" class="text-slate-400 dark:text-white group-hover:translate-x-1 transition-transform"></i>
+            </a>
+
+        </div>
+
+        <!-- Interaction Controls -->
+        <div class="mt-14 flex justify-center gap-8 items-center">
+            <!-- Theme Toggle -->
+            <button onclick="toggleTheme()" class="glass p-5 rounded-full ios-press hover:bg-white/80 dark:hover:bg-white/20 transition-colors">
+                <i id="theme-icon" data-lucide="moon" class="text-slate-800 dark:text-white w-7 h-7"></i>
+            </button>
+            
+            <!-- Share URL -->
+            <button onclick="copyCurrentURL()" class="glass p-5 rounded-full ios-press hover:bg-white/80 dark:hover:bg-white/20 transition-colors">
+                <i data-lucide="share-2" class="text-slate-800 dark:text-white w-7 h-7"></i>
+            </button>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-12">
+            <p class="text-slate-700 dark:text-white/60 text-[10px] font-extrabold tracking-[0.4em] uppercase">
+                Lucknow Wedding Studio &copy; 2026
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Theme Switcher
+        function toggleTheme() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                icon.setAttribute('data-lucide', 'moon');
+            } else {
+                html.classList.add('dark');
+                icon.setAttribute('data-lucide', 'sun');
+            }
+            lucide.createIcons();
+        }
+
+        // Copy URL to Clipboard
+        function copyCurrentURL() {
+            const temp = document.createElement('input');
+            document.body.appendChild(temp);
+            temp.value = window.location.href;
+            temp.select();
+            document.execCommand('copy');
+            document.body.removeChild(temp);
+        }
+
+        // Auto-detect dark mode
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+            document.getElementById('theme-icon').setAttribute('data-lucide', 'sun');
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>
