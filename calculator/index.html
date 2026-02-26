@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lucknow Wedding Studio - Premium Quotation</title>
+    <title>Lucknow Wedding Studio - Exclusive Proposal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -11,7 +11,7 @@
             --glass-bg: rgba(255, 255, 255, 0.1);
             --glass-border: rgba(255, 255, 255, 0.2);
             --accent: #818cf8;
-            --selected-blue: #93c5fd;
+            --selected-blue: #60a5fa;
         }
 
         body {
@@ -24,6 +24,8 @@
             min-height: 100vh;
             color: white;
             overflow-x: hidden;
+            print-color-adjust: exact;
+            -webkit-print-color-adjust: exact;
         }
 
         .liquid-glass {
@@ -38,10 +40,16 @@
         .input-glass {
             background: rgba(255, 255, 255, 0.07);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 12px;
-            padding: 10px 14px;
+            border-radius: 10px;
+            padding: 8px 12px;
             color: white;
             transition: all 0.3s ease;
+        }
+
+        .input-glass:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.12);
+            border-color: var(--accent);
         }
 
         .btn-category {
@@ -56,14 +64,12 @@
             transform: scale(1.03);
         }
 
-        .btn-category:disabled {
+        .badge-active {
             background: linear-gradient(135deg, #bfdbfe 0%, #60a5fa 100%) !important;
             color: #1e3a8a !important;
-            opacity: 1 !important;
             font-weight: 800;
             border: 1px solid rgba(255, 255, 255, 0.6) !important;
-            cursor: not-allowed;
-            box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.8), 0 4px 15px rgba(96, 165, 250, 0.3);
+            box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
         }
 
         .btn-primary {
@@ -73,18 +79,22 @@
             letter-spacing: 0.1em;
         }
 
-        .badge-active {
-            background: white !important;
-            color: #0f172a !important;
-            border-color: white !important;
-            font-weight: 800;
-        }
-
         .discount-highlight {
             background: rgba(239, 68, 68, 0.1);
             border: 1px dashed rgba(239, 68, 68, 0.4);
             border-radius: 12px;
             padding: 12px;
+        }
+
+        .icon-btn {
+            padding: 4px;
+            border-radius: 6px;
+            transition: all 0.2s;
+            opacity: 0.6;
+        }
+        .icon-btn:hover {
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .inclusion-tag {
@@ -93,26 +103,64 @@
             border-radius: 6px;
             font-size: 10px;
             color: #cbd5e1;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .deliverable-item {
+            background: rgba(129, 140, 248, 0.1);
+            border-left: 3px solid #818cf8;
+            padding: 12px 16px;
+            border-radius: 8px;
+        }
+
+        .hidden-amount {
+            filter: blur(8px);
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        .toggle-btn-header {
+            background: rgba(129, 140, 248, 0.15);
+            border: 1px solid rgba(129, 140, 248, 0.3);
+            color: #c7d2fe;
+            padding: 6px 16px;
+            border-radius: 99px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
         }
 
         @media print {
-            body { background: white !important; color: #1a1a1a !important; padding: 0 !important; font-size: 11px !important; }
-            .no-print, header p { display: none !important; }
+            body { 
+                background: #0f172a !important; 
+                background-image: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)), 
+                                  url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1920&q=80') !important;
+                background-size: cover !important;
+                color: white !important; 
+                padding: 0 !important; 
+                font-size: 11px !important; 
+            }
+            .no-print, header p, .icon-btn, .toggle-btn-header { display: none !important; }
             .liquid-glass { 
-                background: white !important; 
-                border: 1px solid #eee !important; 
-                backdrop-filter: none !important; 
-                color: black !important;
+                background: rgba(255, 255, 255, 0.08) !important; 
+                border: 1px solid rgba(255, 255, 255, 0.2) !important; 
+                backdrop-filter: blur(10px) !important; 
+                color: white !important;
                 box-shadow: none !important;
                 margin-bottom: 10px !important;
                 padding: 15px !important;
             }
             .grid { display: grid !important; grid-template-columns: repeat(12, 1fr) !important; gap: 15px !important; }
             .lg\:col-span-8 { grid-column: span 12 / span 12 !important; }
-            .lg\:col-span-4 { grid-column: span 12 / span 12 !important; border-top: 2px solid #312e81; padding-top: 15px; margin-top: 15px; }
-            #final-total { color: #312e81 !important; font-size: 32px !important; }
-            .print-header { display: flex !important; justify-content: space-between; border-bottom: 2px solid #312e81; margin-bottom: 15px; padding-bottom: 10px; }
+            .lg\:col-span-4 { grid-column: span 12 / span 12 !important; border-top: 2px solid #818cf8; padding-top: 15px; margin-top: 15px; }
+            #final-total { color: #818cf8 !important; font-size: 32px !important; }
+            .print-header { display: flex !important; justify-content: space-between; border-bottom: 2px solid #818cf8; margin-bottom: 15px; padding-bottom: 10px; }
             .print-only { display: block !important; }
+            .hide-in-print { display: none !important; }
+            .inclusion-tag { color: #cbd5e1 !important; border: 1px solid rgba(255, 255, 255, 0.1) !important; }
+            .deliverable-item { background: rgba(129, 140, 248, 0.1) !important; border: 1px solid rgba(129, 140, 248, 0.3) !important; border-left: 4px solid #818cf8 !important; color: white !important; }
             * { page-break-inside: avoid; }
         }
         .print-only { display: none; }
@@ -122,24 +170,29 @@
     <div class="max-w-6xl mx-auto">
         <!-- Dashboard Header -->
         <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
-            <div>
-                <h1 class="text-3xl md:text-4xl font-extrabold tracking-tighter text-white">
-                    Lucknow Wedding Studio <span class="text-indigo-400 block md:inline md:ml-2">| Personalized Quotation</span>
+            <div class="w-full md:w-auto text-center md:text-left">
+                <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tighter text-white">
+                    Lucknow Wedding Studio <span class="text-indigo-400 block md:inline md:ml-2">| Specialized Proposal</span>
                 </h1>
-                <p class="text-indigo-300 text-sm font-medium tracking-[0.3em] uppercase mt-2">
-                    Professional Photography & Cinematography Estimate
+                <p class="text-indigo-300 text-sm font-medium tracking-[0.2em] sm:tracking-[0.3em] uppercase mt-2 text-xs sm:text-sm">
+                    Personalized Event Photography & Cinematography Quotation
                 </p>
             </div>
-            <div class="text-right">
-                <span id="header-final-total" class="text-2xl font-black text-indigo-400 bg-white/5 px-6 py-2 rounded-2xl border border-white/10 no-print">₹0</span>
+            <div class="flex flex-col items-center md:items-end gap-3 w-full md:w-auto">
+                <div class="flex items-center gap-4 no-print w-full justify-center md:justify-end">
+                    <button onclick="toggleCategorySection()" id="section-toggle-btn" class="toggle-btn-header">
+                        Hide Event Options
+                    </button>
+                    <span id="header-final-total" class="text-xl sm:text-2xl font-black text-indigo-400 bg-white/5 px-4 sm:px-6 py-2 rounded-2xl border border-white/10">₹0</span>
+                </div>
             </div>
         </header>
 
         <!-- Print PDF Header -->
         <div class="print-only print-header">
             <div>
-                <h1 style="font-size: 24px; font-weight: 900; color: #312e81;">Lucknow Wedding Studio</h1>
-                <p style="font-size: 14px; font-weight: bold; color: #444;">EXCLUSIVE EVENT QUOTATION</p>
+                <h1 style="font-size: 24px; font-weight: 900; color: #818cf8;">Lucknow Wedding Studio</h1>
+                <p style="font-size: 14px; font-weight: bold; color: #ddd;">ESTIMATED EVENT QUOTATION</p>
             </div>
             <div style="text-align: right;">
                 <p id="print-client-display" style="font-weight: 800; font-size: 16px;"></p>
@@ -147,121 +200,147 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
             <!-- Left Side -->
             <div class="lg:col-span-8 space-y-6">
-                <!-- Client Info -->
-                <div class="liquid-glass p-6 rounded-2xl">
+                <!-- Client Metadata -->
+                <div class="liquid-glass p-4 sm:p-6 rounded-2xl">
                     <h2 class="text-xs font-black uppercase tracking-[0.2em] text-indigo-400 mb-6 flex items-center gap-2">
-                        <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span> Client Details
+                        <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span> Client Metadata
                     </h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="text-[10px] font-bold text-gray-400 uppercase mb-2 block">Client Identity</label>
-                            <input type="text" id="client-name" oninput="updatePrintInfo()" class="input-glass w-full" placeholder="Enter Client Name...">
+                            <input type="text" id="client-name" oninput="handleGlobalUpdate('clientName', this.value)" class="input-glass w-full text-sm font-semibold" placeholder="Rahul & Priya">
                         </div>
                         <div>
                             <label class="text-[10px] font-bold text-gray-400 uppercase mb-2 block">Contact Protocol</label>
-                            <input type="tel" id="client-contact" class="input-glass w-full" value="+91 ">
+                            <input type="tel" id="client-contact" oninput="handleGlobalUpdate('clientContact', this.value)" class="input-glass w-full text-sm font-semibold" value="+91 ">
                         </div>
                     </div>
                 </div>
 
-                <!-- Category Selection -->
-                <div class="liquid-glass p-6 rounded-2xl no-print">
-                    <h2 class="text-xs font-black uppercase tracking-[0.2em] text-indigo-400 mb-4">Add Event Phase</h2>
-                    <div id="category-buttons-container" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2"></div>
+                <!-- Event Category Selection (Can be hidden) -->
+                <div id="category-section-wrapper" class="space-y-6">
+                    <div class="liquid-glass p-4 sm:p-6 rounded-2xl no-print">
+                        <h2 class="text-xs font-black uppercase tracking-[0.2em] text-indigo-400 mb-4">Select Event Phase to Add</h2>
+                        <div id="category-buttons-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2"></div>
+                    </div>
+
+                    <div class="liquid-glass p-4 sm:p-6 rounded-2xl no-print">
+                        <h2 class="text-xs font-black uppercase tracking-[0.2em] text-purple-400 flex items-center gap-2 mb-4">
+                            <span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span> Fast-Track Album Add
+                        </h2>
+                        <div class="flex flex-wrap gap-2 mb-2">
+                            <button onclick="addAlbum(20)" class="flex-1 min-w-[80px] px-2 sm:px-4 py-2 border border-white/10 rounded-xl text-[10px] font-bold hover:bg-white/10 transition-all">+ 20 SEATS</button>
+                            <button onclick="addAlbum(40)" class="flex-1 min-w-[80px] px-2 sm:px-4 py-2 border border-white/10 rounded-xl text-[10px] font-bold hover:bg-white/10 transition-all">+ 40 SEATS</button>
+                            <button onclick="addAlbum(50)" class="flex-1 min-w-[80px] px-2 sm:px-4 py-2 border border-white/10 rounded-xl text-[10px] font-bold hover:bg-white/10 transition-all">+ 50 SEATS</button>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Events List -->
+                <!-- Active Events Container -->
                 <div id="events-container" class="space-y-4"></div>
 
-                <!-- Albums -->
-                <div class="liquid-glass p-6 rounded-2xl">
+                <!-- Album Assets -->
+                <div id="album-section" class="liquid-glass p-4 sm:p-6 rounded-2xl hidden">
                     <h2 class="text-xs font-black uppercase tracking-[0.2em] text-purple-400 flex items-center gap-2 mb-4">
                         <span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span> Premium Physical Deliverables
                     </h2>
-                    <div class="flex gap-2 no-print mb-4">
-                        <button onclick="addAlbum(40)" class="px-4 py-2 border border-white/10 rounded-xl text-[10px] font-bold hover:bg-white/10 transition-all">+ 40 SEATS</button>
-                        <button onclick="addAlbum(50)" class="px-4 py-2 border border-white/10 rounded-xl text-[10px] font-bold hover:bg-white/10 transition-all">+ 50 SEATS</button>
-                    </div>
                     <div id="albums-container" class="space-y-3"></div>
                 </div>
 
-                <!-- Service Definitions -->
-                <div class="liquid-glass p-6 rounded-2xl">
-                    <h2 class="text-xs font-black uppercase tracking-[0.2em] text-indigo-400 mb-6">Service Glossary</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-[10px] text-gray-400">
+                <!-- Final Project Deliverables (Dynamic) -->
+                <div id="project-deliverables-section" class="liquid-glass p-4 sm:p-6 rounded-2xl hidden">
+                    <h2 class="text-xs font-black uppercase tracking-[0.2em] text-indigo-400 mb-6 flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span> Promised Project Deliverables
+                    </h2>
+                    <div id="deliverables-list" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Dynamic deliverable items go here -->
+                    </div>
+                </div>
+
+                <!-- Legend / Terms -->
+                <div class="liquid-glass p-4 sm:p-6 rounded-2xl">
+                    <h2 class="text-xs font-black uppercase tracking-[0.2em] text-indigo-400 mb-6">Service Glossary & Guidelines</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 text-[10px] text-gray-400">
                         <div class="border-l-2 border-indigo-500/20 pl-4">
-                            <h4 class="text-white font-bold uppercase mb-2">Half Team</h4>
-                            <p>Traditional Photography & Videography focused on standard ritual coverage.</p>
+                            <h4 class="text-white font-bold uppercase mb-2">Coverage Detail</h4>
+                            <ul class="space-y-1 text-[9px]">
+                                <li>• <strong>Half Team:</strong> Essential Trad. Photo & Video.</li>
+                                <li>• <strong>Full Team:</strong> Premium Cinematic & Candid Unit.</li>
+                            </ul>
                         </div>
                         <div class="border-l-2 border-purple-500/20 pl-4">
-                            <h4 class="text-white font-bold uppercase mb-2">Full Team</h4>
-                            <p>Complete coverage including Traditional, Candid, and Cinematography specialists.</p>
+                            <h4 class="text-white font-bold uppercase mb-2">Data Integrity</h4>
+                            <p>All raw footage is professionally curated. High-resolution files are delivered via secure digital transfer.</p>
                         </div>
                         <div class="border-l-2 border-emerald-500/20 pl-4">
-                            <h4 class="text-white font-bold uppercase mb-2">Premium Team</h4>
-                            <p>High-end Storytelling with Cinematic Director and Senior Candid Photographer.</p>
+                            <h4 class="text-white font-bold uppercase mb-2">Print Standard</h4>
+                            <p>Albums use premium lay-flat paper designed for 5 curated photos per seat for an elegant look.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Summary Sidebar -->
-            <div class="lg:col-span-4 sticky top-10" id="valuation-sidebar">
-                <div class="liquid-glass p-8 rounded-3xl border-indigo-500/30">
-                    <h2 class="text-lg font-bold mb-8 border-b border-white/10 pb-4 text-white uppercase tracking-tighter">Valuation Summary</h2>
+            <!-- Project Investment Details sidebar -->
+            <div class="lg:col-span-4 sticky top-6 lg:top-10" id="valuation-sidebar">
+                <div class="liquid-glass p-6 sm:p-8 rounded-3xl border-indigo-500/30">
+                    <h2 class="text-lg font-bold mb-8 border-b border-white/10 pb-4 text-white uppercase tracking-tighter">Investment Details</h2>
                     
                     <div class="space-y-5">
                         <div class="flex justify-between">
-                            <span class="summary-label text-gray-300">Services Total</span>
+                            <span class="summary-label text-gray-300 font-bold uppercase text-[9px]">Estimated Project Value</span>
                             <span id="summary-event-total" class="font-bold">₹0</span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="summary-label text-gray-300">Post-Production</span>
-                            <span id="summary-editing-total" class="font-bold">₹0</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="summary-label text-gray-300">Premium Albums</span>
+                            <span class="summary-label text-gray-300 font-bold uppercase text-[9px]">Custom Album Production</span>
                             <span id="summary-album-total" class="font-bold">₹0</span>
                         </div>
-                        <div class="flex justify-between">
-                            <span class="summary-label text-gray-300">Technical Gear</span>
+                        <div class="flex justify-between border-b border-white/5 pb-5">
+                            <span class="summary-label text-gray-300 font-bold uppercase text-[9px]">Technical & Support Gear</span>
                             <span id="summary-gear-total" class="font-bold">₹0</span>
                         </div>
 
-                        <div class="pt-4 border-t border-white/10">
-                            <label class="text-[10px] font-black text-indigo-300 uppercase mb-2 block">Travelling Expenses</label>
-                            <input type="number" id="travel-cost" oninput="render()" class="input-glass w-full text-center" placeholder="Enter Amount">
+                        <div class="pt-2">
+                            <div class="flex justify-between items-center text-indigo-200">
+                                <span class="summary-label font-black uppercase text-[10px]">Gross Project Total</span>
+                                <span id="summary-gross-total" class="font-black text-lg text-white">₹0</span>
+                            </div>
                         </div>
-                        
-                        <div class="pt-4 no-print">
-                            <label class="text-[10px] font-black text-indigo-300 uppercase mb-2 block">Personalized Discount</label>
-                            <div class="grid grid-cols-2 gap-3">
+
+                        <div class="pt-4 border-t border-white/10">
+                            <label class="text-[10px] font-black text-indigo-300 uppercase mb-2 block">Special Allowance / Discount</label>
+                            <div class="grid grid-cols-2 gap-3 no-print">
                                 <div class="relative">
-                                    <input type="number" id="discount-pct" oninput="render()" class="input-glass w-full text-center text-xs" placeholder="%">
+                                    <input type="number" id="discount-pct" oninput="handleGlobalUpdate('discountPct', this.value)" class="input-glass w-full pr-8 text-center text-xs" placeholder="%">
                                     <span class="absolute right-3 top-1/2 -translate-y-1/2 text-indigo-400 font-bold text-[10px]">%</span>
                                 </div>
                                 <div class="relative">
-                                    <input type="number" id="discount-flat" oninput="render()" class="input-glass w-full text-center text-xs" placeholder="Flat ₹">
+                                    <input type="number" id="discount-flat" oninput="handleGlobalUpdate('discountFlat', this.value)" class="input-glass w-full text-center text-xs" placeholder="Flat ₹">
                                 </div>
                             </div>
                         </div>
 
                         <div id="discount-layer" class="discount-highlight flex justify-between items-center text-red-400 font-bold text-xs">
-                            <span class="uppercase tracking-widest">Client Benefit</span>
+                            <span class="uppercase tracking-widest">Client Benefit / Savings</span>
                             <span id="summary-discount-total">- ₹0</span>
+                        </div>
+
+                        <div class="pt-2 border-t border-white/10">
+                            <label class="text-[10px] font-black text-indigo-300 uppercase mb-2 block">Travelling & Logistics</label>
+                            <input type="number" id="travel-cost" oninput="handleGlobalUpdate('travelCost', this.value)" class="input-glass w-full text-center no-print" placeholder="Enter amount...">
+                            <div class="print-only text-right font-bold" id="print-travel-cost">₹0</div>
                         </div>
                     </div>
 
                     <div class="mt-8 bg-indigo-500/10 p-6 rounded-3xl border border-indigo-400/20 text-center">
-                        <p class="text-[9px] text-indigo-300 uppercase tracking-[0.4em] font-bold mb-2">Final Quotation Amount</p>
-                        <p id="final-total" class="text-4xl font-black text-white">₹0</p>
+                        <p class="text-[9px] text-indigo-300 uppercase tracking-[0.4em] font-bold mb-2">Final Net Investment</p>
+                        <p id="final-total" class="text-3xl sm:text-4xl font-black text-white">₹0</p>
                     </div>
 
                     <button class="w-full mt-6 btn-primary py-4 rounded-2xl text-xs font-black no-print" onclick="window.print()">
-                        DOWNLOAD QUOTATION PDF
+                        DOWNLOAD OFFICIAL PROPOSAL
                     </button>
                 </div>
             </div>
@@ -278,153 +357,303 @@
             crane: 8000,
             droneMarkup: 1000,
             ledMarkup: 2000,
-            craneMarkup: 2000
+            craneMarkup: 2000,
+            albumPerSheet: 250
         };
 
         const TEAM_BREAKDOWN = {
-            half: ["Traditional Photo", "Traditional Video"],
-            full: ["Traditional Photo", "Traditional Video", "Candid Photo", "Cinematographer"],
-            premium: ["Candid Photographer", "Cinematographer"]
+            half: ["Traditional Photographer", "Traditional Videographer"],
+            full: ["Traditional Photographer", "Traditional Videographer", "Candid Photographer", "Cinematographer"],
+            premium: ["Candid Photographer", "Cinematographer"],
+            trad_photo: ["Traditional Photographer"],
+            trad_video: ["Traditional Videographer"],
+            candid_photo: ["Candid Photographer"],
+            cinematographer: ["Cinematographer"],
+            drone: ["Aerial Drone Unit"],
+            led_crane: ["LED Wall Display", "Crane Operation Unit"]
         };
 
-        const ALL_EVENT_TYPES = ['Wedding', 'Haldi', 'Mehandi', 'Reception', 'Engagement', 'Pre-Wedding'];
+        const ALL_EVENT_TYPES = ['Wedding', 'Haldi', 'Mehandi', 'Reception', 'Engagement', 'Pre-Wedding', 'Tilak', 'Birthday', 'Other'];
 
-        let events = [];
-        let albums = [];
+        let state = {
+            clientName: '',
+            clientContact: '+91 ',
+            events: [],
+            albums: [],
+            travelCost: 0,
+            discountPct: 0,
+            discountFlat: 0,
+            isCategorySectionVisible: true
+        };
+
+        function toggleCategorySection() {
+            state.isCategorySectionVisible = !state.isCategorySectionVisible;
+            const wrapper = document.getElementById('category-section-wrapper');
+            const btn = document.getElementById('section-toggle-btn');
+            
+            if (state.isCategorySectionVisible) {
+                wrapper.classList.remove('hidden');
+                btn.innerText = "Hide Event Options";
+            } else {
+                wrapper.classList.add('hidden');
+                btn.innerText = "Show Event Options";
+            }
+            // Re-render to update icon visibility in list items
+            render();
+        }
 
         function addEvent(type) {
-            if (events.some(e => e.type === type)) return;
             const id = Date.now();
-            let initialTeams = (type === 'Pre-Wedding') ? ['premium'] : ['half'];
-            events.push({ id, type, teamSelections: initialTeams, date: '' });
+            let initialTeams = (type === 'Pre-Wedding') ? ['premium'] : (type === 'Other' ? [] : ['half']);
+            state.events.push({ 
+                id, type, name: type, teamSelections: initialTeams, date: '', location: 'Lucknow',
+                manualAmount: 0, isEditingName: false, isEditingAmount: false, isVisible: true, isActionsVisible: true
+            });
             render();
         }
 
         function removeEvent(id) {
-            events = events.filter(e => e.id !== id);
+            state.events = state.events.filter(e => e.id !== id);
             render();
         }
 
         function addAlbum(sheets) {
             const id = Date.now();
-            albums.push({ id, sheets: sheets || 20 });
+            state.albums.push({ id, sheets: sheets || 20, isEditingSheets: false, isVisible: true });
             render();
         }
 
         function removeAlbum(id) {
-            albums = albums.filter(a => a.id !== id);
+            state.albums = state.albums.filter(a => a.id !== id);
             render();
         }
 
-        function updateEvent(id, field, value) {
-            const event = events.find(e => e.id === id);
-            if (!event) return;
-            if (field === 'team') {
-                const coreTeams = ['half', 'full', 'premium'];
-                if (coreTeams.includes(value)) {
-                    if (event.teamSelections.includes(value)) {
-                        event.teamSelections = event.teamSelections.filter(v => v !== value);
-                    } else {
-                        event.teamSelections = event.teamSelections.filter(v => !coreTeams.includes(v));
-                        event.teamSelections.push(value);
-                    }
-                } else {
-                    if (event.teamSelections.includes(value)) {
-                        event.teamSelections = event.teamSelections.filter(v => v !== value);
-                    } else {
-                        event.teamSelections.push(value);
-                    }
-                }
-            } else if (field === 'date') {
-                event.date = value;
+        function toggleEdit(listType, id, field) {
+            if (listType === 'event') {
+                const ev = state.events.find(e => e.id === id);
+                if (field === 'name') ev.isEditingName = !ev.isEditingName;
+                if (field === 'amount') ev.isEditingAmount = !ev.isEditingAmount;
+            } else {
+                const al = state.albums.find(a => a.id === id);
+                al.isEditingSheets = !al.isEditingSheets;
             }
             render();
         }
 
-        function updateAlbum(id, sheets) {
-            const album = albums.find(a => a.id === id);
-            if (album) album.sheets = parseInt(sheets) || 0;
+        function toggleVisibility(listType, id) {
+            if (listType === 'event') {
+                const ev = state.events.find(e => e.id === id);
+                ev.isVisible = !ev.isVisible;
+            } else {
+                const al = state.albums.find(a => a.id === id);
+                al.isVisible = !al.isVisible;
+            }
             render();
         }
 
-        function updatePrintInfo() {
-            const name = document.getElementById('client-name').value;
-            const today = new Date().toLocaleDateString();
-            document.getElementById('print-client-display').innerText = name ? "Quotation For: " + name : "";
-            document.getElementById('print-date-display').innerText = "Proposal Date: " + today;
+        function toggleActionsVisibility(id) {
+            const ev = state.events.find(e => e.id === id);
+            if (ev) {
+                ev.isActionsVisible = !ev.isActionsVisible;
+                render();
+            }
         }
 
-        function calculateDetailedCost(ev) {
-            const mult = (ev.type === "Wedding") ? 2 : 1;
-            const isFullTeam = ev.teamSelections.includes('full');
-            const isPremiumTeam = ev.teamSelections.includes('premium');
-            let markupableTeamBase = 0;
-            if (ev.teamSelections.includes('half')) markupableTeamBase += (PRICING.halfTeam * mult);
-            if (isFullTeam) markupableTeamBase += (PRICING.fullTeam * mult);
-            let premiumTeamFlat = isPremiumTeam ? PRICING.premiumTeam : 0;
-            let gearTotal = 0;
-            if (ev.teamSelections.includes('drone')) gearTotal += (PRICING.drone + PRICING.droneMarkup); 
-            if (ev.teamSelections.includes('led_crane')) gearTotal += (PRICING.ledWall + PRICING.crane + PRICING.ledMarkup + PRICING.craneMarkup); 
-            let editBase = (ev.type === "Wedding" || ev.type === "Reception") ? 3000 : 1500;
-            if (isFullTeam || isPremiumTeam) editBase += 2000;
-            const eventTotal = (markupableTeamBase + editBase) * 2 + gearTotal + premiumTeamFlat;
-            return { teamFinal: (markupableTeamBase * 2) + premiumTeamFlat, editFinal: editBase * 2, gearFinal: gearTotal, total: eventTotal };
+        function handleGlobalUpdate(key, value) {
+            state[key] = value;
+            calculateAndRefreshTotals();
+        }
+
+        function updateEventField(id, field, value) {
+            const ev = state.events.find(e => e.id === id);
+            if (!ev) return;
+            if (field === 'team') {
+                const bundles = ['half', 'full', 'premium'];
+                if (bundles.includes(value)) {
+                    if (ev.teamSelections.includes(value)) ev.teamSelections = ev.teamSelections.filter(v => v !== value);
+                    else {
+                        ev.teamSelections = ev.teamSelections.filter(v => !bundles.includes(v));
+                        ev.teamSelections.push(value);
+                    }
+                } else {
+                    if (ev.teamSelections.includes(value)) ev.teamSelections = ev.teamSelections.filter(v => v !== value);
+                    else ev.teamSelections.push(value);
+                }
+                render();
+            } else {
+                ev[field] = (field === 'manualAmount') ? (parseFloat(value) || 0) : value;
+                calculateAndRefreshTotals();
+            }
+        }
+
+        function updateAlbumSheets(id, val) {
+            const al = state.albums.find(a => a.id === id);
+            if (al) { al.sheets = parseInt(val) || 0; calculateAndRefreshTotals(); }
+        }
+
+        function calculateEventCost(ev) {
+            if (ev.type === 'Other') {
+                let gear = 0;
+                if (ev.teamSelections.includes('drone')) gear += (PRICING.drone + PRICING.droneMarkup);
+                if (ev.teamSelections.includes('led_crane')) gear += (PRICING.ledWall + PRICING.crane + PRICING.ledMarkup + PRICING.craneMarkup);
+                return { core: ev.manualAmount, gear, total: ev.manualAmount + gear };
+            }
+            const mult = (ev.name.toLowerCase().includes("wedding") && !ev.name.toLowerCase().includes("pre")) ? 2 : 1;
+            let markupableTeam = 0;
+            if (ev.teamSelections.includes('half')) markupableTeam += (PRICING.halfTeam * mult);
+            if (ev.teamSelections.includes('full')) markupableTeam += (PRICING.fullTeam * mult);
+            let gear = 0;
+            if (ev.teamSelections.includes('drone')) gear += (PRICING.drone + PRICING.droneMarkup);
+            if (ev.teamSelections.includes('led_crane')) gear += (PRICING.ledWall + PRICING.crane + PRICING.ledMarkup + PRICING.craneMarkup);
+            let editBase = (mult === 2 || ev.type === "Reception") ? 3000 : 1500;
+            if (ev.teamSelections.includes('full') || ev.teamSelections.includes('premium')) editBase += 2000;
+            const premiumFlat = ev.teamSelections.includes('premium') ? PRICING.premiumTeam : 0;
+            const baseMarkupTotal = (markupableTeam + editBase) * 2;
+            return { core: baseMarkupTotal + premiumFlat, gear, total: baseMarkupTotal + gear + premiumFlat };
+        }
+
+        function calculateAndRefreshTotals() {
+            let totalCore = 0, totalGear = 0, totalAlbum = 0;
+            state.events.forEach(ev => {
+                const c = calculateEventCost(ev);
+                totalCore += c.core;
+                totalGear += c.gear;
+            });
+            state.albums.forEach(al => { totalAlbum += (al.sheets * PRICING.albumPerSheet); });
+            
+            const grossSubtotal = totalCore + totalGear + totalAlbum;
+            const travelVal = parseFloat(state.travelCost) || 0;
+            
+            const dTotal = (grossSubtotal * (parseFloat(state.discountPct) || 0) / 100) + (parseFloat(state.discountFlat) || 0);
+            const final = (grossSubtotal - dTotal) + travelVal;
+
+            document.getElementById('summary-event-total').innerText = `₹${totalCore.toLocaleString()}`;
+            document.getElementById('summary-album-total').innerText = `₹${totalAlbum.toLocaleString()}`;
+            document.getElementById('summary-gear-total').innerText = `₹${totalGear.toLocaleString()}`;
+            
+            document.getElementById('summary-gross-total').innerText = `₹${grossSubtotal.toLocaleString()}`;
+            document.getElementById('summary-discount-total').innerText = `- ₹${dTotal.toLocaleString()}`;
+            document.getElementById('final-total').innerText = `₹${Math.round(final).toLocaleString()}`;
+            document.getElementById('header-final-total').innerText = `₹${Math.round(final).toLocaleString()}`;
+            
+            document.getElementById('print-client-display').innerText = state.clientName ? "Proposal For: " + state.clientName : "";
+            document.getElementById('print-date-display').innerText = "Proposal Date: " + new Date().toLocaleDateString();
+            document.getElementById('print-travel-cost').innerText = `₹${travelVal.toLocaleString()}`;
+            
+            updateProjectDeliverables();
+        }
+
+        function updateProjectDeliverables() {
+            const listEl = document.getElementById('deliverables-list');
+            const sectionEl = document.getElementById('project-deliverables-section');
+            let items = new Set();
+            let hasTrad = false, hasCandid = false, hasCinematic = false;
+
+            state.events.forEach(ev => {
+                if (ev.teamSelections.includes('half') || ev.teamSelections.includes('full') || ev.teamSelections.includes('trad_photo') || ev.teamSelections.includes('trad_video')) hasTrad = true;
+                if (ev.teamSelections.includes('full') || ev.teamSelections.includes('premium') || ev.teamSelections.includes('candid_photo')) hasCandid = true;
+                if (ev.teamSelections.includes('full') || ev.teamSelections.includes('premium') || ev.teamSelections.includes('cinematographer')) hasCinematic = true;
+            });
+
+            if (hasTrad) {
+                items.add("<strong>Unlimited High-Resolution Raw Photographs</strong> (All ritual data curated and delivered).");
+                items.add("<strong>Full HD Traditional Video Coverage</strong> (Cinematic quality long-format documentation).");
+            }
+            if (hasCinematic) items.add("<strong>Premium Cinematic Highlight & Teaser</strong> (Professional 3-4 minutes storytelling duration).");
+            if (hasCandid) items.add("<strong>30-40 Premium Edited Photographs</strong> (Signature retouching for Social Media).");
+            if (state.albums.length > 0) {
+                let totalPhotos = 0;
+                state.albums.forEach(al => totalPhotos += (al.sheets * 5));
+                items.add(`<strong>Bespoke Album Design</strong> (Approx ${totalPhotos} curated photographs).`);
+            }
+
+            if (items.size > 0) {
+                sectionEl.classList.remove('hidden');
+                listEl.innerHTML = Array.from(items).map(item => `<div class="deliverable-item text-xs leading-relaxed">✨ ${item}</div>`).join('');
+            } else {
+                sectionEl.classList.add('hidden');
+            }
         }
 
         function render() {
-            const categoryContainer = document.getElementById('category-buttons-container');
-            const activeTypes = events.map(e => e.type);
-            categoryContainer.innerHTML = ALL_EVENT_TYPES.map(type => {
-                const isAdded = activeTypes.includes(type);
-                return `<button onclick="addEvent('${type}')" ${isAdded ? 'disabled' : ''} class="btn-category py-3 rounded-xl text-[10px] font-bold">${type} ${isAdded ? '✓' : ''}</button>`;
-            }).join('');
+            document.getElementById('category-buttons-container').innerHTML = ALL_EVENT_TYPES.map(t => 
+                `<button onclick="addEvent('${t}')" class="btn-category py-2 rounded-xl text-[10px] font-bold uppercase tracking-tighter">${t}</button>`
+            ).join('');
 
-            const eventsContainer = document.getElementById('events-container');
-            eventsContainer.innerHTML = events.map(ev => {
-                const c = calculateDetailedCost(ev);
-                const teamOptions = [{id: 'half', label: 'Half Team'}, {id: 'full', label: 'Full Team'}, {id: 'premium', label: 'Premium Team'}, {id: 'drone', label: 'Drone'}, {id: 'led_crane', label: 'LED & Crane'}];
-                const inclusionsHtml = ev.teamSelections.filter(t => TEAM_BREAKDOWN[t]).map(t => TEAM_BREAKDOWN[t].map(item => `<span class="inclusion-tag">${item}</span>`).join('')).join('');
-                const buttonsHtml = teamOptions.map(btn => {
-                    const isActive = ev.teamSelections.includes(btn.id);
-                    return `<button onclick="updateEvent(${ev.id}, 'team', '${btn.id}')" class="px-3 py-1.5 rounded-lg text-[10px] font-bold border border-white/10 transition-all ${isActive ? 'badge-active' : 'hover:bg-white/10'}">${btn.label}</button>`;
-                }).join('');
+            const evContainer = document.getElementById('events-container');
+            const showConfig = state.isCategorySectionVisible;
 
-                return `<div class="liquid-glass p-5 rounded-2xl">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="flex-1"><span class="text-[9px] font-black text-indigo-400 uppercase">Event Phase</span><div class="flex items-center gap-4 mt-1"><h3 class="text-base font-extrabold text-white">${ev.type}</h3><input type="date" value="${ev.date}" onchange="updateEvent(${ev.id}, 'date', this.value)" class="bg-white/5 border-none rounded-full px-3 py-1 text-[10px] font-bold cursor-pointer"></div></div>
-                        <div class="text-right"><span class="text-[9px] font-bold text-gray-500 uppercase">Subtotal</span><div class="text-sm font-black text-indigo-300">₹${c.total.toLocaleString()}</div></div>
-                        <button onclick="removeEvent(${ev.id})" class="ml-4 text-red-400/50 hover:text-red-400 no-print"><svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg></button>
+            evContainer.innerHTML = state.events.map(ev => {
+                const c = calculateEventCost(ev);
+                const isOther = ev.type === 'Other';
+                const teams = [ {id:'half', label:'Half Team'}, {id:'full', label:'Full Team'}, {id:'premium', label:'Premium Team'} ];
+                const individuals = [ {id:'trad_photo', label:'Trad. Photo'}, {id:'trad_video', label:'Trad. Video'}, {id:'candid_photo', label:'Candid'}, {id:'cinematographer', label:'Cinematic'} ];
+                const addons = [{id:'drone', label:'Drone'}, {id:'led_crane', label:'LED & Crane'}];
+                const finalTeamList = isOther ? [...individuals, ...addons] : [...teams, ...addons];
+                let allInclusions = [];
+                ev.teamSelections.forEach(sel => { if (TEAM_BREAKDOWN[sel]) allInclusions = [...allInclusions, ...TEAM_BREAKDOWN[sel]]; });
+                const uniqueInclusions = [...new Set(allInclusions)];
+                
+                const visibilityIcon = ev.isVisible ? `<svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>` : `<svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>`;
+                const editIcon = `<svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>`;
+                const checkIcon = `<svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>`;
+                const toggleIcon = ev.isActionsVisible ? `<svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>` : `<svg class="w-4 h-4 text-indigo-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>`;
+
+                return `<div class="liquid-glass p-4 sm:p-5 rounded-2xl animate-in">
+                    <div class="flex flex-col sm:flex-row justify-between items-start mb-4 gap-4">
+                        <div class="flex-1 w-full"><span class="text-[9px] font-black text-indigo-400 uppercase">Phase Coverage</span>
+                            <div class="flex flex-wrap items-center gap-2 mt-2">
+                                ${ev.isEditingName ? `<input type="text" value="${ev.name}" oninput="updateEventField(${ev.id}, 'name', this.value)" class="input-glass text-sm font-bold w-full sm:w-48 py-1">` : `<h3 class="text-base font-extrabold text-white cursor-pointer" onclick="${showConfig ? `toggleEdit('event', ${ev.id}, 'name')` : ''}">${ev.name}</h3>`}
+                                ${showConfig ? `<button onclick="toggleEdit('event', ${ev.id}, 'name')" class="icon-btn no-print">${ev.isEditingName ? checkIcon : editIcon}</button>` : ''}
+                                <div class="flex flex-wrap gap-2 no-print sm:ml-4 items-center">
+                                    <input type="date" value="${ev.date}" onchange="updateEventField(${ev.id}, 'date', this.value)" class="bg-white/5 border-none rounded-full px-3 py-1 text-[10px] font-bold">
+                                    <input type="text" value="${ev.location}" oninput="updateEventField(${ev.id}, 'location', this.value)" class="bg-white/5 border-none rounded-full px-3 py-1 text-[10px] font-bold w-24" placeholder="Location">
+                                    ${showConfig ? `<button onclick="toggleActionsVisibility(${ev.id})" class="icon-btn no-print ml-2" title="Toggle Resource Selection">${toggleIcon}</button>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-right flex items-center gap-3 w-full sm:w-auto justify-end">
+                            <div><div class="flex items-center gap-2">
+                                ${ev.isEditingAmount || isOther ? `<input type="number" value="${ev.manualAmount}" oninput="updateEventField(${ev.id}, 'manualAmount', this.value)" class="input-glass w-24 text-right text-xs font-bold py-1">` : `<div class="text-sm font-black text-indigo-300 ${!ev.isVisible ? 'hidden-amount' : ''}">₹${c.total.toLocaleString()}</div>`}
+                                ${showConfig && !isOther ? `<button onclick="toggleEdit('event', ${ev.id}, 'amount')" class="icon-btn no-print">${ev.isEditingAmount ? checkIcon : editIcon}</button>` : ''}
+                            </div></div>
+                            ${showConfig ? `<button onclick="toggleVisibility('event', ${ev.id})" class="icon-btn no-print ml-2" title="Show/Hide Amount">${visibilityIcon}</button>` : ''}
+                            ${showConfig ? `<button onclick="removeEvent(${ev.id})" class="ml-2 text-red-400/50 hover:text-red-400 no-print"><svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg></button>` : ''}
+                        </div>
                     </div>
-                    <div class="flex flex-wrap gap-2 pt-3 border-t border-white/5">${buttonsHtml}</div>
-                    ${inclusionsHtml ? `<div class="flex flex-wrap gap-2 mt-3 pt-3 border-t border-white/5">${inclusionsHtml}</div>` : ''}
+                    
+                    <div class="${ev.isActionsVisible ? '' : 'hidden'}">
+                        ${showConfig ? `<div class="flex flex-wrap gap-2 pt-3 border-t border-white/5 no-print">${finalTeamList.map(t => `<button onclick="updateEventField(${ev.id}, 'team', '${t.id}')" class="px-3 py-1.5 rounded-lg text-[10px] font-bold border border-white/10 transition-all ${ev.teamSelections.includes(t.id) ? 'badge-active' : 'hover:bg-white/10'}">${t.label}</button>`).join('')}</div>` : ''}
+                        ${uniqueInclusions.length > 0 ? `<div class="mt-3 pt-3 border-t border-white/5"><div class="flex flex-wrap gap-2"><span class="text-[8px] font-black text-gray-500 uppercase w-full mb-1">Expert Team Allocation:</span>${uniqueInclusions.map(inc => `<span class="inclusion-tag">${inc}</span>`).join('')}</div></div>` : ''}
+                    </div>
                 </div>`;
             }).join('');
 
-            const albumsContainer = document.getElementById('albums-container');
-            albumsContainer.innerHTML = albums.map(al => {
-                const cost = (al.sheets * 200).toLocaleString();
-                return `<div class="bg-white/5 border border-white/10 rounded-xl p-4 flex items-center gap-6"><div class="flex-1"><span class="text-[9px] font-black text-purple-400 uppercase">${al.sheets} Seat Premium Album</span><input type="number" value="${al.sheets}" oninput="updateAlbum(${al.id}, this.value)" class="input-glass w-full text-xs font-bold mt-1"></div><div class="text-right"><span class="text-base font-black text-purple-300">₹${cost}</span></div><button onclick="removeAlbum(${al.id})" class="text-red-400/50 hover:text-red-400 p-2 no-print"><svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg></button></div>`;
+            const albumSect = document.getElementById('album-section');
+            if (state.albums.length > 0) albumSect.classList.remove('hidden');
+            else albumSect.classList.add('hidden');
+
+            const alContainer = document.getElementById('albums-container');
+            alContainer.innerHTML = state.albums.map(al => {
+                const visibilityIcon = al.isVisible ? `<svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>` : `<svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>`;
+                const editIcon = `<svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>`;
+                const checkIcon = `<svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>`;
+
+                return `<div class="bg-white/5 border border-white/10 rounded-xl p-4 flex items-center gap-4 sm:gap-6 animate-in">
+                    <div class="flex-1"><span class="text-[9px] font-black text-purple-400 uppercase">Premium Album (${al.sheets * 5} Photos Provision)</span><div class="flex items-center gap-2 mt-2">
+                        ${al.isEditingSheets ? `<input type="number" value="${al.sheets}" oninput="updateAlbumSheets(${al.id}, this.value)" class="input-glass w-20 text-xs font-bold py-1">` : `<span class="text-sm font-bold ${showConfig ? 'cursor-pointer' : ''}" onclick="${showConfig ? `toggleEdit('album', ${al.id})` : ''}">${al.sheets} Seats</span>`}
+                        ${showConfig ? `<button onclick="toggleEdit('album', ${al.id})" class="icon-btn no-print">${al.isEditingSheets ? checkIcon : editIcon}</button>` : ''}
+                        <span class="text-[10px] text-gray-500 font-bold uppercase ml-2">@ ₹250 ea.</span>
+                    </div></div>
+                    <div class="text-right flex items-center gap-3">
+                        <div><span class="text-base font-black text-purple-300 ${!al.isVisible ? 'hidden-amount' : ''}">₹${(al.sheets * PRICING.albumPerSheet).toLocaleString()}</span></div>
+                        ${showConfig ? `<button onclick="toggleVisibility('album', ${al.id})" class="icon-btn no-print ml-2" title="Show/Hide Amount">${visibilityIcon}</button>` : ''}
+                        ${showConfig ? `<button onclick="removeAlbum(${al.id})" class="text-red-400/50 hover:text-red-400 p-2 no-print"><svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg></button>` : ''}
+                    </div>
+                </div>`;
             }).join('');
 
-            let totalTeam = 0, totalEdit = 0, totalGear = 0;
-            events.forEach(ev => { const c = calculateDetailedCost(ev); totalTeam += c.teamFinal; totalEdit += c.editFinal; totalGear += c.gearFinal; });
-            let albumFinal = 0;
-            albums.forEach(al => albumFinal += (al.sheets * 200));
-            const travelCost = parseFloat(document.getElementById('travel-cost').value) || 0;
-            const subtotal = totalTeam + totalEdit + totalGear + albumFinal + travelCost;
-            const dPct = parseFloat(document.getElementById('discount-pct').value) || 0;
-            const dFlat = parseFloat(document.getElementById('discount-flat').value) || 0;
-            const discountTotal = (subtotal * dPct / 100) + dFlat;
-            const final = subtotal - discountTotal;
-
-            document.getElementById('summary-event-total').innerText = `₹${totalTeam.toLocaleString()}`;
-            document.getElementById('summary-editing-total').innerText = `₹${totalEdit.toLocaleString()}`;
-            document.getElementById('summary-album-total').innerText = `₹${albumFinal.toLocaleString()}`;
-            document.getElementById('summary-gear-total').innerText = `₹${totalGear.toLocaleString()}`;
-            document.getElementById('summary-discount-total').innerText = `- ₹${discountTotal.toLocaleString()}`;
-            document.getElementById('final-total').innerText = `₹${Math.round(final).toLocaleString()}`;
-            document.getElementById('header-final-total').innerText = `₹${Math.round(final).toLocaleString()}`;
-            updatePrintInfo();
+            calculateAndRefreshTotals();
         }
 
         window.onload = () => render();
