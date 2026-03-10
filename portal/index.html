@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lucknow Wedding Studio | Premium Manager</title>
+    <title>Lucknow Wedding Studio | iOS Liquid Premium</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <!-- SheetJS for Excel Export -->
@@ -12,19 +12,20 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
-        /* Permanent Dark Theme Variables - High Contrast */
+        /* iOS 26 Liquid Glossy Theme Variables */
         :root {
-            --glass: rgba(255, 255, 255, 0.08);
-            --glass-border: rgba(255, 255, 255, 0.15);
-            --bg-main: #020617;
-            --text-main: #cbd5e1;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --bg-main: #000000; 
+            --text-main: #f8fafc;
             --text-heading: #ffffff;
-            --text-muted: rgba(255, 255, 255, 0.45);
-            --card-bg: rgba(255, 255, 255, 0.02);
-            --input-bg: rgba(0, 0, 0, 0.4);
-            --accent: #6366f1;
-            --blob-opacity: 0.25;
-            --shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.6);
+            --text-muted: rgba(255, 255, 255, 0.5);
+            --card-bg: rgba(20, 20, 20, 0.4);
+            --input-bg: rgba(0, 0, 0, 0.6);
+            --accent: #ffffff; 
+            --blob-opacity: 0.25; 
+            --shadow: 0 20px 50px 0 rgba(0, 0, 0, 0.8);
+            --ios-blur: blur(40px);
         }
 
         body {
@@ -35,6 +36,7 @@
             min-height: 100vh;
         }
 
+        /* Removed Yellow Faded Out Overlay - Replaced with Glossy Liquid Finish */
         .liquid-bg {
             position: fixed;
             top: 0;
@@ -42,7 +44,7 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop');
+            background: url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
             overflow: hidden;
@@ -52,71 +54,85 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at 30% 30%, rgba(99, 102, 241, var(--blob-opacity)), transparent),
-                radial-gradient(circle at 70% 70%, rgba(168, 85, 247, var(--blob-opacity)), transparent),
-                rgba(2, 6, 23, 0.9);
+            /* Neutral Glossy Gradient instead of Yellow */
+            background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%);
+            backdrop-filter: contrast(110%) brightness(80%);
         }
 
+        /* iOS Liquid Blobs (Iridescent Style) */
         .blob {
             position: absolute;
-            width: 45vw;
-            height: 45vw;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(168, 85, 247, 0.2));
-            filter: blur(100px);
+            width: 50vw;
+            height: 50vw;
+            filter: blur(120px);
             border-radius: 50%;
-            animation: move 30s infinite alternate ease-in-out;
+            animation: move 35s infinite alternate ease-in-out;
             z-index: 0;
+            mix-blend-mode: screen;
         }
 
         @keyframes move {
-            0% { transform: translate(-10%, -10%) rotate(0deg); }
-            100% { transform: translate(25%, 35%) rotate(360deg); }
+            0% { transform: translate(-15%, -15%) rotate(0deg) scale(1); }
+            100% { transform: translate(30%, 40%) rotate(360deg) scale(1.2); }
         }
 
         .glass-panel {
             background: var(--glass);
-            backdrop-filter: blur(40px);
-            -webkit-backdrop-filter: blur(40px);
+            backdrop-filter: var(--ios-blur);
+            -webkit-backdrop-filter: var(--ios-blur);
             border: 1px solid var(--glass-border);
             box-shadow: var(--shadow);
         }
 
         .ios-card {
             background: var(--card-bg);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
             border: 1px solid var(--glass-border);
-            border-radius: 1.5rem;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.05);
+            border-radius: 2rem;
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
         .ios-card:hover {
-            background: var(--glass);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow);
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-4px) scale(1.01);
+            border-color: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 30px 60px -12px rgba(0,0,0,0.5);
         }
 
         .btn-ios {
-            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-            border-radius: 1rem;
-            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 1.25rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-weight: 700;
-            color: white !important;
+            color: #000 !important;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .btn-ios:hover {
+            transform: scale(1.02);
+            background: #ffffff;
+            box-shadow: 0 15px 30px rgba(255,255,255,0.2);
         }
 
         .input-ios {
             background: var(--input-bg);
             border: 1px solid var(--glass-border);
-            border-radius: 0.8rem;
+            border-radius: 1rem;
             color: var(--text-main);
             transition: 0.3s;
+        }
+        .input-ios:focus {
+            border-color: #ffffff;
+            background: rgba(255,255,255,0.05);
+            outline: none;
         }
 
         .detail-expanded {
             max-height: 5000px;
             opacity: 1;
             padding-bottom: 2rem;
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
         .detail-collapsed {
@@ -124,11 +140,11 @@
             opacity: 0;
             overflow: hidden;
             padding-bottom: 0;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
-        .custom-scroll::-webkit-scrollbar { width: 4px; }
-        .custom-scroll::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 10px; }
+        .custom-scroll::-webkit-scrollbar { width: 5px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
 
         #auth-overlay {
             position: fixed;
@@ -137,80 +153,77 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(2, 6, 23, 0.85);
-            backdrop-filter: blur(20px);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(30px);
         }
 
         .no-scrollbar::-webkit-scrollbar { display: none; }
-        .animate-pop { animation: pop 0.3s ease-out; }
+        .animate-pop { animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         @keyframes pop {
-            0% { transform: scale(0.95); opacity: 0; }
+            0% { transform: scale(0.9); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
 
-        .label-premium { color: var(--text-muted); font-weight: 700; text-transform: uppercase; font-size: 10px; letter-spacing: 0.05em; }
-        .heading-premium { color: var(--text-heading); font-weight: 800; }
+        .label-premium { color: var(--text-muted); font-weight: 700; text-transform: uppercase; font-size: 10px; letter-spacing: 0.1em; }
+        .heading-premium { color: var(--text-heading); font-weight: 800; letter-spacing: -0.02em; }
 
-        /* ADVANCED RESPONSIVE LEDGER CSS */
+        /* RESPONSIVE LEDGER CSS - Glossy Liquid Theme */
         @media (max-width: 1024px) {
             .ledger-table thead { display: none; }
             .ledger-table, .ledger-table tbody, .ledger-table tr, .ledger-table td { display: block; width: 100%; }
             .ledger-table tr { 
                 margin-bottom: 1.5rem; 
-                border-radius: 1.5rem; 
-                background: rgba(255, 255, 255, 0.03); 
+                border-radius: 2rem; 
+                background: rgba(255, 255, 255, 0.02); 
                 border: 1px solid var(--glass-border); 
-                padding: 1.25rem; 
-                box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+                padding: 1.5rem; 
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
             }
             .ledger-table td { 
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                padding: 0.75rem 0; 
+                padding: 0.85rem 0; 
                 border-bottom: 1px solid rgba(255, 255, 255, 0.05); 
                 font-size: 0.95rem;
             }
             .ledger-table td:last-child { border-bottom: none; }
             .ledger-table td::before { 
                 content: attr(data-label); 
-                font-weight: 700; 
+                font-weight: 800; 
                 text-transform: uppercase; 
                 font-size: 0.65rem; 
-                color: var(--accent); 
+                color: rgba(255,255,255,0.4); 
                 letter-spacing: 0.1em;
-                opacity: 0.8;
             }
             
             .ledger-table td[data-label="Client Node"] {
                 display: block;
                 text-align: center;
-                font-size: 1.25rem;
+                font-size: 1.5rem;
                 font-weight: 900;
-                background: rgba(99, 102, 241, 0.15);
-                margin: -1.25rem -1.25rem 1rem -1.25rem;
-                padding: 1.25rem;
-                border-radius: 1.5rem 1.5rem 0 0;
-                border-bottom: 2px solid rgba(99, 102, 241, 0.2);
+                background: rgba(255, 255, 255, 0.05);
+                margin: -1.5rem -1.5rem 1rem -1.5rem;
+                padding: 1.5rem;
+                border-radius: 2rem 2rem 0 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
                 color: white;
             }
             .ledger-table td[data-label="Client Node"]::before { display: none; }
 
             .ledger-table tr.summary-row {
-                background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(168, 85, 247, 0.2) 100%);
-                border: 2px solid var(--accent);
+                background: rgba(255, 255, 255, 0.08);
+                border: 1px solid rgba(255, 255, 255, 0.3);
                 margin-top: 2rem;
             }
             .ledger-table tr.summary-row td[data-label="Summary"] {
                 display: block;
                 text-align: center;
-                font-size: 1.1rem;
-                padding: 1.25rem;
+                font-size: 1.25rem;
+                padding: 1.5rem;
                 background: rgba(255,255,255,0.05);
-                border-bottom: 1px solid rgba(255,255,255,0.1);
                 color: white;
             }
-            .ledger-table tr.summary-row td[data-label="Summary"]::before { display: none; }
         }
     </style>
 
@@ -262,52 +275,28 @@
         // --- EXCEL EXPORT LOGIC ---
         window.exportToExcel = () => {
             const filteredData = state.clients.filter(c => (c.events || []).some(ev => ev.date && ev.date.startsWith(state.selectedYear)));
-            
-            if (filteredData.length === 0) {
-                alert("Nodata found for the selected year to export.");
-                return;
-            }
-
+            if (filteredData.length === 0) { alert("No data found for the selected year to export."); return; }
             const excelRows = [];
-            
             filteredData.forEach(client => {
                 const fin = getClientFinancials(client);
-                
                 (client.events || []).forEach((ev, idx) => {
                     const staffNames = (ev.team || []).map(m => m.name).join(', ');
                     const staffFees = (ev.team || []).reduce((sum, m) => sum + (m.fee || 0), 0);
-                    
                     excelRows.push({
-                        "Client Name": client.name,
-                        "Contact": client.contact || 'N/A',
-                        "Project Year": state.selectedYear,
-                        "Total Quotation": client.finalAmount,
-                        "Total Expense": fin.exp,
-                        "Total Profit": fin.profit,
-                        "Profit %": fin.margin + "%",
-                        "Advance Received": client.advance,
-                        "Paid Installments": (client.installments || []).join(' + '),
-                        "Total Received": fin.paid,
-                        "Balance Due": fin.rem,
-                        "Event Type": ev.type,
-                        "Event Date": ev.date || 'TBD',
-                        "Location": ev.location || 'Lucknow',
-                        "Staff Assigned": staffNames,
-                        "Staff Payout (this event)": staffFees,
-                        "Album Cost": client.albumCost || 0,
-                        "Editing Cost": client.editingCost || 0,
-                        "Other Costs": client.otherCost || 0
+                        "Client Name": client.name, "Contact": client.contact || 'N/A', "Project Year": state.selectedYear,
+                        "Total Quotation": client.finalAmount, "Total Expense": fin.exp, "Total Profit": fin.profit,
+                        "Profit %": fin.margin + "%", "Advance Received": client.advance, "Paid Installments": (client.installments || []).join(' + '),
+                        "Total Received": fin.paid, "Balance Due": fin.rem, "Event Type": ev.type, "Event Date": ev.date || 'TBD',
+                        "Location": ev.location || 'Lucknow', "Staff Assigned": staffNames, "Staff Payout": staffFees,
+                        "Album Cost": client.albumCost || 0, "Editing Cost": client.editingCost || 0, "Other Costs": client.otherCost || 0
                     });
                 });
             });
-
             const ws = XLSX.utils.json_to_sheet(excelRows);
             const wb = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(wb, ws, `LWS_Report_${state.selectedYear}`);
             XLSX.writeFile(wb, `Lucknow_Wedding_Studio_Report_${state.selectedYear}.xlsx`);
         };
-
-        // --- ATTACH LOGIC TO WINDOW ---
 
         window.calculateModalProfit = () => {
             const form = document.getElementById('clientForm');
@@ -320,18 +309,17 @@
             document.querySelectorAll('.member-fee').forEach(input => staffTotal += Number(input.value || 0));
             const totalExp = staffTotal + album + edit + misc;
             const profit = revenue - totalExp;
-
             if (document.getElementById('modalRevDisplay')) document.getElementById('modalRevDisplay').innerText = revenue.toLocaleString();
             if (document.getElementById('modalExpDisplay')) document.getElementById('modalExpDisplay').innerText = totalExp.toLocaleString();
             const profDisp = document.getElementById('modalProfitDisplay');
             if (profDisp) {
                 profDisp.innerText = profit.toLocaleString();
-                profDisp.className = profit >= 0 ? "text-xl font-black text-green-500" : "text-xl font-black text-red-500";
+                profDisp.className = profit >= 0 ? "text-xl font-black text-green-400" : "text-xl font-black text-red-400";
             }
             const profHead = document.getElementById('modalProfitHeader');
             if (profHead) {
                 profHead.innerText = "₹" + profit.toLocaleString();
-                profHead.className = profit >= 0 ? "text-green-500" : "text-red-500";
+                profHead.className = profit >= 0 ? "text-green-400" : "text-red-400";
             }
         };
 
@@ -359,7 +347,7 @@
                     <option value="short" ${memberData?.chargeType === 'short' ? 'selected' : (memberData ? '' : 'selected')}>Short</option>
                     <option value="full" ${memberData?.chargeType === 'full' ? 'selected' : ''}>Full</option>
                 </select>
-                <input type="number" oninput="window.calculateModalProfit()" class="member-fee w-24 p-2 input-ios font-black text-red-500 text-right text-xs" value="${memberData?.fee || 0}">
+                <input type="number" oninput="window.calculateModalProfit()" class="member-fee w-24 p-2 input-ios font-black text-white text-right text-xs" value="${memberData?.fee || 0}">
                 <button type="button" onclick="this.parentElement.remove(); window.calculateModalProfit();" class="text-red-500 p-1"><i data-lucide="x" size="14"></i></button>
             `;
             container.appendChild(div);
@@ -373,19 +361,19 @@
             const eventId = 'ev_' + Math.random().toString(36).substr(2, 5);
             const div = document.createElement('div');
             div.id = eventId;
-            div.className = "p-3 rounded-[1rem] bg-indigo-500/5 border border-indigo-500/10 mb-3 animate-pop shadow-inner";
+            div.className = "p-4 rounded-[1.5rem] bg-white/5 border border-white/10 mb-3 animate-pop";
             div.innerHTML = `
-                <div class="flex flex-col sm:flex-row justify-between items-center gap-2 mb-2 text-left">
-                    <select class="ev-type w-full sm:flex-1 p-2 input-ios font-bold text-xs">
+                <div class="flex flex-col sm:flex-row justify-between items-center gap-2 mb-3 text-left">
+                    <select class="ev-type w-full sm:flex-1 p-2.5 input-ios font-bold text-xs">
                         <option value="">Event Type</option>
                         ${state.eventMeta.map(m => `<option value="${m.name}" ${eventData?.type === m.name ? 'selected' : ''}>${m.name}</option>`).join('')}
                     </select>
-                    <input type="date" class="ev-date w-full sm:w-auto p-2 input-ios text-xs" value="${eventData?.date || ''}">
-                    <input type="text" class="ev-location w-full sm:w-40 p-2 input-ios text-[9px] font-black uppercase" placeholder="Loc" value="${eventData?.location || 'Lucknow'}">
-                    <button type="button" onclick="document.getElementById('${eventId}').remove(); window.calculateModalProfit();" class="text-red-500 p-1 shrink-0"><i data-lucide="trash-2" size="18"></i></button>
+                    <input type="date" class="ev-date w-full sm:w-auto p-2.5 input-ios text-xs" value="${eventData?.date || ''}">
+                    <input type="text" class="ev-location w-full sm:w-40 p-2.5 input-ios text-[9px] font-black uppercase" placeholder="Loc" value="${eventData?.location || 'Lucknow'}">
+                    <button type="button" onclick="document.getElementById('${eventId}').remove(); window.calculateModalProfit();" class="text-red-400 p-1 shrink-0"><i data-lucide="trash-2" size="18"></i></button>
                 </div>
                 <div class="space-y-1 team-container" id="team_${eventId}"></div>
-                <button type="button" onclick="window.addTeamMemberSlot('team_${eventId}')" class="mt-2 text-[9px] font-black uppercase text-indigo-500 bg-indigo-500/10 px-3 py-1.5 rounded-full tracking-tighter text-left">+ Add Node</button>
+                <button type="button" onclick="window.addTeamMemberSlot('team_${eventId}')" class="mt-3 text-[9px] font-black uppercase text-white bg-white/10 px-4 py-2 rounded-full tracking-wider text-left hover:bg-white/20 transition">+ Add Node</button>
             `;
             container.appendChild(div);
             if (eventData?.team) eventData.team.forEach(m => window.addTeamMemberSlot(`team_${eventId}`, m));
@@ -398,13 +386,10 @@
         function renderFinanceSummary(filteredData = []) {
             let tRev = 0, tExp = 0, tPaid = 0;
             filteredData.forEach(c => {
-                const fin = getClientFinancials(c);
-                tRev += fin.rev; tExp += fin.exp; tPaid += fin.paid;
+                const fin = getClientFinancials(c); tRev += fin.rev; tExp += fin.exp; tPaid += fin.paid;
             });
-            const tProf = tRev - tExp;
-            const tRem = tRev - tPaid;
+            const tProf = tRev - tExp; const tRem = tRev - tPaid;
             const tMargin = tRev > 0 ? ((tProf / tRev) * 100).toFixed(1) : 0;
-
             const up = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
             up('ledRev', `₹${tRev.toLocaleString()}`); up('ledExp', `₹${tExp.toLocaleString()}`);
             up('ledProf', `₹${tProf.toLocaleString()}`); up('ledMargin', `${tMargin}%`);
@@ -415,22 +400,22 @@
             const list = document.getElementById('staffList');
             if (!list) return;
             list.innerHTML = state.photographers.map(p => `
-                <div class="ios-card p-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-indigo-500/10 hover:bg-white/5 transition-all animate-pop group text-left">
+                <div class="ios-card p-5 flex flex-col sm:flex-row items-center justify-between gap-4 animate-pop group text-left">
                     <div class="flex items-center gap-4 w-full sm:w-auto">
-                        <div class="w-12 h-12 btn-ios rounded-xl flex items-center justify-center font-black text-lg shrink-0 text-white">${p.name ? p.name[0] : '?'}</div>
+                        <div class="w-12 h-12 bg-white/10 border border-white/20 rounded-2xl flex items-center justify-center font-black text-lg shrink-0 text-white">${p.name ? p.name[0] : '?'}</div>
                         <div class="overflow-hidden">
                             <h4 class="font-black text-base heading-premium text-white truncate">${p.name}</h4>
-                            <p class="text-[9px] text-indigo-500 font-bold uppercase tracking-widest mt-1">${p.role}</p>
+                            <p class="text-[9px] text-white/40 font-bold uppercase tracking-widest mt-1">${p.role}</p>
                         </div>
                     </div>
                     <div class="flex items-center gap-3 w-full sm:w-auto justify-center sm:justify-end">
                         <div class="text-right mr-2 hidden sm:block">
-                            <p class="text-[8px] font-black text-orange-400">Short: ₹${p.shortFee || 0}</p>
+                            <p class="text-[8px] font-black text-blue-400">Short: ₹${p.shortFee || 0}</p>
                             <p class="text-[8px] font-black text-green-400">Full: ₹${p.fullFee || 0}</p>
                         </div>
                         <div class="flex gap-2">
-                            <button onclick="window.editStaff('${p.id}')" class="opacity-40 hover:opacity-100 text-indigo-500 transition"><i data-lucide="edit-2" size="14"></i></button>
-                            <button onclick="window.deleteDocHandler('photographers', '${p.id}')" class="opacity-40 hover:opacity-100 text-red-500 transition"><i data-lucide="trash-2" size="14"></i></button>
+                            <button onclick="window.editStaff('${p.id}')" class="opacity-40 hover:opacity-100 text-white transition"><i data-lucide="edit-2" size="14"></i></button>
+                            <button onclick="window.deleteDocHandler('photographers', '${p.id}')" class="opacity-40 hover:opacity-100 text-red-400 transition"><i data-lucide="trash-2" size="14"></i></button>
                         </div>
                     </div>
                 </div>`).join('');
@@ -447,55 +432,54 @@
             container.innerHTML = filteredData.map(c => {
                 const fin = getClientFinancials(c);
                 const isExpanded = state.expandedProjectId === c.id;
-                const summary = (c.events || []).map(ev => `<div class="flex items-center gap-1.5 bg-indigo-600/10 border border-indigo-500/20 px-2 py-1 rounded-lg"><span class="text-[9px] font-black text-indigo-400 uppercase">${ev.type}</span><span class="text-[9px] font-bold text-slate-300">${ev.date || 'TBD'}</span></div>`).join('') || `<p class="text-[10px] label-premium opacity-30 mt-1">Standby</p>`;
-
+                const summary = (c.events || []).map(ev => `<div class="flex items-center gap-1.5 bg-white/5 border border-white/10 px-2 py-1 rounded-lg"><span class="text-[9px] font-black text-white uppercase">${ev.type}</span><span class="text-[9px] font-bold text-slate-400">${ev.date || 'TBD'}</span></div>`).join('') || `<p class="text-[10px] label-premium opacity-30 mt-1">Standby</p>`;
                 return `
-                    <div class="ios-card mb-6 overflow-hidden animate-pop shadow-md border border-indigo-500/10">
+                    <div class="ios-card mb-6 overflow-hidden animate-pop">
                         <div onclick="window.toggleProjectDetail('${c.id}')" class="p-8 cursor-pointer flex flex-wrap justify-between items-center gap-6 hover:bg-white/5 transition-all text-left">
                             <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-500 border border-indigo-500/20"><i data-lucide="${isExpanded ? 'chevron-up' : 'chevron-down'}"></i></div>
+                                <div class="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center text-white border border-white/10"><i data-lucide="${isExpanded ? 'chevron-up' : 'chevron-down'}"></i></div>
                                 <div><h4 class="text-xl font-black heading-premium text-white">${c.name}</h4><div class="flex flex-wrap gap-2 mt-2">${summary}</div></div>
                             </div>
                             <div class="flex gap-8 text-right ml-auto">
-                                <div class="hidden sm:block text-right"><p class="label-premium mb-1">Due</p><span class="font-black text-orange-500 text-lg">₹${fin.rem.toLocaleString()}</span></div>
-                                <div><p class="label-premium mb-1 text-indigo-500 font-bold">Quotation</p><p class="text-2xl font-black text-white">₹${fin.rev.toLocaleString()}</p></div>
+                                <div class="hidden sm:block text-right"><p class="label-premium mb-1">Due</p><span class="font-black text-orange-400 text-lg">₹${fin.rem.toLocaleString()}</span></div>
+                                <div><p class="label-premium mb-1 text-white/50 font-bold">Quotation</p><p class="text-2xl font-black text-white">₹${fin.rev.toLocaleString()}</p></div>
                             </div>
                         </div>
                         <div class="${isExpanded ? 'detail-expanded' : 'detail-collapsed'} px-8">
-                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 pt-8 border-t border-indigo-500/10">
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 pt-8 border-t border-white/10">
                                 <div class="space-y-6">
-                                    <h5 class="text-[11px] font-black text-indigo-500 uppercase tracking-widest text-left">Financial breakdown</h5>
+                                    <h5 class="text-[11px] font-black text-white/40 uppercase tracking-widest text-left">Financial breakdown</h5>
                                     <div class="flex flex-col gap-4">
-                                        <div class="p-6 rounded-[2rem] bg-indigo-600 shadow-xl text-white text-left"><p class="text-[10px] uppercase mb-1 opacity-80 font-black">Contract Value</p><p class="text-4xl font-black">₹${fin.rev.toLocaleString()}</p></div>
+                                        <div class="p-8 rounded-[2.5rem] bg-white text-black shadow-xl text-left"><p class="text-[10px] uppercase mb-1 opacity-70 font-black">Contract Value</p><p class="text-4xl font-black">₹${fin.rev.toLocaleString()}</p></div>
                                         <div class="grid grid-cols-2 gap-4">
-                                            <div class="p-5 rounded-[1.5rem] bg-slate-900 border border-slate-700 text-center"><p class="label-premium mb-1 text-center">Paid</p><p class="text-2xl font-black text-white">₹${fin.paid.toLocaleString()}</p></div>
-                                            <div class="p-5 rounded-[1.8rem] bg-green-500/10 border border-green-500/30 text-center"><p class="label-premium mb-1 text-green-500 text-center">Profit</p><p class="text-2xl font-black text-green-600">₹${fin.profit.toLocaleString()}</p></div>
+                                            <div class="p-5 rounded-[1.8rem] bg-white/5 border border-white/10 text-center"><p class="label-premium mb-1 text-center">Paid</p><p class="text-2xl font-black text-white">₹${fin.paid.toLocaleString()}</p></div>
+                                            <div class="p-5 rounded-[1.8rem] bg-green-400/10 border border-green-400/20 text-center"><p class="label-premium mb-1 text-green-400 text-center">Profit</p><p class="text-2xl font-black text-green-400">₹${fin.profit.toLocaleString()}</p></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="space-y-6 text-left">
-                                    <h5 class="text-[11px] font-black text-indigo-500 uppercase tracking-widest">Team Assigned</h5>
+                                    <h5 class="text-[11px] font-black text-white/40 uppercase tracking-widest">Team Assigned</h5>
                                     <div class="space-y-4">
                                         ${(c.events || []).map(ev => `
-                                            <div class="p-5 rounded-[2rem] bg-slate-900/60 border border-indigo-500/10 shadow-md">
+                                            <div class="p-6 rounded-[2.2rem] bg-white/5 border border-white/10 shadow-md">
                                                 <div class="flex justify-between items-start mb-3 text-white">
-                                                    <div><span class="text-xl font-black leading-none">${ev.type}</span><p class="text-[9px] text-indigo-500 uppercase mt-1"><i data-lucide="map-pin" size="10"></i> ${ev.location || 'Lucknow'}</p></div>
-                                                    <div class="bg-slate-900 rounded-2xl px-3 py-1.5 border border-slate-700 shadow-xl"><span class="text-[10px] font-black uppercase">${ev.date || 'TBD'}</span></div>
+                                                    <div><span class="text-xl font-black leading-none">${ev.type}</span><p class="text-[9px] opacity-40 uppercase mt-1"><i data-lucide="map-pin" size="10" class="inline"></i> ${ev.location || 'Lucknow'}</p></div>
+                                                    <div class="bg-white/10 rounded-2xl px-3 py-1.5 border border-white/10 shadow-xl"><span class="text-[10px] font-black uppercase">${ev.date || 'TBD'}</span></div>
                                                 </div>
                                                 <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-white/5">
                                                     ${(ev.team || []).map(m => {
                                                         const pData = state.photographers.find(p => p.name === m.name);
-                                                        const roleStr = pData ? `<span class="text-[8px] opacity-60 font-medium ml-1">(${pData.role})</span>` : '';
-                                                        return `<div class="px-3 py-1.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center gap-2 transition-transform hover:scale-105"><div class="w-1.5 h-1.5 rounded-full bg-indigo-500 shadow-md"></div><span class="text-[10px] font-black text-slate-200">${m.name}${roleStr}</span></div>`;
+                                                        const roleStr = pData ? `<span class="text-[8px] opacity-50 font-medium ml-1">(${pData.role})</span>` : '';
+                                                        return `<div class="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 flex items-center gap-2 transition-transform hover:scale-105"><div class="w-1.5 h-1.5 rounded-full bg-white shadow-md"></div><span class="text-[10px] font-black text-white">${m.name}${roleStr}</span></div>`;
                                                     }).join('')}
                                                 </div>
                                             </div>`).join('')}
                                     </div>
                                 </div>
                             </div>
-                            <div class="mt-10 flex justify-end gap-3 border-t border-indigo-500/10 pt-8">
-                                <button onclick="window.editClient('${c.id}', event)" class="px-8 py-3 rounded-2xl bg-indigo-500 text-white text-[10px] font-black uppercase tracking-widest transition hover:scale-105">Modify</button>
-                                <button onclick="window.deleteDocHandler('clients', '${c.id}')" class="px-8 py-3 rounded-2xl bg-red-500/10 text-red-500 text-[10px] font-black uppercase transition">Archive</button>
+                            <div class="mt-10 flex justify-end gap-3 border-t border-white/10 pt-8">
+                                <button onclick="window.editClient('${c.id}', event)" class="px-8 py-4 rounded-2xl bg-white text-black text-[10px] font-black uppercase tracking-widest transition hover:scale-105">Modify Node</button>
+                                <button onclick="window.deleteDocHandler('clients', '${c.id}')" class="px-8 py-4 rounded-2xl bg-red-500/10 text-red-400 text-[10px] font-black uppercase transition">Archive</button>
                             </div>
                         </div>
                     </div>`;
@@ -506,33 +490,30 @@
         function renderFinanceTable(filteredData = []) {
             const rows = document.getElementById('financeRows');
             if (!rows) return;
-            if (filteredData.length === 0) {
-                rows.innerHTML = `<tr><td colspan="7" class="text-center py-10 opacity-40 italic uppercase tracking-widest text-xs text-white text-center">No financial data for ${state.selectedYear}.</td></tr>`;
-                return;
-            }
+            if (filteredData.length === 0) { rows.innerHTML = `<tr><td colspan="7" class="text-center py-10 opacity-40 italic uppercase tracking-widest text-xs text-white">No financial data for ${state.selectedYear}.</td></tr>`; return; }
             let tRev = 0, tExp = 0, tProf = 0, tPaid = 0, tRem = 0;
             const clientRows = filteredData.map(c => {
-                const fin = getClientFinancials(c);
-                tRev += fin.rev; tExp += fin.exp; tProf += fin.profit; tPaid += fin.paid; tRem += fin.rem;
-                return `<tr class="border-b border-white/5 hover:bg-indigo-500/5 transition text-white">
-                    <td class="px-10 py-6 font-bold heading-premium" data-label="Client Node">${c.name}</td>
-                    <td class="px-10 py-6 text-indigo-500 font-bold" data-label="Revenue">₹${fin.rev.toLocaleString()}</td>
-                    <td class="px-10 py-6 text-red-500 font-medium" data-label="Expense">₹${fin.exp.toLocaleString()}</td>
-                    <td class="px-10 py-6 text-green-600 font-extrabold" data-label="Profit">₹${fin.profit.toLocaleString()}</td>
-                    <td class="px-10 py-6 opacity-70 font-bold" data-label="Received">₹${fin.paid.toLocaleString()}</td>
-                    <td class="px-10 py-6 text-orange-500 font-black" data-label="Remaining">₹${fin.rem.toLocaleString()}</td>
-                    <td class="px-10 py-6 text-indigo-400 font-black" data-label="Profit %">${fin.margin}%</td>
+                const fin = getClientFinancials(c); tRev += fin.rev; tExp += fin.exp; tProf += fin.profit; tPaid += fin.paid; tRem += fin.rem;
+                return `<tr class="border-b border-white/5 hover:bg-white/5 transition text-white">
+                    <td class="px-10 py-7 font-bold heading-premium" data-label="Client Node">${c.name}</td>
+                    <td class="px-10 py-7 text-white font-black" data-label="Revenue">₹${fin.rev.toLocaleString()}</td>
+                    <td class="px-10 py-7 text-red-400 font-medium" data-label="Expense">₹${fin.exp.toLocaleString()}</td>
+                    <td class="px-10 py-7 text-green-400 font-extrabold" data-label="Profit">₹${fin.profit.toLocaleString()}</td>
+                    <td class="px-10 py-7 opacity-70 font-bold" data-label="Received">₹${fin.paid.toLocaleString()}</td>
+                    <td class="px-10 py-7 text-orange-400 font-black" data-label="Remaining">₹${fin.rem.toLocaleString()}</td>
+                    <td class="px-10 py-7 text-white font-black" data-label="Profit %">${fin.margin}%</td>
                 </tr>`;
             }).join('');
+            
             const totalMargin = tRev > 0 ? ((tProf / tRev) * 100).toFixed(2) : 0;
-            const totalRow = `<tr class="summary-row bg-indigo-600/10 border-t-4 border-indigo-600 font-black animate-pop shadow-inner text-white">
-                <td class="px-10 py-8 text-xl font-black heading-premium uppercase" data-label="Summary">Overall Profit Percentage</td>
-                <td class="px-10 py-8 text-2xl font-black text-indigo-600" data-label="Revenue Sum">₹${tRev.toLocaleString()}</td>
-                <td class="px-10 py-8 text-xl font-black text-red-500" data-label="Expense Sum">₹${tExp.toLocaleString()}</td>
-                <td class="px-10 py-8 text-3xl font-black text-green-600" data-label="Net Profit Sum">₹${tProf.toLocaleString()}</td>
+            const totalRow = `<tr class="summary-row bg-white/5 border-t-2 border-white/20 font-black animate-pop shadow-inner text-white">
+                <td class="px-10 py-8 text-xl font-black heading-premium uppercase" data-label="Summary">Overall Ledger</td>
+                <td class="px-10 py-8 text-2xl font-black text-white" data-label="Revenue Sum">₹${tRev.toLocaleString()}</td>
+                <td class="px-10 py-8 text-xl font-black text-red-400" data-label="Expense Sum">₹${tExp.toLocaleString()}</td>
+                <td class="px-10 py-8 text-3xl font-black text-green-400" data-label="Net Profit Sum">₹${tProf.toLocaleString()}</td>
                 <td class="px-10 py-8 text-xl font-black opacity-70" data-label="Paid Sum">₹${tPaid.toLocaleString()}</td>
-                <td class="px-10 py-8 text-2xl font-black text-orange-600" data-label="Remaining Sum">₹${tRem.toLocaleString()}</td>
-                <td class="px-10 py-8 text-2xl font-black text-indigo-400" data-label="Overall Profit %">${totalMargin}%</td>
+                <td class="px-10 py-8 text-2xl font-black text-orange-400" data-label="Remaining Sum">₹${tRem.toLocaleString()}</td>
+                <td class="px-10 py-8 text-2xl font-black text-white" data-label="Overall Profit %">${totalMargin}%</td>
             </tr>`;
             rows.innerHTML = clientRows + totalRow;
         }
@@ -541,207 +522,136 @@
             const list = document.getElementById('metaListHome');
             if (!list) return;
             list.innerHTML = state.eventMeta.map(m => `
-                <div class="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-indigo-500/10 mb-2 shadow-sm">
+                <div class="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/10 mb-2 shadow-sm">
                     <span class="text-xs font-bold heading-premium text-white">${m.name}</span>
-                    <button onclick="window.deleteDocHandler('event_meta', '${m.id}')" class="opacity-40 hover:opacity-100 text-red-500 p-1 transition"><i data-lucide="trash-2" size="14"></i></button>
+                    <button onclick="window.deleteDocHandler('event_meta', '${m.id}')" class="opacity-40 hover:opacity-100 text-red-400 p-1 transition"><i data-lucide="trash-2" size="14"></i></button>
                 </div>`).join('');
             lucide.createIcons();
         }
 
         function renderEverything() {
             const filteredData = state.clients.filter(c => (c.events || []).some(ev => ev.date && ev.date.startsWith(state.selectedYear)));
-            renderFinanceSummary(filteredData);
-            renderStaffList();
-            renderProjectList(filteredData);
-            renderFinanceTable(filteredData);
-            renderMetaList();
-            lucide.createIcons();
+            renderFinanceSummary(filteredData); renderStaffList(); renderProjectList(filteredData); renderFinanceTable(filteredData); renderMetaList(); lucide.createIcons();
         }
 
-        // --- ATTACH TO WINDOW ---
+        // --- HANDLERS ---
         window.handleYearChange = (val) => { state.selectedYear = val; renderEverything(); };
         window.toggleModal = (id, show = true) => {
-            const el = document.getElementById(id);
-            if (el) el.style.display = show ? 'flex' : 'none';
-            if (!show && id === 'clientModal') { 
-                state.editingClientId = null; 
-                const form = document.getElementById('clientForm');
-                if(form) form.reset(); 
-                const container = document.getElementById('eventsContainer');
-                if(container) container.innerHTML = ''; 
-            }
+            const el = document.getElementById(id); if (el) el.style.display = show ? 'flex' : 'none';
+            if (!show && id === 'clientModal') { state.editingClientId = null; const form = document.getElementById('clientForm'); if(form) form.reset(); const container = document.getElementById('eventsContainer'); if(container) container.innerHTML = ''; }
             window.calculateModalProfit();
         };
         window.toggleProjectDetail = (id) => { state.expandedProjectId = (state.expandedProjectId === id) ? null : id; renderEverything(); };
-        
         window.editClient = (id, event) => {
             if (event) event.stopPropagation();
-            const c = state.clients.find(x => x.id === id); 
-            if (!c) return;
-            state.editingClientId = id; 
-            const form = document.getElementById('clientForm');
-            if(!form) return;
-            
-            form.elements['cName'].value = c.name || '';
-            form.elements['cContact'].value = c.contact || '';
-            form.elements['cFinal'].value = c.finalAmount || 0;
-            form.elements['cAdvance'].value = c.advance || 0;
-            form.elements['cAlbum'].value = c.albumCost || 0;
-            form.elements['cEdit'].value = c.editingCost || 0;
-            form.elements['cMisc'].value = c.otherCost || 0;
-            
-            const inst = c.installments || [0, 0, 0, 0];
-            form.elements['i1'].value = inst[0] || 0;
-            form.elements['i2'].value = inst[1] || 0;
-            form.elements['i3'].value = inst[2] || 0;
-            form.elements['i4'].value = inst[3] || 0;
-
-            const container = document.getElementById('eventsContainer');
-            if (container) {
-                container.innerHTML = ''; 
-                (c.events || []).forEach(ev => window.addEventSlot(ev)); 
-            }
+            const c = state.clients.find(x => x.id === id); if (!c) return;
+            state.editingClientId = id; const form = document.getElementById('clientForm'); if(!form) return;
+            form.elements['cName'].value = c.name || ''; form.elements['cContact'].value = c.contact || '';
+            form.elements['cFinal'].value = c.finalAmount || 0; form.elements['cAdvance'].value = c.advance || 0;
+            form.elements['cAlbum'].value = c.albumCost || 0; form.elements['cEdit'].value = c.editingCost || 0; form.elements['cMisc'].value = c.otherCost || 0;
+            const inst = c.installments || [0, 0, 0, 0]; form.elements['i1'].value = inst[0] || 0; form.elements['i2'].value = inst[1] || 0; form.elements['i3'].value = inst[2] || 0; form.elements['i4'].value = inst[3] || 0;
+            const container = document.getElementById('eventsContainer'); if (container) { container.innerHTML = ''; (c.events || []).forEach(ev => window.addEventSlot(ev)); }
             window.toggleModal('clientModal', true);
         };
-
         window.saveClient = async (e) => {
-            e.preventDefault(); 
-            const f = e.target;
+            e.preventDefault(); const f = e.target;
             const events = Array.from(document.querySelectorAll('#eventsContainer > div')).map(block => ({
-                type: block.querySelector('.ev-type').value, 
-                date: block.querySelector('.ev-date').value, 
-                location: block.querySelector('.ev-location').value,
+                type: block.querySelector('.ev-type').value, date: block.querySelector('.ev-date').value, location: block.querySelector('.ev-location').value,
                 team: Array.from(block.querySelectorAll('.team-container > div')).map(row => ({ name: row.querySelector('.member-name').value, chargeType: row.querySelector('.member-type').value, fee: Number(row.querySelector('.member-fee').value) }))
             }));
             const payload = { name: f.cName.value, contact: f.cContact.value, finalAmount: Number(f.cFinal.value), advance: Number(f.cAdvance.value), albumCost: Number(f.cAlbum.value), editingCost: Number(f.cEdit.value), otherCost: Number(f.cMisc.value), installments: [Number(f.i1.value), Number(f.i2.value), Number(f.i3.value), Number(f.i4.value)], events, lastUpdated: new Date().toISOString() };
-            try {
-                if (state.editingClientId) await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'clients', state.editingClientId), payload);
-                else await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'clients'), payload);
-                window.toggleModal('clientModal', false);
-            } catch (err) { console.error(err); }
+            try { if (state.editingClientId) await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'clients', state.editingClientId), payload); else await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'clients'), payload); window.toggleModal('clientModal', false); } catch (err) { console.error(err); }
         };
-
         window.editStaff = (id) => {
             const s = state.photographers.find(p => p.id === id); if (!s) return;
-            state.editingStaffId = id; const f = document.getElementById('staffForm');
-            if(!f) return;
+            state.editingStaffId = id; const f = document.getElementById('staffForm'); if(!f) return;
             f.pName.value = s.name; f.pRole.value = s.role; f.pShort.value = s.shortFee || 0; f.pFull.value = s.fullFee || 0;
-            document.getElementById('staffModalTitle').innerText = "Update Staff Node"; window.toggleModal('staffModal', true);
+            document.getElementById('staffModalTitle').innerText = "Modify Team Member"; window.toggleModal('staffModal', true);
         };
-
         window.saveStaff = async (e) => {
-            e.preventDefault(); 
-            const d = { name: e.target.pName.value, role: e.target.pRole.value, shortFee: Number(e.target.pShort.value), fullFee: Number(e.target.pFull.value) };
-            try {
-                if (state.editingStaffId) await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'photographers', state.editingStaffId), d);
-                else await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'photographers'), d);
-                e.target.reset(); window.toggleModal('staffModal', false);
-            } catch (e) { console.error(e); }
+            e.preventDefault(); const d = { name: e.target.pName.value, role: e.target.pRole.value, shortFee: Number(e.target.pShort.value), fullFee: Number(e.target.pFull.value) };
+            try { if (state.editingStaffId) await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'photographers', state.editingStaffId), d); else await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'photographers'), d); e.target.reset(); window.toggleModal('staffModal', false); } catch (e) { console.error(e); }
         };
-
         window.saveMeta = async (e) => {
-            e.preventDefault(); 
-            const n = document.getElementById('metaNameHome').value; 
-            if(!n) return;
-            try {
-                await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'event_meta'), { name: n });
-                document.getElementById('metaNameHome').value = '';
-            } catch(err) { console.error(err); }
+            e.preventDefault(); const n = document.getElementById('metaNameHome').value; if(!n) return;
+            try { await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'event_meta'), { name: n }); document.getElementById('metaNameHome').value = ''; } catch(err) { console.error(err); }
         };
-
         window.deleteDocHandler = async (col, id) => { if (confirm("Confirm deletion?")) await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', col, id)); };
-        
         window.switchTab = (tab) => {
             document.querySelectorAll('.tab-page').forEach(el => el.classList.add('hidden'));
             const t = document.getElementById(tab + 'Tab'); if (t) t.classList.remove('hidden');
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('tab-active', 'bg-indigo-600/20', 'text-indigo-500'));
-            const a = document.querySelector(`[data-tab="${tab}"]`); if (a) a.classList.add('tab-active', 'bg-indigo-600/20', 'text-indigo-500');
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('tab-active', 'bg-white/20', 'text-white'));
+            const a = document.querySelector(`[data-tab="${tab}"]`); if (a) a.classList.add('tab-active', 'bg-white/20', 'text-white');
         };
-
-        window.handleLogin = async (e) => {
-            e.preventDefault();
-            try { await signInWithEmailAndPassword(auth, e.target.email.value, e.target.password.value); }
-            catch (err) { alert("Login Failed"); }
-        };
-
-        window.handleRegister = async (e) => {
-            e.preventDefault();
-            if (e.target.secret_code.value.trim() !== SECRET_CODE) { alert("Invalid Secret Code!"); return; }
-            try { await createUserWithEmailAndPassword(auth, e.target.email.value, e.target.password.value); window.showAuthView('login'); }
-            catch (err) { alert("Failed"); }
-        };
-
+        window.handleLogin = async (e) => { e.preventDefault(); try { await signInWithEmailAndPassword(auth, e.target.email.value, e.target.password.value); } catch (err) { alert("Login Failed"); } };
+        window.handleRegister = async (e) => { e.preventDefault(); if (e.target.secret_code.value.trim() !== SECRET_CODE) { alert("Invalid Secret Code!"); return; } try { await createUserWithEmailAndPassword(auth, e.target.email.value, e.target.password.value); window.showAuthView('login'); } catch (err) { alert("Failed"); } };
         window.handleLogout = () => signOut(auth);
         window.showAuthView = (view) => {
-            const loginForm = document.getElementById('login-form');
-            const registerForm = document.getElementById('register-form');
-            if (loginForm) loginForm.classList.toggle('hidden', view !== 'login');
-            if (registerForm) registerForm.classList.toggle('hidden', view !== 'register');
+            const loginForm = document.getElementById('login-form'); const registerForm = document.getElementById('register-form');
+            if (loginForm) loginForm.classList.toggle('hidden', view !== 'login'); if (registerForm) registerForm.classList.toggle('hidden', view !== 'register');
         };
-
         onAuthStateChanged(auth, (user) => {
             state.user = user;
             if (user) { document.getElementById('auth-overlay').style.display = 'none'; document.getElementById('app-content').classList.remove('hidden'); startListeners(); }
             else { document.getElementById('auth-overlay').style.display = 'flex'; document.getElementById('app-content').classList.add('hidden'); }
         });
-
         function startListeners() {
             if (!state.user) return;
             onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'clients'), (snapshot) => { state.clients = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); renderEverything(); });
             onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'photographers'), (snapshot) => { state.photographers = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); renderEverything(); });
             onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'event_meta'), (snapshot) => { state.eventMeta = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); renderEverything(); });
         }
-
     </script>
 </head>
 
 <body class="custom-scroll">
     <div class="liquid-bg">
-        <div class="blob" style="top: -10%; left: -10%; background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(236, 72, 153, 0.3));"></div>
-        <div class="blob" style="bottom: -10%; right: -10%; animation-duration: 30s; animation-delay: -5s; background: linear-gradient(168, 85, 247, 0.3), rgba(59, 130, 246, 0.3));"></div>
+        <!-- iOS Liquid Glossy Blobs (Removed Amber) -->
+        <div class="blob" style="top: -10%; left: -10%; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);"></div>
+        <div class="blob" style="bottom: -10%; right: -10%; animation-duration: 40s; animation-delay: -10s; background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 70%);"></div>
     </div>
 
     <!-- AUTH OVERLAY -->
     <div id="auth-overlay">
-        <div class="glass-panel p-10 sm:p-14 rounded-[3.5rem] w-full max-w-md border border-white/20 shadow-2xl animate-pop mx-4 text-center text-white">
-            <div class="w-16 h-16 btn-ios rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl font-black text-xl">LWS</div>
-            <h1 class="text-3xl font-black tracking-tighter leading-tight">Lucknow Wedding Studio</h1>
-            <p class="opacity-50 text-[10px] font-bold uppercase tracking-[0.2em] mt-2 mb-10 text-white/70">Authorized Access Only</p>
+        <div class="glass-panel p-10 sm:p-14 rounded-[3rem] w-full max-w-md border border-white/20 shadow-2xl animate-pop mx-4 text-center text-white">
+            <div class="w-16 h-16 bg-white rounded-[1.5rem] flex items-center justify-center mx-auto mb-8 shadow-2xl font-black text-2xl text-black">LW</div>
+            <h1 class="text-3xl font-black tracking-tight leading-tight">Wedding Studio</h1>
+            <p class="opacity-40 text-[10px] font-bold uppercase tracking-[0.2em] mt-2 mb-10">Access Portal System</p>
             <form id="login-form" onsubmit="window.handleLogin(event)" class="space-y-6">
-                <input name="email" type="email" placeholder="Email Address" required class="w-full p-4 input-ios text-sm font-medium">
-                <input name="password" type="password" placeholder="Password" required class="w-full p-4 input-ios text-sm font-medium">
-                <button type="submit" class="w-full py-4 btn-ios text-white font-black rounded-2xl uppercase tracking-widest text-[11px] shadow-2xl transition-transform active:scale-95">Sign In Access</button>
-                <p class="text-center text-[11px] opacity-40 font-bold uppercase tracking-wider mt-4 text-white/50">
-                    Node? <button type="button" onclick="window.showAuthView('register')" class="text-indigo-500 font-black">Register</button></p>
+                <input name="email" type="email" placeholder="Identifier Email" required class="w-full p-4 input-ios text-sm font-medium">
+                <input name="password" type="password" placeholder="Key Passphrase" required class="w-full p-4 input-ios text-sm font-medium">
+                <button type="submit" class="w-full py-4 btn-ios text-black font-black rounded-2xl uppercase tracking-widest text-[11px] shadow-2xl transition-all active:scale-95">Verify & Enter</button>
+                <p class="text-center text-[11px] opacity-40 font-bold uppercase tracking-wider mt-4">
+                    New Node? <button type="button" onclick="window.showAuthView('register')" class="text-white font-black underline">Register</button></p>
             </form>
             <form id="register-form" onsubmit="window.handleRegister(event)" class="space-y-5 hidden">
-                <input name="email" type="email" placeholder="Studio Email" required class="w-full p-4 input-ios text-sm font-medium">
-                <input name="password" type="password" placeholder="Access Key" required class="w-full p-4 input-ios text-sm font-medium">
-                <div class="p-4 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-left">
-                    <label class="text-[9px] font-black uppercase text-indigo-500 block mb-1">Verification Code</label>
-                    <input name="secret_code" placeholder="lws..." required class="w-full bg-transparent border-none outline-none font-bold text-lg text-white">
+                <input name="email" type="email" placeholder="Studio Identity" required class="w-full p-4 input-ios text-sm font-medium">
+                <input name="password" type="password" placeholder="Create Access Key" required class="w-full p-4 input-ios text-sm font-medium">
+                <div class="p-4 rounded-2xl bg-white/5 border border-white/10 text-left">
+                    <label class="text-[9px] font-black uppercase opacity-40 block mb-1">Verification Code</label>
+                    <input name="secret_code" placeholder="Enter System Secret" required class="w-full bg-transparent border-none outline-none font-bold text-lg text-white">
                 </div>
-                <button type="submit" class="w-full py-4 btn-ios text-white font-black rounded-2xl uppercase tracking-widest text-[11px]">Request Account</button>
-                <button type="button" onclick="window.showAuthView('login')" class="w-full text-center text-[10px] font-bold opacity-40 uppercase mt-4 text-white/50">Back to Login</button>
+                <button type="submit" class="w-full py-4 btn-ios text-black font-black rounded-2xl uppercase tracking-widest text-[11px]">Request Enrollment</button>
+                <button type="button" onclick="window.showAuthView('login')" class="w-full text-center text-[10px] font-bold opacity-40 uppercase mt-4">Return</button>
             </form>
         </div>
     </div>
 
     <!-- MAIN APP CONTENT -->
     <div id="app-content" class="hidden min-h-screen pb-20">
-        <nav class="sticky top-2 z-50 glass-panel mx-2 sm:mx-6 my-2 px-4 sm:px-8 py-3 flex flex-col sm:flex-row justify-between items-center rounded-[1.5rem] sm:rounded-[2.5rem] border border-white/20 shadow-2xl gap-3 sm:gap-4 text-white">
-            <div class="flex items-center gap-3 w-full sm:w-auto text-left">
-                <div class="w-10 h-10 btn-ios rounded-2xl flex items-center justify-center text-white shadow-lg font-black text-xs">LWS</div>
+        <nav class="sticky top-4 z-50 glass-panel mx-4 sm:mx-10 my-4 px-6 sm:px-10 py-4 flex flex-col sm:flex-row justify-between items-center rounded-[2.2rem] gap-4 text-white">
+            <div class="flex items-center gap-4 w-full sm:w-auto text-left">
+                <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-black shadow-xl font-black text-xs">LW</div>
                 <div>
-                    <h1 class="text-sm sm:text-lg font-black tracking-tight uppercase leading-none text-white">Lucknow Wedding Studio</h1>
-                    <p class="text-[8px] font-bold text-indigo-400 uppercase tracking-widest mt-1">Authorized Hub</p>
+                    <h1 class="text-base sm:text-xl font-black tracking-tight uppercase leading-none">Studio Manager</h1>
+                    <p class="text-[8px] font-bold opacity-40 uppercase tracking-[0.2em] mt-1">iOS Liquid Edition</p>
                 </div>
             </div>
             
             <div class="flex items-center gap-4 w-full sm:w-auto overflow-x-auto no-scrollbar py-1">
-                <div class="flex items-center bg-white/10 rounded-xl px-3 border border-white/10 shrink-0">
-                    <span class="text-[8px] font-black uppercase opacity-40 mr-2 text-indigo-400">Year</span>
-                    <select onchange="window.handleYearChange(this.value)" class="bg-transparent text-white font-bold text-xs outline-none py-1.5 cursor-pointer">
+                <div class="flex items-center bg-white/10 rounded-xl px-4 border border-white/10 shrink-0">
+                    <span class="text-[8px] font-black uppercase opacity-40 mr-3">Cycle</span>
+                    <select onchange="window.handleYearChange(this.value)" class="bg-transparent text-white font-bold text-xs outline-none py-2 cursor-pointer">
                         <option value="2025" class="text-black">2025</option>
                         <option value="2026" class="text-black" selected>2026</option>
                         <option value="2027" class="text-black">2027</option>
@@ -751,87 +661,86 @@
                     </select>
                 </div>
 
-                <div class="flex p-1 bg-white/5 rounded-2xl border border-white/10 w-full shadow-inner text-white">
-                    <button onclick="window.switchTab('dash')" data-tab="dash" class="nav-btn flex-1 whitespace-nowrap px-4 sm:px-8 py-2 rounded-xl text-[9px] sm:text-[11px] font-black uppercase tracking-widest tab-active bg-indigo-600/20 text-indigo-500 transition-all">Hub</button>
-                    <button onclick="window.switchTab('projects')" data-tab="projects" class="nav-btn flex-1 whitespace-nowrap px-4 sm:px-8 py-2 rounded-xl text-[9px] sm:text-[11px] font-black uppercase tracking-widest text-slate-400 transition-all">Assess</button>
-                    <button onclick="window.switchTab('finance')" data-tab="finance" class="nav-btn flex-1 whitespace-nowrap px-4 sm:px-8 py-2 rounded-xl text-[9px] sm:text-[11px] font-black uppercase tracking-widest text-slate-400 transition-all">Ledger</button>
+                <div class="flex p-1.5 bg-black/40 rounded-2xl border border-white/10 w-full shadow-inner text-white">
+                    <button onclick="window.switchTab('dash')" data-tab="dash" class="nav-btn flex-1 whitespace-nowrap px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-[0.15em] tab-active bg-white/20 text-white transition-all">Hub</button>
+                    <button onclick="window.switchTab('projects')" data-tab="projects" class="nav-btn flex-1 whitespace-nowrap px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 transition-all">Audit</button>
+                    <button onclick="window.switchTab('finance')" data-tab="finance" class="nav-btn flex-1 whitespace-nowrap px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 transition-all">Ledger</button>
                 </div>
             </div>
-            <div class="flex items-center gap-2 absolute sm:relative top-3 right-4 sm:top-0 sm:right-0">
-                <button onclick="window.handleLogout()" class="w-9 h-9 flex items-center justify-center rounded-xl bg-red-500/10 border border-red-500/20 text-red-500 transition-all hover:bg-red-600 hover:text-white"><i data-lucide="log-out" size="16"></i></button>
+            <div class="flex items-center gap-2 absolute sm:relative top-5 right-6 sm:top-0 sm:right-0">
+                <button onclick="window.handleLogout()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-red-400/10 border border-red-400/20 text-red-400 transition-all hover:bg-red-500 hover:text-white"><i data-lucide="log-out" size="18"></i></button>
             </div>
         </nav>
 
-        <main class="max-w-[98%] mx-auto px-2 sm:px-6 pt-4 sm:pt-10 text-white text-left">
+        <main class="max-w-[1400px] mx-auto px-4 sm:px-10 pt-6 sm:pt-12 text-white text-left">
             <!-- DASHBOARD HUB -->
-            <section id="dashTab" class="tab-page animate-in fade-in duration-700 space-y-12">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-8 px-2">
-                    <div class="text-left text-white">
-                        <h2 class="text-3xl sm:text-7xl font-black tracking-tighter">Lucknow Wedding Studio Hub</h2>
-                        <p class="opacity-50 font-bold mt-2 text-indigo-500 uppercase tracking-widest text-xs"> Registry Node Hub.</p>
+            <section id="dashTab" class="tab-page animate-in fade-in duration-700 space-y-16">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-10">
+                    <div class="text-left text-white max-w-2xl">
+                        <h2 class="text-4xl sm:text-8xl font-black tracking-tight leading-[0.9]">Registry Node Hub</h2>
+                        <p class="opacity-40 font-bold mt-4 uppercase tracking-[0.2em] text-xs">Central Command for Wedding Management & Resource Scheduling.</p>
                     </div>
-                    <div class="flex gap-3 w-full sm:w-auto">
-                        <button onclick="window.toggleModal('staffModal')" class="flex-1 sm:flex-none btn-ios text-white px-8 py-4 rounded-[1.2rem] font-black shadow-2xl uppercase text-[10px] tracking-widest transition-transform hover:scale-105">+ New Member</button>
-                        <button onclick="window.toggleModal('clientModal')" class="flex-1 sm:flex-none bg-indigo-500/10 px-8 py-4 rounded-[1.2rem] border border-indigo-500/20 font-black text-[10px] text-indigo-500 uppercase tracking-widest transition-transform hover:scale-105">+ Project</button>
+                    <div class="flex gap-4 w-full sm:w-auto">
+                        <button onclick="window.toggleModal('staffModal')" class="flex-1 sm:flex-none btn-ios text-black px-10 py-5 rounded-[1.4rem] font-black shadow-2xl uppercase text-[10px] tracking-widest transition-all">+ New Member</button>
+                        <button onclick="window.toggleModal('clientModal')" class="flex-1 sm:flex-none bg-white/5 px-10 py-5 rounded-[1.4rem] border border-white/20 font-black text-[10px] text-white uppercase tracking-widest hover:bg-white/10 transition-all">+ Project Node</button>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 px-2">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
                     <!-- Team Registry -->
-                    <div class="lg:col-span-8 space-y-6">
-                        <div class="flex items-center justify-between border-b border-white/10 pb-4">
-                            <h3 class="font-black text-sm uppercase tracking-[0.3em] text-indigo-500">Detailed Team Registry</h3>
+                    <div class="lg:col-span-8 space-y-8">
+                        <div class="flex items-center justify-between border-b border-white/10 pb-6">
+                            <h3 class="font-black text-xs uppercase tracking-[0.4em] opacity-40">Personnel Inventory</h3>
                         </div>
-                        <div id="staffList" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                        <div id="staffList" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
                     </div>
 
-                    <!-- Event Meta Management (RESTORED TO HOME PAGE) -->
-                    <div class="lg:col-span-4 space-y-6">
-                        <div class="ios-card p-6 bg-white/5 border border-indigo-500/20">
-                            <h3 class="font-black text-xs uppercase tracking-[0.2em] text-indigo-400 mb-6 text-left">Dictionary Node</h3>
-                            <form onsubmit="window.saveMeta(event)" class="flex gap-2 mb-6">
-                                <input id="metaNameHome" placeholder="New Event Type" required class="flex-1 p-3 input-ios font-bold rounded-xl text-slate-100 text-sm">
-                                <button type="submit" class="w-12 h-12 btn-ios flex items-center justify-center shrink-0"><i data-lucide="plus" size="20"></i></button>
+                    <!-- Event Meta Management -->
+                    <div class="lg:col-span-4 space-y-8">
+                        <div class="ios-card p-8 bg-black/40 border border-white/10">
+                            <h3 class="font-black text-xs uppercase tracking-[0.2em] opacity-40 mb-8 text-left">Dictionary Config</h3>
+                            <form onsubmit="window.saveMeta(event)" class="flex gap-3 mb-8">
+                                <input id="metaNameHome" placeholder="Add Sequence Type" required class="flex-1 p-4 input-ios font-bold rounded-xl text-slate-100 text-sm">
+                                <button type="submit" class="w-14 h-14 bg-white flex items-center justify-center shrink-0 rounded-xl text-black shadow-lg"><i data-lucide="plus" size="24"></i></button>
                             </form>
-                            <div id="metaListHome" class="max-h-[300px] overflow-y-auto custom-scroll pr-1 space-y-2 text-left"></div>
+                            <div id="metaListHome" class="max-h-[350px] overflow-y-auto custom-scroll pr-2 space-y-3 text-left"></div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- ASSIGNMENTS SECTION -->
-            <section id="projectsTab" class="tab-page hidden animate-in slide-in-from-bottom-6 duration-700 px-2 text-left">
-                <div class="mb-10"><h2 class="text-5xl font-black tracking-tighter">Assignments</h2><p class="opacity-50 font-bold mt-2 text-lg text-slate-400 uppercase tracking-widest text-xs">Project timeline audit nodes.</p></div>
-                <div id="projectDetailedList" class="space-y-6"></div>
+            <!-- AUDIT SECTION -->
+            <section id="projectsTab" class="tab-page hidden animate-in slide-in-from-bottom-8 px-4 text-left">
+                <div class="mb-14"><h2 class="text-6xl font-black tracking-tight">Active Audit</h2><p class="opacity-40 font-bold mt-3 text-slate-400 uppercase tracking-widest text-xs">Project lifecycle and team node tracking.</p></div>
+                <div id="projectDetailedList" class="space-y-8"></div>
             </section>
 
             <!-- LEDGER SECTION -->
-            <section id="financeTab" class="tab-page hidden animate-in slide-in-from-bottom-6 px-2 text-left">
-                <div class="glass-panel rounded-[2rem] sm:rounded-[3.5rem] border border-white/10 shadow-2xl overflow-hidden">
-                    <div class="p-6 sm:p-12 border-b border-white/10 bg-white/5">
-                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
-                            <h2 class="text-3xl sm:text-5xl font-black tracking-tight text-white font-black">Financial Ledger</h2>
-                            <!-- Export to Excel Button -->
-                            <button onclick="window.exportToExcel()" class="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest flex items-center gap-2 transition-all shadow-xl shadow-green-900/20">
-                                <i data-lucide="download" size="18"></i> Export Detailed Ledger
+            <section id="financeTab" class="tab-page hidden animate-in slide-in-from-bottom-8 px-4 text-left">
+                <div class="glass-panel rounded-[3.5rem] border border-white/10 shadow-2xl overflow-hidden">
+                    <div class="p-8 sm:p-14 border-b border-white/10 bg-white/5">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-12">
+                            <h2 class="text-4xl sm:text-6xl font-black tracking-tight text-white">Financial Ledger</h2>
+                            <button onclick="window.exportToExcel()" class="bg-white hover:bg-slate-100 text-black px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-widest flex items-center gap-3 transition-all shadow-xl">
+                                <i data-lucide="download" size="18"></i> System Export
                             </button>
                         </div>
                         
-                        <div class="grid grid-cols-2 lg:grid-cols-6 gap-3 sm:gap-4">
-                            <div class="bg-indigo-600/10 p-5 rounded-2xl border border-indigo-600/20 shadow-lg text-center text-white"><p class="label-premium mb-1">Billing</p><h3 id="ledRev" class="text-sm sm:text-xl font-black leading-none">₹0</h3></div>
-                            <div class="bg-red-600/10 p-5 rounded-2xl border border-red-600/20 shadow-lg text-center text-white"><p class="label-premium mb-1 text-red-400 font-bold">Expense</p><h3 id="ledExp" class="text-sm sm:text-xl font-black text-red-500 leading-none">₹0</h3></div>
-                            <div class="bg-green-600/10 p-5 rounded-2xl border border-green-600/20 shadow-lg text-center text-white"><p class="label-premium mb-1 text-green-500 font-bold">Profit</p><h3 id="ledProf" class="text-sm sm:text-xl font-black text-green-600 leading-none">₹0</h3></div>
-                            <div class="bg-slate-900 p-5 rounded-2xl border border-slate-700 shadow-lg text-center text-white"><p class="label-premium mb-1 text-slate-400 font-bold">Received</p><h3 id="ledReceived" class="text-sm sm:text-xl font-black text-slate-100 leading-none">₹0</h3></div>
-                            <div class="bg-orange-600/10 p-5 rounded-2xl border border-orange-600/20 shadow-lg text-center text-white"><p class="label-premium mb-1 text-orange-400 font-bold">Remaining</p><h3 id="ledRemaining" class="text-sm sm:text-xl font-black text-orange-500 leading-none">₹0</h3></div>
-                            <div class="bg-white/5 p-5 rounded-2xl border border-white/10 shadow-lg text-center text-white"><p class="label-premium mb-1 font-bold">Margin</p><h3 id="ledMargin" class="text-sm sm:text-xl font-black text-white leading-none">0%</h3></div>
+                        <div class="grid grid-cols-2 lg:grid-cols-6 gap-4 sm:gap-6">
+                            <div class="bg-white/5 p-6 rounded-3xl border border-white/10 text-center text-white"><p class="label-premium mb-2">Total Billing</p><h3 id="ledRev" class="text-sm sm:text-xl font-black">₹0</h3></div>
+                            <div class="bg-red-400/5 p-6 rounded-3xl border border-red-400/20 text-center"><p class="label-premium mb-2 text-red-400">System Cost</p><h3 id="ledExp" class="text-sm sm:text-xl font-black text-red-400">₹0</h3></div>
+                            <div class="bg-green-400/5 p-6 rounded-3xl border border-green-400/20 text-center"><p class="label-premium mb-2 text-green-400">Net Profit</p><h3 id="ledProf" class="text-sm sm:text-xl font-black text-green-400">₹0</h3></div>
+                            <div class="bg-white/10 p-6 rounded-3xl border border-white/20 text-center"><p class="label-premium mb-2">Received</p><h3 id="ledReceived" class="text-sm sm:text-xl font-black">₹0</h3></div>
+                            <div class="bg-orange-400/5 p-6 rounded-3xl border border-orange-400/20 text-center"><p class="label-premium mb-2 text-orange-400">Remaining</p><h3 id="ledRemaining" class="text-sm sm:text-xl font-black text-orange-400">₹0</h3></div>
+                            <div class="bg-white p-6 rounded-3xl text-center"><p class="text-[10px] uppercase font-black mb-2 text-black/50">Efficiency</p><h3 id="ledMargin" class="text-sm sm:text-xl font-black text-black">0%</h3></div>
                         </div>
                     </div>
-                    <div class="p-2 sm:p-6 overflow-hidden">
+                    <div class="p-4 sm:p-10 overflow-hidden">
                         <table class="w-full text-left ledger-table">
-                            <thead class="bg-indigo-500/5 text-white font-black text-[10px] uppercase tracking-widest">
-                                <tr><th class="px-10 py-8">Client Node</th><th class="px-10 py-8 text-indigo-500">Revenue</th><th class="px-10 py-8 text-red-400">Expenses</th><th class="px-10 py-8 text-green-500">Profit</th><th class="px-10 py-8">Received</th><th class="px-10 py-8 text-orange-500">Remaining</th><th class="px-10 py-8 text-indigo-400">Profit %</th></tr>
+                            <thead class="text-white/40 font-black text-[10px] uppercase tracking-[0.3em]">
+                                <tr><th class="px-10 py-8">Node Identity</th><th class="px-10 py-8">Revenue</th><th class="px-10 py-8">Costs</th><th class="px-10 py-8 text-green-400">Profit</th><th class="px-10 py-8">Received</th><th class="px-10 py-8">Balance</th><th class="px-10 py-8">Margin</th></tr>
                             </thead>
-                            <tbody id="financeRows" class="text-sm font-medium"></tbody>
+                            <tbody id="financeRows" class="text-sm"></tbody>
                         </table>
                     </div>
                 </div>
@@ -840,40 +749,88 @@
     </div>
 
     <!-- MODAL - PROJECT WORKSPACE -->
-    <div id="clientModal" class="fixed inset-0 bg-slate-950/92 backdrop-blur-xl z-[100] hidden items-center justify-center p-2 sm:p-4 text-left">
-        <div class="glass-panel w-full max-w-4xl rounded-[3rem] shadow-2xl overflow-hidden flex flex-col max-h-[96vh] border border-white/20 animate-pop text-white">
-            <header class="p-4 sm:p-6 border-b border-white/10 flex justify-between items-center bg-white/5 text-white">
-                <div><h3 class="text-2xl sm:text-3xl font-black tracking-tighter">Assignment</h3><p class="text-[9px] font-bold text-green-500 uppercase mt-1 opacity-80 text-center">Live Status: <span id="modalProfitHeader">₹0</span></p></div>
-                <button onclick="window.toggleModal('clientModal', false)" class="p-2.5 bg-white/5 hover:bg-white/10 rounded-full border border-white/10 text-white"><i data-lucide="x" size="20"></i></button>
+    <div id="clientModal" class="fixed inset-0 bg-black/90 backdrop-blur-3xl z-[100] hidden items-center justify-center p-4 text-left">
+        <div class="glass-panel w-full max-w-5xl rounded-[3.5rem] shadow-2xl overflow-hidden flex flex-col max-h-[92vh] border border-white/20 animate-pop text-white">
+            <header class="p-6 sm:p-10 border-b border-white/10 flex justify-between items-center">
+                <div><h3 class="text-3xl sm:text-4xl font-black tracking-tight">Assignment Workspace</h3><p class="text-[10px] font-bold text-green-400 uppercase mt-2">Node Efficiency: <span id="modalProfitHeader">₹0</span></p></div>
+                <button onclick="window.toggleModal('clientModal', false)" class="p-3 bg-white/10 hover:bg-white/20 rounded-2xl border border-white/20 text-white transition-all"><i data-lucide="x" size="24"></i></button>
             </header>
-            <form id="clientForm" onsubmit="window.saveClient(event)" class="overflow-y-auto p-5 sm:p-8 custom-scroll space-y-8">
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-                    <div class="bg-indigo-500/5 p-4 rounded-[1.5rem] border border-indigo-500/10 shadow-inner"><p class="label-premium">Billing</p><p class="text-xl font-black text-indigo-500">₹<span id="modalRevDisplay">0</span></p></div>
-                    <div class="bg-red-500/5 p-4 rounded-[1.5rem] border border-red-100 shadow-inner"><p class="label-premium text-red-400">Costs</p><p class="text-xl font-black text-red-500">₹<span id="modalExpDisplay">0</span></p></div>
-                    <div class="bg-green-500/5 p-4 rounded-[1.5rem] border border-green-100 shadow-inner"><p class="label-premium text-green-500 font-black">Profit</p><p id="modalProfitDisplay" class="text-xl font-black text-green-500 font-black">₹0</p></div>
+            <form id="clientForm" onsubmit="window.saveClient(event)" class="overflow-y-auto p-8 sm:p-12 custom-scroll space-y-12">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+                    <div class="p-6 rounded-[2rem] bg-white/5 border border-white/10 shadow-inner"><p class="label-premium">Billing</p><p class="text-2xl font-black">₹<span id="modalRevDisplay">0</span></p></div>
+                    <div class="p-6 rounded-[2rem] bg-white/5 border border-white/10 shadow-inner"><p class="label-premium text-red-400">Costs</p><p class="text-2xl font-black text-red-400">₹<span id="modalExpDisplay">0</span></p></div>
+                    <div class="p-6 rounded-[2rem] bg-white text-black shadow-2xl"><p class="text-[10px] font-black uppercase opacity-60">Profit</p><p id="modalProfitDisplay" class="text-2xl font-black">₹0</p></div>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div class="space-y-1.5"><label class="label-premium ml-5 font-bold">Client Identity</label><input name="cName" required class="w-full p-3 input-ios font-bold text-base rounded-[1.2rem] text-slate-100" placeholder="Name"></div><div class="space-y-1.5"><label class="label-premium ml-5 font-bold">Contact Access</label><input name="cContact" class="w-full p-3 input-ios font-bold text-base rounded-[1.2rem] text-slate-100" placeholder="+91 ..."></div></div>
-                <div class="ios-card p-5 bg-indigo-600/10 border-indigo-500/30 shadow-xl text-left"><div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-white text-left"><div class="space-y-2"><label class="text-[9px] font-black uppercase text-indigo-300 tracking-widest ml-2">Contract Billing</label><div class="flex items-center gap-3 bg-black/10 p-3 rounded-[1.2rem] border border-white/5"><span class="text-xl font-black text-indigo-400">₹</span><input name="cFinal" type="number" oninput="window.calculateModalProfit()" required class="bg-transparent text-2xl font-black w-full outline-none text-white tracking-tighter" placeholder="0"></div></div><div class="space-y-2"><label class="text-[9px] font-black uppercase text-green-400 tracking-widest ml-2 font-bold">Advance Deposit</label><div class="flex items-center gap-3 bg-black/10 p-3 rounded-[1.2rem] border border-white/5"><span class="text-xl font-black text-green-500 font-bold">₹</span><input name="cAdvance" type="number" oninput="window.calculateModalProfit()" class="bg-transparent text-2xl font-black w-full outline-none text-green-400" placeholder="0"></div></div></div></div>
-                <div class="space-y-6"><div class="flex justify-between items-center px-2 text-left"><h4 class="text-xs font-black uppercase text-indigo-500 tracking-[0.2em]">Timeline Sequences</h4><button type="button" onclick="window.addEventSlot()" class="px-5 py-2.5 bg-indigo-500 text-white rounded-xl text-[9px] font-black uppercase tracking-widest shadow-lg active:scale-95 transition-transform">+ Add Event</button></div><div id="eventsContainer" class="space-y-4"></div></div>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4"><div class="space-y-1.5"><label class="label-premium ml-5 font-bold">Album</label><input name="cAlbum" type="number" oninput="window.calculateModalProfit()" placeholder="₹ 0" class="p-3 input-ios w-full font-bold rounded-[1rem] text-slate-100 text-sm shadow-sm"></div><div class="space-y-1.5"><label class="label-premium ml-5 font-bold">Editing</label><input name="cEdit" type="number" oninput="window.calculateModalProfit()" placeholder="₹ 0" class="p-3 input-ios w-full font-bold rounded-[1rem] text-slate-100 text-sm shadow-sm"></div><div class="space-y-1.5"><label class="label-premium ml-5 font-bold">Misc Node</label><input name="cMisc" type="number" oninput="window.calculateModalProfit()" placeholder="₹ 0" class="p-3 input-ios w-full font-bold rounded-[1rem] text-slate-100 text-sm shadow-sm"></div></div>
-                <div class="space-y-4"><h4 class="font-black text-xs ml-4 uppercase text-slate-500 tracking-[0.2em]">Installment Milestones</h4><div class="grid grid-cols-2 md:grid-cols-4 gap-3"><input name="i1" type="number" oninput="window.calculateModalProfit()" placeholder="M1" class="p-3 input-ios font-bold rounded-[1rem] text-xs text-slate-100 text-center"><input name="i2" type="number" oninput="window.calculateModalProfit()" placeholder="M2" class="p-3 input-ios font-bold rounded-[1rem] text-xs text-slate-100 text-center"><input name="i3" type="number" oninput="window.calculateModalProfit()" placeholder="M3" class="p-3 input-ios font-bold rounded-[1rem] text-xs text-slate-100 text-center"><input name="i4" type="number" oninput="window.calculateModalProfit()" placeholder="M4" class="p-3 input-ios font-bold rounded-[1rem] text-xs text-slate-100 text-center"></div></div>
-                <div class="pt-6 flex flex-col sm:flex-row gap-4 sticky bottom-0 bg-slate-900/90 backdrop-blur-3xl p-4 rounded-3xl border-t border-white/5 shadow-2xl transition-all"><button type="submit" class="flex-1 py-4 btn-ios text-white font-black rounded-2xl shadow-lg uppercase tracking-widest text-[10px] transition-transform hover:scale-[1.02]">Commit Assignment</button><button type="button" onclick="window.toggleModal('clientModal', false)" class="px-10 py-4 bg-white/5 border border-white/10 opacity-60 font-black rounded-2xl uppercase tracking-widest text-[9px] text-white hover:bg-white/10">Discard</button></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2"><label class="label-premium ml-4">Client Identifier</label><input name="cName" required class="w-full p-4 input-ios font-bold text-lg rounded-[1.5rem]" placeholder="Full Name"></div>
+                    <div class="space-y-2"><label class="label-premium ml-4">Contact Link</label><input name="cContact" class="w-full p-4 input-ios font-bold text-lg rounded-[1.5rem]" placeholder="+91 ..."></div>
+                </div>
+                <div class="ios-card p-8 bg-white/5 shadow-2xl border-white/20">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                        <div class="space-y-3">
+                            <label class="text-[10px] font-black uppercase opacity-40 tracking-widest ml-2">Total Contract Value</label>
+                            <div class="flex items-center gap-4 bg-black/40 p-5 rounded-[1.8rem] border border-white/10">
+                                <span class="text-2xl font-black opacity-30">₹</span>
+                                <input name="cFinal" type="number" oninput="window.calculateModalProfit()" required class="bg-transparent text-3xl font-black w-full outline-none text-white tracking-tighter" placeholder="0">
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <label class="text-[10px] font-black uppercase opacity-40 tracking-widest ml-2">Initial Deposit</label>
+                            <div class="flex items-center gap-4 bg-black/40 p-5 rounded-[1.8rem] border border-white/10">
+                                <span class="text-2xl font-black opacity-30">₹</span>
+                                <input name="cAdvance" type="number" oninput="window.calculateModalProfit()" class="bg-transparent text-3xl font-black w-full outline-none text-green-400 tracking-tighter" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-8">
+                    <div class="flex justify-between items-center px-4">
+                        <h4 class="text-xs font-black uppercase opacity-40 tracking-[0.3em]">Lifecycle Sequences</h4>
+                        <button type="button" onclick="window.addEventSlot()" class="px-6 py-3 bg-white text-black rounded-xl text-[10px] font-black uppercase tracking-widest shadow-xl hover:scale-105 transition-all">+ Add Sequence</button>
+                    </div>
+                    <div id="eventsContainer" class="space-y-6"></div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <div class="space-y-2"><label class="label-premium ml-4">Album Node</label><input name="cAlbum" type="number" oninput="window.calculateModalProfit()" placeholder="₹ 0" class="p-4 input-ios w-full font-bold rounded-[1.2rem] text-sm"></div>
+                    <div class="space-y-2"><label class="label-premium ml-4">Post Process</label><input name="cEdit" type="number" oninput="window.calculateModalProfit()" placeholder="₹ 0" class="p-4 input-ios w-full font-bold rounded-[1.2rem] text-sm"></div>
+                    <div class="space-y-2"><label class="label-premium ml-4">Misc Expenses</label><input name="cMisc" type="number" oninput="window.calculateModalProfit()" placeholder="₹ 0" class="p-4 input-ios w-full font-bold rounded-[1.2rem] text-sm"></div>
+                </div>
+                <div class="space-y-6">
+                    <h4 class="font-black text-xs ml-4 uppercase opacity-40 tracking-[0.2em]">Payment Milestones</h4>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <input name="i1" type="number" oninput="window.calculateModalProfit()" placeholder="MS-1" class="p-4 input-ios font-black rounded-[1.2rem] text-xs text-center">
+                        <input name="i2" type="number" oninput="window.calculateModalProfit()" placeholder="MS-2" class="p-4 input-ios font-black rounded-[1.2rem] text-xs text-center">
+                        <input name="i3" type="number" oninput="window.calculateModalProfit()" placeholder="MS-3" class="p-4 input-ios font-black rounded-[1.2rem] text-xs text-center">
+                        <input name="i4" type="number" oninput="window.calculateModalProfit()" placeholder="MS-4" class="p-4 input-ios font-black rounded-[1.2rem] text-xs text-center">
+                    </div>
+                </div>
+                <div class="pt-10 flex flex-col sm:flex-row gap-5 sticky bottom-0 bg-black/80 backdrop-blur-3xl p-6 rounded-[2.5rem] border-t border-white/10 shadow-2xl">
+                    <button type="submit" class="flex-1 py-5 btn-ios text-black font-black rounded-2xl shadow-2xl uppercase tracking-[0.2em] text-[11px] hover:scale-[1.02]">Commit To Registry</button>
+                    <button type="button" onclick="window.toggleModal('clientModal', false)" class="px-12 py-5 bg-white/5 border border-white/20 font-black rounded-2xl uppercase tracking-widest text-[10px] text-white hover:bg-white/10 transition-all">Abort</button>
+                </div>
             </form>
         </div>
     </div>
 
     <!-- STAFF MODAL -->
-    <div id="staffModal" class="fixed inset-0 bg-slate-950/92 backdrop-blur-xl z-[101] hidden items-center justify-center p-4 text-white text-left">
-        <div class="glass-panel p-8 sm:p-12 rounded-[2.5rem] shadow-2xl w-full max-w-md border border-white/20 animate-pop text-left">
-            <h3 id="staffModalTitle" class="text-3xl font-black mb-8 tracking-tighter text-center">Staff Node</h3>
-            <form id="staffForm" onsubmit="window.saveStaff(event)" class="space-y-6 text-left">
-                <input name="pName" placeholder="Full Identity Name" required class="w-full p-4 input-ios font-bold rounded-xl text-slate-100">
-                <input name="pRole" placeholder="Skill Descriptor" required class="w-full p-4 input-ios rounded-xl text-slate-100">
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="space-y-1 text-left"><label class="label-premium text-orange-500 font-bold">Short Fee</label><input name="pShort" type="number" required class="w-full p-4 rounded-xl bg-orange-500/10 border border-orange-500/20 font-black text-orange-500 outline-none shadow-inner"></div>
-                    <div class="space-y-1 text-left"><label class="label-premium text-green-500 font-bold">Full Fee</label><input name="pFull" type="number" required class="w-full p-4 rounded-xl bg-green-500/10 border border-green-500/20 font-black text-green-500 outline-none shadow-inner"></div>
-                </div><button id="staffSubmitBtn" type="submit" class="w-full py-5 btn-ios text-white font-black rounded-2xl shadow-lg uppercase tracking-widest text-[11px] mt-4 transition-transform hover:scale-[1.02]">Commit Staff Node</button>
-                <button type="button" onclick="window.toggleModal('staffModal', false)" class="w-full py-4 font-bold opacity-40 text-[10px] uppercase mt-2 text-white transition-opacity hover:opacity-100">Abort Access</button>
+    <div id="staffModal" class="fixed inset-0 bg-black/95 backdrop-blur-3xl z-[101] hidden items-center justify-center p-6 text-white">
+        <div class="glass-panel p-10 sm:p-14 rounded-[3.5rem] shadow-2xl w-full max-w-lg border border-white/20 animate-pop text-left">
+            <h3 id="staffModalTitle" class="text-4xl font-black mb-10 tracking-tight text-center">Modify Personnel</h3>
+            <form id="staffForm" onsubmit="window.saveStaff(event)" class="space-y-8">
+                <div class="space-y-2">
+                    <label class="label-premium ml-4">Full Identity</label>
+                    <input name="pName" placeholder="Full Legal Name" required class="w-full p-5 input-ios font-bold rounded-2xl text-lg">
+                </div>
+                <div class="space-y-2">
+                    <label class="label-premium ml-4">Designation</label>
+                    <input name="pRole" placeholder="Skill/Role Descriptor" required class="w-full p-5 input-ios rounded-2xl">
+                </div>
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="space-y-2"><label class="label-premium ml-4 text-blue-400">Short Node</label><input name="pShort" type="number" required class="w-full p-5 rounded-2xl bg-blue-400/5 border border-blue-400/20 font-black text-blue-400 outline-none shadow-inner"></div>
+                    <div class="space-y-2"><label class="label-premium ml-4 text-green-400">Full Node</label><input name="pFull" type="number" required class="w-full p-5 rounded-2xl bg-green-400/5 border border-green-400/20 font-black text-green-400 outline-none shadow-inner"></div>
+                </div>
+                <button id="staffSubmitBtn" type="submit" class="w-full py-6 btn-ios text-black font-black rounded-2xl shadow-2xl uppercase tracking-widest text-[11px] mt-6 transition-all hover:scale-[1.02]">Update Personnel Registry</button>
+                <button type="button" onclick="window.toggleModal('staffModal', false)" class="w-full py-5 font-bold opacity-30 text-[10px] uppercase mt-2 tracking-[0.2em] transition-opacity hover:opacity-100">Cancel Request</button>
             </form>
         </div>
     </div>
