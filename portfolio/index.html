@@ -67,7 +67,7 @@
         .logo-box {
             filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.15));
             animation: float 4s ease-in-out infinite;
-            max-width: 180px; /* Logo size reduced as requested */
+            max-width: 180px; 
         }
         @keyframes float {
             0%, 100% { transform: translateY(0); }
@@ -75,9 +75,13 @@
         }
 
         .app-icon {
-            width: 36px;
-            height: 36px;
+            width: 42px;
+            height: 42px;
             object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+        .app-icon:hover {
+            transform: scale(1.1);
         }
 
         .qr-wrapper {
@@ -114,10 +118,9 @@
             </p>
         </header>
 
-        <!-- MAIN LINKS: 6 Icons Grid -->
+        <!-- MAIN LINKS -->
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mb-12">
             
-            <!-- Website -->
             <a href="https://lucknowweddingstudio.com/" target="_blank" class="glass-card glossy-btn p-5 flex flex-col items-center text-center group">
                 <div class="w-14 h-14 bg-white/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-white/20 transition-all overflow-hidden p-2">
                     <img src="https://lucknowweddingstudio.com/wp-content/uploads/2022/08/LWS-yellow-768x480.png" alt="LWS Icon" class="w-full h-full object-contain scale-125">
@@ -126,7 +129,6 @@
                 <p class="text-[9px] text-slate-500 mt-1 uppercase">LWS Studio</p>
             </a>
 
-            <!-- WhatsApp -->
             <a href="https://wa.me/917394019474" target="_blank" class="glass-card glossy-btn p-5 flex flex-col items-center text-center group">
                 <div class="w-14 h-14 bg-green-500/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-green-500/20 transition-all">
                     <i data-lucide="message-circle" class="w-7 h-7 text-green-500"></i>
@@ -135,7 +137,6 @@
                 <p class="text-[9px] text-slate-500 mt-1 uppercase">Instant Chat</p>
             </a>
 
-            <!-- YouTube -->
             <a href="https://www.youtube.com/@LucknowWeddingStudio" target="_blank" class="glass-card glossy-btn p-5 flex flex-col items-center text-center group">
                 <div class="w-14 h-14 bg-red-500/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-red-500/20 transition-all">
                     <i data-lucide="youtube" class="w-7 h-7 text-red-500"></i>
@@ -144,7 +145,6 @@
                 <p class="text-[9px] text-slate-500 mt-1 uppercase">Cinematic Films</p>
             </a>
 
-            <!-- Instagram -->
             <a href="https://www.instagram.com/lucknow_wedding_studio" target="_blank" class="glass-card glossy-btn p-5 flex flex-col items-center text-center group">
                 <div class="w-14 h-14 bg-pink-500/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-pink-500/20 transition-all">
                     <i data-lucide="instagram" class="w-7 h-7 text-pink-400"></i>
@@ -153,7 +153,6 @@
                 <p class="text-[9px] text-slate-500 mt-1 uppercase">Latest Shoots</p>
             </a>
 
-            <!-- Facebook -->
             <a href="https://www.facebook.com/lucknowweddingstudio" target="_blank" class="glass-card glossy-btn p-5 flex flex-col items-center text-center group">
                 <div class="w-14 h-14 bg-blue-600/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-blue-600/20 transition-all">
                     <i data-lucide="facebook" class="w-7 h-7 text-blue-500"></i>
@@ -162,7 +161,6 @@
                 <p class="text-[9px] text-slate-500 mt-1 uppercase">Community</p>
             </a>
 
-            <!-- Google Map -->
             <a href="https://maps.app.goo.gl/YQM1WwdLNkyViyLo8" target="_blank" class="glass-card glossy-btn p-5 flex flex-col items-center text-center group">
                 <div class="w-14 h-14 bg-white/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-white/20 transition-all">
                     <svg viewBox="0 0 24 24" class="w-7 h-7" xmlns="http://www.w3.org/2000/svg">
@@ -184,8 +182,6 @@
             </h2>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                
-                <!-- Category 1: Photographs -->
                 <div onclick="window.open('https://drive.google.com/drive/folders/1nBNwYoBrp1V7v7YPnWb7--76hTSt5zo8')" class="glossy-btn p-6 rounded-3xl border-yellow-500/10 bg-yellow-500/5 cursor-pointer flex items-center gap-5 group">
                     <div class="w-14 h-14 bg-yellow-500/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
                         <i data-lucide="camera" class="w-7 h-7 text-yellow-500"></i>
@@ -196,7 +192,6 @@
                     </div>
                 </div>
 
-                <!-- Category 2: Cinematic Video -->
                 <div onclick="window.open('https://www.youtube.com/@LucknowWeddingStudio')" class="glossy-btn p-6 rounded-3xl border-rose-500/10 bg-rose-500/5 cursor-pointer flex items-center gap-5 group">
                     <div class="w-14 h-14 bg-rose-500/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
                         <i data-lucide="video" class="w-7 h-7 text-rose-500"></i>
@@ -207,7 +202,6 @@
                     </div>
                 </div>
 
-                <!-- Category 3: Album Designs -->
                 <div onclick="window.open('https://drive.google.com/drive/folders/1nBNwYoBrp1V7v7YPnWb7--76hTSt5zo8')" class="glossy-btn p-6 rounded-3xl border-blue-500/10 bg-blue-500/5 cursor-pointer flex items-center gap-5 group">
                     <div class="w-14 h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
                         <i data-lucide="book-open" class="w-7 h-7 text-blue-500"></i>
@@ -218,7 +212,6 @@
                     </div>
                 </div>
 
-                <!-- Category 4: Pre-Wedding -->
                 <div onclick="window.open('https://drive.google.com/drive/folders/1nBNwYoBrp1V7v7YPnWb7--76hTSt5zo8')" class="glossy-btn p-6 rounded-3xl border-emerald-500/10 bg-emerald-500/5 cursor-pointer flex items-center gap-5 group">
                     <div class="w-14 h-14 bg-emerald-500/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
                         <i data-lucide="heart" class="w-7 h-7 text-emerald-500"></i>
@@ -228,7 +221,6 @@
                         <p class="text-[10px] text-slate-500 uppercase tracking-wider">Shoot Samples</p>
                     </div>
                 </div>
-
             </div>
         </div>
 
@@ -242,24 +234,24 @@
                 <img src="Screenshot 2026-03-10 at 12.00.35 PM.jpg" alt="Payment QR" class="w-56 h-56 rounded-xl" onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=upi://pay?pa=lucknowweddingphotographers@okaxis&pn=LUCKNOW%20WEDDING%20STUDIO&cu=INR';">
             </div>
 
-            <!-- Payment Apps List -->
-            <div class="flex items-center justify-center gap-6 mb-8 bg-white/5 py-4 rounded-2xl border border-white/5">
-                <div class="flex flex-col items-center gap-2">
-                    <img src="https://www.gstatic.com/images/branding/product/2x/gpay_96dp.png" alt="GPay" class="app-icon">
-                    <span class="text-[9px] text-slate-500">G-Pay</span>
-                </div>
-                <div class="flex flex-col items-center gap-2">
+            <!-- Payment Apps List with Deep Links -->
+            <div class="flex items-center justify-center gap-8 mb-10 bg-white/5 py-6 rounded-3xl border border-white/5">
+                <a href="upi://pay?pa=lucknowweddingphotographers@okaxis&pn=LUCKNOW%20WEDDING%20STUDIO&cu=INR" class="flex flex-col items-center gap-2 group">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Google_Pay_Logo.svg" alt="GPay" class="app-icon p-1">
+                    <span class="text-[9px] text-slate-500 font-bold uppercase tracking-tighter">Google Pay</span>
+                </a>
+                <a href="upi://pay?pa=lucknowweddingphotographers@okaxis&pn=LUCKNOW%20WEDDING%20STUDIO&cu=INR" class="flex flex-col items-center gap-2 group">
                     <img src="https://img.icons8.com/color/48/phone-pe.png" alt="PhonePe" class="app-icon">
-                    <span class="text-[9px] text-slate-500">PhonePe</span>
-                </div>
-                <div class="flex flex-col items-center gap-2">
+                    <span class="text-[9px] text-slate-500 font-bold uppercase tracking-tighter">PhonePe</span>
+                </a>
+                <a href="upi://pay?pa=lucknowweddingphotographers@okaxis&pn=LUCKNOW%20WEDDING%20STUDIO&cu=INR" class="flex flex-col items-center gap-2 group">
                     <img src="https://img.icons8.com/color/48/paytm.png" alt="Paytm" class="app-icon">
-                    <span class="text-[9px] text-slate-500">Paytm</span>
-                </div>
-                <div class="flex flex-col items-center gap-2">
+                    <span class="text-[9px] text-slate-500 font-bold uppercase tracking-tighter">Paytm</span>
+                </a>
+                <a href="upi://pay?pa=lucknowweddingphotographers@okaxis&pn=LUCKNOW%20WEDDING%20STUDIO&cu=INR" class="flex flex-col items-center gap-2 group">
                     <img src="https://img.icons8.com/color/48/bhim.png" alt="BHIM" class="app-icon">
-                    <span class="text-[9px] text-slate-500">BHIM UPI</span>
-                </div>
+                    <span class="text-[9px] text-slate-500 font-bold uppercase tracking-tighter">BHIM UPI</span>
+                </a>
             </div>
 
             <div class="space-y-4 max-w-sm mx-auto">
