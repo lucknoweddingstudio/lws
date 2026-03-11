@@ -59,7 +59,7 @@
         .btn-category {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             text-transform: uppercase;
             font-size: 10px;
         }
@@ -67,7 +67,6 @@
         .btn-category:hover:not(:disabled) {
             background: var(--accent-gold);
             color: #000;
-            transform: scale(1.02);
         }
 
         .badge-active {
@@ -75,6 +74,7 @@
             color: #000 !important;
             font-weight: 800;
             border: 1px solid rgba(255, 255, 255, 0.4) !important;
+            transform: scale(1.02);
         }
 
         .btn-primary {
@@ -85,9 +85,9 @@
             letter-spacing: 0.05em;
         }
 
+        /* Update: Hide amount completely instead of fading */
         .hidden-amount {
-            opacity: 0.3;
-            pointer-events: none;
+            display: none !important;
         }
 
         .toggle-btn-header {
@@ -100,15 +100,6 @@
             font-weight: 700;
             text-transform: uppercase;
             transition: all 0.3s;
-        }
-
-        .animate-in {
-            animation: slideUp 0.5s ease-out forwards;
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .inclusion-tag {
@@ -225,7 +216,7 @@
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-[10px] text-gray-400">
                         <div class="border-l border-[#D4AF37]/30 pl-4">
                             <h4 class="text-white font-bold uppercase mb-2">Team</h4>
-                            <p>We send traditional and cinematic experts based on your event needs.</p>
+                            <p>We send expert photographers and videographers based on your needs.</p>
                         </div>
                         <div class="border-l border-[#D4AF37]/30 pl-4">
                             <h4 class="text-white font-bold uppercase mb-2">Delivery</h4>
@@ -246,7 +237,7 @@
                     
                     <div class="space-y-5">
                         <div class="flex justify-between items-center text-xs">
-                            <span class="text-gray-400 font-bold uppercase tracking-wider">Event Packages</span>
+                            <span class="text-gray-400 font-bold uppercase tracking-wider">Packages</span>
                             <span id="summary-event-total" class="font-bold">₹0</span>
                         </div>
                         <div class="flex justify-between items-center text-xs">
@@ -492,7 +483,7 @@
                 if (ev.teamSelections.includes('full') || ev.teamSelections.includes('premium') || ev.teamSelections.includes('cinematographer')) hasCinematic = true;
             });
             if (hasTrad) {
-                items.add("<strong>Photos</strong> (High quality ritual coverage).");
+                items.add("<strong>Photos</strong> (Traditional quality coverage).");
                 items.add("<strong>Video</strong> (Full documentary coverage).");
             }
             if (hasCinematic) items.add("<strong>Teaser</strong> (3-4 min cinematic highlights).");
@@ -501,7 +492,7 @@
             
             if (items.size > 0) {
                 sectionEl.classList.remove('hidden');
-                listEl.innerHTML = Array.from(items).map(item => `<div class="deliverable-item text-[10px] leading-relaxed animate-in">✦ ${item}</div>`).join('');
+                listEl.innerHTML = Array.from(items).map(item => `<div class="deliverable-item text-[10px] leading-relaxed">✦ ${item}</div>`).join('');
             } else sectionEl.classList.add('hidden');
         }
 
@@ -522,7 +513,7 @@
                 const visIcon = ev.isVisible ? `<svg class="w-4 h-4 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>` : `<svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>`;
                 const toggleIcon = ev.isActionsVisible ? `<svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>` : `<svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>`;
 
-                return `<div class="liquid-glass p-5 sm:p-7 rounded-[24px] animate-in">
+                return `<div class="liquid-glass p-5 sm:p-7 rounded-[24px]">
                     <div class="flex flex-col sm:flex-row justify-between items-start mb-6 gap-4">
                         <div class="flex-1 w-full">
                             <div class="flex flex-wrap items-center gap-3">
@@ -537,7 +528,9 @@
                         </div>
                         <div class="text-right flex items-center gap-4 w-full sm:w-auto justify-end">
                             <div class="flex items-center gap-2">
-                                ${ev.isEditingAmount || isOther ? `<input type="number" value="${ev.manualAmount}" oninput="updateEventField(${ev.id}, 'manualAmount', this.value)" class="input-glass w-24 text-right font-black">` : `<div class="text-base font-black text-[#D4AF37] ${!ev.isVisible ? 'hidden-amount' : ''}">₹${c.total.toLocaleString()}</div>`}
+                                <div class="${!ev.isVisible ? 'hidden-amount' : ''}">
+                                    ${ev.isEditingAmount || isOther ? `<input type="number" value="${ev.manualAmount}" oninput="updateEventField(${ev.id}, 'manualAmount', this.value)" class="input-glass w-24 text-right font-black">` : `<div class="text-base font-black text-[#D4AF37]">₹${c.total.toLocaleString()}</div>`}
+                                </div>
                             </div>
                             ${showConfig ? `<button onclick="toggleVisibility('event', ${ev.id})" class="p-2 bg-white/5 rounded-xl no-print border border-white/10">${visIcon}</button>` : ''}
                             ${showConfig ? `<button onclick="removeEvent(${ev.id})" class="p-2 text-red-500 bg-red-500/10 rounded-xl no-print border border-red-500/20"><svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg></button>` : ''}
@@ -556,7 +549,7 @@
 
             document.getElementById('albums-container').innerHTML = state.albums.map(al => {
                 const visIcon = al.isVisible ? `<svg class="w-4 h-4 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>` : `<svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>`;
-                return `<div class="bg-white/5 border border-white/10 rounded-[20px] p-5 flex items-center gap-5 animate-in">
+                return `<div class="bg-white/5 border border-white/10 rounded-[20px] p-5 flex items-center gap-5">
                     <div class="flex-1"><span class="text-[9px] font-black text-[#D4AF37] uppercase tracking-widest">Wedding Album</span><div class="flex items-center gap-3 mt-3">
                         ${al.isEditingSheets ? `<input type="number" value="${al.sheets}" oninput="updateAlbumSheets(${al.id}, this.value)" class="input-glass w-20 font-bold text-sm">` : `<span class="text-sm font-black">${al.sheets} Sheets</span>`}
                         ${showConfig ? `<button onclick="toggleEdit('album', ${al.id})" class="opacity-30 no-print transition-all"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg></button>` : ''}
