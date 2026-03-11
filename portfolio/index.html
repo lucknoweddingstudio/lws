@@ -9,8 +9,9 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
-            --glass: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.12);
+            --glass: rgba(0, 0, 0, 0.55);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --yellow-accent: #facc15;
         }
 
         body {
@@ -22,270 +23,290 @@
             overflow-x: hidden;
         }
 
-        /* Animated Mesh Gradient Background */
-        .mesh-bg {
+        /* Cinematic Background */
+        .bg-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2;
+            background: url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            transform: scale(1.1);
+            animation: bgMove 45s linear infinite alternate;
+        }
+
+        @keyframes bgMove {
+            0% { transform: scale(1.1); }
+            100% { transform: scale(1.3) translate(-1%, -1%); }
+        }
+
+        .overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1;
-            background: 
-                radial-gradient(at 0% 0%, #4c1d95 0px, transparent 50%),
-                radial-gradient(at 100% 0%, #831843 0px, transparent 50%),
-                radial-gradient(at 100% 100%, #1e1b4b 0px, transparent 50%),
-                radial-gradient(at 0% 100%, #701a75 0px, transparent 50%);
-            filter: blur(60px);
-            opacity: 0.6;
-            animation: meshAnim 20s infinite alternate;
-        }
-
-        @keyframes meshAnim {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.2); }
+            background: radial-gradient(circle at 50% 50%, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.95) 100%);
+            backdrop-filter: blur(14px);
         }
 
         /* Glassmorphism Classes */
         .glass-card {
             background: var(--glass);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(35px) saturate(160%);
+            -webkit-backdrop-filter: blur(35px) saturate(160%);
             border: 1px solid var(--glass-border);
-            border-radius: 28px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            border-radius: 32px;
+            box-shadow: 0 35px 70px -12px rgba(0, 0, 0, 0.8);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.9s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        .glass-card.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .glossy-btn {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
         }
 
-        .glossy-btn:active {
-            transform: scale(0.95);
-            background: rgba(255, 255, 255, 0.1);
+        .glossy-btn:hover {
+            transform: translateY(-8px) scale(1.04);
+            background: rgba(255, 255, 255, 0.12);
+            border-color: var(--yellow-accent);
+            box-shadow: 0 15px 35px rgba(250, 204, 21, 0.25);
         }
 
-        /* Logo Animation & Size Fix */
+        /* Logo Animation */
         .logo-box {
-            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.15));
-            animation: float 4s ease-in-out infinite;
-            max-width: 180px; 
+            filter: drop-shadow(0 0 25px rgba(250, 204, 21, 0.35));
+            animation: floatLogo 6s ease-in-out infinite;
+            max-width: 170px; 
         }
-        @keyframes float {
+
+        @keyframes floatLogo {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+            50% { transform: translateY(-15px); }
         }
 
         .app-icon {
-            width: 42px;
-            height: 42px;
+            width: 46px;
+            height: 46px;
             object-fit: contain;
-            transition: transform 0.3s ease;
-        }
-        .app-icon:hover {
-            transform: scale(1.1);
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
         }
 
         .qr-wrapper {
             background: white;
-            padding: 10px;
-            border-radius: 24px;
+            padding: 14px;
+            border-radius: 30px;
             display: inline-block;
-            box-shadow: 0 0 30px rgba(244, 63, 94, 0.3);
+            box-shadow: 0 0 45px rgba(250, 204, 21, 0.4);
+            animation: qrPulse 3s infinite alternate;
+        }
+
+        @keyframes qrPulse {
+            0% { box-shadow: 0 0 20px rgba(250, 204, 21, 0.2); transform: scale(1); }
+            100% { box-shadow: 0 0 55px rgba(250, 204, 21, 0.55); transform: scale(1.02); }
         }
 
         @media (max-width: 640px) {
-            .hero-text { font-size: 1.75rem; }
-            .glass-card { border-radius: 24px; padding: 1.5rem; }
+            .hero-text { font-size: 1.7rem; }
+            .glass-card { border-radius: 28px; padding: 1.5rem; }
             .logo-box { max-width: 150px; }
         }
     </style>
 </head>
 <body class="min-h-screen">
 
-    <div class="mesh-bg"></div>
+    <div class="bg-container"></div>
+    <div class="overlay"></div>
 
-    <div class="max-w-4xl mx-auto px-4 py-10 md:py-16">
+    <div class="max-w-4xl mx-auto px-4 py-12 md:py-20 relative z-10">
         
         <!-- HEADER SECTION -->
-        <header class="text-center mb-10 flex flex-col items-center">
-            <div class="logo-box mb-4">
-                <img src="https://lucknowweddingstudio.com/wp-content/uploads/2022/08/LWS-yellow-768x480.png" alt="Lucknow Wedding Studio" class="w-full h-auto">
+        <header class="text-center mb-16 flex flex-col items-center">
+            <div class="logo-box mb-8">
+                <img src="https://lucknowweddingstudio.com/wp-content/uploads/2022/08/LWS-yellow-768x480.png" alt="Lucknow Wedding Studio Logo" class="w-full h-auto">
             </div>
-            <h1 class="hero-text text-2xl md:text-4xl font-extrabold tracking-tight mb-2">
-                Digital <span class="text-yellow-500">Portfolio</span> & Samples
+            <h1 class="hero-text text-3xl md:text-5xl font-black tracking-tight mb-4 leading-tight">
+                Digital <span class="text-yellow-400">Portfolio</span> & Samples
             </h1>
-            <p class="text-slate-400 text-xs md:text-base max-w-md mx-auto font-light leading-relaxed">
-                Capturing your eternal wedding moments with premium cinematic excellence.
+            <p class="text-slate-300 text-xs md:text-lg max-w-lg mx-auto font-light leading-relaxed opacity-80">
+                Premium cinematic storytelling. Capturing your most precious wedding moments with artistic excellence.
             </p>
         </header>
 
         <!-- MAIN LINKS -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mb-12">
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-5 mb-16">
             
-            <a href="https://lucknowweddingstudio.com/" target="_blank" class="glass-card glossy-btn p-5 flex flex-col items-center text-center group">
-                <div class="w-14 h-14 bg-white/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-white/20 transition-all overflow-hidden p-2">
-                    <img src="https://lucknowweddingstudio.com/wp-content/uploads/2022/08/LWS-yellow-768x480.png" alt="LWS Icon" class="w-full h-full object-contain scale-125">
+            <a href="https://lucknowweddingstudio.com/" target="_blank" class="glass-card glossy-btn p-6 flex flex-col items-center text-center group">
+                <div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-yellow-400/15 transition-all overflow-hidden p-2">
+                    <img src="https://lucknowweddingstudio.com/wp-content/uploads/2022/08/LWS-yellow-768x480.png" alt="Website" class="w-full h-full object-contain scale-150">
                 </div>
-                <h3 class="text-sm font-bold">Website</h3>
-                <p class="text-[9px] text-slate-500 mt-1 uppercase">LWS Studio</p>
+                <h3 class="text-[10px] font-black uppercase tracking-[0.2em]">Website</h3>
             </a>
 
-            <a href="https://wa.me/917394019474" target="_blank" class="glass-card glossy-btn p-5 flex flex-col items-center text-center group">
-                <div class="w-14 h-14 bg-green-500/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-green-500/20 transition-all">
-                    <i data-lucide="message-circle" class="w-7 h-7 text-green-500"></i>
+            <!-- WhatsApp with official Icon style -->
+            <a href="https://wa.me/917394019474" target="_blank" class="glass-card glossy-btn p-6 flex flex-col items-center text-center group">
+                <div class="w-16 h-16 bg-green-500/15 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-green-500/25 transition-all">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="w-8 h-8">
                 </div>
-                <h3 class="text-sm font-bold">WhatsApp</h3>
-                <p class="text-[9px] text-slate-500 mt-1 uppercase">Instant Chat</p>
+                <h3 class="text-[10px] font-black uppercase tracking-[0.2em]">WhatsApp</h3>
             </a>
 
-            <a href="https://www.youtube.com/@LucknowWeddingStudio" target="_blank" class="glass-card glossy-btn p-5 flex flex-col items-center text-center group">
-                <div class="w-14 h-14 bg-red-500/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-red-500/20 transition-all">
-                    <i data-lucide="youtube" class="w-7 h-7 text-red-500"></i>
+            <!-- YouTube with official Red style -->
+            <a href="https://www.youtube.com/@LucknowWeddingStudio" target="_blank" class="glass-card glossy-btn p-6 flex flex-col items-center text-center group">
+                <div class="w-16 h-16 bg-red-500/15 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-red-500/25 transition-all">
+                    <i data-lucide="youtube" class="w-8 h-8 text-red-600"></i>
                 </div>
-                <h3 class="text-sm font-bold">YouTube</h3>
-                <p class="text-[9px] text-slate-500 mt-1 uppercase">Cinematic Films</p>
+                <h3 class="text-[10px] font-black uppercase tracking-[0.2em]">YouTube</h3>
             </a>
 
-            <a href="https://www.instagram.com/lucknow_wedding_studio" target="_blank" class="glass-card glossy-btn p-5 flex flex-col items-center text-center group">
-                <div class="w-14 h-14 bg-pink-500/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-pink-500/20 transition-all">
-                    <i data-lucide="instagram" class="w-7 h-7 text-pink-400"></i>
+            <a href="https://www.instagram.com/lucknow_wedding_studio" target="_blank" class="glass-card glossy-btn p-6 flex flex-col items-center text-center group">
+                <div class="w-16 h-16 bg-pink-500/10 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-pink-500/20 transition-all">
+                    <i data-lucide="instagram" class="w-8 h-8 text-pink-400"></i>
                 </div>
-                <h3 class="text-sm font-bold">Instagram</h3>
-                <p class="text-[9px] text-slate-500 mt-1 uppercase">Latest Shoots</p>
+                <h3 class="text-[10px] font-black uppercase tracking-[0.2em]">Instagram</h3>
             </a>
 
-            <a href="https://www.facebook.com/lucknowweddingstudio" target="_blank" class="glass-card glossy-btn p-5 flex flex-col items-center text-center group">
-                <div class="w-14 h-14 bg-blue-600/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-blue-600/20 transition-all">
-                    <i data-lucide="facebook" class="w-7 h-7 text-blue-500"></i>
+            <a href="https://www.facebook.com/lucknowweddingstudio" target="_blank" class="glass-card glossy-btn p-6 flex flex-col items-center text-center group">
+                <div class="w-16 h-16 bg-blue-600/10 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-blue-600/20 transition-all">
+                    <i data-lucide="facebook" class="w-8 h-8 text-blue-500"></i>
                 </div>
-                <h3 class="text-sm font-bold">Facebook</h3>
-                <p class="text-[9px] text-slate-500 mt-1 uppercase">Community</p>
+                <h3 class="text-[10px] font-black uppercase tracking-[0.2em]">Facebook</h3>
             </a>
 
-            <a href="https://maps.app.goo.gl/YQM1WwdLNkyViyLo8" target="_blank" class="glass-card glossy-btn p-5 flex flex-col items-center text-center group">
-                <div class="w-14 h-14 bg-white/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-white/20 transition-all">
-                    <svg viewBox="0 0 24 24" class="w-7 h-7" xmlns="http://www.w3.org/2000/svg">
+            <a href="https://maps.app.goo.gl/YQM1WwdLNkyViyLo8" target="_blank" class="glass-card glossy-btn p-6 flex flex-col items-center text-center group">
+                <div class="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-white/20 transition-all">
+                    <svg viewBox="0 0 24 24" class="w-8 h-8" xmlns="http://www.w3.org/2000/svg">
                         <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
                         <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
                         <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
                         <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
                     </svg>
                 </div>
-                <h3 class="text-sm font-bold">Google Map</h3>
-                <p class="text-[9px] text-slate-500 mt-1 uppercase">Navigate Here</p>
+                <h3 class="text-[10px] font-black uppercase tracking-[0.2em]">Google Map</h3>
             </a>
         </div>
 
-        <!-- CATEGORIZED PORTFOLIO SECTION -->
-        <div class="glass-card p-6 md:p-10 mb-12">
-            <h2 class="text-xl font-black mb-8 text-center text-yellow-500 uppercase tracking-[0.2em]">
-                Portfolio Folders
+        <!-- PORTFOLIO SECTION -->
+        <div class="glass-card p-10 md:p-14 mb-16">
+            <h2 class="text-2xl font-black mb-12 text-center text-yellow-400 uppercase tracking-[0.4em]">
+                Portfolio
             </h2>
             
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <div onclick="window.open('https://drive.google.com/drive/folders/1nBNwYoBrp1V7v7YPnWb7--76hTSt5zo8')" class="glossy-btn p-6 rounded-3xl border-yellow-500/10 bg-yellow-500/5 cursor-pointer flex items-center gap-5 group">
-                    <div class="w-14 h-14 bg-yellow-500/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <i data-lucide="camera" class="w-7 h-7 text-yellow-500"></i>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div onclick="window.open('https://drive.google.com/drive/folders/1nBNwYoBrp1V7v7YPnWb7--76hTSt5zo8')" class="glossy-btn p-8 rounded-3xl border-yellow-500/10 bg-yellow-500/5 cursor-pointer flex items-center gap-6 group">
+                    <div class="w-16 h-16 bg-yellow-500/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-all">
+                        <i data-lucide="camera" class="w-8 h-8 text-yellow-500"></i>
                     </div>
                     <div>
-                        <p class="font-bold text-lg">Photographs</p>
-                        <p class="text-[10px] text-slate-500 uppercase tracking-wider">Candid & Traditional</p>
+                        <p class="font-bold text-xl">Photographs</p>
+                        <p class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Candid & Portrayal</p>
                     </div>
                 </div>
 
-                <div onclick="window.open('https://www.youtube.com/@LucknowWeddingStudio')" class="glossy-btn p-6 rounded-3xl border-rose-500/10 bg-rose-500/5 cursor-pointer flex items-center gap-5 group">
-                    <div class="w-14 h-14 bg-rose-500/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <i data-lucide="video" class="w-7 h-7 text-rose-500"></i>
+                <div onclick="window.open('https://www.youtube.com/@LucknowWeddingStudio')" class="glossy-btn p-8 rounded-3xl border-rose-500/10 bg-rose-500/5 cursor-pointer flex items-center gap-6 group">
+                    <div class="w-16 h-16 bg-rose-500/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-all">
+                        <i data-lucide="video" class="w-8 h-8 text-rose-500"></i>
                     </div>
                     <div>
-                        <p class="font-bold text-lg">Cinematic Video</p>
-                        <p class="text-[10px] text-slate-500 uppercase tracking-wider">Films & Teasers</p>
+                        <p class="font-bold text-xl">Cinematic Video</p>
+                        <p class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Wedding Films</p>
                     </div>
                 </div>
 
-                <div onclick="window.open('https://drive.google.com/drive/folders/1nBNwYoBrp1V7v7YPnWb7--76hTSt5zo8')" class="glossy-btn p-6 rounded-3xl border-blue-500/10 bg-blue-500/5 cursor-pointer flex items-center gap-5 group">
-                    <div class="w-14 h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <i data-lucide="book-open" class="w-7 h-7 text-blue-500"></i>
+                <div onclick="window.open('https://drive.google.com/drive/folders/1nBNwYoBrp1V7v7YPnWb7--76hTSt5zo8')" class="glossy-btn p-8 rounded-3xl border-blue-500/10 bg-blue-500/5 cursor-pointer flex items-center gap-6 group">
+                    <div class="w-16 h-16 bg-blue-500/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-all">
+                        <i data-lucide="book-open" class="w-8 h-8 text-blue-500"></i>
                     </div>
                     <div>
-                        <p class="font-bold text-lg">Albums</p>
-                        <p class="text-[10px] text-slate-500 uppercase tracking-wider">Digital Layouts</p>
+                        <p class="font-bold text-xl">Albums</p>
+                        <p class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Design Layouts</p>
                     </div>
                 </div>
 
-                <div onclick="window.open('https://drive.google.com/drive/folders/1nBNwYoBrp1V7v7YPnWb7--76hTSt5zo8')" class="glossy-btn p-6 rounded-3xl border-emerald-500/10 bg-emerald-500/5 cursor-pointer flex items-center gap-5 group">
-                    <div class="w-14 h-14 bg-emerald-500/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <i data-lucide="heart" class="w-7 h-7 text-emerald-500"></i>
+                <div onclick="window.open('https://drive.google.com/drive/folders/1nBNwYoBrp1V7v7YPnWb7--76hTSt5zo8')" class="glossy-btn p-8 rounded-3xl border-emerald-500/10 bg-emerald-500/5 cursor-pointer flex items-center gap-6 group">
+                    <div class="w-16 h-16 bg-emerald-500/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-all">
+                        <i data-lucide="heart" class="w-8 h-8 text-emerald-500"></i>
                     </div>
                     <div>
-                        <p class="font-bold text-lg">Pre-Wedding</p>
-                        <p class="text-[10px] text-slate-500 uppercase tracking-wider">Shoot Samples</p>
+                        <p class="font-bold text-xl">Pre-Wedding</p>
+                        <p class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Outdoor Shoots</p>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- PAYMENT SECTION -->
-        <div class="glass-card p-6 md:p-10 text-center">
-            <h2 class="text-xl font-bold mb-8 flex items-center justify-center gap-3">
-                <i data-lucide="credit-card" class="text-emerald-400"></i> Payment Gateway
+        <div class="glass-card p-10 md:p-14 text-center">
+            <h2 class="text-2xl font-black mb-10 flex items-center justify-center gap-4 text-emerald-400 tracking-wider uppercase">
+                <i data-lucide="shield-check" class="w-8 h-8"></i> Payment Gateway
             </h2>
 
-            <div class="qr-wrapper mb-6">
-                <img src="Screenshot 2026-03-10 at 12.00.35 PM.jpg" alt="Payment QR" class="w-56 h-56 rounded-xl" onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=upi://pay?pa=lucknowweddingphotographers@okaxis&pn=LUCKNOW%20WEDDING%20STUDIO&cu=INR';">
+            <div class="qr-wrapper mb-10">
+                <img src="Screenshot 2026-03-10 at 12.00.35 PM.jpg" alt="Payment QR" class="w-64 h-64 rounded-2xl" onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=upi://pay?pa=lucknowweddingphotographers@okaxis&pn=LUCKNOW%20WEDDING%20STUDIO&cu=INR';">
             </div>
 
-            <!-- Payment Apps List with Deep Links -->
-            <div class="flex items-center justify-center gap-8 mb-10 bg-white/5 py-6 rounded-3xl border border-white/5">
-                <a href="upi://pay?pa=lucknowweddingphotographers@okaxis&pn=LUCKNOW%20WEDDING%20STUDIO&cu=INR" class="flex flex-col items-center gap-2 group">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Google_Pay_Logo.svg" alt="GPay" class="app-icon p-1">
-                    <span class="text-[9px] text-slate-500 font-bold uppercase tracking-tighter">Google Pay</span>
+            <!-- Mobile App Deep Links Redirect - Fixed Google Pay Icon -->
+            <div class="grid grid-cols-2 sm:flex sm:items-center sm:justify-center gap-8 mb-14 bg-white/5 py-10 rounded-[3rem] border border-white/5 px-6">
+                <!-- Google Pay (Fixed Stable Icon) -->
+                <a href="upi://pay?pa=lucknowweddingphotographers@okaxis&pn=LUCKNOW%20WEDDING%20STUDIO&cu=INR" class="flex flex-col items-center gap-3 group transition-all hover:scale-110">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Google_Pay_Logo.svg" alt="Google Pay" class="app-icon shadow-lg">
+                    <span class="text-[9px] text-slate-400 font-bold uppercase tracking-tighter">Google Pay</span>
                 </a>
-                <a href="upi://pay?pa=lucknowweddingphotographers@okaxis&pn=LUCKNOW%20WEDDING%20STUDIO&cu=INR" class="flex flex-col items-center gap-2 group">
-                    <img src="https://img.icons8.com/color/48/phone-pe.png" alt="PhonePe" class="app-icon">
-                    <span class="text-[9px] text-slate-500 font-bold uppercase tracking-tighter">PhonePe</span>
+                <!-- PhonePe -->
+                <a href="upi://pay?pa=lucknowweddingphotographers@okaxis&pn=LUCKNOW%20WEDDING%20STUDIO&cu=INR" class="flex flex-col items-center gap-3 group transition-all hover:scale-110">
+                    <img src="https://img.icons8.com/color/48/phone-pe.png" alt="PhonePe" class="app-icon shadow-lg">
+                    <span class="text-[9px] text-slate-400 font-bold uppercase tracking-tighter">PhonePe</span>
                 </a>
-                <a href="upi://pay?pa=lucknowweddingphotographers@okaxis&pn=LUCKNOW%20WEDDING%20STUDIO&cu=INR" class="flex flex-col items-center gap-2 group">
-                    <img src="https://img.icons8.com/color/48/paytm.png" alt="Paytm" class="app-icon">
-                    <span class="text-[9px] text-slate-500 font-bold uppercase tracking-tighter">Paytm</span>
+                <!-- Paytm -->
+                <a href="upi://pay?pa=lucknowweddingphotographers@okaxis&pn=LUCKNOW%20WEDDING%20STUDIO&cu=INR" class="flex flex-col items-center gap-3 group transition-all hover:scale-110">
+                    <img src="https://img.icons8.com/color/48/paytm.png" alt="Paytm" class="app-icon shadow-lg">
+                    <span class="text-[9px] text-slate-400 font-bold uppercase tracking-tighter">Paytm</span>
                 </a>
-                <a href="upi://pay?pa=lucknowweddingphotographers@okaxis&pn=LUCKNOW%20WEDDING%20STUDIO&cu=INR" class="flex flex-col items-center gap-2 group">
-                    <img src="https://img.icons8.com/color/48/bhim.png" alt="BHIM" class="app-icon">
-                    <span class="text-[9px] text-slate-500 font-bold uppercase tracking-tighter">BHIM UPI</span>
+                <!-- BHIM UPI -->
+                <a href="upi://pay?pa=lucknowweddingphotographers@okaxis&pn=LUCKNOW%20WEDDING%20STUDIO&cu=INR" class="flex flex-col items-center gap-3 group transition-all hover:scale-110">
+                    <img src="https://img.icons8.com/color/48/bhim.png" alt="BHIM UPI" class="app-icon shadow-lg">
+                    <span class="text-[9px] text-slate-400 font-bold uppercase tracking-tighter">BHIM UPI</span>
                 </a>
             </div>
 
-            <div class="space-y-4 max-w-sm mx-auto">
-                <div onclick="copyText('7394019474')" class="p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl flex items-center justify-between cursor-pointer active:bg-emerald-500/20">
+            <div class="space-y-6 max-w-md mx-auto">
+                <div onclick="copyText('7394019474')" class="p-6 bg-emerald-400/10 border border-emerald-400/20 rounded-3xl flex items-center justify-between cursor-pointer group active:scale-95 transition-all">
                     <div class="text-left">
-                        <p class="text-[9px] text-emerald-500 uppercase font-black">UPI Contact Number</p>
-                        <p class="text-xs font-mono font-bold tracking-widest text-emerald-400">7394019474</p>
+                        <p class="text-[10px] text-emerald-400 uppercase font-black tracking-widest mb-1">UPI Number</p>
+                        <p class="text-xl font-mono font-bold text-white tracking-wider">7394019474</p>
                     </div>
-                    <i data-lucide="copy" class="w-4 h-4 text-emerald-600"></i>
+                    <i data-lucide="copy" class="w-6 h-6 text-emerald-500 opacity-40 group-hover:opacity-100 transition-all"></i>
                 </div>
 
-                <div onclick="copyText('lucknowweddingphotographers@okaxis')" class="p-4 bg-slate-900/50 border border-white/10 rounded-2xl flex items-center justify-between cursor-pointer active:bg-slate-800">
+                <div onclick="copyText('lucknowweddingphotographers@okaxis')" class="p-6 bg-white/5 border border-white/10 rounded-3xl flex items-center justify-between cursor-pointer group active:scale-95 transition-all">
                     <div class="text-left">
-                        <p class="text-[9px] text-slate-500 uppercase font-black">Official UPI ID</p>
-                        <p class="text-xs font-mono font-bold">lucknowweddingphotographers@okaxis</p>
+                        <p class="text-[10px] text-slate-500 uppercase font-black tracking-widest mb-1">UPI ID</p>
+                        <p class="text-sm font-mono font-bold text-white">lucknowweddingphotographers@okaxis</p>
                     </div>
-                    <i data-lucide="copy" class="w-4 h-4 text-slate-600"></i>
+                    <i data-lucide="copy" class="w-6 h-6 text-slate-500 opacity-40 group-hover:opacity-100 transition-all"></i>
                 </div>
 
-                <div class="p-6 bg-gradient-to-br from-slate-900 to-black border border-white/10 rounded-2xl text-left">
-                    <p class="text-[10px] text-yellow-500 uppercase font-black tracking-[0.2em] mb-4">Bank Transfer Details</p>
-                    <div class="space-y-4">
-                        <div>
-                            <p class="text-[9px] text-slate-500 uppercase">A/C Holder</p>
-                            <p class="text-sm font-bold">LUCKNOW WEDDING STUDIO</p>
+                <div class="p-10 bg-gradient-to-br from-slate-950 to-black border border-white/10 rounded-[2.5rem] text-left">
+                    <p class="text-[10px] text-yellow-400 uppercase font-black tracking-[0.4em] mb-8 text-center">OFFICIAL BANKING DETAILS</p>
+                    <div class="space-y-6">
+                        <div class="border-b border-white/5 pb-4">
+                            <p class="text-[10px] text-slate-500 uppercase mb-1">Account Holder</p>
+                            <p class="font-bold text-white tracking-wide">LUCKNOW WEDDING STUDIO</p>
                         </div>
-                        <div class="grid grid-cols-2 gap-2">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div>
-                                <p class="text-[9px] text-slate-500 uppercase">Account No.</p>
-                                <p class="text-xs font-mono font-bold tracking-widest">8447232220</p>
+                                <p class="text-[10px] text-slate-500 uppercase mb-1">Account Number</p>
+                                <p class="text-base font-mono font-bold text-yellow-400">8447232220</p>
                             </div>
                             <div>
-                                <p class="text-[9px] text-slate-500 uppercase">IFSC Code</p>
-                                <p class="text-xs font-mono font-bold tracking-widest">KKBK0005196</p>
+                                <p class="text-[10px] text-slate-500 uppercase mb-1">IFSC Code</p>
+                                <p class="text-base font-mono font-bold text-yellow-400">KKBK0005196</p>
                             </div>
                         </div>
                     </div>
@@ -293,15 +314,30 @@
             </div>
         </div>
 
-        <footer class="mt-16 text-center pb-12 opacity-40">
-            <p class="text-[10px] tracking-[0.3em] uppercase font-light">
-                Excellence in Every Frame &copy; 2026
+        <footer class="mt-24 text-center pb-20 opacity-20">
+            <p class="text-[11px] tracking-[0.6em] uppercase font-light">
+                Professional Cinematic Excellence &copy; 2026
             </p>
         </footer>
     </div>
 
     <script>
         lucide.createIcons();
+
+        // Scroll Reveal Animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.glass-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Copy Text
         function copyText(text) {
             const el = document.createElement('textarea');
             el.value = text;
@@ -309,11 +345,12 @@
             el.select();
             document.execCommand('copy');
             document.body.removeChild(el);
+            
             const toast = document.createElement('div');
-            toast.className = 'fixed bottom-10 left-1/2 -translate-x-1/2 bg-white text-black px-8 py-3 rounded-full shadow-2xl text-xs font-bold z-50 animate-bounce';
+            toast.className = 'fixed top-12 left-1/2 -translate-x-1/2 bg-yellow-400 text-black px-12 py-5 rounded-full shadow-2xl text-[11px] font-black z-[100] animate-bounce';
             toast.innerText = 'COPIED TO CLIPBOARD';
             document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 2000);
+            setTimeout(() => toast.remove(), 2500);
         }
     </script>
 </body>
