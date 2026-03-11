@@ -3,360 +3,298 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lucknow Wedding Studio - Premium Proposal</title>
+    <title>Lucknow Wedding Studio - Simple & Royal Proposal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --accent: #818cf8;
-            --selected-blue: #60a5fa;
-            --bg-color: #0f172a;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --accent-gold: #D4AF37;
+            --accent-light: #F3E5AB;
+            --text-main: #ffffff;
+            --bg-dark: #0a0a0a;
         }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background: var(--bg-color);
-            background-image: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), 
-                              url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1920&q=80');
+            background: var(--bg-dark);
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
+            background-position: center;
             background-attachment: fixed;
             min-height: 100vh;
-            color: white;
+            color: var(--text-main);
             overflow-x: hidden;
-            /* Crucial for capturing backgrounds in print */
-            print-color-adjust: exact;
-            -webkit-print-color-adjust: exact;
+            -webkit-font-smoothing: antialiased;
         }
 
         .liquid-glass {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(30px) saturate(150%);
+            -webkit-backdrop-filter: blur(30px) saturate(150%);
             border: 1px solid var(--glass-border);
-            box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
             transition: all 0.4s ease;
         }
 
         .input-glass {
-            background: rgba(255, 255, 255, 0.07);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 10px;
-            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 10px 14px;
             color: white;
             transition: all 0.3s ease;
         }
 
         .input-glass:focus {
             outline: none;
-            border-color: var(--accent);
-            background: rgba(255, 255, 255, 0.12);
-        }
-
-        .btn-category {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-        }
-
-        .btn-category:hover:not(:disabled) {
-            background: var(--accent);
-            transform: translateY(-2px);
-        }
-
-        .badge-active {
-            background: linear-gradient(135deg, #bfdbfe 0%, #60a5fa 100%) !important;
-            color: #1e3a8a !important;
-            font-weight: 800;
-            border: 1px solid rgba(255, 255, 255, 0.6) !important;
-            box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.4);
-        }
-
-        .discount-highlight {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px dashed rgba(239, 68, 68, 0.4);
-            border-radius: 12px;
-            padding: 12px;
-        }
-
-        .icon-btn {
-            padding: 6px;
-            border-radius: 8px;
-            transition: all 0.2s;
-            opacity: 0.5;
-            cursor: pointer;
-        }
-        .icon-btn:hover {
-            opacity: 1;
+            border-color: var(--accent-gold);
             background: rgba(255, 255, 255, 0.1);
         }
 
-        .inclusion-tag {
+        .btn-category {
             background: rgba(255, 255, 255, 0.05);
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 10px;
-            color: #cbd5e1;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 10px;
         }
 
-        .deliverable-item {
-            background: rgba(129, 140, 248, 0.1);
-            border-left: 3px solid #818cf8;
-            padding: 12px 16px;
-            border-radius: 8px;
+        .btn-category:hover:not(:disabled) {
+            background: var(--accent-gold);
+            color: #000;
+            transform: scale(1.02);
+        }
+
+        .badge-active {
+            background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%) !important;
+            color: #000 !important;
+            font-weight: 800;
+            border: 1px solid rgba(255, 255, 255, 0.4) !important;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #D4AF37 0%, #F3E5AB 100%);
+            color: #000;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         .hidden-amount {
-            filter: blur(10px);
-            opacity: 0.1;
+            opacity: 0.3;
             pointer-events: none;
         }
 
         .toggle-btn-header {
-            background: rgba(129, 140, 248, 0.15);
-            border: 1px solid rgba(129, 140, 248, 0.3);
-            color: #c7d2fe;
-            padding: 8px 18px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 8px 16px;
             border-radius: 99px;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
             transition: all 0.3s;
         }
 
-        /* PRINT STYLES RE-STRUCTURED */
-        @media print {
-            @page {
-                size: A4;
-                margin: 10mm;
-            }
-            body { 
-                background: #0f172a !important; 
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-                color: white !important;
-                font-size: 12px !important;
-            }
-            .no-print, .icon-btn, .toggle-btn-header, #category-section-wrapper { display: none !important; }
-            
-            .liquid-glass { 
-                background: rgba(255, 255, 255, 0.08) !important; 
-                border: 1px solid rgba(255, 255, 255, 0.2) !important; 
-                box-shadow: none !important;
-                color: white !important;
-                page-break-inside: avoid !important;
-            }
-            
-            /* Ensure grid layout is preserved but optimized */
-            .grid { display: block !important; width: 100% !important; }
-            .lg\:col-span-8, .lg\:col-span-4 { width: 100% !important; display: block !important; margin-bottom: 20px !important; }
-            
-            #valuation-sidebar {
-                position: relative !important;
-                top: 0 !important;
-                margin-top: 30px !important;
-                border-top: 2px solid #818cf8 !important;
-                padding-top: 20px !important;
-            }
+        .animate-in {
+            animation: slideUp 0.5s ease-out forwards;
+        }
 
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .inclusion-tag {
+            background: rgba(212, 175, 55, 0.1);
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--accent-light);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .deliverable-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 3px solid var(--accent-gold);
+            padding: 12px 15px;
+            border-radius: 10px;
+        }
+
+        @media print {
+            body { background: white !important; color: black !important; background-image: none !important; }
+            .no-print { display: none !important; }
+            .liquid-glass { background: white !important; border: 1px solid #ddd !important; box-shadow: none !important; color: black !important; }
             .print-only { display: block !important; }
-            .hide-in-print { display: none !important; }
-            
-            /* Styling tags for print */
-            .inclusion-tag { background: rgba(255, 255, 255, 0.1) !important; color: white !important; }
-            .deliverable-item { background: rgba(255, 255, 255, 0.05) !important; border-left: 4px solid #818cf8 !important; color: white !important; }
-            
-            #final-total { font-size: 42px !important; color: white !important; }
-            
-            /* Professional Borders for Tables in Summary */
-            .summary-item { border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; margin-bottom: 8px; }
         }
         .print-only { display: none; }
     </style>
 </head>
 <body class="p-4 md:p-8">
-    <div class="max-w-6xl mx-auto">
-        <!-- Dashboard Header -->
-        <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
-            <div class="w-full md:w-auto text-center md:text-left">
-                <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tighter text-white">
-                    Lucknow Wedding Studio <span class="text-indigo-400 block md:inline md:ml-2">| Specialized Proposal</span>
+    <div class="max-w-5xl mx-auto">
+        <!-- Header -->
+        <header class="flex flex-col md:flex-row justify-between items-center mb-10 gap-6 text-center md:text-left">
+            <div>
+                <h1 class="text-3xl sm:text-4xl font-black tracking-tight text-white">
+                    Lucknow Wedding <span class="text-[#D4AF37]">Studio</span>
                 </h1>
-                <p class="text-indigo-300 text-xs sm:text-sm font-medium tracking-[0.2em] sm:tracking-[0.3em] uppercase mt-2">
-                    Personalized Event Photography & Cinematography Quotation
+                <p class="text-gray-400 text-[10px] sm:text-xs font-bold tracking-[0.2em] uppercase mt-2">
+                    Professional Photography & Video Proposal
                 </p>
             </div>
-            <div class="flex flex-col items-center md:items-end gap-3 w-full md:w-auto no-print">
-                <div class="flex items-center gap-4 w-full justify-center md:justify-end">
-                    <button onclick="toggleCategorySection()" id="section-toggle-btn" class="toggle-btn-header">
-                        Configure Selection
-                    </button>
-                    <span id="header-final-total" class="text-xl sm:text-2xl font-black text-indigo-400 bg-white/5 px-4 sm:px-6 py-2 rounded-2xl border border-white/10">₹0</span>
-                </div>
+            <div class="flex items-center gap-4 no-print">
+                <button onclick="toggleCategorySection()" id="section-toggle-btn" class="toggle-btn-header">
+                    Settings
+                </button>
+                <div id="header-final-total" class="text-xl font-black text-[#D4AF37] bg-white/5 px-5 py-2 rounded-xl border border-white/10">₹0</div>
             </div>
         </header>
 
         <!-- Print Header -->
-        <div class="print-only print-header border-b border-indigo-400 pb-6 mb-8">
-            <div class="flex justify-between items-end">
-                <div>
-                    <h1 class="text-4xl font-black text-white">Lucknow Wedding Studio</h1>
-                    <p class="text-indigo-300 tracking-widest uppercase text-xs mt-2">Professional Event Proposal</p>
-                </div>
-                <div class="text-right">
-                    <p id="print-client-display" class="font-bold text-lg text-white"></p>
-                    <p id="print-date-display" class="text-xs text-indigo-200"></p>
-                </div>
-            </div>
+        <div class="print-only border-b-2 border-[#D4AF37] pb-6 mb-8">
+            <h1 class="text-3xl font-black">Lucknow Wedding Studio</h1>
+            <p id="print-client-display" class="font-bold text-lg mt-2"></p>
+            <p id="print-date-display" class="text-sm text-gray-500"></p>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
-            <!-- Left Column: Phase Details -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            <!-- Left Column -->
             <div class="lg:col-span-8 space-y-6">
                 
-                <!-- Client Details Section -->
-                <div class="liquid-glass p-4 sm:p-6 rounded-2xl">
-                    <h2 class="text-xs font-black uppercase tracking-[0.2em] text-indigo-400 mb-6 flex items-center gap-2">
-                        <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span> Client Metadata
+                <!-- Client Info -->
+                <div class="liquid-glass p-6 rounded-3xl">
+                    <h2 class="text-[10px] font-black uppercase tracking-widest text-[#D4AF37] mb-6 flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#D4AF37]"></span> Client Details
                     </h2>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="text-[10px] font-bold text-gray-400 uppercase mb-2 block">Client Identity</label>
-                            <input type="text" id="client-name" oninput="handleGlobalUpdate('clientName', this.value)" class="input-glass w-full text-sm font-semibold" placeholder="Rahul & Priya">
+                            <label class="text-[9px] font-bold text-gray-400 uppercase mb-2 block ml-1">Client Name</label>
+                            <input type="text" id="client-name" oninput="handleGlobalUpdate('clientName', this.value)" class="input-glass w-full text-sm font-bold" placeholder="e.g., Rahul & Priya">
                         </div>
                         <div>
-                            <label class="text-[10px] font-bold text-gray-400 uppercase mb-2 block">Contact Protocol</label>
-                            <input type="tel" id="client-contact" oninput="handleGlobalUpdate('clientContact', this.value)" class="input-glass w-full text-sm font-semibold" value="+91 ">
+                            <label class="text-[9px] font-bold text-gray-400 uppercase mb-2 block ml-1">Phone Number</label>
+                            <input type="tel" id="client-contact" oninput="handleGlobalUpdate('clientContact', this.value)" class="input-glass w-full text-sm font-bold" value="+91 ">
                         </div>
                     </div>
                 </div>
 
-                <!-- Event Category Selection (Config Section) -->
+                <!-- Event Selection -->
                 <div id="category-section-wrapper" class="space-y-6">
-                    <div class="liquid-glass p-4 sm:p-6 rounded-2xl no-print">
-                        <h2 class="text-xs font-black uppercase tracking-[0.2em] text-indigo-400 mb-4">Select Event Phase to Add</h2>
-                        <div id="category-buttons-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2"></div>
+                    <div class="liquid-glass p-6 rounded-3xl no-print">
+                        <h2 class="text-[10px] font-black uppercase tracking-widest text-[#D4AF37] mb-5">Add Event to Proposal</h2>
+                        <div id="category-buttons-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2"></div>
                     </div>
 
-                    <div class="liquid-glass p-4 sm:p-6 rounded-2xl no-print">
-                        <h2 class="text-xs font-black uppercase tracking-[0.2em] text-purple-400 flex items-center gap-2 mb-4">
-                            <span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span> Fast-Track Album Add
-                        </h2>
-                        <div class="flex flex-wrap gap-2 mb-2">
-                            <button onclick="addAlbum(20)" class="flex-1 min-w-[80px] px-2 sm:px-4 py-2 border border-white/10 rounded-xl text-[10px] font-bold hover:bg-white/10 transition-all">+ 20 SEATS</button>
-                            <button onclick="addAlbum(40)" class="flex-1 min-w-[80px] px-2 sm:px-4 py-2 border border-white/10 rounded-xl text-[10px] font-bold hover:bg-white/10 transition-all">+ 40 SEATS</button>
-                            <button onclick="addAlbum(50)" class="flex-1 min-w-[80px] px-2 sm:px-4 py-2 border border-white/10 rounded-xl text-[10px] font-bold hover:bg-white/10 transition-all">+ 50 SEATS</button>
+                    <div class="liquid-glass p-6 rounded-3xl no-print">
+                        <h2 class="text-[10px] font-black uppercase tracking-widest text-[#D4AF37] mb-5">Add Album</h2>
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="addAlbum(20)" class="flex-1 py-3 border border-white/10 rounded-xl text-[10px] font-bold hover:bg-[#D4AF37] hover:text-black transition-all">+ 20 Sheets</button>
+                            <button onclick="addAlbum(40)" class="flex-1 py-3 border border-white/10 rounded-xl text-[10px] font-bold hover:bg-[#D4AF37] hover:text-black transition-all">+ 40 Sheets</button>
+                            <button onclick="addAlbum(50)" class="flex-1 py-3 border border-white/10 rounded-xl text-[10px] font-bold hover:bg-[#D4AF37] hover:text-black transition-all">+ 50 Sheets</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Active Coverage Phases -->
+                <!-- Events List -->
                 <div id="events-container" class="space-y-4"></div>
 
-                <!-- Album Assets -->
-                <div id="album-section" class="liquid-glass p-4 sm:p-6 rounded-2xl hidden">
-                    <h2 class="text-xs font-black uppercase tracking-[0.2em] text-purple-400 flex items-center gap-2 mb-4">
-                        <span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span> Bespoke Physical Assets
-                    </h2>
+                <!-- Albums List -->
+                <div id="album-section" class="liquid-glass p-6 rounded-3xl hidden">
+                    <h2 class="text-[10px] font-black uppercase tracking-widest text-[#D4AF37] mb-5">Wedding Albums</h2>
                     <div id="albums-container" class="space-y-3"></div>
                 </div>
 
-                <!-- Promised Project Deliverables -->
-                <div id="project-deliverables-section" class="liquid-glass p-4 sm:p-6 rounded-2xl hidden">
-                    <h2 class="text-xs font-black uppercase tracking-[0.2em] text-indigo-400 mb-6 flex items-center gap-2">
-                        <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span> Project Deliverables Promise
+                <!-- What you will get -->
+                <div id="project-deliverables-section" class="liquid-glass p-6 rounded-3xl hidden">
+                    <h2 class="text-[10px] font-black uppercase tracking-widest text-[#D4AF37] mb-6 flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#D4AF37]"></span> What You Will Get
                     </h2>
                     <div id="deliverables-list" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
                 </div>
 
-                <!-- Formal Terms -->
-                <div class="liquid-glass p-4 sm:p-6 rounded-2xl">
-                    <h2 class="text-xs font-black uppercase tracking-[0.2em] text-indigo-400 mb-6">Service Glossary & Guidelines</h2>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 text-[10px] text-gray-400">
-                        <div class="border-l-2 border-indigo-500/20 pl-4">
-                            <h4 class="text-white font-bold uppercase mb-2">Team Scope</h4>
-                            <p>Selection ranges from Traditional documentation to specialized Cinematic & Candid units for comprehensive coverage.</p>
+                <!-- Rules -->
+                <div class="liquid-glass p-6 rounded-3xl">
+                    <h2 class="text-[10px] font-black uppercase tracking-widest text-[#D4AF37] mb-6">General Rules & Info</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-[10px] text-gray-400">
+                        <div class="border-l border-[#D4AF37]/30 pl-4">
+                            <h4 class="text-white font-bold uppercase mb-2">Team</h4>
+                            <p>We send traditional and cinematic experts based on your event needs.</p>
                         </div>
-                        <div class="border-l-2 border-purple-500/20 pl-4">
-                            <h4 class="text-white font-bold uppercase mb-2">Digital Delivery</h4>
-                            <p>High-resolution curated data is delivered digitally. Teasers are optimized for cinematic social sharing.</p>
+                        <div class="border-l border-[#D4AF37]/30 pl-4">
+                            <h4 class="text-white font-bold uppercase mb-2">Delivery</h4>
+                            <p>Final photos and videos will be shared online in high quality.</p>
                         </div>
-                        <div class="border-l-2 border-emerald-500/20 pl-4">
-                            <h4 class="text-white font-bold uppercase mb-2">Album Design</h4>
-                            <p>Standard ₹250 per sheet. Every sheet represents an artistic layout of ~5 chosen memories.</p>
+                        <div class="border-l border-[#D4AF37]/30 pl-4">
+                            <h4 class="text-white font-bold uppercase mb-2">Albums</h4>
+                            <p>Album cost is ₹250 per sheet. We use premium design layouts.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Right Column: Investment Breakdown -->
-            <div class="lg:col-span-4 sticky top-10" id="valuation-sidebar">
-                <div class="liquid-glass p-6 sm:p-8 rounded-3xl border-indigo-500/30">
-                    <h2 class="text-lg font-bold mb-8 border-b border-white/10 pb-4 text-white uppercase tracking-tighter">Investment Details</h2>
+            <!-- Right Column -->
+            <div class="lg:col-span-4 sticky top-6" id="valuation-sidebar">
+                <div class="liquid-glass p-6 sm:p-8 rounded-[32px] border-[#D4AF37]/20">
+                    <h2 class="text-lg font-bold mb-8 border-b border-white/10 pb-4 text-white uppercase tracking-tight">Total Cost</h2>
                     
-                    <div class="space-y-4">
-                        <div class="flex justify-between items-center summary-item">
-                            <span class="summary-label text-gray-400 uppercase text-[9px] font-bold">Estimated Project Value</span>
-                            <span id="summary-event-total" class="font-bold text-white">₹0</span>
+                    <div class="space-y-5">
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="text-gray-400 font-bold uppercase tracking-wider">Event Packages</span>
+                            <span id="summary-event-total" class="font-bold">₹0</span>
                         </div>
-                        <div class="flex justify-between items-center summary-item">
-                            <span class="summary-label text-gray-400 uppercase text-[9px] font-bold">Custom Album Production</span>
-                            <span id="summary-album-total" class="font-bold text-white">₹0</span>
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="text-gray-400 font-bold uppercase tracking-wider">Album Cost</span>
+                            <span id="summary-album-total" class="font-bold">₹0</span>
                         </div>
-                        <div class="flex justify-between items-center summary-item">
-                            <span class="summary-label text-gray-400 uppercase text-[9px] font-bold">Technical & Support Gear</span>
-                            <span id="summary-gear-total" class="font-bold text-white">₹0</span>
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="text-gray-400 font-bold uppercase tracking-wider">LED & Crane</span>
+                            <span id="summary-gear-total" class="font-bold">₹0</span>
                         </div>
 
                         <div class="pt-4 border-t border-white/10">
-                            <div class="flex justify-between items-center text-indigo-200">
-                                <span class="summary-label font-black uppercase text-[10px]">Gross Project Total</span>
+                            <div class="flex justify-between items-center text-[#D4AF37]">
+                                <span class="font-black uppercase text-[10px]">Total Amount</span>
                                 <span id="summary-gross-total" class="font-black text-lg text-white">₹0</span>
                             </div>
                         </div>
 
                         <div class="pt-4 border-t border-white/10 no-print">
-                            <label class="text-[10px] font-black text-indigo-300 uppercase mb-2 block">Special Allowance / Discount</label>
+                            <label class="text-[9px] font-black text-[#D4AF37] uppercase mb-3 block tracking-wider">Discount</label>
                             <div class="grid grid-cols-2 gap-3">
                                 <div class="relative">
-                                    <input type="number" id="discount-pct" oninput="handleGlobalUpdate('discountPct', this.value)" class="input-glass w-full pr-8 text-center text-xs" placeholder="%">
-                                    <span class="absolute right-3 top-1/2 -translate-y-1/2 text-indigo-400 font-bold text-[10px]">%</span>
+                                    <input type="number" id="discount-pct" oninput="handleGlobalUpdate('discountPct', this.value)" class="input-glass w-full pr-7 text-center font-bold text-xs" placeholder="%">
+                                    <span class="absolute right-3 top-1/2 -translate-y-1/2 text-[#D4AF37] font-bold text-[10px]">%</span>
                                 </div>
-                                <input type="number" id="discount-flat" oninput="handleGlobalUpdate('discountFlat', this.value)" class="input-glass w-full text-center text-xs" placeholder="Flat ₹">
+                                <input type="number" id="discount-flat" oninput="handleGlobalUpdate('discountFlat', this.value)" class="input-glass w-full text-center font-bold text-xs" placeholder="Flat ₹">
                             </div>
                         </div>
 
-                        <div id="discount-layer" class="discount-highlight flex justify-between items-center text-red-400 font-bold text-xs">
-                            <span class="uppercase tracking-widest">Client Benefit / Savings</span>
+                        <div id="discount-layer" class="bg-white/5 p-4 rounded-xl flex justify-between items-center text-[#D4AF37] font-bold text-xs border border-white/5">
+                            <span class="uppercase text-[9px]">Total Savings</span>
                             <span id="summary-discount-total">- ₹0</span>
                         </div>
 
                         <div class="pt-4 border-t border-white/10">
-                            <label class="text-[10px] font-black text-indigo-300 uppercase mb-2 block">Travelling & Logistics</label>
-                            <input type="number" id="travel-cost" oninput="handleGlobalUpdate('travelCost', this.value)" class="input-glass w-full text-center no-print" placeholder="Enter amount...">
-                            <div class="print-only text-right font-bold text-white" id="print-travel-cost">₹0</div>
+                            <label class="text-[9px] font-black text-[#D4AF37] uppercase mb-3 block tracking-wider">Travel Cost</label>
+                            <input type="number" id="travel-cost" oninput="handleGlobalUpdate('travelCost', this.value)" class="input-glass w-full text-center font-bold no-print text-sm" placeholder="Amount...">
+                            <div class="print-only text-right font-black text-xl" id="print-travel-cost">₹0</div>
                         </div>
                     </div>
 
-                    <div class="mt-8 bg-indigo-500/20 p-6 rounded-3xl border border-indigo-400/40 text-center">
-                        <p class="text-[9px] text-indigo-300 uppercase tracking-[0.4em] font-bold mb-2">Final Net Investment</p>
+                    <div class="mt-8 bg-[#D4AF37]/10 p-6 rounded-2xl border border-[#D4AF37]/30 text-center">
+                        <p class="text-[9px] text-[#D4AF37] uppercase tracking-widest font-black mb-2">Final Payable Amount</p>
                         <p id="final-total" class="text-3xl sm:text-4xl font-black text-white tracking-tighter">₹0</p>
                     </div>
 
-                    <button class="w-full mt-6 btn-primary py-4 rounded-2xl text-xs font-black no-print" onclick="window.print()">
-                        DOWNLOAD OFFICIAL PROPOSAL
+                    <button class="w-full mt-6 btn-primary py-4 rounded-2xl text-[10px] font-black no-print" onclick="window.print()">
+                        Download Proposal
                     </button>
                 </div>
             </div>
@@ -385,8 +323,8 @@
             trad_video: ["Traditional Videographer"],
             candid_photo: ["Candid Photographer"],
             cinematographer: ["Cinematographer"],
-            drone: ["Aerial Drone Unit"],
-            led_crane: ["LED Wall Display", "Crane Operation Unit"]
+            drone: ["Drone"],
+            led_crane: ["LED Wall", "Crane Unit"]
         };
 
         const ALL_EVENT_TYPES = ['Wedding', 'Haldi', 'Mehandi', 'Reception', 'Engagement', 'Pre-Wedding', 'Tilak', 'Birthday', 'Other'];
@@ -407,7 +345,7 @@
             const wrapper = document.getElementById('category-section-wrapper');
             const btn = document.getElementById('section-toggle-btn');
             wrapper.classList.toggle('hidden');
-            btn.innerText = state.isCategorySectionVisible ? "Hide Event Options" : "Show Event Options";
+            btn.innerText = state.isCategorySectionVisible ? "Settings" : "Add More";
             render();
         }
 
@@ -538,7 +476,7 @@
             document.getElementById('final-total').innerText = `₹${Math.round(final).toLocaleString()}`;
             document.getElementById('header-final-total').innerText = `₹${Math.round(final).toLocaleString()}`;
             document.getElementById('print-client-display').innerText = "PROPOSAL FOR: " + (state.clientName || "VALUED CLIENT");
-            document.getElementById('print-date-display').innerText = "PROPOSAL DATE: " + new Date().toLocaleDateString();
+            document.getElementById('print-date-display').innerText = "DATE: " + new Date().toLocaleDateString();
             document.getElementById('print-travel-cost').innerText = `₹${(parseFloat(state.travelCost) || 0).toLocaleString()}`;
             updateProjectDeliverables();
         }
@@ -554,61 +492,60 @@
                 if (ev.teamSelections.includes('full') || ev.teamSelections.includes('premium') || ev.teamSelections.includes('cinematographer')) hasCinematic = true;
             });
             if (hasTrad) {
-                items.add("<strong>Unlimited Raw Photographs</strong> (High-resolution ritual curation).");
-                items.add("<strong>Full HD Traditional Coverage</strong> (Complete cinematic documentation).");
+                items.add("<strong>Photos</strong> (High quality ritual coverage).");
+                items.add("<strong>Video</strong> (Full documentary coverage).");
             }
-            if (hasCinematic) items.add("<strong>Signature Cinematic Teaser</strong> (Exquisite 3-4 minutes professional storytelling).");
-            if (hasCandid) items.add("<strong>Premium Edited Portraits</strong> (30-40 retouched shots for Social Media).");
-            if (state.albums.length > 0) items.add("<strong>Bespoke Album Production</strong> (Hand-picked memories in premium lay-flat design).");
+            if (hasCinematic) items.add("<strong>Teaser</strong> (3-4 min cinematic highlights).");
+            if (hasCandid) items.add("<strong>Retouched Shots</strong> (40 edited photos for social media).");
+            if (state.albums.length > 0) items.add("<strong>Premium Albums</strong> (Lay-flat handcrafted design).");
             
             if (items.size > 0) {
                 sectionEl.classList.remove('hidden');
-                listEl.innerHTML = Array.from(items).map(item => `<div class="deliverable-item text-xs leading-relaxed">✨ ${item}</div>`).join('');
+                listEl.innerHTML = Array.from(items).map(item => `<div class="deliverable-item text-[10px] leading-relaxed animate-in">✦ ${item}</div>`).join('');
             } else sectionEl.classList.add('hidden');
         }
 
         function render() {
             document.getElementById('category-buttons-container').innerHTML = ALL_EVENT_TYPES.map(t => 
-                `<button onclick="addEvent('${t}')" class="btn-category py-2 rounded-xl text-[10px] font-bold uppercase tracking-tighter">${t}</button>`
+                `<button onclick="addEvent('${t}')" class="btn-category py-2.5 rounded-xl text-[9px] font-black tracking-widest">${t}</button>`
             ).join('');
 
             const showConfig = state.isCategorySectionVisible;
             document.getElementById('events-container').innerHTML = state.events.map(ev => {
                 const c = calculateEventCost(ev);
                 const isOther = ev.type === 'Other';
-                const finalTeamList = isOther ? [ {id:'trad_photo', label:'Trad. Photo'}, {id:'trad_video', label:'Trad. Video'}, {id:'candid_photo', label:'Candid'}, {id:'cinematographer', label:'Cinematic'}, {id:'drone', label:'Drone'}, {id:'led_crane', label:'LED & Crane'} ] : [ {id:'half', label:'Half Team'}, {id:'full', label:'Full Team'}, {id:'premium', label:'Premium Team'}, {id:'drone', label:'Drone'}, {id:'led_crane', label:'LED & Crane'} ];
+                const finalTeamList = isOther ? [ {id:'trad_photo', label:'T-Photo'}, {id:'trad_video', label:'T-Video'}, {id:'candid_photo', label:'Candid'}, {id:'cinematographer', label:'Cinema'}, {id:'drone', label:'Drone'}, {id:'led_crane', label:'Crane/LED'} ] : [ {id:'half', label:'Half Team'}, {id:'full', label:'Full Team'}, {id:'premium', label:'Premium Team'}, {id:'drone', label:'Drone'}, {id:'led_crane', label:'Crane/LED'} ];
                 let inclusions = [];
                 ev.teamSelections.forEach(sel => { if (TEAM_BREAKDOWN[sel]) inclusions = [...inclusions, ...TEAM_BREAKDOWN[sel]]; });
                 const uniqueInclusions = [...new Set(inclusions)];
                 
-                const visIcon = ev.isVisible ? `<svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>` : `<svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>`;
-                const toggleIcon = ev.isActionsVisible ? `<svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>` : `<svg class="w-4 h-4 text-indigo-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>`;
+                const visIcon = ev.isVisible ? `<svg class="w-4 h-4 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>` : `<svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>`;
+                const toggleIcon = ev.isActionsVisible ? `<svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>` : `<svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>`;
 
-                return `<div class="liquid-glass p-4 sm:p-5 rounded-2xl animate-in">
-                    <div class="flex flex-col sm:flex-row justify-between items-start mb-4 gap-4">
+                return `<div class="liquid-glass p-5 sm:p-7 rounded-[24px] animate-in">
+                    <div class="flex flex-col sm:flex-row justify-between items-start mb-6 gap-4">
                         <div class="flex-1 w-full">
-                            <div class="flex flex-wrap items-center gap-2">
-                                ${ev.isEditingName ? `<input type="text" value="${ev.name}" oninput="updateEventField(${ev.id}, 'name', this.value)" class="input-glass text-sm font-bold w-full sm:w-48 py-1">` : `<h3 class="text-base font-extrabold text-white">${ev.name}</h3>`}
-                                ${showConfig ? `<button onclick="toggleEdit('event', ${ev.id}, 'name')" class="icon-btn no-print"><svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg></button>` : ''}
-                                <div class="flex flex-wrap gap-2 sm:ml-4 items-center">
-                                    <input type="date" value="${ev.date}" onchange="updateEventField(${ev.id}, 'date', this.value)" class="bg-white/5 border-none rounded-full px-3 py-1 text-[10px] font-bold">
-                                    <input type="text" value="${ev.location}" oninput="updateEventField(${ev.id}, 'location', this.value)" class="bg-white/5 border-none rounded-full px-3 py-1 text-[10px] font-bold w-24">
-                                    ${showConfig ? `<button onclick="toggleActionsVisibility(${ev.id})" class="icon-btn no-print ml-2">${toggleIcon}</button>` : ''}
+                            <div class="flex flex-wrap items-center gap-3">
+                                ${ev.isEditingName ? `<input type="text" value="${ev.name}" oninput="updateEventField(${ev.id}, 'name', this.value)" class="input-glass text-sm font-bold w-full sm:w-48">` : `<h3 class="text-base font-black text-white uppercase">${ev.name}</h3>`}
+                                ${showConfig ? `<button onclick="toggleEdit('event', ${ev.id}, 'name')" class="opacity-40 no-print transition-all"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg></button>` : ''}
+                                <div class="flex flex-wrap gap-2 sm:ml-6 items-center">
+                                    <input type="date" value="${ev.date}" onchange="updateEventField(${ev.id}, 'date', this.value)" class="bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 text-[9px] font-bold text-white">
+                                    <input type="text" value="${ev.location}" oninput="updateEventField(${ev.id}, 'location', this.value)" class="bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 text-[9px] font-bold w-24 text-white">
+                                    ${showConfig ? `<button onclick="toggleActionsVisibility(${ev.id})" class="no-print ml-3 p-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10">${toggleIcon}</button>` : ''}
                                 </div>
                             </div>
                         </div>
-                        <div class="text-right flex items-center gap-3 w-full sm:w-auto justify-end">
+                        <div class="text-right flex items-center gap-4 w-full sm:w-auto justify-end">
                             <div class="flex items-center gap-2">
-                                ${ev.isEditingAmount || isOther ? `<input type="number" value="${ev.manualAmount}" oninput="updateEventField(${ev.id}, 'manualAmount', this.value)" class="input-glass w-24 text-right text-xs font-bold py-1">` : `<div class="text-sm font-black text-indigo-300 ${!ev.isVisible ? 'hidden-amount' : ''}">₹${c.total.toLocaleString()}</div>`}
-                                ${showConfig && !isOther ? `<button onclick="toggleEdit('event', ${ev.id}, 'amount')" class="icon-btn no-print"><svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg></button>` : ''}
+                                ${ev.isEditingAmount || isOther ? `<input type="number" value="${ev.manualAmount}" oninput="updateEventField(${ev.id}, 'manualAmount', this.value)" class="input-glass w-24 text-right font-black">` : `<div class="text-base font-black text-[#D4AF37] ${!ev.isVisible ? 'hidden-amount' : ''}">₹${c.total.toLocaleString()}</div>`}
                             </div>
-                            ${showConfig ? `<button onclick="toggleVisibility('event', ${ev.id})" class="icon-btn no-print ml-2">${visIcon}</button>` : ''}
-                            ${showConfig ? `<button onclick="removeEvent(${ev.id})" class="ml-2 text-red-400/50 hover:text-red-400 no-print"><svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg></button>` : ''}
+                            ${showConfig ? `<button onclick="toggleVisibility('event', ${ev.id})" class="p-2 bg-white/5 rounded-xl no-print border border-white/10">${visIcon}</button>` : ''}
+                            ${showConfig ? `<button onclick="removeEvent(${ev.id})" class="p-2 text-red-500 bg-red-500/10 rounded-xl no-print border border-red-500/20"><svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg></button>` : ''}
                         </div>
                     </div>
-                    <div class="${ev.isActionsVisible ? '' : 'hidden'}">
-                        ${showConfig ? `<div class="flex flex-wrap gap-2 pt-3 border-t border-white/5 no-print">${finalTeamList.map(t => `<button onclick="updateEventField(${ev.id}, 'team', '${t.id}')" class="px-3 py-1.5 rounded-lg text-[10px] font-bold border border-white/10 transition-all ${ev.teamSelections.includes(t.id) ? 'badge-active' : 'hover:bg-white/10'}">${t.label}</button>`).join('')}</div>` : ''}
-                        ${uniqueInclusions.length > 0 ? `<div class="mt-3 pt-3 border-t border-white/5"><div class="flex flex-wrap gap-2"><span class="text-[8px] font-black text-gray-500 uppercase w-full mb-1">Expert Team Allocation:</span>${uniqueInclusions.map(inc => `<span class="inclusion-tag">${inc}</span>`).join('')}</div></div>` : ''}
+                    <div class="${ev.isActionsVisible ? '' : 'hidden'} transition-all">
+                        ${showConfig ? `<div class="flex flex-wrap gap-2 pt-5 border-t border-white/10 no-print">${finalTeamList.map(t => `<button onclick="updateEventField(${ev.id}, 'team', '${t.id}')" class="px-4 py-2 rounded-xl text-[9px] font-bold border border-white/10 transition-all ${ev.teamSelections.includes(t.id) ? 'badge-active' : 'hover:bg-white/15 bg-white/5'}">${t.label}</button>`).join('')}</div>` : ''}
+                        ${uniqueInclusions.length > 0 ? `<div class="mt-5 pt-5 border-t border-white/10"><div class="flex flex-wrap gap-2"><span class="text-[9px] font-bold text-gray-500 uppercase w-full mb-2 ml-1">Team Selection:</span>${uniqueInclusions.map(inc => `<span class="inclusion-tag">${inc}</span>`).join('')}</div></div>` : ''}
                     </div>
                 </div>`;
             }).join('');
@@ -618,17 +555,16 @@
             else albumSect.classList.add('hidden');
 
             document.getElementById('albums-container').innerHTML = state.albums.map(al => {
-                const visIcon = al.isVisible ? `<svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>` : `<svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>`;
-                return `<div class="bg-white/5 border border-white/10 rounded-xl p-4 flex items-center gap-4 animate-in">
-                    <div class="flex-1"><span class="text-[9px] font-black text-purple-400 uppercase">Premium Album (${al.sheets * 5} Photos)</span><div class="flex items-center gap-2 mt-2">
-                        ${al.isEditingSheets ? `<input type="number" value="${al.sheets}" oninput="updateAlbumSheets(${al.id}, this.value)" class="input-glass w-20 text-xs font-bold py-1">` : `<span class="text-sm font-bold">${al.sheets} Seats</span>`}
-                        ${showConfig ? `<button onclick="toggleEdit('album', ${al.id})" class="icon-btn no-print"><svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg></button>` : ''}
-                        <span class="text-[10px] text-gray-500 font-bold uppercase ml-2">@ ₹250 ea.</span>
+                const visIcon = al.isVisible ? `<svg class="w-4 h-4 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>` : `<svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>`;
+                return `<div class="bg-white/5 border border-white/10 rounded-[20px] p-5 flex items-center gap-5 animate-in">
+                    <div class="flex-1"><span class="text-[9px] font-black text-[#D4AF37] uppercase tracking-widest">Wedding Album</span><div class="flex items-center gap-3 mt-3">
+                        ${al.isEditingSheets ? `<input type="number" value="${al.sheets}" oninput="updateAlbumSheets(${al.id}, this.value)" class="input-glass w-20 font-bold text-sm">` : `<span class="text-sm font-black">${al.sheets} Sheets</span>`}
+                        ${showConfig ? `<button onclick="toggleEdit('album', ${al.id})" class="opacity-30 no-print transition-all"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg></button>` : ''}
                     </div></div>
-                    <div class="text-right flex items-center gap-3">
-                        <span class="text-base font-black text-purple-300 ${!al.isVisible ? 'hidden-amount' : ''}">₹${(al.sheets * PRICING.albumPerSheet).toLocaleString()}</span>
-                        ${showConfig ? `<button onclick="toggleVisibility('album', ${al.id})" class="icon-btn no-print ml-2">${visIcon}</button>` : ''}
-                        ${showConfig ? `<button onclick="removeAlbum(${al.id})" class="ml-2 text-red-400/50 hover:text-red-400 no-print"><svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M6 18L18 6M6 6l12 12"/></svg></button>` : ''}
+                    <div class="text-right flex items-center gap-4">
+                        <span class="text-base font-black text-white ${!al.isVisible ? 'hidden-amount' : ''}">₹${(al.sheets * PRICING.albumPerSheet).toLocaleString()}</span>
+                        ${showConfig ? `<button onclick="toggleVisibility('album', ${al.id})" class="p-2 bg-white/5 rounded-xl no-print border border-white/10">${visIcon}</button>` : ''}
+                        ${showConfig ? `<button onclick="removeAlbum(${al.id})" class="p-2 text-red-400 bg-red-500/10 rounded-xl no-print border border-red-500/20"><svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M6 18L18 6M6 6l12 12"/></svg></button>` : ''}
                     </div>
                 </div>`;
             }).join('');
