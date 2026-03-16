@@ -10,7 +10,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
         :root {
-            --ios-blur: blur(30px);
+            --ios-blur: blur(25px);
             --liquid-bezier: cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
@@ -23,35 +23,34 @@
             overflow: hidden; 
         }
 
-        /* --- Liquid Glass UI (Permanent Dark Glossy Look) --- */
+        /* --- Liquid Glass UI --- */
         .liquid-glass {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
             backdrop-filter: var(--ios-blur);
             -webkit-backdrop-filter: var(--ios-blur);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.5),
-                        inset 0 0 20px rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4),
+                        inset 0 0 10px rgba(255, 255, 255, 0.05);
             transition: all 0.5s var(--liquid-bezier);
         }
 
         /* --- Animations --- */
         @keyframes floatIn {
-            0% { opacity: 0; transform: translateY(50px) scale(0.9); filter: blur(15px); }
+            0% { opacity: 0; transform: translateY(30px) scale(0.95); filter: blur(10px); }
             100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
         }
 
         @keyframes bgPan {
-            0% { transform: scale(1.1) translateX(0); }
-            50% { transform: scale(1.2) translateX(-20px); }
-            100% { transform: scale(1.1) translateX(0); }
+            0% { transform: scale(1.1); }
+            100% { transform: scale(1.2) translateX(-10px); }
         }
 
         .animate-item {
             opacity: 0;
-            animation: floatIn 1s var(--liquid-bezier) forwards;
+            animation: floatIn 0.8s var(--liquid-bezier) forwards;
         }
 
-        /* --- Background Styling --- */
+        /* --- Background --- */
         .bg-container {
             position: fixed;
             top: 0;
@@ -65,140 +64,145 @@
         .bg-image {
             width: 100%;
             height: 100%;
-            /* High Quality Royal Indian Wedding Background */
             background-image: url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
-            animation: bgPan 25s infinite alternate ease-in-out;
-            filter: brightness(0.6);
+            animation: bgPan 20s infinite alternate ease-in-out;
+            filter: brightness(0.5);
         }
 
         .overlay {
             position: fixed;
             inset: 0;
             z-index: -1;
-            /* Dark gradient for text pop */
-            background: radial-gradient(circle at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.85) 100%);
+            background: radial-gradient(circle at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%);
         }
 
-        /* --- Hover & Interaction --- */
+        /* --- Interaction --- */
         .ios-btn:hover {
-            transform: translateY(-8px) scale(1.03);
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-4px) scale(1.02);
+            background: rgba(255, 255, 255, 0.12);
         }
 
         .ios-btn:active {
-            transform: scale(0.94);
+            transform: scale(0.96);
             filter: brightness(0.8);
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
+        /* Scrollbar adjustment for smaller viewports */
+        @media (max-height: 700px) {
+            body { overflow-y: auto; }
+            .min-h-screen { min-height: auto; padding-top: 1rem; padding-bottom: 1rem; }
         }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-6 overflow-hidden">
+<body class="min-h-screen flex items-center justify-center p-4">
     
     <div class="bg-container">
         <div class="bg-image"></div>
     </div>
     <div class="overlay"></div>
 
-    <div class="w-full max-w-lg relative z-10">
+    <div class="w-full max-w-md relative z-10">
         
         <!-- Header -->
-        <div class="text-center mb-12 animate-item" style="animation-delay: 0.1s;">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-3 tracking-tighter drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)]">
+        <div class="text-center mb-6 animate-item" style="animation-delay: 0.1s;">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-2 tracking-tighter drop-shadow-lg">
                 Lucknow Wedding Studio
             </h1>
-            <p class="text-white/80 text-lg font-medium tracking-wide italic">
+            <p class="text-white/70 text-base font-medium italic">
                 Capturing Your Royal Moments
             </p>
         </div>
 
         <!-- Dashboard Links -->
-        <div class="space-y-5">
+        <div class="space-y-3">
 
-            <!-- Portfolio -->
+            <!-- Portfolio (LWS Text Logo) -->
             <a href="https://lucknoweddingstudio.github.io/lws/portfolio/" 
-               class="liquid-glass ios-btn flex items-center p-6 rounded-[2.5rem] group no-underline animate-item" style="animation-delay: 0.2s;">
-                <div class="bg-gradient-to-br from-rose-500 to-rose-700 p-4 rounded-2xl mr-5 shadow-[0_0_20px_rgba(225,29,72,0.3)] group-hover:rotate-6 transition-transform">
-                    <i data-lucide="camera" class="text-white w-8 h-8"></i>
+               class="liquid-glass ios-btn flex items-center p-4 rounded-[1.8rem] group no-underline animate-item" style="animation-delay: 0.2s;">
+                <div class="bg-gradient-to-br from-rose-500 to-rose-700 w-12 h-12 flex items-center justify-center rounded-xl mr-4 shadow-lg group-hover:rotate-3 transition-transform">
+                    <span class="text-white font-black text-sm tracking-tighter">LWS</span>
                 </div>
                 <div class="flex-1">
-                    <h2 class="text-xl font-bold text-white">Studio Portfolio</h2>
-                    <p class="text-white/60 text-sm font-medium">Explore our signature wedding films</p>
+                    <h2 class="text-lg font-bold text-white">Portfolio</h2>
+                    <p class="text-white/50 text-xs font-medium">Our signature films</p>
                 </div>
-                <i data-lucide="arrow-right-circle" class="text-white/40 group-hover:translate-x-1 transition-transform"></i>
+                <i data-lucide="chevron-right" class="text-white/30 group-hover:translate-x-1 transition-transform"></i>
             </a>
             
-            <!-- Finance -->
+            <!-- Finance (Updated Wallet Icon) -->
             <a href="https://lucknoweddingstudio.github.io/lws/portal/" 
-               class="liquid-glass ios-btn flex items-center p-6 rounded-[2.5rem] group no-underline animate-item" style="animation-delay: 0.3s;">
-                <div class="bg-gradient-to-br from-blue-500 to-blue-700 p-4 rounded-2xl mr-5 shadow-[0_0_20px_rgba(37,99,235,0.3)] group-hover:rotate-6 transition-transform">
-                    <i data-lucide="banknote" class="text-white w-8 h-8"></i>
+               class="liquid-glass ios-btn flex items-center p-4 rounded-[1.8rem] group no-underline animate-item" style="animation-delay: 0.3s;">
+                <div class="bg-gradient-to-br from-blue-500 to-blue-700 p-3 rounded-xl mr-4 shadow-lg group-hover:rotate-3 transition-transform">
+                    <i data-lucide="wallet" class="text-white w-6 h-6"></i>
                 </div>
                 <div class="flex-1">
-                    <h2 class="text-xl font-bold text-white">Finance Portal</h2>
-                    <p class="text-white/60 text-sm font-medium">Access invoices and payment history</p>
+                    <h2 class="text-lg font-bold text-white">Finance</h2>
+                    <p class="text-white/50 text-xs font-medium">Invoices & payments</p>
                 </div>
-                <i data-lucide="arrow-right-circle" class="text-white/40 group-hover:translate-x-1 transition-transform"></i>
+                <i data-lucide="chevron-right" class="text-white/30 group-hover:translate-x-1 transition-transform"></i>
             </a>
 
-            <!-- Quotation -->
+            <!-- Quotation (Updated Calculator Icon) -->
             <a href="https://lucknoweddingstudio.github.io/lws/calculator/" 
-               class="liquid-glass ios-btn flex items-center p-6 rounded-[2.5rem] group no-underline animate-item" style="animation-delay: 0.4s;">
-                <div class="bg-gradient-to-br from-amber-500 to-amber-700 p-4 rounded-2xl mr-5 shadow-[0_0_20px_rgba(217,119,6,0.3)] group-hover:rotate-6 transition-transform">
-                    <i data-lucide="layers" class="text-white w-8 h-8"></i>
+               class="liquid-glass ios-btn flex items-center p-4 rounded-[1.8rem] group no-underline animate-item" style="animation-delay: 0.4s;">
+                <div class="bg-gradient-to-br from-amber-500 to-amber-700 p-3 rounded-xl mr-4 shadow-lg group-hover:rotate-3 transition-transform">
+                    <i data-lucide="calculator" class="text-white w-6 h-6"></i>
                 </div>
                 <div class="flex-1">
-                    <h2 class="text-xl font-bold text-white">Quotation Builder</h2>
-                    <p class="text-white/60 text-sm font-medium">Get instant estimates for your event</p>
+                    <h2 class="text-lg font-bold text-white">Quotation</h2>
+                    <p class="text-white/50 text-xs font-medium">Instant event estimates</p>
                 </div>
-                <i data-lucide="arrow-right-circle" class="text-white/40 group-hover:translate-x-1 transition-transform"></i>
+                <i data-lucide="chevron-right" class="text-white/30 group-hover:translate-x-1 transition-transform"></i>
             </a>
 
-            <!-- Availability -->
+            <!-- Team Availability -->
             <a href="https://lucknoweddingstudio.github.io/lws/" 
-               class="liquid-glass ios-btn flex items-center p-6 rounded-[2.5rem] group no-underline animate-item" style="animation-delay: 0.5s;">
-                <div class="bg-gradient-to-br from-emerald-500 to-emerald-700 p-4 rounded-2xl mr-5 shadow-[0_0_20px_rgba(5,150,105,0.3)] group-hover:rotate-6 transition-transform">
-                    <i data-lucide="calendar-days" class="text-white w-8 h-8"></i>
+               class="liquid-glass ios-btn flex items-center p-4 rounded-[1.8rem] group no-underline animate-item" style="animation-delay: 0.5s;">
+                <div class="bg-gradient-to-br from-emerald-500 to-emerald-700 p-3 rounded-xl mr-4 shadow-lg group-hover:rotate-3 transition-transform">
+                    <i data-lucide="calendar-days" class="text-white w-6 h-6"></i>
                 </div>
                 <div class="flex-1">
-                    <h2 class="text-xl font-bold text-white">Availability</h2>
-                    <p class="text-white/60 text-sm font-medium">Check our team's shooting schedule</p>
+                    <h2 class="text-lg font-bold text-white">Availability</h2>
+                    <p class="text-white/50 text-xs font-medium">Shooting schedule</p>
                 </div>
-                <i data-lucide="arrow-right-circle" class="text-white/40 group-hover:translate-x-1 transition-transform"></i>
+                <i data-lucide="chevron-right" class="text-white/30 group-hover:translate-x-1 transition-transform"></i>
+            </a>
+
+            <!-- Payment -->
+            <a href="https://lucknoweddingstudio.github.io/lws/payment/" 
+               class="liquid-glass ios-btn flex items-center p-4 rounded-[1.8rem] group no-underline animate-item" style="animation-delay: 0.6s;">
+                <div class="bg-gradient-to-br from-indigo-500 to-indigo-700 p-3 rounded-xl mr-4 shadow-lg group-hover:rotate-3 transition-transform">
+                    <i data-lucide="indian-rupee" class="text-white w-6 h-6"></i>
+                </div>
+                <div class="flex-1">
+                    <h2 class="text-lg font-bold text-white">Payment</h2>
+                    <p class="text-white/50 text-xs font-medium">Secure booking payments</p>
+                </div>
+                <i data-lucide="chevron-right" class="text-white/30 group-hover:translate-x-1 transition-transform"></i>
             </a>
 
         </div>
 
         <!-- Controls -->
-        <div class="mt-14 flex justify-center gap-10 items-center animate-item" style="animation-delay: 0.7s;">
-            <button onclick="copyCurrentURL()" class="liquid-glass p-5 rounded-full ios-btn shadow-2xl">
-                <i data-lucide="share" class="text-white w-7 h-7"></i>
+        <div class="mt-6 flex justify-center items-center animate-item" style="animation-delay: 0.8s;">
+            <button onclick="copyCurrentURL()" class="liquid-glass p-4 rounded-full ios-btn">
+                <i data-lucide="share-2" class="text-white w-6 h-6"></i>
             </button>
         </div>
 
         <!-- Footer -->
-        <div class="text-center mt-12 animate-item" style="animation-delay: 0.9s;">
-            <p class="text-white/40 text-[10px] font-black tracking-[0.5em] uppercase">
-                LWS Official HUB &copy; 2026
+        <div class="text-center mt-6 animate-item" style="animation-delay: 1s;">
+            <p class="text-white/30 text-[9px] font-black tracking-[0.4em] uppercase">
+                LWS HUB &copy; 2026
             </p>
         </div>
     </div>
 
     <script>
-        // Start Lucide Icons
         lucide.createIcons();
 
-        // Copy Link
         function copyCurrentURL() {
             const temp = document.createElement('input');
             document.body.appendChild(temp);
@@ -208,9 +212,12 @@
             document.body.removeChild(temp);
         }
 
-        // Allow scroll after entry animation
         setTimeout(() => {
-            document.body.style.overflow = 'auto';
+            if (window.innerHeight > 700) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
         }, 1500);
     </script>
 </body>
