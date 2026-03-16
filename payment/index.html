@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Gateway | Lucknow Wedding Studio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --glass: rgba(0, 0, 0, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --yellow-accent: #facc15;
+            --emerald-accent: #10b981;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #000;
+            color: white;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Cinematic Background */
+        .bg-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2;
+            background: url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            transform: scale(1.1);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 50%, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.98) 100%);
+            backdrop-filter: blur(20px);
+        }
+
+        /* Glassmorphism */
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: 0 35px 70px -12px rgba(0, 0, 0, 0.85);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        @media (min-width: 768px) {
+            .glass-card { border-radius: 32px; }
+        }
+
+        .glass-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .glossy-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .glossy-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .qr-wrapper {
+            background: white;
+            padding: 10px;
+            border-radius: 20px;
+            display: inline-block;
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.2);
+            animation: qrPulse 4s infinite alternate;
+        }
+
+        @media (min-width: 768px) {
+            .qr-wrapper { padding: 12px; border-radius: 24px; }
+        }
+
+        @keyframes qrPulse {
+            0% { transform: scale(1); box-shadow: 0 0 20px rgba(16, 185, 129, 0.1); }
+            100% { transform: scale(1.02); box-shadow: 0 0 40px rgba(16, 185, 129, 0.4); }
+        }
+
+        .copy-toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--yellow-accent);
+            color: black;
+            padding: 10px 20px;
+            border-radius: 99px;
+            font-weight: 800;
+            font-size: 10px;
+            z-index: 1000;
+            display: none;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .app-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            object-fit: contain;
+        }
+
+        @media (min-width: 768px) {
+            .app-icon { width: 48px; height: 48px; border-radius: 12px; }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <div class="bg-container"></div>
+    <div class="overlay"></div>
+    <div id="copy-toast" class="copy-toast">DETAILS COPIED</div>
+
+    <div class="max-w-2xl mx-auto px-4 py-8 md:py-12 relative z-10">
+        
+        <!-- HEADER -->
+        <header class="text-center mb-8 md:mb-12 flex flex-col items-center">
+            <img src="https://lucknowweddingstudio.com/wp-content/uploads/2022/08/LWS-yellow-768x480.png" 
+                 alt="Lucknow Wedding Studio" class="w-28 md:w-40 h-auto mb-6 drop-shadow-2xl">
+            <h1 class="text-2xl md:text-4xl font-black tracking-tight mb-2">
+                Secure <span class="text-emerald-400">Payment</span>
+            </h1>
+            <p class="text-slate-400 text-[10px] md:text-sm font-medium tracking-widest uppercase opacity-60">
+                Official Billing Details
+            </p>
+        </header>
+
+        <!-- QR & QUICK PAY SECTION -->
+        <div class="glass-card p-6 md:p-12 text-center mb-6 md:mb-8 visible">
+            <div class="qr-wrapper mb-6 md:mb-8">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=upi://pay?pa=lucknowweddingphotographers@okaxis&pn=LUCKNOW%20WEDDING%20STUDIO&cu=INR" 
+                     alt="Payment QR" class="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 rounded-lg">
+            </div>
+
+            <!-- UPI Apps Deep Links -->
+            <div class="grid grid-cols-4 sm:flex sm:flex-wrap items-center justify-center gap-3 md:gap-6 mb-8 md:mb-10 bg-white/5 py-6 md:py-8 rounded-[1.5rem] md:rounded-[2rem] border border-white/5 px-4">
+                <!-- Google Pay -->
+                <a href="upi://pay?pa=lucknowweddingphotographers@okaxis&pn=LUCKNOW%20WEDDING%20STUDIO&cu=INR" class="flex flex-col items-center gap-2 group transition-all hover:scale-110">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Google_Pay_Logo.svg" alt="GPay" class="app-icon bg-white p-1">
+                    <span class="text-[8px] md:text-[9px] text-slate-400 font-bold uppercase tracking-tighter">G-Pay</span>
+                </a>
+                <!-- PhonePe -->
+                <a href="upi://pay?pa=lucknowweddingphotographers@okaxis&pn=LUCKNOW%20WEDDING%20STUDIO&cu=INR" class="flex flex-col items-center gap-2 group transition-all hover:scale-110">
+                    <img src="https://img.icons8.com/color/48/phone-pe.png" alt="PhonePe" class="app-icon">
+                    <span class="text-[8px] md:text-[9px] text-slate-400 font-bold uppercase tracking-tighter">PhonePe</span>
+                </a>
+                <!-- Paytm -->
+                <a href="upi://pay?pa=lucknowweddingphotographers@okaxis&pn=LUCKNOW%20WEDDING%20STUDIO&cu=INR" class="flex flex-col items-center gap-2 group transition-all hover:scale-110">
+                    <img src="https://img.icons8.com/color/48/paytm.png" alt="Paytm" class="app-icon">
+                    <span class="text-[8px] md:text-[9px] text-slate-400 font-bold uppercase tracking-tighter">Paytm</span>
+                </a>
+                <!-- BHIM UPI -->
+                <a href="upi://pay?pa=lucknowweddingphotographers@okaxis&pn=LUCKNOW%20WEDDING%20STUDIO&cu=INR" class="flex flex-col items-center gap-2 group transition-all hover:scale-110">
+                    <img src="https://img.icons8.com/color/48/bhim.png" alt="BHIM UPI" class="app-icon">
+                    <span class="text-[8px] md:text-[9px] text-slate-400 font-bold uppercase tracking-tighter">BHIM</span>
+                </a>
+            </div>
+
+            <!-- UPI ID & Number -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 max-w-lg mx-auto">
+                <div onclick="copyText('7394019474')" class="p-4 bg-emerald-400/5 border border-emerald-400/10 rounded-xl md:rounded-2xl flex items-center justify-between cursor-pointer group active:scale-95 transition-all">
+                    <div class="text-left">
+                        <p class="text-[8px] text-emerald-400 uppercase font-black tracking-widest mb-1">UPI Number</p>
+                        <p class="text-sm font-bold text-white">7394019474</p>
+                    </div>
+                    <i data-lucide="copy" class="w-4 h-4 text-emerald-500/50"></i>
+                </div>
+                <div onclick="copyText('lucknowweddingphotographers@okaxis')" class="p-4 bg-white/5 border border-white/10 rounded-xl md:rounded-2xl flex items-center justify-between cursor-pointer group active:scale-95 transition-all">
+                    <div class="text-left overflow-hidden w-full pr-2">
+                        <p class="text-[8px] text-slate-500 uppercase font-black tracking-widest mb-1">UPI ID</p>
+                        <p class="text-[10px] md:text-[11px] font-bold text-white break-all leading-tight">lucknowweddingphotographers@okaxis</p>
+                    </div>
+                    <i data-lucide="copy" class="w-4 h-4 text-slate-500/50 shrink-0"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- BANK DETAILS SECTION -->
+        <div class="glass-card p-6 md:p-12 visible">
+            <div class="flex items-center justify-between mb-6 md:mb-8">
+                <div>
+                    <h3 class="text-base md:text-lg font-black text-yellow-400 tracking-wider uppercase">Bank Transfer</h3>
+                    <p class="text-[8px] md:text-[9px] text-slate-500 uppercase tracking-[0.2em] mt-1">Direct NEFT/IMPS/RTGS</p>
+                </div>
+                <i data-lucide="landmark" class="w-6 h-6 md:w-8 md:h-8 text-slate-800"></i>
+            </div>
+
+            <div class="space-y-4 md:space-y-6">
+                <div class="bg-white/5 p-4 md:p-5 rounded-xl md:rounded-2xl border border-white/5">
+                    <p class="text-[8px] md:text-[9px] text-slate-500 uppercase font-bold mb-1">Account Holder Name</p>
+                    <p class="text-sm md:text-base font-bold text-white tracking-wide">LUCKNOW WEDDING STUDIO</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div onclick="copyText('8447232220')" class="bg-white/5 p-4 md:p-5 rounded-xl md:rounded-2xl border border-white/5 cursor-pointer group hover:bg-white/10 transition-all">
+                        <p class="text-[8px] md:text-[9px] text-slate-500 uppercase font-bold mb-1 flex items-center gap-1">Account No. <i data-lucide="copy" class="w-3 h-3"></i></p>
+                        <p class="text-base md:text-lg font-mono font-bold text-yellow-400 tracking-widest">8447232220</p>
+                    </div>
+                    <div onclick="copyText('KKBK0005196')" class="bg-white/5 p-4 md:p-5 rounded-xl md:rounded-2xl border border-white/5 cursor-pointer group hover:bg-white/10 transition-all">
+                        <p class="text-[8px] md:text-[9px] text-slate-500 uppercase font-bold mb-1 flex items-center gap-1">IFSC Code <i data-lucide="copy" class="w-3 h-3"></i></p>
+                        <p class="text-base md:text-lg font-mono font-bold text-yellow-400 tracking-widest">KKBK0005196</p>
+                    </div>
+                </div>
+
+                <div class="bg-yellow-400/5 p-3 md:p-4 rounded-xl md:rounded-2xl border border-yellow-400/10 text-center">
+                    <p class="text-[9px] md:text-[10px] text-yellow-400/70 font-bold uppercase tracking-widest">Kotak Mahindra Bank</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="mt-12 md:mt-16 text-center pb-10">
+            <div class="flex items-center justify-center gap-4 md:gap-6 mb-6 md:mb-8">
+                <a href="https://lucknowweddingstudio.com" target="_blank" class="text-slate-500 hover:text-white transition-colors text-[9px] md:text-[10px] font-bold uppercase tracking-widest">Website</a>
+                <span class="w-1 h-1 bg-slate-800 rounded-full"></span>
+                <a href="https://wa.me/917394019474" target="_blank" class="text-slate-500 hover:text-white transition-colors text-[9px] md:text-[10px] font-bold uppercase tracking-widest">Support</a>
+            </div>
+            <p class="text-[8px] md:text-[9px] tracking-[0.3em] md:tracking-[0.4em] uppercase font-bold text-slate-700 px-4">
+                &copy; 2026 LWS Studios. Professional Excellence.
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.glass-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        function copyText(text) {
+            const el = document.createElement('textarea');
+            el.value = text;
+            el.setAttribute('readonly', '');
+            el.style.position = 'absolute';
+            el.style.left = '-9999px';
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            
+            const toast = document.getElementById('copy-toast');
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
