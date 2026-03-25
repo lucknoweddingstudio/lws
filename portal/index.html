@@ -1,581 +1,63 @@
 <!DOCTYPE html>
-<html lang="hi">
-
+<html lang="hi" oncontextmenu="return false;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lucknow Wedding Studio | iOS Liquid Premium</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- SheetJS for Excel Export -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+    <style>@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');:root{--glass:rgba(255,255,255,.03);--glass-border:rgba(255,255,255,.12);--bg-main:#000;--text-main:#f8fafc;--text-heading:#fff;--text-muted:rgba(255,255,255,.5);--card-bg:rgba(20,20,20,.4);--input-bg:rgba(0,0,0,.6);--accent:#fff;--blob-opacity:.25;--shadow:0 20px 50px 0 rgba(0,0,0,.8);--ios-blur:blur(40px)}body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg-main);color:var(--text-main);overflow-x:hidden;min-height:100vh}.liquid-bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;background:url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');background-size:cover;background-position:center;overflow:hidden}.liquid-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.2) 0%,rgba(0,0,0,.8) 100%);backdrop-filter:contrast(110%) brightness(80%)}.blob{position:absolute;width:50vw;height:50vw;filter:blur(120px);border-radius:50%;animation:move 35s infinite alternate ease-in-out;z-index:0;mix-blend-mode:screen}@keyframes move{0%{transform:translate(-15%,-15%) rotate(0deg) scale(1)}100%{transform:translate(30%,40%) rotate(360deg) scale(1.2)}}.glass-panel{background:var(--glass);backdrop-filter:var(--ios-blur);-webkit-backdrop-filter:var(--ios-blur);border:1px solid var(--glass-border);box-shadow:var(--shadow)}.ios-card{background:var(--card-bg);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border:1px solid var(--glass-border);border-radius:2rem;transition:all .5s cubic-bezier(.19,1,.22,1)}.btn-ios{background:rgba(255,255,255,.95);border-radius:1.25rem;transition:all .3s cubic-bezier(.4,0,.2,1);font-weight:700;color:#000!important;box-shadow:0 10px 20px rgba(0,0,0,.1)}.btn-ios:hover{transform:scale(1.02);background:#fff}.input-ios{background:var(--input-bg);border:1px solid var(--glass-border);border-radius:1rem;color:var(--text-main);transition:.3s}.input-ios:focus{border-color:#fff;background:rgba(255,255,255,.05);outline:none}.detail-expanded{max-height:5000px;opacity:1;padding-bottom:2rem;transition:all .7s cubic-bezier(.19,1,.22,1)}.detail-collapsed{max-height:0;opacity:0;overflow:hidden;padding-bottom:0;transition:all .5s cubic-bezier(.19,1,.22,1)}.custom-scroll::-webkit-scrollbar{width:5px}.custom-scroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:10px}#auth-overlay{position:fixed;inset:0;z-index:2000;display:flex;align-items:center;justify-content:center;background:0 0;backdrop-filter:blur(30px)}.no-scrollbar::-webkit-scrollbar{display:none}.animate-pop{animation:pop .4s cubic-bezier(.175,.885,.32,1.275)}@keyframes pop{0%{transform:scale(.9);opacity:0}100%{transform:scale(1);opacity:1}}.label-premium{color:var(--text-muted);font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:.1em}.heading-premium{color:var(--text-heading);font-weight:800;letter-spacing:-.02em}@media (max-width:1024px){.ledger-table thead{display:none}.ledger-table,.ledger-table tbody,.ledger-table td,.ledger-table tr{display:block;width:100%}.ledger-table tr{margin-bottom:1.5rem;border-radius:1.5rem;background:rgba(255,255,255,.03);border:1px solid var(--glass-border);padding:1rem}.ledger-table td{display:flex;justify-content:space-between;align-items:center;padding:.75rem 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.85rem}.ledger-table td:last-child{border-bottom:none}.ledger-table td::before{content:attr(data-label);font-weight:700;font-size:.65rem;color:rgba(255,255,255,.4);text-transform:uppercase}.ledger-table td[data-label="Client Node"]{display:block;text-align:center;font-size:1.2rem;font-weight:900;background:rgba(255,255,255,.05);margin:-1rem -1rem 1rem -1rem;padding:1rem;border-radius:1.5rem 1.5rem 0 0}.ledger-table td[data-label="Client Node"]::before{display:none}}</style>
 
-        /* iOS 26 Liquid Glossy Theme Variables */
-        :root {
-            --glass: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.12);
-            --bg-main: #000000; 
-            --text-main: #f8fafc;
-            --text-heading: #ffffff;
-            --text-muted: rgba(255, 255, 255, 0.5);
-            --card-bg: rgba(20, 20, 20, 0.4);
-            --input-bg: rgba(0, 0, 0, 0.6);
-            --accent: #ffffff; 
-            --blob-opacity: 0.25; 
-            --shadow: 0 20px 50px 0 rgba(0, 0, 0, 0.8);
-            --ios-blur: blur(40px);
-        }
-
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: var(--bg-main);
-            color: var(--text-main);
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
-
-        .liquid-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
-            background-size: cover;
-            background-position: center;
-            overflow: hidden;
-        }
-
-        .liquid-bg::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%);
-            backdrop-filter: contrast(110%) brightness(80%);
-        }
-
-        .blob {
-            position: absolute;
-            width: 50vw;
-            height: 50vw;
-            filter: blur(120px);
-            border-radius: 50%;
-            animation: move 35s infinite alternate ease-in-out;
-            z-index: 0;
-            mix-blend-mode: screen;
-        }
-
-        @keyframes move {
-            0% { transform: translate(-15%, -15%) rotate(0deg) scale(1); }
-            100% { transform: translate(30%, 40%) rotate(360deg) scale(1.2); }
-        }
-
-        .glass-panel {
-            background: var(--glass);
-            backdrop-filter: var(--ios-blur);
-            -webkit-backdrop-filter: var(--ios-blur);
-            border: 1px solid var(--glass-border);
-            box-shadow: var(--shadow);
-        }
-
-        .ios-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border: 1px solid var(--glass-border);
-            border-radius: 2rem;
-            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-        }
-
-        .btn-ios {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 1.25rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-weight: 700;
-            color: #000 !important;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-        
-        .btn-ios:hover {
-            transform: scale(1.02);
-            background: #ffffff;
-        }
-
-        .input-ios {
-            background: var(--input-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 1rem;
-            color: var(--text-main);
-            transition: 0.3s;
-        }
-        .input-ios:focus {
-            border-color: #ffffff;
-            background: rgba(255,255,255,0.05);
-            outline: none;
-        }
-
-        .detail-expanded {
-            max-height: 5000px;
-            opacity: 1;
-            padding-bottom: 2rem;
-            transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1);
-        }
-
-        .detail-collapsed {
-            max-height: 0;
-            opacity: 0;
-            overflow: hidden;
-            padding-bottom: 0;
-            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-        }
-
-        .custom-scroll::-webkit-scrollbar { width: 5px; }
-        .custom-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
-
-        #auth-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 2000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: transparent; /* Grey out removed, now transparent */
-            backdrop-filter: blur(30px);
-        }
-
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .animate-pop { animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        @keyframes pop {
-            0% { transform: scale(0.9); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        .label-premium { color: var(--text-muted); font-weight: 700; text-transform: uppercase; font-size: 10px; letter-spacing: 0.1em; }
-        .heading-premium { color: var(--text-heading); font-weight: 800; letter-spacing: -0.02em; }
-
-        /* RESPONSIVE TABLE TRANSFORMATION */
-        @media (max-width: 1024px) {
-            .ledger-table thead { display: none; }
-            .ledger-table, .ledger-table tbody, .ledger-table tr, .ledger-table td { display: block; width: 100%; }
-            .ledger-table tr { 
-                margin-bottom: 1.5rem; 
-                border-radius: 1.5rem; 
-                background: rgba(255, 255, 255, 0.03); 
-                border: 1px solid var(--glass-border); 
-                padding: 1rem; 
-            }
-            .ledger-table td { 
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 0.75rem 0; 
-                border-bottom: 1px solid rgba(255, 255, 255, 0.05); 
-                font-size: 0.85rem;
-            }
-            .ledger-table td:last-child { border-bottom: none; }
-            .ledger-table td::before { 
-                content: attr(data-label); 
-                font-weight: 700; 
-                font-size: 0.65rem; 
-                color: rgba(255,255,255,0.4); 
-                text-transform: uppercase;
-            }
-            .ledger-table td[data-label="Client Node"] {
-                display: block;
-                text-align: center;
-                font-size: 1.2rem;
-                font-weight: 900;
-                background: rgba(255, 255, 255, 0.05);
-                margin: -1rem -1rem 1rem -1rem;
-                padding: 1rem;
-                border-radius: 1.5rem 1.5rem 0 0;
-            }
-            .ledger-table td[data-label="Client Node"]::before { display: none; }
-        }
-    </style>
-
-    <!-- Firebase SDKs -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, query } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyDFpvjS-Iq6A8s5QtNDDvfCcI235cEdEN0",
-            authDomain: "studiohub-management-finance.firebaseapp.com",
-            projectId: "studiohub-management-finance",
-            storageBucket: "studiohub-management-finance.firebasestorage.app",
-            messagingSenderId: "614221287416",
-            appId: "1:614221287416:web:3f85c7e284875ef21ad00d",
-            measurementId: "G-8H3KNFFXWL"
+        import{initializeApp as i}from"https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";import{getFirestore as g,collection as c,addDoc as a,onSnapshot as o,doc as d,updateDoc as u,deleteDoc as x,query as q}from"https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";import{getAuth as h,signInWithEmailAndPassword as s,createUserWithEmailAndPassword as r,onAuthStateChanged as l,signOut as m}from"https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        const _v = (b) => atob(b);
+        const f={
+            apiKey: _v("QUl6YVN5REZwdmpTLUlxNkE4czVRdE5ERHZmQ2NJMjM1Y0VkRU4w"),
+            authDomain: _v("c3R1ZGlvaHViLW1hbmFnZW1lbnQtZmluYW5jZS5maXJlYmFzZWFwcC5jb20="),
+            projectId: _v("c3R1ZGlvaHViLW1hbmFnZW1lbnQtZmluYW5jZQ=="),
+            storageBucket: _v("c3R1ZGlvaHViLW1hbmFnZW1lbnQtZmluYW5jZS5maXJlYmFzZXN0b3JhZ2UuYXBw"),
+            messagingSenderId: _v("NjE0MjIxMjg3NDE2"),
+            appId: _v("MTo2MTQyMjEyODc0MTY6d2ViOjNmODVjN2UyODQ4NzVlZjIxYWQwMGQ="),
+            measurementId: _v("Ry04SDNLTkZGWFdM")
         };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const auth = getAuth(app);
-        const appId = "lucknow-wedding-studio";
-        const SECRET_CODE = "lws0006148";
-
-        let state = {
-            clients: [],
-            photographers: [],
-            eventMeta: [],
-            user: null,
-            expandedProjectId: null,
-            editingStaffId: null,
-            editingClientId: null,
-            selectedYear: new Date().getFullYear().toString()
-        };
-
-        // --- CORE UTILITY FUNCTIONS ---
-        const getClientFinancials = (c) => {
-            const rev = Number(c.finalAmount || 0);
-            const totalPaid = Number(c.advance || 0) + (c.installments || []).reduce((a, b) => a + Number(b), 0);
-            const staffCosts = (c.events || []).reduce((acc, ev) => acc + (ev.team || []).reduce((t, m) => t + Number(m.fee || 0), 0), 0);
-            const otherCosts = Number(c.albumCost || 0) + Number(c.editingCost || 0) + Number(c.otherCost || 0);
-            const totalExp = staffCosts + otherCosts;
-            const profit = rev - totalExp;
-            const margin = rev > 0 ? ((profit / rev) * 100).toFixed(1) : 0;
-            return { rev, paid: totalPaid, rem: rev - totalPaid, exp: totalExp, profit, margin };
-        };
-
-        // --- EXCEL EXPORT ---
-        window.exportToExcel = () => {
-            const filteredData = state.clients.filter(c => (c.events || []).some(ev => ev.date && ev.date.startsWith(state.selectedYear)));
-            if (filteredData.length === 0) { alert("No data found for this year."); return; }
-            const excelRows = [];
-            filteredData.forEach(client => {
-                const fin = getClientFinancials(client);
-                (client.events || []).forEach((ev) => {
-                    const staffNames = (ev.team || []).map(m => m.name).join(', ');
-                    excelRows.push({
-                        "Client": client.name, "Quotation": client.finalAmount, "Profit": fin.profit,
-                        "Received": fin.paid, "Balance": fin.rem, "Event": ev.type, "Date": ev.date, "Staff": staffNames
-                    });
-                });
-            });
-            const ws = XLSX.utils.json_to_sheet(excelRows);
-            const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, `LWS_${state.selectedYear}`);
-            XLSX.writeFile(wb, `LWS_Report_${state.selectedYear}.xlsx`);
-        };
-
-        window.calculateModalProfit = () => {
-            const form = document.getElementById('clientForm');
-            if (!form) return;
-            const revenue = Number(form.elements['cFinal'].value || 0);
-            const album = Number(form.elements['cAlbum'].value || 0);
-            const edit = Number(form.elements['cEdit'].value || 0);
-            const misc = Number(form.elements['cMisc'].value || 0);
-            let staffTotal = 0;
-            document.querySelectorAll('.member-fee').forEach(input => staffTotal += Number(input.value || 0));
-            const totalExp = staffTotal + album + edit + misc;
-            const profit = revenue - totalExp;
-            if (document.getElementById('modalRevDisplay')) document.getElementById('modalRevDisplay').innerText = revenue.toLocaleString();
-            if (document.getElementById('modalExpDisplay')) document.getElementById('modalExpDisplay').innerText = totalExp.toLocaleString();
-            const profDisp = document.getElementById('modalProfitDisplay');
-            if (profDisp) {
-                profDisp.innerText = profit.toLocaleString();
-                profDisp.className = profit >= 0 ? "text-xl font-black text-green-400" : "text-xl font-black text-red-400";
-            }
-            const profHead = document.getElementById('modalProfitHeader');
-            if (profHead) {
-                profHead.innerText = "₹" + profit.toLocaleString();
-                profHead.className = profit >= 0 ? "text-green-400 font-bold" : "text-red-400 font-bold";
-            }
-        };
-
-        window.autoFillFee = (selectEl) => {
-            const row = selectEl.closest('.team-member-row');
-            if (!row) return;
-            const name = row.querySelector('.member-name').value;
-            const type = row.querySelector('.member-type').value;
-            const staff = state.photographers.find(p => p.name === name);
-            if (staff) row.querySelector('.member-fee').value = (type === 'full') ? (staff.fullFee || 0) : (staff.shortFee || 0);
-            window.calculateModalProfit();
-        };
-
-        window.addTeamMemberSlot = (containerId, memberData = null) => {
-            const container = document.getElementById(containerId);
-            if(!container) return;
-            const div = document.createElement('div');
-            div.className = "flex items-center gap-2 mt-2 team-member-row";
-            div.innerHTML = `
-                <select class="member-name flex-1 p-2 input-ios text-[10px] font-bold" onchange="window.autoFillFee(this)">
-                    <option value="">Name</option>
-                    ${state.photographers.map(p => `<option value="${p.name}" ${memberData?.name === p.name ? 'selected' : ''}>${p.name}</option>`).join('')}
-                </select>
-                <select class="member-type w-14 p-2 input-ios text-[9px] font-black" onchange="window.autoFillFee(this)">
-                    <option value="short" ${memberData?.chargeType === 'short' ? 'selected' : (memberData ? '' : 'selected')}>S</option>
-                    <option value="full" ${memberData?.chargeType === 'full' ? 'selected' : ''}>F</option>
-                </select>
-                <input type="number" oninput="window.calculateModalProfit()" class="member-fee w-20 p-2 input-ios font-black text-white text-right text-xs" value="${memberData?.fee || 0}">
-                <button type="button" onclick="this.parentElement.remove(); window.calculateModalProfit();" class="text-red-500 p-1"><i data-lucide="x" size="14"></i></button>
-            `;
-            container.appendChild(div);
-            lucide.createIcons();
-            window.calculateModalProfit();
-        };
-
-        window.addEventSlot = (eventData = null) => {
-            const container = document.getElementById('eventsContainer');
-            if(!container) return;
-            const eventId = 'ev_' + Math.random().toString(36).substr(2, 5);
-            const div = document.createElement('div');
-            div.id = eventId;
-            div.className = "p-4 rounded-[1.5rem] bg-white/5 border border-white/10 mb-3 animate-pop";
-            div.innerHTML = `
-                <div class="flex flex-col sm:flex-row justify-between items-center gap-2 mb-3 text-left">
-                    <select class="ev-type w-full sm:flex-1 p-2.5 input-ios font-bold text-xs">
-                        <option value="">Event Type</option>
-                        ${state.eventMeta.map(m => `<option value="${m.name}" ${eventData?.type === m.name ? 'selected' : ''}>${m.name}</option>`).join('')}
-                    </select>
-                    <input type="date" class="ev-date w-full sm:w-auto p-2.5 input-ios text-xs" value="${eventData?.date || ''}">
-                    <input type="text" class="ev-location w-full sm:w-32 p-2.5 input-ios text-[9px] font-black uppercase" placeholder="Loc" value="${eventData?.location || 'Lucknow'}">
-                    <button type="button" onclick="document.getElementById('${eventId}').remove(); window.calculateModalProfit();" class="text-red-400 p-1 shrink-0"><i data-lucide="trash-2" size="18"></i></button>
-                </div>
-                <div class="space-y-1 team-container" id="team_${eventId}"></div>
-                <button type="button" onclick="window.addTeamMemberSlot('team_${eventId}')" class="mt-3 text-[9px] font-black uppercase text-white bg-white/10 px-3 py-1.5 rounded-full hover:bg-white/20 transition">+ Add Node</button>
-            `;
-            container.appendChild(div);
-            if (eventData?.team) eventData.team.forEach(m => window.addTeamMemberSlot(`team_${eventId}`, m));
-            else window.addTeamMemberSlot(`team_${eventId}`);
-            lucide.createIcons();
-            window.calculateModalProfit();
-        };
-
-        // --- RENDER ---
-        function renderFinanceSummary(filteredData = []) {
-            let tRev = 0, tExp = 0, tPaid = 0;
-            filteredData.forEach(c => {
-                const fin = getClientFinancials(c); tRev += fin.rev; tExp += fin.exp; tPaid += fin.paid;
-            });
-            const tProf = tRev - tExp; const tRem = tRev - tPaid;
-            const tMargin = tRev > 0 ? ((tProf / tRev) * 100).toFixed(1) : 0;
-            const up = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
-            up('ledRev', `₹${tRev.toLocaleString()}`); up('ledExp', `₹${tExp.toLocaleString()}`);
-            up('ledProf', `₹${tProf.toLocaleString()}`); up('ledMargin', `${tMargin}%`);
-            up('ledReceived', `₹${tPaid.toLocaleString()}`); up('ledRemaining', `₹${tRem.toLocaleString()}`);
-        }
-
-        function renderStaffList() {
-            const list = document.getElementById('staffList');
-            if (!list) return;
-            list.innerHTML = state.photographers.map(p => `
-                <div class="ios-card p-4 sm:p-5 flex items-center justify-between gap-3 animate-pop group">
-                    <div class="flex items-center gap-3 overflow-hidden">
-                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/10 border border-white/20 rounded-2xl flex items-center justify-center font-black text-lg shrink-0 text-white">${p.name ? p.name[0] : '?'}</div>
-                        <div class="truncate">
-                            <h4 class="font-black text-sm sm:text-base text-white truncate">${p.name}</h4>
-                            <p class="text-[8px] text-white/40 font-bold uppercase tracking-widest mt-0.5">${p.role}</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-3 shrink-0">
-                        <div class="text-right mr-1 hidden sm:block">
-                            <p class="text-[8px] font-black text-blue-400">S: ₹${p.shortFee || 0}</p>
-                            <p class="text-[8px] font-black text-green-400">F: ₹${p.fullFee || 0}</p>
-                        </div>
-                        <div class="flex gap-2">
-                            <button onclick="window.editStaff('${p.id}')" class="opacity-40 hover:opacity-100 text-white transition"><i data-lucide="edit-2" size="14"></i></button>
-                            <button onclick="window.deleteDocHandler('photographers', '${p.id}')" class="opacity-40 hover:opacity-100 text-red-400 transition"><i data-lucide="trash-2" size="14"></i></button>
-                        </div>
-                    </div>
-                </div>`).join('');
-            lucide.createIcons();
-        }
-
-        function renderProjectList(filteredData = []) {
-            const container = document.getElementById('projectDetailedList');
-            if (!container) return;
-            if (filteredData.length === 0) {
-                container.innerHTML = `<p class="text-center py-10 opacity-40 uppercase tracking-[0.2em] text-xs">No assignments for ${state.selectedYear}</p>`;
-                return;
-            }
-            container.innerHTML = filteredData.map(c => {
-                const fin = getClientFinancials(c);
-                const isExpanded = state.expandedProjectId === c.id;
-                const summary = (c.events || []).map(ev => `<div class="flex items-center gap-1.5 bg-white/5 border border-white/10 px-2 py-1 rounded-lg"><span class="text-[8px] font-black text-white uppercase">${ev.type}</span></div>`).join('') || `<p class="text-[9px] opacity-30">Standby</p>`;
-                return `
-                    <div class="ios-card mb-4 overflow-hidden animate-pop">
-                        <div onclick="window.toggleProjectDetail('${c.id}')" class="p-4 sm:p-6 cursor-pointer flex justify-between items-center gap-4 hover:bg-white/5 transition-all">
-                            <div class="flex items-center gap-3 min-w-0">
-                                <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white shrink-0"><i data-lucide="${isExpanded ? 'chevron-up' : 'chevron-down'}" size="18"></i></div>
-                                <div class="truncate"><h4 class="text-lg font-black text-white truncate">${c.name}</h4><div class="flex flex-wrap gap-1 mt-1">${summary}</div></div>
-                            </div>
-                            <div class="text-right shrink-0">
-                                <p class="text-[8px] uppercase font-black opacity-40">Due</p>
-                                <span class="font-black text-orange-400 text-sm sm:text-base">₹${fin.rem.toLocaleString()}</span>
-                            </div>
-                        </div>
-                        <div class="${isExpanded ? 'detail-expanded' : 'detail-collapsed'} px-4 sm:px-8">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-white/10">
-                                <div class="space-y-4">
-                                    <div class="p-5 rounded-[1.5rem] bg-white text-black shadow-lg"><p class="text-[8px] uppercase font-black opacity-50">Contract</p><p class="text-2xl font-black">₹${fin.rev.toLocaleString()}</p></div>
-                                    <div class="grid grid-cols-2 gap-3">
-                                        <div class="p-4 rounded-[1.2rem] bg-white/5 border border-white/10 text-center"><p class="label-premium mb-1">Paid</p><p class="text-lg font-black text-white">₹${fin.paid.toLocaleString()}</p></div>
-                                        <div class="p-4 rounded-[1.2rem] bg-green-400/10 border border-green-400/20 text-center"><p class="label-premium mb-1 text-green-400">Profit</p><p class="text-lg font-black text-green-400">₹${fin.profit.toLocaleString()}</p></div>
-                                    </div>
-                                </div>
-                                <div class="space-y-4">
-                                    ${(c.events || []).map(ev => `
-                                        <div class="p-4 rounded-[1.2rem] bg-white/5 border border-white/10">
-                                            <div class="flex justify-between items-start text-white">
-                                                <div><span class="text-sm font-black">${ev.type}</span><p class="text-[8px] opacity-40 uppercase"><i data-lucide="map-pin" size="8" class="inline"></i> ${ev.location || 'Lucknow'}</p></div>
-                                                <div class="bg-white/10 rounded-lg px-2 py-1"><span class="text-[9px] font-black">${ev.date || 'TBD'}</span></div>
-                                            </div>
-                                            <div class="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-white/5">
-                                                ${(ev.team || []).map(m => `<span class="px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-[9px] font-bold text-white/70">${m.name}</span>`).join('')}
-                                            </div>
-                                        </div>`).join('')}
-                                </div>
-                            </div>
-                            <div class="mt-6 flex justify-end gap-2 border-t border-white/10 pt-6">
-                                <button onclick="window.editClient('${c.id}', event)" class="px-5 py-2.5 rounded-xl bg-white text-black text-[9px] font-black uppercase tracking-widest">Edit</button>
-                                <button onclick="window.deleteDocHandler('clients', '${c.id}')" class="px-5 py-2.5 rounded-xl bg-red-500/10 text-red-400 text-[9px] font-black uppercase">Delete</button>
-                            </div>
-                        </div>
-                    </div>`;
-            }).join('');
-            lucide.createIcons();
-        }
-
-        function renderFinanceTable(filteredData = []) {
-            const rows = document.getElementById('financeRows');
-            if (!rows) return;
-            if (filteredData.length === 0) { rows.innerHTML = `<tr><td colspan="7" class="text-center py-10 opacity-40 text-xs text-white">No financial data.</td></tr>`; return; }
-            let tRev = 0, tExp = 0, tProf = 0, tPaid = 0, tRem = 0;
-            const clientRows = filteredData.map(c => {
-                const fin = getClientFinancials(c); tRev += fin.rev; tExp += fin.exp; tProf += fin.profit; tPaid += fin.paid; tRem += fin.rem;
-                return `<tr class="border-b border-white/5 text-white">
-                    <td class="px-6 py-4 font-bold" data-label="Client Node">${c.name}</td>
-                    <td class="px-6 py-4 font-black" data-label="Revenue">₹${fin.rev.toLocaleString()}</td>
-                    <td class="px-6 py-4 text-red-400" data-label="Expense">₹${fin.exp.toLocaleString()}</td>
-                    <td class="px-6 py-4 text-green-400 font-extrabold" data-label="Profit">₹${fin.profit.toLocaleString()}</td>
-                    <td class="px-6 py-4 opacity-70" data-label="Received">₹${fin.paid.toLocaleString()}</td>
-                    <td class="px-6 py-4 text-orange-400 font-black" data-label="Remaining">₹${fin.rem.toLocaleString()}</td>
-                    <td class="px-6 py-4 font-black" data-label="Profit %">${fin.margin}%</td>
-                </tr>`;
-            }).join('');
-            
-            const totalRow = `<tr class="summary-row bg-white/5 border-t border-white/20 font-black text-white">
-                <td class="px-6 py-6 text-base heading-premium" data-label="Summary">TOTALS</td>
-                <td class="px-6 py-6" data-label="Revenue Sum">₹${tRev.toLocaleString()}</td>
-                <td class="px-6 py-6 text-red-400" data-label="Expense Sum">₹${tExp.toLocaleString()}</td>
-                <td class="px-6 py-6 text-green-400 text-xl" data-label="Net Profit Sum">₹${tProf.toLocaleString()}</td>
-                <td class="px-6 py-6 opacity-70" data-label="Paid Sum">₹${tPaid.toLocaleString()}</td>
-                <td class="px-6 py-6 text-orange-400" data-label="Remaining Sum">₹${tRem.toLocaleString()}</td>
-                <td class="px-6 py-6 text-lg" data-label="Margin">${tRev > 0 ? ((tProf / tRev) * 100).toFixed(1) : 0}%</td>
-            </tr>`;
-            rows.innerHTML = clientRows + totalRow;
-        }
-
-        function renderMetaList() {
-            const list = document.getElementById('metaListHome');
-            if (!list) return;
-            list.innerHTML = state.eventMeta.map(m => `
-                <div class="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/10 mb-2">
-                    <span class="text-[10px] font-bold text-white uppercase">${m.name}</span>
-                    <button onclick="window.deleteDocHandler('event_meta', '${m.id}')" class="opacity-40 text-red-400 p-1"><i data-lucide="trash-2" size="14"></i></button>
-                </div>`).join('');
-            lucide.createIcons();
-        }
-
-        function renderEverything() {
-            const filteredData = state.clients.filter(c => (c.events || []).some(ev => ev.date && ev.date.startsWith(state.selectedYear)));
-            renderFinanceSummary(filteredData); renderStaffList(); renderProjectList(filteredData); renderFinanceTable(filteredData); renderMetaList(); lucide.createIcons();
-        }
-
-        // --- HANDLERS ---
-        window.handleYearChange = (val) => { state.selectedYear = val; renderEverything(); };
-        window.toggleModal = (id, show = true) => {
-            const el = document.getElementById(id); if (el) el.style.display = show ? 'flex' : 'none';
-            if (!show && id === 'clientModal') { state.editingClientId = null; const form = document.getElementById('clientForm'); if(form) form.reset(); const container = document.getElementById('eventsContainer'); if(container) container.innerHTML = ''; }
-            window.calculateModalProfit();
-        };
-        window.toggleProjectDetail = (id) => { state.expandedProjectId = (state.expandedProjectId === id) ? null : id; renderEverything(); };
-        window.editClient = (id, event) => {
-            if (event) event.stopPropagation();
-            const c = state.clients.find(x => x.id === id); if (!c) return;
-            state.editingClientId = id; const form = document.getElementById('clientForm'); if(!form) return;
-            form.elements['cName'].value = c.name || ''; form.elements['cContact'].value = c.contact || '';
-            form.elements['cFinal'].value = c.finalAmount || 0; form.elements['cAdvance'].value = c.advance || 0;
-            form.elements['cAlbum'].value = c.albumCost || 0; form.elements['cEdit'].value = c.editingCost || 0; form.elements['cMisc'].value = c.otherCost || 0;
-            const inst = c.installments || [0, 0, 0, 0]; form.elements['i1'].value = inst[0] || 0; form.elements['i2'].value = inst[1] || 0; form.elements['i3'].value = inst[2] || 0; form.elements['i4'].value = inst[3] || 0;
-            const container = document.getElementById('eventsContainer'); if (container) { container.innerHTML = ''; (c.events || []).forEach(ev => window.addEventSlot(ev)); }
-            window.toggleModal('clientModal', true);
-        };
-        window.saveClient = async (e) => {
-            e.preventDefault(); const f = e.target;
-            const events = Array.from(document.querySelectorAll('#eventsContainer > div')).map(block => ({
-                type: block.querySelector('.ev-type').value, date: block.querySelector('.ev-date').value, location: block.querySelector('.ev-location').value,
-                team: Array.from(block.querySelectorAll('.team-container > div')).map(row => ({ name: row.querySelector('.member-name').value, chargeType: row.querySelector('.member-type').value, fee: Number(row.querySelector('.member-fee').value) }))
-            }));
-            const payload = { name: f.cName.value, contact: f.cContact.value, finalAmount: Number(f.cFinal.value), advance: Number(f.cAdvance.value), albumCost: Number(f.cAlbum.value), editingCost: Number(f.cEdit.value), otherCost: Number(f.cMisc.value), installments: [Number(f.i1.value), Number(f.i2.value), Number(f.i3.value), Number(f.i4.value)], events, lastUpdated: new Date().toISOString() };
-            try { if (state.editingClientId) await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'clients', state.editingClientId), payload); else await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'clients'), payload); window.toggleModal('clientModal', false); } catch (err) { console.error(err); }
-        };
-        window.editStaff = (id) => {
-            const s = state.photographers.find(p => p.id === id); if (!s) return;
-            state.editingStaffId = id; const f = document.getElementById('staffForm'); if(!f) return;
-            f.pName.value = s.name; f.pRole.value = s.role; f.pShort.value = s.shortFee || 0; f.pFull.value = s.fullFee || 0;
-            document.getElementById('staffModalTitle').innerText = "Edit Member"; window.toggleModal('staffModal', true);
-        };
-        window.saveStaff = async (e) => {
-            e.preventDefault(); const d = { name: e.target.pName.value, role: e.target.pRole.value, shortFee: Number(e.target.pShort.value), fullFee: Number(e.target.pFull.value) };
-            try { if (state.editingStaffId) await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'photographers', state.editingStaffId), d); else await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'photographers'), d); e.target.reset(); window.toggleModal('staffModal', false); } catch (e) { console.error(e); }
-        };
-        window.saveMeta = async (e) => {
-            e.preventDefault(); const n = document.getElementById('metaNameHome').value; if(!n) return;
-            try { await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'event_meta'), { name: n }); document.getElementById('metaNameHome').value = ''; } catch(err) { console.error(err); }
-        };
-        window.deleteDocHandler = async (col, id) => { if (confirm("Delete this entry?")) await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', col, id)); };
+        const p=i(f),db=g(p),auth=h(p),appId="lucknow-wedding-studio",SECRET=_v("bHdzMDAwNjE0OA==");
+        let state={clients:[],photographers:[],eventMeta:[],user:null,expandedProjectId:null,editingStaffId:null,editingClientId:null,selectedYear:new Date().getFullYear().toString()};
+        const getFin=n=>{const r=Number(n.finalAmount||0),p=Number(n.advance||0)+(n.installments||[]).reduce((a,b)=>a+Number(b),0),s=(n.events||[]).reduce((a,e)=>a+(e.team||[]).reduce((t,m)=>t+Number(m.fee||0),0),0),o=Number(n.albumCost||0)+Number(n.editingCost||0)+Number(n.otherCost||0),x=s+o,f=r-x;return{rev:r,paid:p,rem:r-p,exp:x,profit:f,margin:r>0?((f/r)*100).toFixed(1):0}};
+        window.exportToExcel=()=>{const e=state.clients.filter(c=>(c.events||[]).some(e=>e.date&&e.date.startsWith(state.selectedYear)));if(0===e.length)return alert("No data");const t=[];e.forEach(c=>{const f=getFin(c);(c.events||[]).forEach(e=>{t.push({Client:c.name,Quotation:c.finalAmount,Profit:f.profit,Received:f.paid,Balance:f.rem,Event:e.type,Date:e.date,Staff:(e.team||[]).map(m=>m.name).join(", ")})})});const s=XLSX.utils.json_to_sheet(t),b=XLSX.utils.book_new();XLSX.utils.book_append_sheet(b,s,`LWS_${state.selectedYear}`);XLSX.writeFile(b,`LWS_Report_${state.selectedYear}.xlsx`)};
+        window.calculateModalProfit=()=>{const e=document.getElementById("clientForm");if(!e)return;const r=Number(e.elements.cFinal.value||0),a=Number(e.elements.cAlbum.value||0),l=Number(e.elements.cEdit.value||0),m=Number(e.elements.cMisc.value||0);let s=0;document.querySelectorAll(".member-fee").forEach(i=>s+=Number(i.value||0));const t=s+a+l+m,p=r-t;const rd=document.getElementById("modalRevDisplay"),ed=document.getElementById("modalExpDisplay"),pd=document.getElementById("modalProfitDisplay"),ph=document.getElementById("modalProfitHeader");if(rd)rd.innerText=r.toLocaleString();if(ed)ed.innerText=t.toLocaleString();if(pd){pd.innerText=p.toLocaleString();pd.className=p>=0?"text-xl font-black text-green-400":"text-xl font-black text-red-400"}if(ph){ph.innerText="₹"+p.toLocaleString();ph.className=p>=0?"text-green-400 font-bold":"text-red-400 font-bold"}};
+        window.autoFillFee=e=>{const r=e.closest(".team-member-row");if(!r)return;const n=r.querySelector(".member-name").value,t=r.querySelector(".member-type").value,s=state.photographers.find(p=>p.name===n);if(s)r.querySelector(".member-fee").value="full"===t?s.fullFee||0:s.shortFee||0;window.calculateModalProfit()};
+        window.addTeamMemberSlot=(e,d=null)=>{const t=document.getElementById(e);if(!t)return;const n=document.createElement("div");n.className="flex items-center gap-2 mt-2 team-member-row";n.innerHTML=`<select class="member-name flex-1 p-2 input-ios text-[10px] font-bold" onchange="window.autoFillFee(this)"><option value="">Name</option>${state.photographers.map(p=>`<option value="${p.name}" ${d?.name===p.name?"selected":""}>${p.name}</option>`).join("")}</select><select class="member-type w-14 p-2 input-ios text-[9px] font-black" onchange="window.autoFillFee(this)"><option value="short" ${"short"===d?.chargeType?"selected":d?"":"selected"}>S</option><option value="full" ${"full"===d?.chargeType?"selected":""}>F</option></select><input type="number" oninput="window.calculateModalProfit()" class="member-fee w-20 p-2 input-ios font-black text-white text-right text-xs" value="${d?.fee||0}"><button type="button" onclick="this.parentElement.remove(); window.calculateModalProfit();" class="text-red-500 p-1"><i data-lucide="x" size="14"></i></button>`;t.appendChild(n);lucide.createIcons();window.calculateModalProfit()};
+        window.addEventSlot=(e=null)=>{const t=document.getElementById("eventsContainer");if(!t)return;const n="ev_"+Math.random().toString(36).substr(2,5),i=document.createElement("div");i.id=n;i.className="p-4 rounded-[1.5rem] bg-white/5 border border-white/10 mb-3 animate-pop";i.innerHTML=`<div class="flex flex-col sm:flex-row justify-between items-center gap-2 mb-3 text-left"><select class="ev-type w-full sm:flex-1 p-2.5 input-ios font-bold text-xs"><option value="">Event Type</option>${state.eventMeta.map(m=>`<option value="${m.name}" ${e?.type===m.name?"selected":""}>${m.name}</option>`).join("")}</select><input type="date" class="ev-date w-full sm:w-auto p-2.5 input-ios text-xs" value="${e?.date||""}"><input type="text" class="ev-location w-full sm:w-32 p-2.5 input-ios text-[9px] font-black uppercase" placeholder="Loc" value="${e?.location||"Lucknow"}"><button type="button" onclick="document.getElementById('${n}').remove(); window.calculateModalProfit();" class="text-red-400 p-1 shrink-0"><i data-lucide="trash-2" size="18"></i></button></div><div class="space-y-1 team-container" id="team_${n}"></div><button type="button" onclick="window.addTeamMemberSlot('team_${n}')" class="mt-3 text-[9px] font-black uppercase text-white bg-white/10 px-3 py-1.5 rounded-full hover:bg-white/20 transition">+ Add Node</button>`;t.appendChild(i);if(e?.team)e.team.forEach(m=>window.addTeamMemberSlot(`team_${n}`,m));else window.addTeamMemberSlot(`team_${n}`);lucide.createIcons();window.calculateModalProfit()};
+        function renSum(e=[]){let t=0,r=0,a=0;e.forEach(c=>{const f=getFin(c);t+=f.rev;r+=f.exp;a+=f.paid});const p=t-r,n=t-a,s=t>0?((p/t)*100).toFixed(1):0;const u=(i,v)=>{const l=document.getElementById(i);if(l)l.innerText=v};u("ledRev",`₹${t.toLocaleString()}`);u("ledExp",`₹${r.toLocaleString()}`);u("ledProf",`₹${p.toLocaleString()}`);u("ledMargin",`${s}%`);u("ledReceived",`₹${a.toLocaleString()}`);u("ledRemaining",`₹${n.toLocaleString()}`)}
+        function renStaff(){const e=document.getElementById("staffList");if(e)e.innerHTML=state.photographers.map(p=>`<div class="ios-card p-4 sm:p-5 flex items-center justify-between gap-3 animate-pop group"><div class="flex items-center gap-3 overflow-hidden"><div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/10 border border-white/20 rounded-2xl flex items-center justify-center font-black text-lg shrink-0 text-white">${p.name?p.name[0]:"?"}</div><div class="truncate"><h4 class="font-black text-sm sm:text-base text-white truncate">${p.name}</h4><p class="text-[8px] text-white/40 font-bold uppercase tracking-widest mt-0.5">${p.role}</p></div></div><div class="flex items-center gap-3 shrink-0"><div class="text-right mr-1 hidden sm:block"><p class="text-[8px] font-black text-blue-400">S: ₹${p.shortFee||0}</p><p class="text-[8px] font-black text-green-400">F: ₹${p.fullFee||0}</p></div><div class="flex gap-2"><button onclick="window.editStaff('${p.id}')" class="opacity-40 hover:opacity-100 text-white transition"><i data-lucide="edit-2" size="14"></i></button><button onclick="window.deleteDocHandler('photographers', '${p.id}')" class="opacity-40 hover:opacity-100 text-red-400 transition"><i data-lucide="trash-2" size="14"></i></button></div></div></div>`).join(""),lucide.createIcons()}
+        function renProj(e=[]){const t=document.getElementById("projectDetailedList");if(!t)return;if(0===e.length)return void(t.innerHTML=`<p class="text-center py-10 opacity-40 uppercase tracking-[0.2em] text-xs">No assignments for ${state.selectedYear}</p>`);t.innerHTML=e.map(c=>{const f=getFin(c),e=state.expandedProjectId===c.id,s=(c.events||[]).map(ev=>`<div class="flex items-center gap-1.5 bg-white/5 border border-white/10 px-2 py-1 rounded-lg"><span class="text-[8px] font-black text-white uppercase">${ev.type}</span></div>`).join("")||`<p class="text-[9px] opacity-30">Standby</p>`;return`<div class="ios-card mb-4 overflow-hidden animate-pop"><div onclick="window.toggleProjectDetail('${c.id}')" class="p-4 sm:p-6 cursor-pointer flex justify-between items-center gap-4 hover:bg-white/5 transition-all"><div class="flex items-center gap-3 min-w-0"><div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white shrink-0"><i data-lucide="${e?"chevron-up":"chevron-down"}" size="18"></i></div><div class="truncate"><h4 class="text-lg font-black text-white truncate">${c.name}</h4><div class="flex flex-wrap gap-1 mt-1">${s}</div></div></div><div class="text-right shrink-0"><p class="text-[8px] uppercase font-black opacity-40">Due</p><span class="font-black text-orange-400 text-sm sm:text-base">₹${f.rem.toLocaleString()}</span></div></div><div class="${e?"detail-expanded":"detail-collapsed"} px-4 sm:px-8"><div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-white/10"><div class="space-y-4"><div class="p-5 rounded-[1.5rem] bg-white text-black shadow-lg"><p class="text-[8px] uppercase font-black opacity-50">Contract</p><p class="text-2xl font-black">₹${f.rev.toLocaleString()}</p></div><div class="grid grid-cols-2 gap-3"><div class="p-4 rounded-[1.2rem] bg-white/5 border border-white/10 text-center"><p class="label-premium mb-1">Paid</p><p class="text-lg font-black text-white">₹${f.paid.toLocaleString()}</p></div><div class="p-4 rounded-[1.2rem] bg-green-400/10 border border-green-400/20 text-center"><p class="label-premium mb-1 text-green-400">Profit</p><p class="text-lg font-black text-green-400">₹${f.profit.toLocaleString()}</p></div></div></div><div class="space-y-4">${(c.events||[]).map(ev=>`<div class="p-4 rounded-[1.2rem] bg-white/5 border border-white/10"><div class="flex justify-between items-start text-white"><div><span class="text-sm font-black">${ev.type}</span><p class="text-[8px] opacity-40 uppercase"><i data-lucide="map-pin" size="8" class="inline"></i> ${ev.location||"Lucknow"}</p></div><div class="bg-white/10 rounded-lg px-2 py-1"><span class="text-[9px] font-black">${ev.date||"TBD"}</span></div></div><div class="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-white/5">${(ev.team||[]).map(m=>`<span class="px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-[9px] font-bold text-white/70">${m.name}</span>`).join("")}</div></div>`).join("")}</div></div><div class="mt-6 flex justify-end gap-2 border-t border-white/10 pt-6"><button onclick="window.editClient('${c.id}', event)" class="px-5 py-2.5 rounded-xl bg-white text-black text-[9px] font-black uppercase tracking-widest">Edit</button><button onclick="window.deleteDocHandler('clients', '${c.id}')" class="px-5 py-2.5 rounded-xl bg-red-500/10 text-red-400 text-[9px] font-black uppercase">Delete</button></div></div></div>`}).join(""),lucide.createIcons()}
+        function renTable(e=[]){const t=document.getElementById("financeRows");if(!t)return;if(0===e.length)return void(t.innerHTML='<tr><td colspan="7" class="text-center py-10 opacity-40 text-xs text-white">No financial data.</td></tr>');let r=0,a=0,l=0,i=0,d=0;const o=e.map(c=>{const f=getFin(c);return r+=f.rev,a+=f.exp,l+=f.profit,i+=f.paid,d+=f.rem,`<tr class="border-b border-white/5 text-white"><td class="px-6 py-4 font-bold" data-label="Client Node">${c.name}</td><td class="px-6 py-4 font-black" data-label="Revenue">₹${f.rev.toLocaleString()}</td><td class="px-6 py-4 text-red-400" data-label="Expense">₹${f.exp.toLocaleString()}</td><td class="px-6 py-4 text-green-400 font-extrabold" data-label="Profit">₹${f.profit.toLocaleString()}</td><td class="px-6 py-4 opacity-70" data-label="Received">₹${f.paid.toLocaleString()}</td><td class="px-6 py-4 text-orange-400 font-black" data-label="Remaining">₹${f.rem.toLocaleString()}</td><td class="px-6 py-4 font-black" data-label="Profit %">${f.margin}%</td></tr>`}).join("");const n=`<tr class="summary-row bg-white/5 border-t border-white/20 font-black text-white"><td class="px-6 py-6 text-base heading-premium" data-label="Summary">TOTALS</td><td class="px-6 py-6" data-label="Revenue Sum">₹${r.toLocaleString()}</td><td class="px-6 py-6 text-red-400" data-label="Expense Sum">₹${a.toLocaleString()}</td><td class="px-6 py-6 text-green-400 text-xl" data-label="Net Profit Sum">₹${l.toLocaleString()}</td><td class="px-6 py-6 opacity-70" data-label="Paid Sum">₹${i.toLocaleString()}</td><td class="px-6 py-6 text-orange-400" data-label="Remaining Sum">₹${d.toLocaleString()}</td><td class="px-6 py-6 text-lg" data-label="Margin">${r>0?((l/r)*100).toFixed(1):0}%</td></tr>`;t.innerHTML=o+n}
+        function renMeta(){const e=document.getElementById("metaListHome");if(e)e.innerHTML=state.eventMeta.map(m=>`<div class="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/10 mb-2"><span class="text-[10px] font-bold text-white uppercase">${m.name}</span><button onclick="window.deleteDocHandler('event_meta', '${m.id}')" class="opacity-40 text-red-400 p-1"><i data-lucide="trash-2" size="14"></i></button></div>`).join(""),lucide.createIcons()}
+        function renAll(){const e=state.clients.filter(c=>(c.events||[]).some(e=>e.date&&e.date.startsWith(state.selectedYear)));renSum(e),renStaff(),renProj(e),renTable(e),renMeta(),lucide.createIcons()}
+        window.handleYearChange=e=>{state.selectedYear=e,renAll()};
+        window.toggleModal=(e,t=!0)=>{const n=document.getElementById(e);if(n&&(n.style.display=t?"flex":"none"),!t&&"clientModal"===e){state.editingClientId=null;const r=document.getElementById("clientForm");r&&r.reset();const i=document.getElementById("eventsContainer");i&&(i.innerHTML="")}window.calculateModalProfit()};
+        window.toggleProjectDetail=e=>{state.expandedProjectId=state.expandedProjectId===e?null:e,renAll()};
+        window.editClient=(e,t)=>{t&&t.stopPropagation();const n=state.clients.find(x=>x.id===e);if(!n)return;state.editingClientId=e;const r=document.getElementById("clientForm");if(!r)return;r.elements.cName.value=n.name||"",r.elements.cContact.value=n.contact||"",r.elements.cFinal.value=n.finalAmount||0,r.elements.cAdvance.value=n.advance||0,r.elements.cAlbum.value=n.albumCost||0,r.elements.cEdit.value=n.editingCost||0,r.elements.cMisc.value=n.otherCost||0;const i=n.installments||[0,0,0,0];r.elements.i1.value=i[0]||0,r.elements.i2.value=i[1]||0,r.elements.i3.value=i[2]||0,r.elements.i4.value=i[3]||0;const o=document.getElementById("eventsContainer");o&&(o.innerHTML="",(n.events||[]).forEach(e=>window.addEventSlot(e))),window.toggleModal("clientModal",!0)};
+        window.saveClient=async e=>{e.preventDefault();const r=e.target,t=Array.from(document.querySelectorAll("#eventsContainer > div")).map(e=>({type:e.querySelector(".ev-type").value,date:e.querySelector(".ev-date").value,location:e.querySelector(".ev-location").value,team:Array.from(e.querySelectorAll(".team-container > div")).map(e=>({name:e.querySelector(".member-name").value,chargeType:e.querySelector(".member-type").value,fee:Number(e.querySelector(".member-fee").value)}))})),n={name:r.cName.value,contact:r.cContact.value,finalAmount:Number(r.cFinal.value),advance:Number(r.cAdvance.value),albumCost:Number(r.cAlbum.value),editingCost:Number(r.cEdit.value),otherCost:Number(r.cMisc.value),installments:[Number(r.i1.value),Number(r.i2.value),Number(r.i3.value),Number(r.i4.value)],events:t,lastUpdated:(new Date).toISOString()};try{state.editingClientId?await u(d(db,"artifacts",appId,"public","data","clients",state.editingClientId),n):await a(c(db,"artifacts",appId,"public","data","clients"),n),window.toggleModal("clientModal",!1)}catch(e){console.error(e)}};
+        window.editStaff=e=>{const t=state.photographers.find(p=>p.id===e);if(!t)return;state.editingStaffId=e;const n=document.getElementById("staffForm");n&&(n.pName.value=t.name,n.pRole.value=t.role,n.pShort.value=t.shortFee||0,n.pFull.value=t.fullFee||0,document.getElementById("staffModalTitle").innerText="Edit Member",window.toggleModal("staffModal",!0))};
+        window.saveStaff=async e=>{e.preventDefault();const t={name:e.target.pName.value,role:e.target.pRole.value,shortFee:Number(e.target.pShort.value),fullFee:Number(e.target.pFull.value)};try{state.editingStaffId?await u(d(db,"artifacts",appId,"public","data","photographers",state.editingStaffId),t):await a(c(db,"artifacts",appId,"public","data","photographers"),t),e.target.reset(),window.toggleModal("staffModal",!1)}catch(e){console.error(e)}};
+        window.saveMeta=async e=>{e.preventDefault();const t=document.getElementById("metaNameHome").value;if(!t)return;try{await a(c(db,"artifacts",appId,"public","data","event_meta"),{name:t}),document.getElementById("metaNameHome").value=""}catch(e){console.error(e)}};
+        window.deleteDocHandler=async(e,t)=>{confirm("Delete this entry?")&&await x(d(db,"artifacts",appId,"public","data",e,t))};
+        window.switchTab=e=>{document.querySelectorAll(".tab-page").forEach(e=>e.classList.add("hidden"));const t=document.getElementById(e+"Tab");t&&t.classList.remove("hidden"),document.querySelectorAll(".nav-btn").forEach(e=>{e.classList.remove("tab-active","bg-white/20","text-white"),e.classList.add("bg-white/5","text-slate-400")});const n=document.querySelector(`[data-tab="${e}"]`);n&&(n.classList.add("tab-active","bg-white/20","text-white"),n.classList.remove("bg-white/5","text-slate-400"))};
+        window.handleLogin=async e=>{e.preventDefault();try{await s(auth,e.target.email.value,e.target.password.value)}catch(e){alert("Login Failed")}};
+        window.handleRegister=async e=>{if(e.preventDefault(),e.target.secret_code.value.trim()!==SECRET)return void alert("Invalid Secret Code!");try{await r(auth,e.target.email.value,e.target.password.value),window.showAuthView("login")}catch(e){alert("Failed")}};
+        window.handleLogout=()=>m(auth);
+        window.showAuthView=e=>{const t=document.getElementById("login-form"),n=document.getElementById("register-form");t&&(t.classList.toggle("hidden","login"!==e),n&&n.classList.toggle("hidden","register"!==e))};
+        l(auth,e=>{if(state.user=e,e){document.getElementById("auth-overlay").style.display="none",document.getElementById("app-content").classList.remove("hidden");const t=()=>state.user&&(o(c(db,"artifacts",appId,"public","data","clients"),e=>(state.clients=e.docs.map(e=>({id:e.id,...e.data()})),renAll())),o(c(db,"artifacts",appId,"public","data","photographers"),e=>(state.photographers=e.docs.map(e=>({id:e.id,...e.data()})),renAll())),o(c(db,"artifacts",appId,"public","data","event_meta"),e=>(state.eventMeta=e.docs.map(e=>({id:e.id,...e.data()})),renAll())));t()}else document.getElementById("auth-overlay").style.display="flex",document.getElementById("app-content").classList.add("hidden")});
         
-        window.switchTab = (tab) => {
-            document.querySelectorAll('.tab-page').forEach(el => el.classList.add('hidden'));
-            const t = document.getElementById(tab + 'Tab'); if (t) t.classList.remove('hidden');
-            
-            document.querySelectorAll('.nav-btn').forEach(b => {
-                b.classList.remove('tab-active', 'bg-white/20', 'text-white');
-                b.classList.add('bg-white/5', 'text-slate-400');
-            });
-            
-            const a = document.querySelector(`[data-tab="${tab}"]`);
-            if (a) {
-                a.classList.add('tab-active', 'bg-white/20', 'text-white');
-                a.classList.remove('bg-white/5', 'text-slate-400');
-            }
-        };
-
-        window.handleLogin = async (e) => { e.preventDefault(); try { await signInWithEmailAndPassword(auth, e.target.email.value, e.target.password.value); } catch (err) { alert("Login Failed"); } };
-        window.handleRegister = async (e) => { e.preventDefault(); if (e.target.secret_code.value.trim() !== SECRET_CODE) { alert("Invalid Secret Code!"); return; } try { await createUserWithEmailAndPassword(auth, e.target.email.value, e.target.password.value); window.showAuthView('login'); } catch (err) { alert("Failed"); } };
-        window.handleLogout = () => signOut(auth);
-        window.showAuthView = (view) => {
-            const loginForm = document.getElementById('login-form'); const registerForm = document.getElementById('register-form');
-            if (loginForm) loginForm.classList.toggle('hidden', view !== 'login'); if (registerForm) registerForm.classList.toggle('hidden', view !== 'register');
-        };
-        onAuthStateChanged(auth, (user) => {
-            state.user = user;
-            if (user) { document.getElementById('auth-overlay').style.display = 'none'; document.getElementById('app-content').classList.remove('hidden'); startListeners(); }
-            else { document.getElementById('auth-overlay').style.display = 'flex'; document.getElementById('app-content').classList.add('hidden'); }
-        });
-        function startListeners() {
-            if (!state.user) return;
-            onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'clients'), (snapshot) => { state.clients = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); renderEverything(); });
-            onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'photographers'), (snapshot) => { state.photographers = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); renderEverything(); });
-            onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'event_meta'), (snapshot) => { state.eventMeta = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); renderEverything(); });
-        }
+        // Security logic
+        document.onkeydown=function(e){if(123==e.keyCode||(e.ctrlKey&&e.shiftKey&&(73==e.keyCode||74==e.keyCode))||(e.ctrlKey&&85==e.keyCode))return!1};
     </script>
 </head>
 
 <body class="custom-scroll">
-    <div class="liquid-bg">
-        <div class="blob" style="top: -10%; left: -10%; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);"></div>
-        <div class="blob" style="bottom: -10%; right: -10%; animation-duration: 40s; animation-delay: -10s; background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 70%);"></div>
-    </div>
-
-    <!-- AUTH OVERLAY -->
+    <div class="liquid-bg"><div class="blob" style="top:-10%;left:-10%;background:radial-gradient(circle,rgba(255,255,255,0.1) 0%,rgba(255,255,255,0) 70%)"></div><div class="blob" style="bottom:-10%;right:-10%;animation-duration:40s;animation-delay:-10s;background:radial-gradient(circle,rgba(255,255,255,0.08) 0%,rgba(255,255,255,0) 70%)"></div></div>
     <div id="auth-overlay">
         <div class="glass-panel p-8 sm:p-14 rounded-[2.5rem] w-[90%] max-w-md border border-white/20 shadow-2xl animate-pop text-center text-white">
             <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center mx-auto mb-6 shadow-2xl font-black text-xl text-black">LW</div>
@@ -585,8 +67,7 @@
                 <input name="email" type="email" placeholder="Email" required class="w-full p-3.5 input-ios text-sm font-medium">
                 <input name="password" type="password" placeholder="Password" required class="w-full p-3.5 input-ios text-sm font-medium">
                 <button type="submit" class="w-full py-3.5 btn-ios text-black font-black rounded-xl uppercase tracking-widest text-[10px]">Verify Identity</button>
-                <p class="text-[10px] opacity-40 font-bold uppercase tracking-wider mt-4">
-                    New User? <button type="button" onclick="window.showAuthView('register')" class="text-white font-black underline">Register</button></p>
+                <p class="text-[10px] opacity-40 font-bold uppercase tracking-wider mt-4">New User? <button type="button" onclick="window.showAuthView('register')" class="text-white font-black underline">Register</button></p>
             </form>
             <form id="register-form" onsubmit="window.handleRegister(event)" class="space-y-4 hidden">
                 <input name="email" type="email" placeholder="Email" required class="w-full p-3.5 input-ios text-sm font-medium">
@@ -597,97 +78,54 @@
             </form>
         </div>
     </div>
-
-    <!-- MAIN APP CONTENT -->
     <div id="app-content" class="hidden min-h-screen pb-10">
         <nav class="sticky top-2 z-50 glass-panel mx-3 sm:mx-10 my-4 px-4 sm:px-10 py-3 flex flex-col sm:flex-row justify-between items-center rounded-2xl sm:rounded-[2.2rem] gap-4 text-white">
             <div class="flex items-center justify-between w-full sm:w-auto">
                 <div class="flex items-center gap-3">
                     <div class="w-8 h-8 bg-white rounded-lg flex items-center justify-center text-black shadow-xl font-black text-[10px]">LW</div>
-                    <div>
-                        <h1 class="text-sm sm:text-lg font-black tracking-tight uppercase leading-none">Studio Manager</h1>
-                        <p class="text-[7px] font-bold opacity-40 uppercase tracking-widest mt-0.5">iOS Liquid Edition</p>
-                    </div>
+                    <div><h1 class="text-sm sm:text-lg font-black tracking-tight uppercase leading-none">Studio Manager</h1><p class="text-[7px] font-bold opacity-40 uppercase tracking-widest mt-0.5">iOS Liquid Edition</p></div>
                 </div>
                 <button onclick="window.handleLogout()" class="sm:hidden w-8 h-8 flex items-center justify-center rounded-lg bg-red-400/10 border border-red-400/20 text-red-400"><i data-lucide="log-out" size="14"></i></button>
             </div>
-            
             <div class="flex items-center gap-3 w-full sm:w-auto">
-                <!-- Cycle Selection Section -->
                 <div class="flex items-center bg-white/10 rounded-lg px-3 border border-white/10 shrink-0">
                     <select onchange="window.handleYearChange(this.value)" class="bg-transparent text-white font-bold text-[10px] outline-none py-1.5 cursor-pointer">
-                        <option value="2025" class="text-black">2025</option>
-                        <option value="2026" class="text-black" selected>2026</option>
-                        <option value="2027" class="text-black">2027</option>
-                        <option value="2028" class="text-black">2028</option>
+                        <option value="2025" class="text-black">2025</option><option value="2026" class="text-black" selected>2026</option><option value="2027" class="text-black">2027</option><option value="2028" class="text-black">2028</option>
                     </select>
                 </div>
-
-                <!-- Navigation Sections with Gaps -->
                 <div class="flex gap-2 w-full sm:w-auto text-white">
                     <button onclick="window.switchTab('dash')" data-tab="dash" class="nav-btn flex-1 sm:flex-none sm:px-6 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest tab-active bg-white/20 text-white border border-white/10 transition-all">Hub</button>
                     <button onclick="window.switchTab('projects')" data-tab="projects" class="nav-btn flex-1 sm:flex-none sm:px-6 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest bg-white/5 border border-white/10 text-slate-400 transition-all">Audit</button>
                     <button onclick="window.switchTab('finance')" data-tab="finance" class="nav-btn flex-1 sm:flex-none sm:px-6 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest bg-white/5 border border-white/10 text-slate-400 transition-all">Ledger</button>
                 </div>
-
                 <button onclick="window.handleLogout()" class="hidden sm:flex w-10 h-10 items-center justify-center rounded-xl bg-red-400/10 border border-red-400/20 text-red-400 transition-all hover:bg-red-500 hover:text-white"><i data-lucide="log-out" size="18"></i></button>
             </div>
         </nav>
-
         <main class="max-w-[1400px] mx-auto px-4 sm:px-10 pt-4 sm:pt-12 text-white">
-            <!-- DASHBOARD HUB -->
             <section id="dashTab" class="tab-page animate-in fade-in duration-500 space-y-10">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6">
-                    <div class="text-left text-white">
-                        <h2 class="text-3xl sm:text-7xl font-black tracking-tight leading-[1] mb-2">Node Registry</h2>
-                        <p class="opacity-40 font-bold uppercase tracking-widest text-[9px]">LWS Workflow & Resource Control</p>
-                    </div>
+                    <div class="text-left text-white"><h2 class="text-3xl sm:text-7xl font-black tracking-tight leading-[1] mb-2">Node Registry</h2><p class="opacity-40 font-bold uppercase tracking-widest text-[9px]">LWS Workflow & Resource Control</p></div>
                     <div class="flex gap-3 w-full sm:w-auto">
                         <button onclick="window.toggleModal('staffModal')" class="flex-1 sm:flex-none btn-ios text-black px-6 py-4 rounded-xl font-black text-[9px] uppercase tracking-widest shadow-2xl">+ New Staff</button>
                         <button onclick="window.toggleModal('clientModal')" class="flex-1 sm:flex-none bg-white/5 px-6 py-4 rounded-xl border border-white/20 font-black text-[9px] text-white uppercase tracking-widest hover:bg-white/10 transition-all">+ New Client</button>
                     </div>
                 </div>
-
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                    <!-- Team Registry -->
-                    <div class="lg:col-span-8 space-y-6">
-                        <div class="border-b border-white/10 pb-4">
-                            <h3 class="font-black text-[10px] uppercase tracking-widest opacity-40">Active Personnel</h3>
-                        </div>
-                        <div id="staffList" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
-                    </div>
-
-                    <!-- Event Meta Management -->
+                    <div class="lg:col-span-8 space-y-6"><div class="border-b border-white/10 pb-4"><h3 class="font-black text-[10px] uppercase tracking-widest opacity-40">Active Personnel</h3></div><div id="staffList" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div></div>
                     <div class="lg:col-span-4 space-y-6">
                         <div class="ios-card p-6 bg-black/40 border border-white/10">
                             <h3 class="font-black text-[10px] uppercase tracking-widest opacity-40 mb-6">Service Dictionary</h3>
-                            <form onsubmit="window.saveMeta(event)" class="flex gap-2 mb-6">
-                                <input id="metaNameHome" placeholder="Service Name" required class="flex-1 p-3 input-ios font-bold rounded-lg text-slate-100 text-xs">
-                                <button type="submit" class="w-10 h-10 bg-white flex items-center justify-center shrink-0 rounded-lg text-black shadow-lg"><i data-lucide="plus" size="20"></i></button>
-                            </form>
+                            <form onsubmit="window.saveMeta(event)" class="flex gap-2 mb-6"><input id="metaNameHome" placeholder="Service Name" required class="flex-1 p-3 input-ios font-bold rounded-lg text-slate-100 text-xs"><button type="submit" class="w-10 h-10 bg-white flex items-center justify-center shrink-0 rounded-lg text-black shadow-lg"><i data-lucide="plus" size="20"></i></button></form>
                             <div id="metaListHome" class="max-h-[300px] overflow-y-auto custom-scroll pr-1"></div>
                         </div>
                     </div>
                 </div>
             </section>
-
-            <!-- AUDIT SECTION -->
-            <section id="projectsTab" class="tab-page hidden animate-in slide-in-from-bottom-8">
-                <div class="mb-8"><h2 class="text-4xl sm:text-6xl font-black tracking-tight">Active Audit</h2><p class="opacity-40 font-bold mt-2 uppercase tracking-widest text-[9px]">Tracking project lifecycles</p></div>
-                <div id="projectDetailedList" class="space-y-4"></div>
-            </section>
-
-            <!-- LEDGER SECTION -->
+            <section id="projectsTab" class="tab-page hidden animate-in slide-in-from-bottom-8"><div class="mb-8"><h2 class="text-4xl sm:text-6xl font-black tracking-tight">Active Audit</h2><p class="opacity-40 font-bold mt-2 uppercase tracking-widest text-[9px]">Tracking project lifecycles</p></div><div id="projectDetailedList" class="space-y-4"></div></section>
             <section id="financeTab" class="tab-page hidden animate-in slide-in-from-bottom-8">
                 <div class="glass-panel rounded-[2rem] sm:rounded-[3.5rem] border border-white/10 shadow-2xl overflow-hidden">
                     <div class="p-6 sm:p-12 border-b border-white/10 bg-white/5">
-                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 mb-10">
-                            <h2 class="text-3xl sm:text-5xl font-black tracking-tight text-white">Project Ledger</h2>
-                            <button onclick="window.exportToExcel()" class="w-full sm:w-auto bg-white text-black px-6 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest flex items-center justify-center gap-2 transition-all shadow-xl">
-                                <i data-lucide="download" size="14"></i> Export Sheet
-                            </button>
-                        </div>
-                        
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 mb-10"><h2 class="text-3xl sm:text-5xl font-black tracking-tight text-white">Project Ledger</h2><button onclick="window.exportToExcel()" class="w-full sm:w-auto bg-white text-black px-6 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest flex items-center justify-center gap-2 transition-all shadow-xl"><i data-lucide="download" size="14"></i> Export Sheet</button></div>
                         <div class="grid grid-cols-2 lg:grid-cols-6 gap-3 sm:gap-4">
                             <div class="bg-white/5 p-4 rounded-2xl border border-white/10 text-center"><p class="label-premium mb-1">Billing</p><h3 id="ledRev" class="text-xs sm:text-sm font-black">₹0</h3></div>
                             <div class="bg-red-400/5 p-4 rounded-2xl border border-red-400/20 text-center"><p class="label-premium mb-1 text-red-400">Costs</p><h3 id="ledExp" class="text-xs sm:text-sm font-black text-red-400">₹0</h3></div>
@@ -697,91 +135,38 @@
                             <div class="bg-white p-4 rounded-2xl text-center"><p class="text-[8px] uppercase font-black mb-1 text-black/50">Margin</p><h3 id="ledMargin" class="text-xs sm:text-sm font-black text-black">0%</h3></div>
                         </div>
                     </div>
-                    <div class="p-2 sm:p-6 overflow-hidden">
-                        <table class="w-full text-left ledger-table">
-                            <thead class="text-white/40 font-black text-[9px] uppercase tracking-widest">
-                                <tr><th class="px-6 py-4">Client</th><th class="px-6 py-4">Revenue</th><th class="px-6 py-4">Costs</th><th class="px-6 py-4 text-green-400">Profit</th><th class="px-6 py-4">Paid</th><th class="px-6 py-4">Balance</th><th class="px-6 py-4">Margin</th></tr>
-                            </thead>
-                            <tbody id="financeRows" class="text-xs"></tbody>
-                        </table>
-                    </div>
+                    <div class="p-2 sm:p-6 overflow-hidden"><table class="w-full text-left ledger-table"><thead class="text-white/40 font-black text-[9px] uppercase tracking-widest"><tr><th class="px-6 py-4">Client</th><th class="px-6 py-4">Revenue</th><th class="px-6 py-4">Costs</th><th class="px-6 py-4 text-green-400">Profit</th><th class="px-6 py-4">Paid</th><th class="px-6 py-4">Balance</th><th class="px-6 py-4">Margin</th></tr></thead><tbody id="financeRows" class="text-xs"></tbody></table></div>
                 </div>
             </section>
         </main>
     </div>
-
-    <!-- MODAL - PROJECT WORKSPACE -->
     <div id="clientModal" class="fixed inset-0 bg-black/90 backdrop-blur-3xl z-[100] hidden items-center justify-center p-2 text-left">
         <div class="glass-panel w-full max-w-4xl rounded-[2rem] sm:rounded-[3rem] shadow-2xl overflow-hidden flex flex-col max-h-[95vh] border border-white/20 animate-pop text-white">
-            <header class="p-6 border-b border-white/10 flex justify-between items-center bg-black/40">
-                <div><h3 class="text-xl sm:text-3xl font-black">Workspace</h3><p class="text-[9px] font-bold text-green-400 uppercase mt-1">Efficiency: <span id="modalProfitHeader">₹0</span></p></div>
-                <button onclick="window.toggleModal('clientModal', false)" class="p-2 bg-white/10 rounded-xl text-white"><i data-lucide="x" size="20"></i></button>
-            </header>
+            <header class="p-6 border-b border-white/10 flex justify-between items-center bg-black/40"><div><h3 class="text-xl sm:text-3xl font-black">Workspace</h3><p class="text-[9px] font-bold text-green-400 uppercase mt-1">Efficiency: <span id="modalProfitHeader">₹0</span></p></div><button onclick="window.toggleModal('clientModal', false)" class="p-2 bg-white/10 rounded-xl text-white"><i data-lucide="x" size="20"></i></button></header>
             <form id="clientForm" onsubmit="window.saveClient(event)" class="overflow-y-auto p-4 sm:p-10 custom-scroll space-y-8">
                 <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-center">
                     <div class="p-4 rounded-xl bg-white/5 border border-white/10"><p class="text-[8px] opacity-40 uppercase">Billing</p><p class="text-lg font-black">₹<span id="modalRevDisplay">0</span></p></div>
                     <div class="p-4 rounded-xl bg-white/5 border border-white/10"><p class="text-[8px] opacity-40 text-red-400 uppercase">Costs</p><p class="text-lg font-black text-red-400">₹<span id="modalExpDisplay">0</span></p></div>
                     <div class="col-span-2 sm:col-span-1 p-4 rounded-xl bg-white text-black shadow-lg"><p class="text-[8px] font-black uppercase opacity-60">Profit</p><p id="modalProfitDisplay" class="text-lg font-black">₹0</p></div>
                 </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="space-y-1"><label class="label-premium ml-2">Name</label><input name="cName" required class="w-full p-3 input-ios font-bold text-sm" placeholder="Full Name"></div>
-                    <div class="space-y-1"><label class="label-premium ml-2">Contact</label><input name="cContact" class="w-full p-3 input-ios font-bold text-sm" placeholder="+91 ..."></div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="space-y-1"><label class="label-premium ml-2">Total Contract</label><input name="cFinal" type="number" oninput="window.calculateModalProfit()" required class="w-full p-3 input-ios font-black text-lg" placeholder="0"></div>
-                    <div class="space-y-1"><label class="label-premium ml-2">Advance</label><input name="cAdvance" type="number" oninput="window.calculateModalProfit()" class="w-full p-3 input-ios font-black text-lg text-green-400" placeholder="0"></div>
-                </div>
-
-                <div class="space-y-4">
-                    <div class="flex justify-between items-center px-2">
-                        <h4 class="text-[10px] font-black uppercase opacity-40">Events Sequence</h4>
-                        <button type="button" onclick="window.addEventSlot()" class="px-4 py-2 bg-white text-black rounded-lg text-[8px] font-black uppercase">+ Add Event</button>
-                    </div>
-                    <div id="eventsContainer" class="space-y-4"></div>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    <div class="space-y-1"><label class="label-premium ml-2">Album Cost</label><input name="cAlbum" type="number" oninput="window.calculateModalProfit()" placeholder="₹ 0" class="p-3 input-ios w-full text-xs"></div>
-                    <div class="space-y-1"><label class="label-premium ml-2">Edit Cost</label><input name="cEdit" type="number" oninput="window.calculateModalProfit()" placeholder="₹ 0" class="p-3 input-ios w-full text-xs"></div>
-                    <div class="space-y-1"><label class="label-premium ml-2">Misc</label><input name="cMisc" type="number" oninput="window.calculateModalProfit()" placeholder="₹ 0" class="p-3 input-ios w-full text-xs"></div>
-                </div>
-
-                <div class="space-y-3">
-                    <h4 class="font-black text-[10px] ml-2 uppercase opacity-40">Installments</h4>
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                        <input name="i1" type="number" oninput="window.calculateModalProfit()" placeholder="P1" class="p-3 input-ios text-[10px] text-center">
-                        <input name="i2" type="number" oninput="window.calculateModalProfit()" placeholder="P2" class="p-3 input-ios text-[10px] text-center">
-                        <input name="i3" type="number" oninput="window.calculateModalProfit()" placeholder="P3" class="p-3 input-ios text-[10px] text-center">
-                        <input name="i4" type="number" oninput="window.calculateModalProfit()" placeholder="P4" class="p-3 input-ios text-[10px] text-center">
-                    </div>
-                </div>
-
-                <div class="pt-6 flex flex-col sm:flex-row gap-3 sticky bottom-0 bg-black/80 backdrop-blur-xl p-4 rounded-2xl">
-                    <button type="submit" class="flex-1 py-4 btn-ios text-black font-black rounded-xl uppercase text-[10px] tracking-widest">Commit Entry</button>
-                    <button type="button" onclick="window.toggleModal('clientModal', false)" class="py-4 px-8 bg-white/5 border border-white/20 font-black rounded-xl uppercase text-[9px]">Abort</button>
-                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div class="space-y-1"><label class="label-premium ml-2">Name</label><input name="cName" required class="w-full p-3 input-ios font-bold text-sm" placeholder="Full Name"></div><div class="space-y-1"><label class="label-premium ml-2">Contact</label><input name="cContact" class="w-full p-3 input-ios font-bold text-sm" placeholder="+91 ..."></div></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div class="space-y-1"><label class="label-premium ml-2">Total Contract</label><input name="cFinal" type="number" oninput="window.calculateModalProfit()" required class="w-full p-3 input-ios font-black text-lg" placeholder="0"></div><div class="space-y-1"><label class="label-premium ml-2">Advance</label><input name="cAdvance" type="number" oninput="window.calculateModalProfit()" class="w-full p-3 input-ios font-black text-lg text-green-400" placeholder="0"></div></div>
+                <div class="space-y-4"><div class="flex justify-between items-center px-2"><h4 class="text-[10px] font-black uppercase opacity-40">Events Sequence</h4><button type="button" onclick="window.addEventSlot()" class="px-4 py-2 bg-white text-black rounded-lg text-[8px] font-black uppercase">+ Add Event</button></div><div id="eventsContainer" class="space-y-4"></div></div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3"><div class="space-y-1"><label class="label-premium ml-2">Album Cost</label><input name="cAlbum" type="number" oninput="window.calculateModalProfit()" placeholder="₹ 0" class="p-3 input-ios w-full text-xs"></div><div class="space-y-1"><label class="label-premium ml-2">Edit Cost</label><input name="cEdit" type="number" oninput="window.calculateModalProfit()" placeholder="₹ 0" class="p-3 input-ios w-full text-xs"></div><div class="space-y-1"><label class="label-premium ml-2">Misc</label><input name="cMisc" type="number" oninput="window.calculateModalProfit()" placeholder="₹ 0" class="p-3 input-ios w-full text-xs"></div></div>
+                <div class="space-y-3"><h4 class="font-black text-[10px] ml-2 uppercase opacity-40">Installments</h4><div class="grid grid-cols-2 sm:grid-cols-4 gap-2"><input name="i1" type="number" oninput="window.calculateModalProfit()" placeholder="P1" class="p-3 input-ios text-[10px] text-center"><input name="i2" type="number" oninput="window.calculateModalProfit()" placeholder="P2" class="p-3 input-ios text-[10px] text-center"><input name="i3" type="number" oninput="window.calculateModalProfit()" placeholder="P3" class="p-3 input-ios text-[10px] text-center"><input name="i4" type="number" oninput="window.calculateModalProfit()" placeholder="P4" class="p-3 input-ios text-[10px] text-center"></div></div>
+                <div class="pt-6 flex flex-col sm:flex-row gap-3 sticky bottom-0 bg-black/80 backdrop-blur-xl p-4 rounded-2xl"><button type="submit" class="flex-1 py-4 btn-ios text-black font-black rounded-xl uppercase text-[10px] tracking-widest">Commit Entry</button><button type="button" onclick="window.toggleModal('clientModal', false)" class="py-4 px-8 bg-white/5 border border-white/20 font-black rounded-xl uppercase text-[9px]">Abort</button></div>
             </form>
         </div>
     </div>
-
-    <!-- STAFF MODAL -->
     <div id="staffModal" class="fixed inset-0 bg-black/95 backdrop-blur-3xl z-[101] hidden items-center justify-center p-4">
         <div class="glass-panel p-6 sm:p-10 rounded-[2.5rem] shadow-2xl w-full max-sm border border-white/20 animate-pop">
             <h3 id="staffModalTitle" class="text-2xl font-black mb-8 text-center">Modify Node</h3>
             <form id="staffForm" onsubmit="window.saveStaff(event)" class="space-y-6">
-                <div class="space-y-1"><label class="label-premium ml-2">Full Identity</label><input name="pName" placeholder="Name" required class="w-full p-4 input-ios font-bold text-sm"></div>
-                <div class="space-y-1"><label class="label-premium ml-2">Role</label><input name="pRole" placeholder="Role" required class="w-full p-4 input-ios text-sm"></div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="space-y-1"><label class="label-premium ml-2 text-blue-400">Short</label><input name="pShort" type="number" required class="w-full p-4 rounded-xl bg-blue-400/5 border border-blue-400/20 font-black text-blue-400 text-sm outline-none"></div>
-                    <div class="space-y-1"><label class="label-premium ml-2 text-green-400">Full</label><input name="pFull" type="number" required class="w-full p-4 rounded-xl bg-green-400/5 border border-green-400/20 font-black text-green-400 text-sm outline-none"></div>
-                </div>
-                <button type="submit" class="w-full py-4 btn-ios text-black font-black rounded-xl uppercase text-[10px] tracking-widest mt-4">Update Personnel</button>
-                <button type="button" onclick="window.toggleModal('staffModal', false)" class="w-full py-2 font-bold opacity-30 text-[9px] uppercase tracking-widest">Cancel</button>
+                <div class="space-y-1"><label class="label-premium ml-2">Full Identity</label><input name="pName" placeholder="Name" required class="w-full p-4 input-ios font-bold text-sm"></div><div class="space-y-1"><label class="label-premium ml-2">Role</label><input name="pRole" placeholder="Role" required class="w-full p-4 input-ios text-sm"></div>
+                <div class="grid grid-cols-2 gap-4"><div class="space-y-1"><label class="label-premium ml-2 text-blue-400">Short</label><input name="pShort" type="number" required class="w-full p-4 rounded-xl bg-blue-400/5 border border-blue-400/20 font-black text-blue-400 text-sm outline-none"></div><div class="space-y-1"><label class="label-premium ml-2 text-green-400">Full</label><input name="pFull" type="number" required class="w-full p-4 rounded-xl bg-green-400/5 border border-green-400/20 font-black text-green-400 text-sm outline-none"></div></div>
+                <button type="submit" class="w-full py-4 btn-ios text-black font-black rounded-xl uppercase text-[10px] tracking-widest mt-4">Update Personnel</button><button type="button" onclick="window.toggleModal('staffModal', false)" class="w-full py-2 font-bold opacity-30 text-[9px] uppercase tracking-widest">Cancel</button>
             </form>
         </div>
     </div>
 </body>
-
 </html>
