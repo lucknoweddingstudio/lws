@@ -90,9 +90,9 @@
         }
 
         /* Scrollbar adjustment for smaller viewports */
-        @media (max-height: 700px) {
+        @media (max-height: 800px) {
             body { overflow-y: auto; }
-            .min-h-screen { min-height: auto; padding-top: 1rem; padding-bottom: 1rem; }
+            .min-h-screen { min-height: auto; padding-top: 2rem; padding-bottom: 2rem; }
         }
     </style>
 </head>
@@ -118,7 +118,7 @@
         <!-- Dashboard Links -->
         <div class="space-y-3">
 
-            <!-- Portfolio (LWS Text Logo) -->
+            <!-- Portfolio -->
             <a href="https://lucknoweddingstudio.github.io/lws/portfolio/" 
                class="liquid-glass ios-btn flex items-center p-4 rounded-[1.8rem] group no-underline animate-item" style="animation-delay: 0.2s;">
                 <div class="bg-gradient-to-br from-rose-500 to-rose-700 w-12 h-12 flex items-center justify-center rounded-xl mr-4 shadow-lg group-hover:rotate-3 transition-transform">
@@ -131,7 +131,7 @@
                 <i data-lucide="chevron-right" class="text-white/30 group-hover:translate-x-1 transition-transform"></i>
             </a>
             
-            <!-- Finance (Updated Wallet Icon) -->
+            <!-- Finance -->
             <a href="https://lucknoweddingstudio.github.io/lws/portal/" 
                class="liquid-glass ios-btn flex items-center p-4 rounded-[1.8rem] group no-underline animate-item" style="animation-delay: 0.3s;">
                 <div class="bg-gradient-to-br from-blue-500 to-blue-700 p-3 rounded-xl mr-4 shadow-lg group-hover:rotate-3 transition-transform">
@@ -144,7 +144,7 @@
                 <i data-lucide="chevron-right" class="text-white/30 group-hover:translate-x-1 transition-transform"></i>
             </a>
 
-            <!-- Quotation (Updated Calculator Icon) -->
+            <!-- Quotation -->
             <a href="https://lucknoweddingstudio.github.io/lws/calculator/" 
                class="liquid-glass ios-btn flex items-center p-4 rounded-[1.8rem] group no-underline animate-item" style="animation-delay: 0.4s;">
                 <div class="bg-gradient-to-br from-amber-500 to-amber-700 p-3 rounded-xl mr-4 shadow-lg group-hover:rotate-3 transition-transform">
@@ -183,17 +183,30 @@
                 <i data-lucide="chevron-right" class="text-white/30 group-hover:translate-x-1 transition-transform"></i>
             </a>
 
+            <!-- Invoice (NEW SECTION) -->
+            <a href="https://lucknoweddingstudio.github.io/lws/Invoice/" 
+               class="liquid-glass ios-btn flex items-center p-4 rounded-[1.8rem] group no-underline animate-item" style="animation-delay: 0.7s;">
+                <div class="bg-gradient-to-br from-purple-500 to-purple-700 p-3 rounded-xl mr-4 shadow-lg group-hover:rotate-3 transition-transform">
+                    <i data-lucide="file-text" class="text-white w-6 h-6"></i>
+                </div>
+                <div class="flex-1">
+                    <h2 class="text-lg font-bold text-white">Invoice</h2>
+                    <p class="text-white/50 text-xs font-medium">Generate new invoice</p>
+                </div>
+                <i data-lucide="chevron-right" class="text-white/30 group-hover:translate-x-1 transition-transform"></i>
+            </a>
+
         </div>
 
         <!-- Controls -->
-        <div class="mt-6 flex justify-center items-center animate-item" style="animation-delay: 0.8s;">
+        <div class="mt-6 flex justify-center items-center animate-item" style="animation-delay: 0.9s;">
             <button onclick="copyCurrentURL()" class="liquid-glass p-4 rounded-full ios-btn">
                 <i data-lucide="share-2" class="text-white w-6 h-6"></i>
             </button>
         </div>
 
         <!-- Footer -->
-        <div class="text-center mt-6 animate-item" style="animation-delay: 1s;">
+        <div class="text-center mt-6 animate-item" style="animation-delay: 1.1s;">
             <p class="text-white/30 text-[9px] font-black tracking-[0.4em] uppercase">
                 LWS HUB &copy; 2026
             </p>
@@ -204,16 +217,19 @@
         lucide.createIcons();
 
         function copyCurrentURL() {
+            const textToCopy = window.location.href;
             const temp = document.createElement('input');
             document.body.appendChild(temp);
-            temp.value = window.location.href;
+            temp.value = textToCopy;
             temp.select();
             document.execCommand('copy');
             document.body.removeChild(temp);
+            
+            // Minimalist feedback could be added here if needed
         }
 
         setTimeout(() => {
-            if (window.innerHeight > 700) {
+            if (window.innerHeight > 800) {
                 document.body.style.overflow = 'hidden';
             } else {
                 document.body.style.overflow = 'auto';
