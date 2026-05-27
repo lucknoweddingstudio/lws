@@ -306,6 +306,17 @@
                     <div id="albums-container" class="space-y-4"></div>
                 </div>
 
+                <!-- Special Notes / Guidelines input (New Addition) -->
+                <div class="liquid-glass p-8 rounded-[32px]">
+                    <h2 class="text-[10px] font-black uppercase tracking-[0.2em] text-[#D4AF37] mb-6 flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#D4AF37]"></span> Special Notes & Guidelines
+                    </h2>
+                    <div>
+                        <label class="text-[9px] font-bold text-gray-500 uppercase mb-3 block tracking-widest">Custom instructions, package highlights or key guidelines (Appears on PDF)</label>
+                        <textarea id="proposal-note" oninput="handleGlobalUpdate('note', this.value)" class="input-glass w-full h-32 text-sm font-medium focus:ring-1 focus:ring-[#D4AF37]" placeholder="E.G., Stage decorations and floral arrangements will be managed directly by the client. An additional setup charge of ₹5,000 applies if the event duration exceeds the booked timings. Raw files will be dispatched via digital vault link within 7 days."></textarea>
+                    </div>
+                </div>
+
                 <!-- Standard Info -->
                 <div class="liquid-glass p-8 rounded-[32px]">
                     <h2 class="text-[10px] font-black uppercase tracking-[0.2em] text-[#D4AF37] mb-8 uppercase">Service Information</h2>
@@ -402,6 +413,12 @@
             </table>
         </div>
 
+        <!-- Printable Special Notes Section (New Addition) -->
+        <div id="print-note-section" style="display: none; break-inside: avoid; margin-top: 20px;">
+            <div class="p-section-title">Special Notes & Guidelines</div>
+            <div style="background: #fafafa; border: 1px dashed #D4AF37; padding: 15px; border-radius: 8px; font-size: 8.5pt; line-height: 1.6; color: #333; white-space: pre-line;" id="print-note-body"></div>
+        </div>
+
         <div class="p-section-title">4. Kit & Device Inventory</div>
         <div style="background: #fafafa; padding: 15px; border-radius: 8px; border: 1px solid #eee; margin-bottom: 20px;">
             <ul style="font-size: 8.5pt; line-height: 1.6; list-style: none; padding-left: 0; margin: 0; color: #444;">
@@ -492,6 +509,7 @@
         let state = { 
             clientName: '', 
             clientContact: '+91 ', 
+            note: '', // Added Note to state
             events: [], 
             albums: [], 
             travelCost: 0, 
@@ -615,6 +633,16 @@
             document.getElementById('print-breakdown-discount').innerText = `- ₹${dTotal.toLocaleString()}`;
             document.getElementById('print-breakdown-travel').innerText = `₹${(parseFloat(state.travelCost) || 0).toLocaleString()}`;
 
+            // Sync notes to PDF View dynamically
+            const printNoteSection = document.getElementById('print-note-section');
+            const printNoteBody = document.getElementById('print-note-body');
+            if (state.note && state.note.trim() !== '') {
+                printNoteSection.style.display = 'block';
+                printNoteBody.innerText = state.note;
+            } else {
+                printNoteSection.style.display = 'none';
+            }
+
             const eventsTable = document.getElementById('print-events-table');
             const albumsTable = document.getElementById('print-albums-table');
             
@@ -731,6 +759,12 @@
             
             const priceToggle = document.getElementById('pdf-price-toggle');
             if(priceToggle) priceToggle.checked = state.showIndividualAmountsInPDF;
+
+            // Make sure the textarea retains focus and cursor when other parts of UI render
+            const noteTextarea = document.getElementById('proposal-note');
+            if (noteTextarea && document.activeElement !== noteTextarea) {
+                noteTextarea.value = state.note || '';
+            }
 
             document.getElementById('events-container').innerHTML = state.events.map(ev => {
                 const c = calculateEventCost(ev);
