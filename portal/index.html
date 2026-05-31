@@ -261,7 +261,7 @@
                         Balance: f.rem,
                         Event: e.type,
                         Date: e.date,
-                        Staff: (e.team || []).map(m => m.name).join(", ")
+                        Staff: (e.team || []).map(m => (m.name ? `${m.name} (${m.role || "Crew"})` : m.role || "Crew")).join(", ")
                     });
                 });
             });
@@ -299,19 +299,49 @@
         window.autoFillFee = e => {
             const r = e.closest(".team-member-row");
             if (!r) return;
-            const n = r.querySelector(".member-name").value,
+            const n = r.querySelector(".member-name").value.trim().toLowerCase(),
                   t = r.querySelector(".member-type").value,
-                  s = window.state.photographers.find(p => p.name === n);
-            if (s) r.querySelector(".member-fee").value = "full" === t ? s.fullFee || 0 : s.shortFee || 0;
+                  s = window.state.photographers.find(p => p.name && p.name.trim().toLowerCase() === n);
+            if (s) {
+                r.querySelector(".member-fee").value = "full" === t ? s.fullFee || 0 : s.shortFee || 0;
+            }
             window.calculateModalProfit();
         };
 
-        window.addTeamMemberSlot = (e, d = null) => {
+        window.addTeamMemberSlot = (e, d = null, defaultChargeType = "short") => {
             const t = document.getElementById(e);
             if (!t) return;
             const n = document.createElement("div");
-            n.className = "flex items-center gap-2 mt-2 team-member-row";
-            n.innerHTML = `<select class="member-name flex-1 p-2 input-ios text-[10px] font-bold" onchange="window.autoFillFee(this)"><option value="">Name</option>${window.state.photographers.map(p => `<option value="${p.name}" ${d?.name === p.name ? "selected" : ""}>${p.name}</option>`).join("")}</select><select class="member-type w-14 p-2 input-ios text-[9px] font-black" onchange="window.autoFillFee(this)"><option value="short" ${"short" === d?.chargeType ? "selected" : d ? "" : "selected"}>S</option><option value="full" ${"full" === d?.chargeType ? "selected" : ""}>F</option></select><input type="number" oninput="window.calculateModalProfit()" class="member-fee w-20 p-2 input-ios font-black text-white text-right text-xs" value="${d?.fee || 0}"><button type="button" onclick="this.parentElement.remove(); window.calculateModalProfit();" class="text-red-500 p-1"><i data-lucide="x" size="14"></i></button>`;
+            n.className = "flex items-center gap-2 mt-2 team-member-row animate-pop";
+            
+            const datalistId = "photographers-list";
+            const initialVal = d?.name || "";
+            const initialRole = d?.role || "Traditional Photographer";
+            const finalChargeType = d?.chargeType || defaultChargeType;
+
+            const roles = [
+                "Traditional Photographer",
+                "Traditional Videographer",
+                "Candid Photographer",
+                "Cinematographer",
+                "Drone Unit",
+                "Team Assistant"
+            ];
+
+            n.innerHTML = `
+                <select class="member-role w-1/3 p-2 input-ios text-[10px] font-bold">
+                    ${roles.map(r => `<option value="${r}" ${initialRole === r ? "selected" : ""}>${r}</option>`).join("")}
+                </select>
+                <input list="${datalistId}" class="member-name flex-1 p-2 input-ios text-[10px] font-bold" oninput="window.autoFillFee(this)" onchange="window.autoFillFee(this)" placeholder="Select/Type Name" value="${initialVal}">
+                <select class="member-type w-14 p-2 input-ios text-[9px] font-black" onchange="window.autoFillFee(this)">
+                    <option value="short" ${"short" === finalChargeType ? "selected" : ""}>S</option>
+                    <option value="full" ${"full" === finalChargeType ? "selected" : ""}>F</option>
+                </select>
+                <input type="number" oninput="window.calculateModalProfit()" class="member-fee w-20 p-2 input-ios font-black text-white text-right text-xs" value="${d?.fee || 0}">
+                <button type="button" onclick="this.parentElement.remove(); window.calculateModalProfit();" class="text-red-500 p-1">
+                    <i data-lucide="x" size="14"></i>
+                </button>
+            `;
             t.appendChild(n);
             lucide.createIcons();
             window.calculateModalProfit();
@@ -324,15 +354,59 @@
                   i = document.createElement("div");
             i.id = n;
             i.className = "p-4 rounded-[1.5rem] bg-white/5 border border-white/10 mb-3 animate-pop";
-            i.innerHTML = `<div class="flex flex-col sm:flex-row justify-between items-center gap-2 mb-3 text-left"><select class="ev-type w-full sm:flex-1 p-2.5 input-ios font-bold text-xs"><option value="">Event Type</option>${window.state.eventMeta.map(m => `<option value="${m.name}" ${e?.type === m.name ? "selected" : ""}>${m.name}</option>`).join("")}</select><input type="date" class="ev-date w-full sm:w-auto p-2.5 input-ios text-xs" value="${e?.date || ""}"><input type="text" class="ev-location w-full sm:w-32 p-2.5 input-ios text-[9px] font-black uppercase" placeholder="Loc" value="${e?.location || "Lucknow"}"><button type="button" onclick="document.getElementById('${n}').remove(); window.calculateModalProfit();" class="text-red-400 p-1 shrink-0"><i data-lucide="trash-2" size="18"></i></button></div><div class="space-y-1 team-container" id="team_${n}"></div><button type="button" onclick="window.addTeamMemberSlot('team_${n}')" class="mt-3 text-[9px] font-black uppercase text-white bg-white/10 px-3 py-1.5 rounded-full hover:bg-white/20 transition">+ Add Node</button>`;
+            
+            const eventMetaNames = window.state.eventMeta.map(m => m.name);
+            const hasCustomType = e?.type && !eventMetaNames.includes(e.type);
+            const customOption = hasCustomType ? `<option value="${e.type}" selected>${e.type}</option>` : "";
+
+            // Evaluate if this is the "Wedding" function -> Full wage rule
+            const isWedding = e?.type ? (e.type.toLowerCase().includes("wedding") && !e.type.toLowerCase().includes("pre")) : false;
+            const defaultWageType = isWedding ? "full" : "short";
+
+            i.innerHTML = `<div class="flex flex-col sm:flex-row justify-between items-center gap-2 mb-3 text-left">
+                <select class="ev-type w-full sm:flex-1 p-2.5 input-ios font-bold text-xs" onchange="window.handleEventTypeChange(this)">
+                    <option value="">Event Type</option>
+                    ${customOption}
+                    ${window.state.eventMeta.map(m => `<option value="${m.name}" ${(e?.type === m.name && !hasCustomType) ? "selected" : ""}>${m.name}</option>`).join("")}
+                </select>
+                <input type="date" class="ev-date w-full sm:w-auto p-2.5 input-ios text-xs" value="${e?.date || ""}">
+                <input type="text" class="ev-location w-full sm:w-32 p-2.5 input-ios text-[9px] font-black uppercase" placeholder="Loc" value="${e?.location || "Lucknow"}">
+                <button type="button" onclick="document.getElementById('${n}').remove(); window.calculateModalProfit();" class="text-red-400 p-1 shrink-0">
+                    <i data-lucide="trash-2" size="18"></i>
+                </button>
+            </div>
+            <div class="space-y-1 team-container" id="team_${n}"></div>
+            <button type="button" onclick="window.addTeamMemberSlot('team_${n}', null, this.closest('div').querySelector('.ev-type').value.toLowerCase().includes('wedding') && !this.closest('div').querySelector('.ev-type').value.toLowerCase().includes('pre') ? 'full' : 'short')" class="mt-3 text-[9px] font-black uppercase text-white bg-white/10 px-3 py-1.5 rounded-full hover:bg-white/20 transition">+ Add Crew</button>`;
+            
             t.appendChild(i);
-            if (e?.team) e.team.forEach(m => window.addTeamMemberSlot(`team_${n}`, m));
-            else window.addTeamMemberSlot(`team_${n}`);
+            
+            const teamContainerId = `team_${n}`;
+            if (e?.team && e.team.length > 0) {
+                e.team.forEach(m => window.addTeamMemberSlot(teamContainerId, m, defaultWageType));
+            } else {
+                window.addTeamMemberSlot(teamContainerId, null, defaultWageType);
+            }
+            
             lucide.createIcons();
             window.calculateModalProfit();
         };
 
-        // --- STREAMING_CHUNK: Formatting Dates into beautiful English Text... ---
+        window.handleEventTypeChange = selectEl => {
+            const val = selectEl.value.toLowerCase();
+            const isWedding = val.includes("wedding") && !val.includes("pre");
+            const targetWageType = isWedding ? "full" : "short";
+            
+            // Query all crew/team member rows under this event block
+            const eventBlock = selectEl.closest("div.p-4");
+            if (eventBlock) {
+                const typeDropdowns = eventBlock.querySelectorAll(".member-type");
+                typeDropdowns.forEach(dropdown => {
+                    dropdown.value = targetWageType;
+                    window.autoFillFee(dropdown);
+                });
+            }
+        };
+
         function formatDateEnglish(dStr) {
             if (!dStr) return "TBD";
             const parts = dStr.split("-");
@@ -345,7 +419,6 @@
             return dStr;
         }
 
-        // --- STREAMING_CHUNK: Calculations for Annual Summary & Monthly Average Run-Rate... ---
         function renSum(e = []) {
             let t = 0, r = 0, a = 0;
             e.forEach(c => {
@@ -355,8 +428,6 @@
                 a += f.paid;
             });
             const p = t - r, n = t - a, s = t > 0 ? ((p / t) * 100).toFixed(1) : 0;
-            
-            // Calculate Monthly Average Profit
             const monthlyAvgProfit = Math.round(p / 12);
 
             const u = (i, v) => {
@@ -375,20 +446,22 @@
         function renStaff() {
             const e = document.getElementById("staffList");
             if (e) e.innerHTML = window.state.photographers.map(p => `<div class="ios-card p-4 sm:p-5 flex items-center justify-between gap-3 animate-pop group"><div class="flex items-center gap-3 overflow-hidden"><div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/10 border border-white/20 rounded-2xl flex items-center justify-center font-black text-lg shrink-0 text-white">${p.name ? p.name[0] : "?"}</div><div class="truncate"><h4 class="font-black text-sm sm:text-base text-white truncate">${p.name}</h4><p class="text-[8px] text-white/40 font-bold uppercase tracking-widest mt-0.5">${p.role}</p></div></div><div class="flex items-center gap-3 shrink-0"><div class="text-right mr-1 hidden sm:block"><p class="text-[8px] font-black text-blue-400">S: ₹${p.shortFee || 0}</p><p class="text-[8px] font-black text-green-400">F: ₹${p.fullFee || 0}</p></div><div class="flex gap-2"><button onclick="window.editStaff('${p.id}')" class="opacity-40 hover:opacity-100 text-white transition"><i data-lucide="edit-2" size="14"></i></button><button onclick="window.deleteDocHandler('photographers', '${p.id}')" class="opacity-40 hover:opacity-100 text-red-400 transition"><i data-lucide="trash-2" size="14"></i></button></div></div></div>`).join(""), lucide.createIcons();
+            
+            const datalist = document.getElementById("photographers-list");
+            if (datalist) {
+                datalist.innerHTML = window.state.photographers.map(p => `<option value="${p.name}">${p.role}</option>`).join("");
+            }
         }
 
-        // Helper to get client's starting date (earliest event)
         const getClientStartDate = c => {
             const dates = (c.events || []).map(ev => ev.date).filter(x => x).map(x => new Date(x)).filter(x => !isNaN(x.getTime()));
             return dates.length > 0 ? new Date(Math.min(...dates)) : null;
         };
 
-        // --- STREAMING_CHUNK: Rendering Projects List & Expanded Details... ---
         window.renProj = (e = []) => {
             const t = document.getElementById("projectDetailedList");
             if (!t) return;
 
-            // Fetch filter parameters from the UI
             const sSearch = document.getElementById("auditSearch")?.value.toLowerCase() || "";
             const sStart = document.getElementById("auditStartDate")?.value || "";
             const sEnd = document.getElementById("auditEndDate")?.value || "";
@@ -396,18 +469,15 @@
             const mProfit = Number(document.getElementById("auditMinProfit")?.value || 0);
             const mPaid = Number(document.getElementById("auditMinPaid")?.value || 0);
 
-            // Filter logic
             let fList = e.filter(c => {
                 const f = window.getFin(c);
                 const sd = getClientStartDate(c);
 
-                // Check text matches
                 const matchesText = !sSearch || 
                     (c.name || "").toLowerCase().includes(sSearch) || 
                     (c.contact || "").toLowerCase().includes(sSearch) || 
                     (c.events || []).some(ev => (ev.type || "").toLowerCase().includes(sSearch));
 
-                // Check Date Boundaries
                 let matchesDate = true;
                 if (sStart) {
                     const limit = new Date(sStart);
@@ -418,14 +488,12 @@
                     if (!sd || sd > limit) matchesDate = false;
                 }
 
-                // Check Threshold Limits
                 const matchesProfit = f.profit >= mProfit;
                 const matchesPaid = f.paid >= mPaid;
 
                 return matchesText && matchesDate && matchesProfit && matchesPaid;
             });
 
-            // Sorting Strategy logic
             fList.sort((a, b) => {
                 const fA = window.getFin(a);
                 const fB = window.getFin(b);
@@ -465,12 +533,10 @@
                 return;
             }
 
-            // Map and generate lists
             t.innerHTML = fList.map(c => {
                 const f = window.getFin(c);
                 const e = window.state.expandedProjectId === c.id;
                 
-                // Event badges showing Event Type with beautifully separated date block
                 const tags = (c.events || []).map(ev => {
                     const dStr = ev.date ? formatDateEnglish(ev.date) : 'TBD';
                     return `
@@ -484,7 +550,6 @@
                 const fDate = earliestDate ? formatDateEnglish(earliestDate.toISOString().split('T')[0]) : "TBD";
 
                 return `<div class="ios-card mb-4 overflow-hidden animate-pop">
-                    <!-- Outer Section Clickable -->
                     <div onclick="window.toggleProjectDetail('${c.id}')" class="p-4 sm:p-6 cursor-pointer flex flex-col gap-4 hover:bg-white/5 transition-all">
                         <div class="flex justify-between items-center gap-4">
                             <div class="flex items-center gap-3 min-w-0">
@@ -502,7 +567,6 @@
                             </div>
                         </div>
 
-                        <!-- Inner Grid Section showing start date, total amount, profit & DM Out -->
                         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white/5 p-3 rounded-xl border border-white/5 text-xs">
                             <div>
                                 <span class="text-[8px] font-black uppercase text-white/40 block">Start Date</span>
@@ -525,7 +589,6 @@
                         </div>
                     </div>
 
-                    <!-- Cleaned Project Drawer Detail (Duplicate Finance Cards removed) -->
                     <div class="${e ? "detail-expanded" : "detail-collapsed"} px-4 sm:px-8">
                         <div class="pt-6 border-t border-white/10 space-y-4">
                             <h5 class="text-[9px] font-black uppercase tracking-widest text-white/40">Event Operations & Crew Details</h5>
@@ -546,7 +609,7 @@
                                             </div>
                                         </div>
                                         <div class="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-white/5">
-                                            ${(ev.team || []).map(m => `<span class="px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-[9px] font-bold text-white/70">${m.name || "TBD"}</span>`).join("") || '<span class="text-[8px] opacity-40 uppercase">No Staff Assigned</span>'}
+                                            ${(ev.team || []).map(m => `<span class="px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-[9px] font-bold text-white/70">${m.name ? `${m.name} (${m.role || "Crew"})` : m.role || "TBD"}</span>`).join("") || '<span class="text-[8px] opacity-40 uppercase">No Staff Assigned</span>'}
                                         </div>
                                     </div>`;
                                 }).join("")}
@@ -590,8 +653,8 @@
 
         window.renAll = () => {
             const e = window.state.clients.filter(c => (c.events || []).some(e => e.date && e.date.startsWith(window.state.selectedYear)));
-            renSum(e);
             renStaff();
+            renSum(e);
             window.renProj(e);
             window.renTable(e);
             window.renMeta();
@@ -656,6 +719,7 @@
                       date: el.querySelector(".ev-date").value,
                       location: el.querySelector(".ev-location").value,
                       team: Array.from(el.querySelectorAll(".team-container > div")).map(cel => ({
+                          role: cel.querySelector(".member-role").value,
                           name: cel.querySelector(".member-name").value,
                           chargeType: cel.querySelector(".member-type").value,
                           fee: Number(cel.querySelector(".member-fee").value)
@@ -739,7 +803,6 @@
             }
         };
 
-        // Tab and login logic
         window.switchTab = e => {
             document.querySelectorAll(".tab-page").forEach(el => el.classList.add("hidden"));
             const t = document.getElementById(e + "Tab");
@@ -813,36 +876,49 @@
             }
         });
 
-        function extractNumber(str) {
+        // Updated extractNumber to correctly handle Devanagari numerals and OCR artifacts (like २० which represents ₹0)
+        window.extractNumber = (str) => {
             if (!str) return 0;
-            let clean = str.replace(/[^\d.]/g, "");
+            let converted = str.trim();
+            // Handle OCR artifact: Devanagari "२०" / "२0" / "₹०" often represents "₹0" (Rupee zero) in scanned texts
+            if (converted === "२०" || converted === "२0" || converted === "₹०" || converted === "₹o") {
+                return 0;
+            }
+            // Convert Devanagari numerals (०-९) to Western digits (0-9)
+            const devanagariDigits = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
+            for (let i = 0; i < 10; i++) {
+                const regex = new RegExp(devanagariDigits[i], 'g');
+                converted = converted.replace(regex, i.toString());
+            }
+            let clean = converted.replace(/[^\d.]/g, "");
             let val = parseFloat(clean);
             return isNaN(val) ? 0 : val;
         }
 
-        function formatDateForInput(dateStr) {
-            try {
-                let parts = dateStr.split(/\s+/);
-                if (parts.length === 3) {
-                    let day = parseInt(parts[0]);
-                    let monthStr = parts[1].toLowerCase().substring(0, 3);
-                    let year = parts[2];
-                    const months = {
-                        jan: "01", feb: "02", mar: "03", apr: "04", may: "05", jun: "06",
-                        jul: "07", aug: "08", sep: "09", oct: "10", nov: "11", dec: "12"
-                    };
-                    let month = months[monthStr] || "01";
-                    let formattedDay = day < 10 ? "0" + day : day;
-                    return `${year}-${month}-${formattedDay}`;
-                }
-            } catch(e) {
-                console.error("Failed parsing date:", e);
-            }
-            return "";
-        }
+        window.showImportNotification = (msg, type = "success") => {
+            // Elegant replacement for standard browser alerts within sandboxed frame
+            const container = document.createElement("div");
+            container.className = `fixed bottom-6 right-6 z-[999] p-4 rounded-xl shadow-2xl backdrop-blur-xl border flex items-center gap-3 animate-pop text-white text-xs font-bold ${
+                type === "success" ? "bg-green-500/10 border-green-500/20" : "bg-red-500/10 border-red-500/20"
+            }`;
+            container.innerHTML = `
+                <div class="w-2 h-2 rounded-full ${type === 'success' ? 'bg-green-400' : 'bg-red-400'}"></div>
+                <p>${msg}</p>
+            `;
+            document.body.appendChild(container);
+            setTimeout(() => container.remove(), 4000);
+        };
 
         function parseLwsText(text) {
+            // Advanced Unification logic to restore broken/split dates due to PDF extraction breaks
+            text = text.replace(/(\d{3})\s*[\r\n]+\s*(\d)/g, '$1$2'); // Unifies 202\n6 -> 2026, 202\n7 -> 2027
+            text = text.replace(/202\s*\n\s*(\d)/g, '202$1');
+            text = text.replace(/(\d{1,2}\.\d{1,2}\.202)\s*\n\s*(\d)/g, '$1$2');
+            text = text.replace(/(\d{1,2}\.\d{1,2}\.202)\s*\r?\n\s*(\d)/g, '$1$2');
+            text = text.replace(/(\d{1,2})\s*[\.\-\/]\s*(\d{1,2})\s*[\.\-\/]\s*(\d{4})/g, '$1.$2.$3');
+
             const lines = text.split("\n").map(l => l.trim()).filter(l => l.length > 0);
+            
             let clientName = "";
             let contact = "";
             let finalAmount = 0;
@@ -851,190 +927,303 @@
             let editingCost = 0;
             let otherCost = 0;
             let installments = [0, 0, 0, 0];
+            let events = [];
 
-            let contactIdx = -1;
-            for (let i = 0; i < Math.min(20, lines.length); i++) {
-                if (lines[i].toLowerCase().includes("contact")) {
-                    contactIdx = i;
-                    break;
-                }
+            // Mapping for default staff selection as requested
+            function getDefaultStaffForRole(role) {
+                let r = role.toLowerCase();
+                if (r.includes("traditional photographer")) return "Priyanshu";
+                if (r.includes("traditional videographer")) return "Neeraj";
+                if (r.includes("candid photographer")) return "Akhil";
+                if (r.includes("cinematographer")) return "Aditya";
+                return "";
             }
 
-            if (contactIdx > 0) {
-                clientName = lines[contactIdx - 1];
-                if (contactIdx + 1 < lines.length) {
-                    let possibleContact = lines[contactIdx + 1].replace(/["',]/g, "").trim();
-                    if (possibleContact.match(/\d/)) {
-                        contact = possibleContact;
+            // Real-time dynamic fee lookup from database window state
+            function getFeeFromDatabase(name, chargeType) {
+                if (!name) return 0;
+                const staffList = window.state.photographers || [];
+                const found = staffList.find(p => p.name && p.name.trim().toLowerCase() === name.trim().toLowerCase());
+                if (found) {
+                    return chargeType === "full" ? Number(found.fullFee || 0) : Number(found.shortFee || 0);
+                }
+                return 0;
+            }
+
+            // Lookahead dynamic date binding helper to grab the date nearest to the event
+            function extractDateFromLines(timelineLines, currentIndex, limitLines = 4) {
+                const datePattern = /(\d{1,2})[\.\-\/](\d{1,2})[\.\-\/](\d{4})/g;
+                const shortDatePattern = /(\d{1,2})[\.\-\/](\d{1,2})[\.\-\/](\d{2})\b/g;
+                
+                for (let offset = 0; offset < limitLines; offset++) {
+                    let idx = currentIndex + offset;
+                    if (idx >= 0 && idx < timelineLines.length) {
+                        let line = timelineLines[idx];
+                        // Don't cross boundaries into other distinct event nodes
+                        if (offset > 0 && eventKeywords.some(kw => line.toUpperCase().includes(kw))) {
+                            break;
+                        }
+                        let m = line.match(datePattern) || line.match(shortDatePattern);
+                        if (m) {
+                            let dateStr = m[0];
+                            let parts = dateStr.split(/[\.\-\/]/);
+                            let day = parts[0].padStart(2, '0');
+                            let month = parts[1].padStart(2, '0');
+                            let year = parts[2];
+                            if (year.length === 2) year = "20" + year;
+                            return `${year}-${month}-${day}`;
+                        }
                     }
                 }
-            } else if (lines.length > 0) {
-                clientName = lines[0];
+                return "";
+            }
+
+            // 1. Scan Client Identity Block
+            let preparedForIdx = lines.findIndex(l => l.toUpperCase().includes("PREPARED FOR"));
+            if (preparedForIdx !== -1) {
+                if (preparedForIdx + 1 < lines.length) {
+                    clientName = lines[preparedForIdx + 1].replace(/["',]/g, "").trim();
+                }
+                if (preparedForIdx + 2 < lines.length) {
+                    let nextLine = lines[preparedForIdx + 2].replace(/["',]/g, "").trim();
+                    if (nextLine.match(/[+\d]/)) {
+                        contact = nextLine;
+                    }
+                }
+            } else {
+                let contactIdx = -1;
+                for (let i = 0; i < Math.min(20, lines.length); i++) {
+                    if (lines[i].toLowerCase().includes("contact") || lines[i].toLowerCase().includes("phone")) {
+                        contactIdx = i;
+                        break;
+                    }
+                }
+                if (contactIdx > 0) {
+                    clientName = lines[contactIdx - 1];
+                    if (contactIdx + 1 < lines.length) {
+                        let possibleContact = lines[contactIdx + 1].replace(/["',]/g, "").trim();
+                        if (possibleContact.match(/\d/)) contact = possibleContact;
+                    }
+                } else if (lines.length > 0) {
+                    clientName = lines[0];
+                }
             }
 
             clientName = clientName.replace(/["']/g, "").replace(/\b(contact|no|phone)\b/gi, "").trim();
-            if (clientName.toLowerCase() === "sumit" && !contact) {
-                contact = "+91 9999999999";
+
+            // 2. Scan Quotation Date
+            let quotationDate = "";
+            let dateLineIdx = lines.findIndex(l => l.toUpperCase().includes("DATE:"));
+            if (dateLineIdx !== -1) {
+                let dateLine = lines[dateLineIdx];
+                let match = dateLine.match(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})/);
+                if (match) {
+                    let day = match[1].padStart(2, '0');
+                    let month = match[2].padStart(2, '0');
+                    let year = match[3];
+                    quotationDate = `${year}-${month}-${day}`;
+                }
             }
 
-            const rolesList = [
-                "traditional photography", "traditional videography", "candid photography",
-                "cinematographer", "drone", "traditional video", "candid photo", "cinematography"
-            ];
-            const eventKeywords = [
-                "haldi", "sangeet", "mehandi", "tilak", "wedding", "reception", "engagement", "ring", "mayra", "bhaat", "cocktail"
-            ];
-
-            let events = [];
-            let currentEvent = null;
+            // 3. Scan Investment Parameters (Deduct Loyalty Savings/Discount from Gross Subtotal)
+            let grossSubtotal = 0;
+            let loyaltySavings = 0;
+            let logisticsTravel = 0;
+            let parsedNetInvestment = 0;
 
             for (let i = 0; i < lines.length; i++) {
-                let line = lines[i];
-                let cleanedLine = line.replace(/["']/g, "").trim();
-                let lowerLine = cleanedLine.toLowerCase();
+                let uLine = lines[i].toUpperCase();
+                if (uLine.includes("GROSS SUBTOTAL") || uLine.includes("GROSS SUB TOTAL") || uLine.includes("SUBTOTAL") || uLine.includes("SUB TOTAL")) {
+                    grossSubtotal = window.extractNumber(lines[i]);
+                    if (grossSubtotal === 0 && i + 1 < lines.length) grossSubtotal = window.extractNumber(lines[i+1]);
+                    if (grossSubtotal === 0 && i + 2 < lines.length) grossSubtotal = window.extractNumber(lines[i+2]);
+                }
+                if (uLine.includes("LOYALTY SAVINGS") || uLine.includes("LOYALTY SAVING") || uLine.includes("DISCOUNT") || uLine.includes("SAVINGS")) {
+                    loyaltySavings = window.extractNumber(lines[i]);
+                    if (loyaltySavings === 0 && i + 1 < lines.length) loyaltySavings = window.extractNumber(lines[i+1]);
+                    if (loyaltySavings === 0 && i + 2 < lines.length) loyaltySavings = window.extractNumber(lines[i+2]);
+                }
+                if (uLine.includes("LOGISTICS/TRAVEL") || uLine.includes("LOGISTICS") || uLine.includes("TRAVEL") || uLine.includes("LOGISTIC")) {
+                    logisticsTravel = window.extractNumber(lines[i]);
+                    if (logisticsTravel === 0 && i + 1 < lines.length) logisticsTravel = window.extractNumber(lines[i+1]);
+                    if (logisticsTravel === 0 && i + 2 < lines.length) logisticsTravel = window.extractNumber(lines[i+2]);
+                }
+                if (uLine.includes("NET PROJECT INVESTMENT") || uLine.includes("NET INVESTMENT") || uLine.includes("TOTAL NET INVESTMENT") || uLine.includes("NET PROJECT")) {
+                    parsedNetInvestment = window.extractNumber(lines[i]);
+                    if (parsedNetInvestment === 0 && i + 1 < lines.length) parsedNetInvestment = window.extractNumber(lines[i+1]);
+                    if (parsedNetInvestment === 0 && i + 2 < lines.length) parsedNetInvestment = window.extractNumber(lines[i+2]);
+                    if (parsedNetInvestment === 0 && i + 3 < lines.length) parsedNetInvestment = window.extractNumber(lines[i+3]);
+                }
+            }
 
-                let isRole = rolesList.some(r => lowerLine.includes(r));
-                let isEvent = !isRole && eventKeywords.some(keyword => lowerLine.includes(keyword)) &&
-                               !lowerLine.includes("cost") && !lowerLine.includes("expense") &&
-                               !lowerLine.includes("profit") && !lowerLine.includes("installment") &&
-                               !lowerLine.includes("amount") && !lowerLine.includes("revenue");
+            // Updated Calculation Logic to match: Gross Subtotal + Travel/Logistics - Savings
+            if (grossSubtotal > 0) {
+                finalAmount = grossSubtotal + logisticsTravel - loyaltySavings;
+            } else if (parsedNetInvestment > 0) {
+                finalAmount = parsedNetInvestment;
+            } else {
+                for (let i = 0; i < lines.length; i++) {
+                    let l = lines[i].toLowerCase();
+                    if (l.includes("final amount") || l.includes("total revenue") || l.includes("project investment") || l.includes("investment breakdown")) {
+                        for (let offset = -2; offset <= 3; offset++) {
+                            if (i + offset >= 0 && i + offset < lines.length) {
+                                let num = window.extractNumber(lines[i + offset]);
+                                if (num > 10000 && finalAmount === 0) {
+                                    finalAmount = num;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
-                if (isEvent) {
+            // 4. Calculate Album Cost based on sheet count Quantity * 200
+            let albumSheets = 0;
+            for (let i = 0; i < lines.length; i++) {
+                let l = lines[i];
+                let match = l.match(/(\d+)\s*Sheets?/i);
+                if (match) {
+                    albumSheets = parseInt(match[1], 10);
+                    break;
+                }
+            }
+            if (albumSheets > 0) {
+                albumCost = albumSheets * 200;
+            } else {
+                let albumIdx = lines.findIndex(l => l.toUpperCase().includes("ALBUM"));
+                if (albumIdx !== -1) {
+                    for (let offset = -2; offset <= 3; offset++) {
+                        let idx = albumIdx + offset;
+                        if (idx >= 0 && idx < lines.length) {
+                            let match = lines[idx].match(/(\d+)/);
+                            if (match) {
+                                let possibleSheets = parseInt(match[1], 10);
+                                if (possibleSheets >= 10 && possibleSheets <= 150) {
+                                    albumSheets = possibleSheets;
+                                    albumCost = albumSheets * 200;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            // 5. Stateful Event Sequence Scraper
+            let timelineStartIdx = lines.findIndex(l => l.toUpperCase().includes("EVENT COVERAGE") || l.toUpperCase().includes("COVERAGE TIMELINE") || l.toUpperCase().includes("TIMELINE"));
+            let timelineEndIdx = lines.findIndex(l => l.toUpperCase().includes("PROJECT DELIVERABLES") || l.toUpperCase().includes("DELIVERABLES") || l.toUpperCase().includes("PRINT ASSETS") || l.toUpperCase().includes("KIT & DEVICE"));
+
+            if (timelineStartIdx === -1) timelineStartIdx = 0;
+            if (timelineEndIdx === -1) timelineEndIdx = lines.length;
+
+            const timelineLines = lines.slice(timelineStartIdx, timelineEndIdx);
+
+            const eventKeywords = ["HALDI", "MEHANDI", "SANGEET", "WEDDING", "RECEPTION", "TILAK", "ENGAGEMENT", "COCKTAIL", "MAYRA", "BHAAT", "PRE-WEDDING"];
+            const locationKeywords = ["LUCKNOW", "VARANASI", "VARANASHI", "VARANSHI", "DELHI", "NOIDA", "KANPUR", "GORAKHPUR", "ALLAHABAD", "PRAYAGRAJ", "AMETHI"];
+            const roleMap = {
+                "TRADITIONAL PHOTOGRAPHER": "Traditional Photographer",
+                "TRADITIONAL VIDEOGRAPHER": "Traditional Videographer",
+                "TRADITIONAL VIDEO": "Traditional Videographer",
+                "CANDID PHOTOGRAPHER": "Candid Photographer",
+                "CANDID PHOTO": "Candid Photographer",
+                "CINEMATOGRAPHER": "Cinematographer",
+                "CINEMATOGRAPHY": "Cinematographer",
+                "DRONE": "Drone Unit",
+                "ASSISTANT": "Team Assistant",
+                "TEAM ASSISTANT": "Team Assistant"
+            };
+
+            let currentEvent = null;
+
+            for (let i = 0; i < timelineLines.length; i++) {
+                let line = timelineLines[i].trim();
+                let upperLine = line.toUpperCase();
+
+                let isNewEvent = false;
+                let foundKeyword = "";
+                for (let kw of eventKeywords) {
+                    if (upperLine.includes(kw)) {
+                        isNewEvent = true;
+                        foundKeyword = kw;
+                        break;
+                    }
+                }
+
+                if (isNewEvent) {
                     if (currentEvent) {
                         events.push(currentEvent);
                     }
-                    let eventName = cleanedLine.split(",")[0].trim();
+                    let eventName = line.replace(/["',|]/g, "").trim();
+                    eventName = eventName.split(/\s+/).map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+
+                    // Binding correct event date via looking ahead in proximity lines
+                    let resolvedDate = extractDateFromLines(timelineLines, i, 4);
+                    if (!resolvedDate) {
+                        resolvedDate = quotationDate || "";
+                    }
+
                     currentEvent = {
                         type: eventName,
-                        date: "",
+                        date: resolvedDate, 
                         location: "Lucknow",
                         team: []
                     };
-                    for (let offset = 1; offset <= 4; offset++) {
-                        if (i + offset >= lines.length) break;
-                        let nextLine = lines[i + offset].replace(/["']/g, "").trim();
-                        let nextLower = nextLine.toLowerCase();
-                        let dateMatch = nextLine.match(/(\d{1,2}\s+[A-Za-z]{3,10}\s+\d{4})/);
-                        if (dateMatch) {
-                            currentEvent.date = formatDateForInput(dateMatch[0]);
-                            let rem = nextLine.replace(dateMatch[0], "").replace(/,/g, "").trim();
-                            if (rem.length > 2) {
-                                currentEvent.location = rem;
-                            }
-                        } else if (nextLower.includes("noida") || nextLower.includes("lucknow") || nextLower.includes("naida") || nextLower.includes("delhi")) {
-                            currentEvent.location = nextLine.replace(/,/g, "").trim();
-                        }
-                    }
-                } else if (isRole && currentEvent) {
-                    let roleName = "";
-                    for (let r of rolesList) {
-                        if (lowerLine.includes(r)) {
-                            if (r.includes("traditional photography")) roleName = "Traditional Photography";
-                            else if (r.includes("traditional videography") || r.includes("traditional video")) roleName = "Traditional Videography";
-                            else if (r.includes("candid photography") || r.includes("candid photo")) roleName = "Candid Photography";
-                            else if (r.includes("cinematographer") || r.includes("cinematography")) roleName = "Cinematographer";
-                            else if (r.includes("drone")) roleName = "Drone";
-                            else roleName = r;
-                            break;
-                        }
-                    }
-                    let fee = 0;
-                    for (let offset = 0; offset <= 3; offset++) {
-                        if (i + offset >= lines.length) break;
-                        let feeLine = lines[i + offset].replace(/["']/g, "").trim();
-                        let nums = feeLine.match(/\b\d{3,5}\b/);
-                        if (nums) {
-                            fee = parseFloat(nums[0]);
-                            break;
-                        }
-                    }
-                    currentEvent.team.push({
-                        name: "",
-                        chargeType: "full",
-                        fee: fee,
-                        role: roleName
-                    });
                 }
 
-                if (lowerLine.includes("final amount") || lowerLine.includes("total revenue")) {
-                    for (let offset = -2; offset <= 2; offset++) {
-                        if (i + offset < 0 || i + offset >= lines.length) continue;
-                        let fLine = lines[i + offset];
-                        let num = extractNumber(fLine);
-                        if (num > 10000 && finalAmount === 0) {
-                            finalAmount = num;
+                if (currentEvent) {
+                    for (let locKw of locationKeywords) {
+                        if (upperLine.includes(locKw)) {
+                            currentEvent.location = normalizeLocation(locKw);
                         }
                     }
-                }
-                if (lowerLine.includes("advance") || lowerLine.includes("total pay")) {
-                    for (let offset = -2; offset <= 2; offset++) {
-                        if (i + offset < 0 || i + offset >= lines.length) continue;
-                        let fLine = lines[i + offset];
-                        let num = extractNumber(fLine);
-                        if (num > 0 && num < 100000 && advance === 0) {
-                            advance = num;
+
+                    for (let roleKw in roleMap) {
+                        if (upperLine.includes(roleKw)) {
+                            let standardRole = roleMap[roleKw];
+                            if (!currentEvent.team.some(member => member.role === standardRole)) {
+                                let defaultName = getDefaultStaffForRole(standardRole);
+                                // Wedding alone gets Full (F) pricing while rest remain Short (S)
+                                let isWedding = currentEvent.type.toLowerCase().includes("wedding") && !currentEvent.type.toLowerCase().includes("pre");
+                                let chargeType = isWedding ? "full" : "short";
+                                let fee = getFeeFromDatabase(defaultName, chargeType);
+
+                                currentEvent.team.push({
+                                    name: defaultName,
+                                    role: standardRole,
+                                    chargeType: chargeType,
+                                    fee: fee
+                                });
+                            }
                         }
-                    }
-                }
-                if (lowerLine.includes("album")) {
-                    for (let offset = -1; offset <= 2; offset++) {
-                        if (i + offset < 0 || i + offset >= lines.length) continue;
-                        let num = extractNumber(lines[i + offset]);
-                        if (num > 0 && num < 30000 && albumCost === 0) {
-                            albumCost = num;
-                        }
-                    }
-                }
-                if (lowerLine.includes("editing")) {
-                    for (let offset = -1; offset <= 2; offset++) {
-                        if (i + offset < 0 || i + offset >= lines.length) continue;
-                        let num = extractNumber(lines[i + offset]);
-                        if (num > 0 && num < 30000 && editingCost === 0) {
-                            editingCost = num;
-                        }
-                    }
-                }
-                if (lowerLine.includes("others")) {
-                    for (let offset = -1; offset <= 2; offset++) {
-                        if (i + offset < 0 || i + offset >= lines.length) continue;
-                        let num = extractNumber(lines[i + offset]);
-                        if (num > 0 && num < 50000 && otherCost === 0) {
-                            otherCost = num;
-                        }
-                    }
-                }
-                if (lowerLine.includes("1st installment")) {
-                    for (let offset = -1; offset <= 2; offset++) {
-                        if (i + offset < 0 || i + offset >= lines.length) continue;
-                        let num = extractNumber(lines[i + offset]);
-                        if (num >= 0) { installments[0] = num; break; }
-                    }
-                }
-                if (lowerLine.includes("2nd installment")) {
-                    for (let offset = -1; offset <= 2; offset++) {
-                        if (i + offset < 0 || i + offset >= lines.length) continue;
-                        let num = extractNumber(lines[i + offset]);
-                        if (num >= 0) { installments[1] = num; break; }
-                    }
-                }
-                if (lowerLine.includes("3rd installment")) {
-                    for (let offset = -1; offset <= 2; offset++) {
-                        if (i + offset < 0 || i + offset >= lines.length) continue;
-                        let num = extractNumber(lines[i + offset]);
-                        if (num >= 0) { installments[2] = num; break; }
-                    }
-                }
-                if (lowerLine.includes("4th installment")) {
-                    for (let offset = -1; offset <= 2; offset++) {
-                        if (i + offset < 0 || i + offset >= lines.length) continue;
-                        let num = extractNumber(lines[i + offset]);
-                        if (num >= 0) { installments[3] = num; break; }
                     }
                 }
             }
+
             if (currentEvent) {
                 events.push(currentEvent);
             }
+
+            function normalizeLocation(loc) {
+                if (!loc) return "Lucknow";
+                let l = loc.toLowerCase().trim();
+                if (l.includes("varanashi") || l.includes("varanshi") || l.includes("varanasi")) {
+                    return "Varanasi";
+                }
+                if (l.includes("amethi")) {
+                    return "Amethi";
+                }
+                if (l.includes("lucknow")) {
+                    return "Lucknow";
+                }
+                if (l.includes("delhi")) {
+                    return "Delhi";
+                }
+                if (l.includes("noida")) {
+                    return "Noida";
+                }
+                return loc.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+            }
+
             return {
                 name: clientName,
                 contact: contact,
@@ -1261,10 +1450,10 @@
                         <div>
                             <h3 class="text-xl font-black text-white flex items-center gap-2">
                                 <i data-lucide="file-text" class="text-white"></i> 
-                                AI Client PDF Importer
+                                LWS Quotation PDF Importer
                             </h3>
                             <p class="text-[9px] font-black uppercase tracking-widest text-white/40 mt-1">
-                                Upload LWS Ledger PDF (e.g. "2026 LWS LEDGER - Google Sheets.pdf") to populate records instantly.
+                                Upload Official LWS Quotation PDF (e.g. "PRANAV - LUCKNOW WEDDING STUDIO.pdf") to populate records and auto-configure crew workspace instantly.
                             </p>
                         </div>
                         <div class="flex items-center gap-2">
@@ -1281,11 +1470,11 @@
                                 <i data-lucide="upload-cloud" size="28"></i>
                             </div>
                             <div>
-                                <p class="font-black text-sm text-white">Drag & Drop LWS Ledger PDF here</p>
+                                <p class="font-black text-sm text-white">Drag & Drop LWS Quotation PDF here</p>
                                 <p class="text-[10px] text-white/40 font-bold mt-1 uppercase tracking-widest">or click to browse local files</p>
                             </div>
                             <div class="text-[8px] font-black uppercase tracking-wider text-white/30 max-w-xl mx-auto pt-2">
-                                Automatically extracts Client name, Contacts, Event sequence, Dates, Cities, Photographer nodes & fees, Album, editing, and other costs directly.
+                                Automatically extracts Client name, Phone number, Net Investment, Print/Album Costs, Location Cities, and Crew allocations per event instantly.
                             </div>
                         </div>
                     </div>
@@ -1326,7 +1515,7 @@
                     <p class="opacity-40 font-bold mt-2 uppercase tracking-widest text-[9px]">Tracking project lifecycles</p>
                 </div>
 
-                <!-- Premium Filter Control Panel with clean numeric label structures -->
+                <!-- Premium Filter Control Panel -->
                 <div class="glass-panel p-5 rounded-[1.5rem] border border-white/10 mb-8 space-y-4">
                     <div class="flex flex-wrap items-center justify-between gap-4">
                         <div class="flex items-center gap-2">
@@ -1337,22 +1526,18 @@
                     </div>
                     
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
-                        <!-- Search input -->
                         <div>
                             <label class="label-premium block mb-1">Search Client / Event</label>
                             <input type="text" id="auditSearch" oninput="window.applyAuditFilters()" placeholder="Search..." class="w-full p-2.5 input-ios text-xs">
                         </div>
-                        <!-- Start Date Filter -->
                         <div>
                             <label class="label-premium block mb-1">Start Date</label>
                             <input type="date" id="auditStartDate" onchange="window.applyAuditFilters()" class="w-full p-2.5 input-ios text-xs">
                         </div>
-                        <!-- End Date Filter -->
                         <div>
                             <label class="label-premium block mb-1">End Date</label>
                             <input type="date" id="auditEndDate" onchange="window.applyAuditFilters()" class="w-full p-2.5 input-ios text-xs">
                         </div>
-                        <!-- Sort Strategy Dropdown -->
                         <div>
                             <label class="label-premium block mb-1">Sort Strategy</label>
                             <select id="auditSort" onchange="window.applyAuditFilters()" class="w-full p-2.5 input-ios text-xs font-bold bg-black text-white">
@@ -1367,8 +1552,6 @@
                             </select>
                         </div>
                     </div>
-
-                   
                 </div>
 
                 <div id="projectDetailedList" class="space-y-4"></div>
@@ -1507,5 +1690,8 @@
             </form>
         </div>
     </div>
+
+    <!-- Global Datalist for Photographers -->
+    <datalist id="photographers-list"></datalist>
 </body>
 </html>
