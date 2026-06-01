@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LWS | Digital Portfolio & Samples</title>
+    <!-- Tailwind CSS for high-fidelity utility styling -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Premium Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --glass: rgba(0, 0, 0, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass: rgba(0, 0, 0, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.12);
             --yellow-accent: #facc15;
         }
 
@@ -23,285 +25,380 @@
             overflow-x: hidden;
         }
 
-        /* Cinematic Background */
+        /* Cinematic Scrolling Background */
         .bg-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -2;
             background: url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
             transform: scale(1.1);
-            animation: bgMove 45s linear infinite alternate;
+            animation: bgMove 40s linear infinite alternate;
         }
 
         @keyframes bgMove {
-            0% { transform: scale(1.1); }
-            100% { transform: scale(1.3) translate(-1%, -1%); }
+            0% { transform: scale(1.1) translate(0, 0); }
+            100% { transform: scale(1.25) translate(-1%, -1%); }
         }
 
         .overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1;
-            background: radial-gradient(circle at 50% 50%, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.98) 100%);
-            backdrop-filter: blur(14px);
+            background: radial-gradient(circle at 50% 50%, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.96) 100%);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
         }
 
-        /* Glassmorphism Classes */
+        /* Premium Glassmorphism Cards with CSS Fade-in (No JS Dependency for visibility) */
         .glass-card {
             background: var(--glass);
-            backdrop-filter: blur(35px) saturate(160%);
-            -webkit-backdrop-filter: blur(35px) saturate(160%);
+            backdrop-filter: blur(30px) saturate(160%);
+            -webkit-backdrop-filter: blur(30px) saturate(160%);
             border: 1px solid var(--glass-border);
-            border-radius: 32px;
-            box-shadow: 0 35px 70px -12px rgba(0, 0, 0, 0.85);
+            border-radius: 24px;
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.9);
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.9s cubic-bezier(0.2, 1, 0.2, 1);
+            transform: translateY(25px);
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        .glass-card.visible {
-            opacity: 1;
-            transform: translateY(0);
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
+        /* Sequential Delays for smooth load-in effect */
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        .delay-5 { animation-delay: 0.5s; }
+        .delay-6 { animation-delay: 0.6s; }
+        .delay-7 { animation-delay: 0.7s; }
 
         .glossy-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .glossy-btn:hover {
-            transform: translateY(-8px) scale(1.04);
-            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-6px) scale(1.02);
+            background: rgba(255, 255, 255, 0.09);
             border-color: var(--yellow-accent);
-            box-shadow: 0 15px 35px rgba(250, 204, 21, 0.25);
+            box-shadow: 0 15px 30px rgba(250, 204, 21, 0.15);
+        }
+
+        .glossy-btn:active {
+            transform: translateY(-2px) scale(0.98);
         }
 
         /* Section Headings Styling */
         .section-header {
             text-align: center;
             margin-bottom: 2rem;
-            position: relative;
         }
 
         .section-header h2 {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 800;
-            letter-spacing: 0.4em;
+            letter-spacing: 0.35em;
             text-transform: uppercase;
             color: var(--yellow-accent);
             display: inline-block;
             padding: 0.5rem 1.5rem;
-            background: rgba(250, 204, 21, 0.1);
+            background: rgba(250, 204, 21, 0.08);
             border-radius: 99px;
-            border: 1px solid rgba(250, 204, 21, 0.2);
+            border: 1px solid rgba(250, 204, 21, 0.15);
+            box-shadow: 0 4px 20px rgba(250, 204, 21, 0.05);
         }
 
-        /* Logo Animation */
+        /* Float effect on original logo */
         .logo-box {
-            filter: drop-shadow(0 0 25px rgba(250, 204, 21, 0.35));
+            filter: drop-shadow(0 10px 25px rgba(250, 204, 21, 0.15));
             animation: floatLogo 6s ease-in-out infinite;
-            max-width: 170px; 
+            max-width: 160px; 
         }
 
         @keyframes floatLogo {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+            50% { transform: translateY(-10px); }
         }
 
+        /* Copy Dialog Notification */
         .copy-toast {
             position: fixed;
-            top: 20px;
+            top: 24px;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translateX(-50%) translateY(-20px);
             background: var(--yellow-accent);
             color: black;
-            padding: 12px 24px;
+            padding: 12px 28px;
             border-radius: 99px;
             font-weight: 800;
-            font-size: 12px;
+            font-size: 11px;
+            letter-spacing: 0.15em;
             z-index: 1000;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            display: none;
+            box-shadow: 0 10px 30px rgba(250, 204, 21, 0.3);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .copy-toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
         }
 
         @media (max-width: 640px) {
-            .hero-text { font-size: 1.6rem; }
-            .glass-card { border-radius: 28px; padding: 1.25rem; }
-            .logo-box { max-width: 135px; }
+            .hero-text { font-size: 2rem; }
+            .glass-card { border-radius: 20px; }
+            .logo-box { max-width: 120px; }
         }
     </style>
 </head>
 <body class="min-h-screen">
 
+    <!-- Ambient background layer -->
     <div class="bg-container"></div>
     <div class="overlay"></div>
-    <div id="copy-toast" class="copy-toast">COPIED TO CLIPBOARD</div>
+    
+    <!-- Copy Toast Notification System -->
+    <div id="copy-toast" class="copy-toast">LINK COPIED TO CLIPBOARD</div>
 
-    <div class="max-w-4xl mx-auto px-4 py-12 md:py-20 relative z-10">
+    <div class="max-w-4xl mx-auto px-5 py-12 md:py-20 relative z-10">
         
         <!-- MAIN HEADER -->
         <header class="text-center mb-16 flex flex-col items-center">
-            <div class="logo-box mb-8">
-                <img src="https://lucknowweddingstudio.com/wp-content/uploads/2022/08/LWS-yellow-768x480.png" alt="Lucknow Wedding Studio Logo" class="w-full h-auto">
+            
+            <!-- Logo Box with direct fallback check -->
+            <div class="logo-box mb-6 relative flex justify-center items-center w-full min-h-[90px]">
+                <img id="main-logo" 
+                     src="https://lucknowweddingstudio.com/wp-content/uploads/2022/08/LWS-yellow-768x480.png" 
+                     alt="Lucknow Wedding Studio Logo" 
+                     class="w-auto h-24 object-contain transition-all duration-300"
+                     onerror="handleLogoError()">
+                
+                <!-- Pure SVG Fallback Logo (renders only if WordPress site block/CORS/fails) -->
+                <div id="logo-fallback" class="hidden flex flex-col items-center justify-center p-3 border border-yellow-500/20 rounded-2xl bg-black/80">
+                    <svg class="w-12 h-12 text-yellow-400 mb-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                        <circle cx="12" cy="13" r="4"></circle>
+                    </svg>
+                    <span class="text-lg font-black tracking-widest text-yellow-400">LWS</span>
+                    <span class="text-[8px] tracking-[0.2em] text-white/60 uppercase font-semibold">Lucknow Wedding Studio</span>
+                </div>
             </div>
+
+            <!-- Premium Badge -->
+            <div class="mb-4 inline-flex items-center gap-2 px-3 py-1 bg-yellow-400/10 border border-yellow-400/20 rounded-full">
+                <span class="w-1.5 h-1.5 bg-yellow-400 rounded-full animate-ping"></span>
+                <span class="text-[9px] uppercase tracking-[0.2em] font-extrabold text-yellow-400">Official Hub</span>
+            </div>
+
             <h1 class="hero-text text-3xl md:text-5xl font-black tracking-tight mb-4 leading-tight">
-                Digital <span class="text-yellow-400">Hub</span> & Showcase
+                Digital <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-500">Portfolio</span>
             </h1>
-            <p class="text-slate-300 text-xs md:text-lg max-w-lg mx-auto font-light leading-relaxed opacity-80 px-4">
-                Professional Cinematic Excellence. Everything you need to connect and explore our work.
+            <p class="text-slate-300 text-sm md:text-base max-w-lg mx-auto font-light leading-relaxed opacity-80 px-4">
+                Professional Cinematic Excellence. Explore our premium media works, coordinates, and social highlights.
             </p>
         </header>
 
         <!-- SECTION 1: SOCIAL MEDIA & CONTACT -->
-        <section class="mb-20">
+        <section class="mb-16">
             <div class="section-header">
                 <h2>Connect With Us</h2>
             </div>
             
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                 
-                <a href="https://lucknowweddingstudio.com/" target="_blank" class="glass-card glossy-btn p-5 flex flex-col items-center text-center group">
-                    <div class="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center mb-3 group-hover:bg-yellow-400/15 transition-all overflow-hidden p-2">
-                        <img src="https://lucknowweddingstudio.com/wp-content/uploads/2022/08/LWS-yellow-768x480.png" alt="Website" class="w-full h-full object-contain scale-150">
+                <!-- Official Website Card -->
+                <a href="https://lucknowweddingstudio.com/" target="_blank" class="glass-card glossy-btn p-5 flex flex-col items-center text-center group delay-1">
+                    <div class="w-12 h-12 bg-yellow-400/10 rounded-2xl flex items-center justify-center mb-3 group-hover:bg-yellow-400/20 transition-all">
+                        <!-- Custom Globe SVG to replace broken images -->
+                        <svg class="w-6 h-6 text-yellow-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        </svg>
                     </div>
-                    <h3 class="text-[10px] font-black uppercase tracking-[0.2em]">Website</h3>
+                    <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-100">Website</h3>
                 </a>
 
-                <a href="https://wa.me/917394019474" target="_blank" class="glass-card glossy-btn p-5 flex flex-col items-center text-center group">
-                    <div class="w-14 h-14 bg-green-500/15 rounded-2xl flex items-center justify-center mb-3 group-hover:bg-green-500/25 transition-all">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="w-7 h-7">
+                <!-- WhatsApp Card -->
+                <a href="https://wa.me/917394019474" target="_blank" class="glass-card glossy-btn p-5 flex flex-col items-center text-center group delay-2">
+                    <div class="w-12 h-12 bg-green-500/10 rounded-2xl flex items-center justify-center mb-3 group-hover:bg-green-500/20 transition-all">
+                        <!-- Direct Inline WhatsApp Icon for 100% load reliability -->
+                        <svg class="w-6 h-6 text-green-400" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.455 5.703 1.456h.004c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                        </svg>
                     </div>
-                    <h3 class="text-[10px] font-black uppercase tracking-[0.2em]">WhatsApp</h3>
+                    <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-100">WhatsApp</h3>
                 </a>
 
-                <a href="https://www.youtube.com/@LucknowWeddingStudio" target="_blank" class="glass-card glossy-btn p-5 flex flex-col items-center text-center group">
-                    <div class="w-14 h-14 bg-red-500/15 rounded-2xl flex items-center justify-center mb-3 group-hover:bg-red-500/25 transition-all">
-                        <i data-lucide="youtube" class="w-7 h-7 text-red-600"></i>
+                <!-- YouTube Card -->
+                <a href="https://www.youtube.com/@LucknowWeddingStudio" target="_blank" class="glass-card glossy-btn p-5 flex flex-col items-center text-center group delay-3">
+                    <div class="w-12 h-12 bg-red-500/10 rounded-2xl flex items-center justify-center mb-3 group-hover:bg-red-500/20 transition-all">
+                        <!-- Premium Clean YouTube Inline SVG -->
+                        <svg class="w-6 h-6 text-red-500" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.518 3.545 12 3.545 12 3.545s-7.518 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.87.508 9.388.508 9.388.508s7.518 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                        </svg>
                     </div>
-                    <h3 class="text-[10px] font-black uppercase tracking-[0.2em]">YouTube</h3>
+                    <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-100">YouTube</h3>
                 </a>
 
-                <a href="https://www.instagram.com/lucknow_wedding_studio" target="_blank" class="glass-card glossy-btn p-5 flex flex-col items-center text-center group">
-                    <div class="w-14 h-14 bg-pink-500/10 rounded-2xl flex items-center justify-center mb-3 group-hover:bg-pink-500/20 transition-all">
-                        <i data-lucide="instagram" class="w-7 h-7 text-pink-400"></i>
+                <!-- Instagram Card -->
+                <a href="https://www.instagram.com/lucknow_wedding_studio" target="_blank" class="glass-card glossy-btn p-5 flex flex-col items-center text-center group delay-4">
+                    <div class="w-12 h-12 bg-pink-500/10 rounded-2xl flex items-center justify-center mb-3 group-hover:bg-pink-500/20 transition-all">
+                        <!-- Premium Instagram SVG -->
+                        <svg class="w-6 h-6 text-pink-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
                     </div>
-                    <h3 class="text-[10px] font-black uppercase tracking-[0.2em]">Instagram</h3>
+                    <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-100">Instagram</h3>
                 </a>
 
-                <a href="https://www.facebook.com/lucknowweddingstudio" target="_blank" class="glass-card glossy-btn p-5 flex flex-col items-center text-center group">
-                    <div class="w-14 h-14 bg-blue-600/10 rounded-2xl flex items-center justify-center mb-3 group-hover:bg-blue-600/20 transition-all">
-                        <i data-lucide="facebook" class="w-7 h-7 text-blue-500"></i>
+                <!-- Facebook Card -->
+                <a href="https://www.facebook.com/lucknowweddingstudio" target="_blank" class="glass-card glossy-btn p-5 flex flex-col items-center text-center group delay-5">
+                    <div class="w-12 h-12 bg-blue-600/10 rounded-2xl flex items-center justify-center mb-3 group-hover:bg-blue-600/20 transition-all">
+                        <!-- Robust Facebook SVG -->
+                        <svg class="w-6 h-6 text-blue-500" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
                     </div>
-                    <h3 class="text-[10px] font-black uppercase tracking-[0.2em]">Facebook</h3>
+                    <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-100">Facebook</h3>
                 </a>
 
-                <a href="https://maps.app.goo.gl/YQM1WwdLNkyViyLo8" target="_blank" class="glass-card glossy-btn p-5 flex flex-col items-center text-center group">
-                    <div class="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center mb-3 group-hover:bg-white/20 transition-all">
-                        <svg viewBox="0 0 24 24" class="w-7 h-7" xmlns="http://www.w3.org/2000/svg">
+                <!-- Google Maps Card -->
+                <a href="https://maps.app.goo.gl/YQM1WwdLNkyViyLo8" target="_blank" class="glass-card glossy-btn p-5 flex flex-col items-center text-center group delay-6">
+                    <div class="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-3 group-hover:bg-emerald-500/20 transition-all">
+                        <!-- Direct Google Map Pin SVG -->
+                        <svg viewBox="0 0 24 24" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg">
                             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
                             <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
                             <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
                             <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
                         </svg>
                     </div>
-                    <h3 class="text-[10px] font-black uppercase tracking-[0.2em]">Google Map</h3>
+                    <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-100">Location</h3>
                 </a>
             </div>
         </section>
 
         <!-- SECTION 2: PORTFOLIO SHOWCASE -->
-        <section class="glass-card p-10 md:p-14 mb-16">
+        <section class="glass-card p-8 md:p-12 mb-16 delay-5">
             <div class="section-header">
-                <h2>Our Latest Portfolio</h2>
+                <h2>Our Premium Portfolio</h2>
             </div>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <!-- Photographs -->
-                <div onclick="window.open('https://drive.google.com/drive/folders/1nBNwYoBrp1V7v7YPnWb7--76hTSt5zo8')" class="glossy-btn p-8 rounded-3xl border-yellow-500/10 bg-yellow-500/5 cursor-pointer flex items-center gap-6 group">
-                    <div class="w-16 h-16 bg-yellow-500/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-all">
-                        <i data-lucide="camera" class="w-8 h-8 text-yellow-500"></i>
+                
+                <!-- Photography Portfolio -->
+                <div onclick="window.open('https://drive.google.com/drive/folders/1nBNwYoBrp1V7v7YPnWb7--76hTSt5zo8')" class="glossy-btn p-6 rounded-3xl border-yellow-500/10 bg-yellow-500/5 cursor-pointer flex items-center gap-5 group">
+                    <div class="w-14 h-14 bg-yellow-500/10 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:bg-yellow-500/20 transition-all shrink-0">
+                        <!-- Beautiful Camera Inline SVG -->
+                        <svg class="w-6 h-6 text-yellow-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                            <circle cx="12" cy="13" r="4"></circle>
+                        </svg>
                     </div>
                     <div>
-                        <p class="font-bold text-xl">Photography</p>
-                        <p class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Candid & Portrayal</p>
+                        <p class="font-bold text-lg text-slate-100">Photography</p>
+                        <p class="text-[9px] text-yellow-500/70 uppercase tracking-widest mt-0.5">Candid & Portraits</p>
                     </div>
                 </div>
 
-                <!-- Cinematic Video -->
-                <div onclick="window.open('https://www.youtube.com/@LucknowWeddingStudio')" class="glossy-btn p-8 rounded-3xl border-rose-500/10 bg-rose-500/5 cursor-pointer flex items-center gap-6 group">
-                    <div class="w-16 h-16 bg-rose-500/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-all">
-                        <i data-lucide="video" class="w-8 h-8 text-rose-500"></i>
+                <!-- Cinematic Video Portfolio -->
+                <div onclick="window.open('https://www.youtube.com/@LucknowWeddingStudio')" class="glossy-btn p-6 rounded-3xl border-rose-500/10 bg-rose-500/5 cursor-pointer flex items-center gap-5 group">
+                    <div class="w-14 h-14 bg-rose-500/10 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:bg-rose-500/20 transition-all shrink-0">
+                        <!-- Premium Video SVG -->
+                        <svg class="w-6 h-6 text-rose-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="23 7 16 12 23 17 23 7"></polygon>
+                            <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+                        </svg>
                     </div>
                     <div>
-                        <p class="font-bold text-xl">Cinematography</p>
-                        <p class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Wedding Films</p>
+                        <p class="font-bold text-lg text-slate-100">Cinematography</p>
+                        <p class="text-[9px] text-rose-400/70 uppercase tracking-widest mt-0.5">Wedding Films</p>
                     </div>
                 </div>
 
-                <!-- Albums -->
-                <div onclick="window.open('https://drive.google.com/drive/folders/1nBNwYoBrp1V7v7YPnWb7--76hTSt5zo8')" class="glossy-btn p-8 rounded-3xl border-blue-500/10 bg-blue-500/5 cursor-pointer flex items-center gap-6 group">
-                    <div class="w-16 h-16 bg-blue-500/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-all">
-                        <i data-lucide="book-open" class="w-8 h-8 text-blue-500"></i>
+                <!-- Albums Portfolio -->
+                <div onclick="window.open('https://drive.google.com/drive/folders/1nBNwYoBrp1V7v7YPnWb7--76hTSt5zo8')" class="glossy-btn p-6 rounded-3xl border-blue-500/10 bg-blue-500/5 cursor-pointer flex items-center gap-5 group">
+                    <div class="w-14 h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:bg-blue-500/20 transition-all shrink-0">
+                        <!-- Book Open Inline SVG -->
+                        <svg class="w-6 h-6 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                        </svg>
                     </div>
                     <div>
-                        <p class="font-bold text-xl">Premium Albums</p>
-                        <p class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Design Layouts</p>
+                        <p class="font-bold text-lg text-slate-100">Premium Albums</p>
+                        <p class="text-[9px] text-blue-400/70 uppercase tracking-widest mt-0.5">Design Layouts</p>
                     </div>
                 </div>
 
-                <!-- Pre-Wedding -->
-                <div onclick="window.open('https://drive.google.com/drive/folders/1nBNwYoBrp1V7v7YPnWb7--76hTSt5zo8')" class="glossy-btn p-8 rounded-3xl border-emerald-500/10 bg-emerald-500/5 cursor-pointer flex items-center gap-6 group">
-                    <div class="w-16 h-16 bg-emerald-500/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-all">
-                        <i data-lucide="heart" class="w-8 h-8 text-emerald-500"></i>
+                <!-- Pre-Wedding Portfolio -->
+                <div onclick="window.open('https://drive.google.com/drive/folders/1nBNwYoBrp1V7v7YPnWb7--76hTSt5zo8')" class="glossy-btn p-6 rounded-3xl border-emerald-500/10 bg-emerald-500/5 cursor-pointer flex items-center gap-5 group">
+                    <div class="w-14 h-14 bg-emerald-500/10 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:bg-emerald-500/20 transition-all shrink-0">
+                        <!-- Heart Inline SVG -->
+                        <svg class="w-6 h-6 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                        </svg>
                     </div>
                     <div>
-                        <p class="font-bold text-xl">Pre-Wedding</p>
-                        <p class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Outdoor Shoots</p>
+                        <p class="font-bold text-lg text-slate-100">Pre-Wedding</p>
+                        <p class="text-[9px] text-emerald-400/70 uppercase tracking-widest mt-0.5">Outdoor Shoots</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Footer -->
-        <footer class="mt-24 text-center pb-20 opacity-40">
-            <p class="text-[11px] tracking-[0.6em] uppercase font-light px-4">
-                Professional Cinematic Excellence &copy; 2026
+        <!-- Footer with clean layout -->
+        <footer class="mt-20 text-center pb-12 opacity-50">
+            <p class="text-[10px] tracking-[0.5em] uppercase font-light text-slate-400">
+                LUCKNOW WEDDING STUDIO &copy; 2026
             </p>
         </footer>
     </div>
 
     <script>
-        lucide.createIcons();
+        // Triggered automatically if main WordPress-hosted logo fails/CORS blocks it
+        function handleLogoError() {
+            const logoImg = document.getElementById('main-logo');
+            const logoFallback = document.getElementById('logo-fallback');
+            if (logoImg) logoImg.classList.add('hidden');
+            if (logoFallback) logoFallback.classList.remove('hidden');
+        }
 
-        // Reveal Animation logic
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.glass-card').forEach(card => {
-            observer.observe(card);
-        });
-
-        // Copy Text with UI Toast
+        // Copy Text using modern/fallback Clipboard API safely within Sandboxes
         function copyText(text) {
             const el = document.createElement('textarea');
             el.value = text;
+            el.setAttribute('readonly', '');
+            el.style.position = 'absolute';
+            el.style.left = '-9999px';
             document.body.appendChild(el);
             el.select();
-            document.execCommand('copy');
-            document.body.removeChild(el);
             
+            try {
+                document.execCommand('copy');
+                showToast();
+            } catch (err) {
+                console.error('Could not copy text: ', err);
+            }
+            document.body.removeChild(el);
+        }
+
+        function showToast() {
             const toast = document.getElementById('copy-toast');
-            toast.style.display = 'block';
+            toast.classList.add('show');
             setTimeout(() => {
-                toast.style.display = 'none';
+                toast.classList.remove('show');
             }, 2500);
         }
     </script>
