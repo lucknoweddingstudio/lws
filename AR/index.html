@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR Home Beauty Salon | Premium At-Home Luxury</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        ios: {
+                            bg: {
+                                light: '#F2F2F7',
+                                dark: '#1C1C1E',
+                            },
+                            card: {
+                                light: 'rgba(255, 255, 255, 0.8)',
+                                dark: 'rgba(28, 28, 30, 0.8)',
+                            },
+                            gold: {
+                                DEFAULT: '#D4AF37',
+                                light: '#F3E5AB',
+                                dark: '#AA7C11'
+                            },
+                            rose: {
+                                DEFAULT: '#E0A96D',
+                                light: '#F7D6C8',
+                                dark: '#8D5B4C'
+                            }
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom dynamic iOS transitions & blurs */
+        .ios-blur {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .bounce-active:active {
+            transform: scale(0.95);
+        }
+        /* Custom scrollbar hiding */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* Smooth page fade transition */
+        .page-transition {
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        /* Glass card styling */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+        }
+        .dark .glass-card {
+            background: rgba(30, 30, 30, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+        /* Glow effect */
+        .gold-glow {
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-ios-bg-light dark:bg-ios-bg-dark text-slate-900 dark:text-slate-100 min-h-screen font-sans transition-colors duration-500 overflow-x-hidden">
+
+    <!-- Splash Screen / Welcome Animation -->
+    <div id="splash-screen" class="fixed inset-0 z-50 bg-slate-950 flex flex-col items-center justify-center transition-opacity duration-700 ease-out">
+        <div class="text-center animate-pulse">
+            <div class="w-24 h-24 mx-auto mb-6 bg-gradient-to-tr from-ios-gold to-ios-rose rounded-3xl flex items-center justify-center shadow-xl gold-glow">
+                <i class="fa-solid fa-crown text-4xl text-white"></i>
+            </div>
+            <h1 class="text-3xl font-extrabold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-ios-gold via-yellow-200 to-ios-rose">
+                AR HOME SALON
+            </h1>
+            <p class="text-xs tracking-[0.3em] text-ios-gold/70 mt-2 uppercase">Premium At-Home Luxury</p>
+        </div>
+        <div class="absolute bottom-10 text-slate-500 text-sm tracking-wider flex items-center gap-2">
+            <i class="fa-solid fa-circle-notch animate-spin text-ios-gold"></i> Starting Experience
+        </div>
+    </div>
+
+    <!-- Layout Wrapper -->
+    <div class="flex flex-col min-h-screen pb-24 md:pb-0">
+        
+        <!-- Header / Navigation Bar -->
+        <header class="sticky top-0 z-40 w-full bg-white/70 dark:bg-slate-900/70 backdrop-blur-md border-b border-slate-200/50 dark:border-slate-800/50 transition-colors duration-300">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+                <!-- Branding Logo -->
+                <div class="flex items-center gap-3 cursor-pointer" onclick="navigateTo('home')">
+                    <div class="w-10 h-10 bg-gradient-to-tr from-ios-gold to-ios-rose rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-md bounce-active transition-transform">
+                        AR
+                    </div>
+                    <div>
+                        <h2 class="font-black text-lg tracking-wider text-slate-800 dark:text-white leading-none">AR HOME</h2>
+                        <span class="text-[10px] tracking-widest text-ios-gold font-bold uppercase">Beauty Salon</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center gap-8 font-medium">
+                    <button onclick="navigateTo('home')" class="nav-link text-slate-600 dark:text-slate-300 hover:text-ios-gold dark:hover:text-ios-gold transition-colors text-sm py-2 px-1 relative" data-page="home">
+                        Home
+                    </button>
+                    <button onclick="navigateTo('services')" class="nav-link text-slate-600 dark:text-slate-300 hover:text-ios-gold dark:hover:text-ios-gold transition-colors text-sm py-2 px-1 relative" data-page="services">
+                        Services
+                    </button>
+                    <button onclick="navigateTo('about')" class="nav-link text-slate-600 dark:text-slate-300 hover:text-ios-gold dark:hover:text-ios-gold transition-colors text-sm py-2 px-1 relative" data-page="about">
+                        About & Contact
+                    </button>
+                </nav>
+
+                <!-- Actions (Theme Toggle & Direct Book Button) -->
+                <div class="flex items-center gap-3">
+                    <!-- iOS Theme Switcher Style -->
+                    <button id="theme-toggle" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-300 focus:outline-none bounce-active">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:inline"></i>
+                    </button>
+                    
+                    <button onclick="navigateTo('services')" class="hidden md:flex bg-gradient-to-r from-ios-gold to-ios-rose text-white font-semibold text-sm px-5 py-2.5 rounded-full shadow-lg hover:shadow-xl hover:brightness-105 transition-all duration-300 bounce-active items-center gap-2">
+                        <i class="fa-solid fa-spa"></i> Book Services
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content (Dynamic Pages Router) -->
+        <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full">
+            
+            <!-- HOME PAGE -->
+            <section id="page-home" class="page-transition space-y-12">
+                
+                <!-- iOS Style Carousel/Hero Slider Slider Container -->
+                <div class="relative rounded-3xl overflow-hidden h-[300px] md:h-[480px] shadow-2xl group border border-slate-200/20">
+                    <!-- Slides -->
+                    <div id="hero-slider" class="relative w-full h-full">
+                        <!-- Slide 1 -->
+                        <div class="absolute inset-0 transition-opacity duration-1000 opacity-100 slide-item">
+                            <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/60 to-transparent z-10"></div>
+                            <img src="https://images.unsplash.com/photo-1560750588-73207b1ef5b8?q=80&w=1470&auto=format&fit=crop" alt="Luxury Salon At Home" class="w-full h-full object-cover transform scale-105 hover:scale-100 transition-transform duration-10000">
+                            <div class="absolute inset-y-0 left-0 z-20 flex flex-col justify-center px-6 md:px-16 max-w-xl text-white space-y-3 md:space-y-4">
+                                <span class="bg-ios-gold text-slate-900 font-bold tracking-widest text-[10px] md:text-xs py-1 px-3 rounded-full w-max">PREMIUM EXPERT CARE</span>
+                                <h1 class="text-3xl md:text-5xl font-black tracking-tight leading-tight">Home Luxury Beauty Salon</h1>
+                                <p class="text-sm md:text-base text-slate-300">Expert pampering, professional services, and high-end styling right in the comfort of your living space.</p>
+                                <div class="pt-2">
+                                    <button onclick="navigateTo('services')" class="bg-white text-slate-950 font-bold px-6 py-3 rounded-full shadow-lg hover:bg-slate-100 hover:scale-105 transition-all bounce-active text-sm">
+                                        Explore Menu <i class="fa-solid fa-arrow-right ml-2"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 2 -->
+                        <div class="absolute inset-0 transition-opacity duration-1000 opacity-0 slide-item">
+                            <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/60 to-transparent z-10"></div>
+                            <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=1469&auto=format&fit=crop" alt="Premium Facial Treatments" class="w-full h-full object-cover">
+                            <div class="absolute inset-y-0 left-0 z-20 flex flex-col justify-center px-6 md:px-16 max-w-xl text-white space-y-3 md:space-y-4">
+                                <span class="bg-ios-rose text-slate-900 font-bold tracking-widest text-[10px] md:text-xs py-1 px-3 rounded-full w-max">EXQUISITE BRIDAL & SKIN</span>
+                                <h1 class="text-3xl md:text-5xl font-black tracking-tight leading-tight">Instant Radiant Glow facials</h1>
+                                <p class="text-sm md:text-base text-slate-300">Nourishing cleanups, luxury organic gold/diamond skin treatment packages styled just for you.</p>
+                                <div class="pt-2">
+                                    <button onclick="scrollToServicesCategory('Facial')" class="bg-gradient-to-r from-ios-gold to-ios-rose text-white font-bold px-6 py-3 rounded-full shadow-lg hover:brightness-105 transition-all bounce-active text-sm">
+                                        View Facials <i class="fa-solid fa-spa ml-2"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Navigation Dots -->
+                    <div class="absolute bottom-4 right-6 z-30 flex space-x-2">
+                        <button onclick="setSlide(0)" class="w-3 h-3 rounded-full bg-white transition-all cursor-pointer slide-dot"></button>
+                        <button onclick="setSlide(1)" class="w-3 h-3 rounded-full bg-white/50 transition-all cursor-pointer slide-dot"></button>
+                    </div>
+                </div>
+
+                <!-- Google Business Summary Bar -->
+                <div class="glass-card rounded-3xl p-6 flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-16 bg-yellow-500/10 text-yellow-500 dark:text-ios-gold rounded-2xl flex items-center justify-center text-3xl font-extrabold border border-yellow-500/20">
+                            4.9
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-1.5 text-yellow-500 text-lg">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <span class="text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">4.9/5.0 Rating</span>
+                            </div>
+                            <h3 class="font-bold text-slate-800 dark:text-white mt-0.5">Recommended by 23+ Local Clients</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Hazardganj, Lucknow's Premium Online Home Salon</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <a href="tel:9696939316" class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-white font-semibold py-3 px-5 rounded-full transition-all text-sm bounce-active">
+                            <i class="fa-solid fa-phone text-ios-gold"></i> Tap To Call
+                        </a>
+                        <a href="https://wa.me/919696939316" target="_blank" class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 px-6 rounded-full transition-all shadow-md text-sm bounce-active">
+                            <i class="fa-brands fa-whatsapp text-lg"></i> Quick WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Custom iOS Quick Actions -->
+                <div class="space-y-4">
+                    <h2 class="text-xl font-bold text-slate-800 dark:text-white tracking-tight flex items-center gap-2">
+                        <span class="w-1 h-6 bg-ios-gold rounded-full"></span> Explore Popular Categories
+                    </h2>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                        <div onclick="scrollToServicesCategory('Waxing')" class="glass-card hover:border-ios-gold/40 p-5 rounded-2xl flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 bounce-active group">
+                            <div class="w-12 h-12 rounded-full bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-hot-tub-person"></i>
+                            </div>
+                            <h4 class="font-bold text-slate-800 dark:text-slate-100 text-sm">Waxing</h4>
+                            <p class="text-[10px] text-slate-500 mt-1">Smooth & Gentle Rica/Normal</p>
+                        </div>
+                        <div onclick="scrollToServicesCategory('Facial')" class="glass-card hover:border-ios-gold/40 p-5 rounded-2xl flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 bounce-active group">
+                            <div class="w-12 h-12 rounded-full bg-rose-100 dark:bg-rose-900/40 text-rose-600 dark:text-rose-400 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-face-smile-beam"></i>
+                            </div>
+                            <h4 class="font-bold text-slate-800 dark:text-slate-100 text-sm">Facials</h4>
+                            <p class="text-[10px] text-slate-500 mt-1">Luxury Organic glow</p>
+                        </div>
+                        <div onclick="scrollToServicesCategory('Manicure & Pedicure')" class="glass-card hover:border-ios-gold/40 p-5 rounded-2xl flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 bounce-active group">
+                            <div class="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-hand-holding-heart"></i>
+                            </div>
+                            <h4 class="font-bold text-slate-800 dark:text-slate-100 text-sm">Mani & Pedi</h4>
+                            <p class="text-[10px] text-slate-500 mt-1">Perfect finishing treats</p>
+                        </div>
+                        <div onclick="scrollToServicesCategory('Body Polishing')" class="glass-card hover:border-ios-gold/40 p-5 rounded-2xl flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 bounce-active group">
+                            <div class="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-900/40 text-purple-600 dark:text-purple-400 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-spa"></i>
+                            </div>
+                            <h4 class="font-bold text-slate-800 dark:text-slate-100 text-sm">Polishing</h4>
+                            <p class="text-[10px] text-slate-500 mt-1">Ultimate body indulgence</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Features Highlight Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="glass-card p-6 rounded-3xl relative overflow-hidden group">
+                        <div class="absolute -right-8 -top-8 w-24 h-24 bg-ios-gold/10 rounded-full group-hover:scale-150 transition-transform duration-500"></div>
+                        <div class="w-10 h-10 rounded-xl bg-ios-gold/20 text-ios-gold flex items-center justify-center text-lg mb-4">
+                            <i class="fa-solid fa-house-chimney"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800 dark:text-white">Pure Comfort</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">Skip the long waits at high-street crowded salons. We turn your home into an absolute spa zone with high-end sanitation.</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-3xl relative overflow-hidden group">
+                        <div class="absolute -right-8 -top-8 w-24 h-24 bg-ios-rose/10 rounded-full group-hover:scale-150 transition-transform duration-500"></div>
+                        <div class="w-10 h-10 rounded-xl bg-ios-rose/20 text-ios-rose flex items-center justify-center text-lg mb-4">
+                            <i class="fa-solid fa-heart-pulse"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800 dark:text-white">Hygiene Assured</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">Our certified artists carry sanitized tools, clean aprons, single-use high quality premium products, leaving no trace behind.</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-3xl relative overflow-hidden group">
+                        <div class="absolute -right-8 -top-8 w-24 h-24 bg-emerald-500/10 rounded-full group-hover:scale-150 transition-transform duration-500"></div>
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-500 flex items-center justify-center text-lg mb-4">
+                            <i class="fa-solid fa-receipt"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800 dark:text-white">Transparent Pricing</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">Prices include all local taxes. Pay precisely what's on the bill – no unexpected hidden add-on costs or dynamic travel surges.</p>
+                    </div>
+                </div>
+
+                <!-- Google Review Testimonials -->
+                <div class="space-y-4">
+                    <h2 class="text-xl font-bold text-slate-800 dark:text-white tracking-tight flex items-center gap-2">
+                        <span class="w-1 h-6 bg-ios-rose rounded-full"></span> Client Experiences
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 font-bold">
+                                            S
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-sm text-slate-800 dark:text-white">Shweta Singh</h4>
+                                            <p class="text-[10px] text-slate-500">Lucknow Client • Hazratganj</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex text-yellow-500 text-xs">
+                                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 italic">"Had an incredible hair spa and a stunning haircut! Doing this from the comfort of my home was so relaxing. Will definitely book again."</p>
+                            </div>
+                        </div>
+                        <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 font-bold">
+                                            R
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-sm text-slate-800 dark:text-white">Ritu Mishra</h4>
+                                            <p class="text-[10px] text-slate-500">Lucknow Client • Aliganj</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex text-yellow-500 text-xs">
+                                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 italic">"Great service and friendly staff. Highly professional. Their Rica wax and cleaning techniques are stellar, completely mess-free!"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SERVICES PAGE -->
+            <section id="page-services" class="page-transition hidden space-y-6">
+                <!-- Search & Filters -->
+                <div class="space-y-4">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div>
+                            <h1 class="text-2xl md:text-3xl font-black text-slate-800 dark:text-white tracking-tight">Our Premium Service Menu</h1>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Select services below to custom design your dynamic spa appointment bundle.</p>
+                        </div>
+                        
+                        <!-- Search Box (iOS Pill style) -->
+                        <div class="relative w-full md:w-80">
+                            <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                            <input type="text" id="service-search" placeholder="Search facial, wax, mani-pedi..." onkeyup="filterServices()" class="w-full bg-white dark:bg-slate-800 pl-11 pr-4 py-2.5 rounded-full border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-ios-gold text-sm transition-all shadow-sm">
+                        </div>
+                    </div>
+
+                    <!-- Category Pills (Horizontal Scroll bar) -->
+                    <div class="flex gap-2 overflow-x-auto pb-2 no-scrollbar scroll-smooth" id="categories-tabs">
+                        <!-- Filled by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Menu Service Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="services-grid">
+                    <!-- Dynamic services inserted by JavaScript -->
+                </div>
+            </section>
+
+            <!-- ABOUT & CONTACT PAGE -->
+            <section id="page-about" class="page-transition hidden space-y-12">
+                <!-- About Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-6">
+                        <span class="bg-ios-gold/10 text-ios-gold dark:text-ios-gold/90 border border-ios-gold/20 font-semibold tracking-wider text-xs py-1.5 px-4 rounded-full">
+                            WHO WE ARE
+                        </span>
+                        <h1 class="text-3xl md:text-4xl font-extrabold text-slate-800 dark:text-white tracking-tight">
+                            Bringing Premium At-Home Luxury Directly To Your Doorstep
+                        </h1>
+                        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                            <strong>AR Home Beauty Salon</strong> is premium home styling service based in Lucknow. We design custom beauty packages tailored to fit around your busy work-life schedules. No more driving, battling parking limits, or waiting in line at the parlour.
+                        </p>
+                        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                            Our team consists of verified professional estheticians using premium skin-friendly disposable kits. We use 100% genuine top-tier international standard cosmetic brands including Rica, Lotus, and Vedic.
+                        </p>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="p-4 bg-slate-50 dark:bg-slate-800/40 rounded-2xl border border-slate-200/40">
+                                <h4 class="font-bold text-lg text-ios-gold">9 AM - 6 PM</h4>
+                                <p class="text-xs text-slate-500">Everyday Services Available</p>
+                            </div>
+                            <div class="p-4 bg-slate-50 dark:bg-slate-800/40 rounded-2xl border border-slate-200/40">
+                                <h4 class="font-bold text-lg text-ios-gold">Inclusive Prices</h4>
+                                <p class="text-xs text-slate-500">Prices are inclusive of all taxes</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- iOS Card Mockup displaying Salon info -->
+                    <div class="glass-card p-6 rounded-3xl relative overflow-hidden shadow-2xl space-y-6 border border-slate-200 dark:border-slate-800 max-w-md mx-auto w-full">
+                        <div class="flex items-center gap-4 border-b border-slate-200/50 dark:border-slate-800 pb-4">
+                            <div class="w-12 h-12 bg-gradient-to-tr from-ios-gold to-ios-rose text-white font-extrabold flex items-center justify-center rounded-2xl shadow-md">
+                                AR
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-800 dark:text-white">AR Home Beauty Salon</h3>
+                                <div class="flex items-center gap-1.5 text-xs mt-0.5">
+                                    <span class="flex h-2 w-2 relative">
+                                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                      <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                                    </span>
+                                    <span class="text-emerald-500 font-bold">Open Now</span>
+                                    <span class="text-slate-400">•</span>
+                                    <span class="text-slate-500 dark:text-slate-400">Hazardganj, Lucknow</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contact items matching precise details -->
+                        <div class="space-y-4 text-sm">
+                            <div class="flex items-start gap-3">
+                                <div class="w-8 h-8 rounded-full bg-ios-gold/10 text-ios-gold flex items-center justify-center flex-shrink-0 mt-0.5">
+                                    <i class="fa-solid fa-map-location-dot"></i>
+                                </div>
+                                <div class="text-slate-600 dark:text-slate-300 text-xs">
+                                    <p class="font-bold text-slate-700 dark:text-white mb-0.5">Salon HQ Address</p>
+                                    4th Floor, Moti Mahal deluxe 94, Mahatma Gandhi Marg, Raj Bhavan Colony, Hazratganj, Lucknow, Uttar Pradesh 226001
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3">
+                                <div class="w-8 h-8 rounded-full bg-amber-500/10 text-amber-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </div>
+                                <div class="text-slate-600 dark:text-slate-300 text-xs">
+                                    <p class="font-bold text-slate-700 dark:text-white mb-0.5">Direct Enquiries</p>
+                                    Appointments via WhatsApp or Direct Call
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3">
+                                <div class="w-8 h-8 rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                    <i class="fa-brands fa-whatsapp"></i>
+                                </div>
+                                <div class="text-slate-600 dark:text-slate-300 text-xs">
+                                    <p class="font-bold text-slate-700 dark:text-white mb-0.5">Quick Booking Contact</p>
+                                    +91 9696939316 (Call & WhatsApp)
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action buttons -->
+                        <div class="flex gap-3 pt-2">
+                            <a href="https://maps.google.com/?q=Moti+Mahal+deluxe+Hazratganj+Lucknow" target="_blank" class="flex-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-white text-center font-bold py-2.5 px-4 rounded-xl text-xs transition-all bounce-active flex items-center justify-center gap-1.5">
+                                <i class="fa-solid fa-location-arrow"></i> Google Maps
+                            </a>
+                            <a href="tel:9696939316" class="flex-1 bg-gradient-to-r from-ios-gold to-ios-rose text-white text-center font-bold py-2.5 px-4 rounded-xl text-xs shadow-md transition-all bounce-active flex items-center justify-center gap-1.5">
+                                <i class="fa-solid fa-phone"></i> Direct Call
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive FAQs Section -->
+                <div class="max-w-3xl mx-auto space-y-6">
+                    <h2 class="text-2xl font-bold text-slate-800 dark:text-white tracking-tight text-center">Frequently Asked Questions</h2>
+                    <div class="space-y-4">
+                        <div class="glass-card rounded-2xl overflow-hidden border border-slate-200/50 dark:border-slate-800">
+                            <button onclick="toggleFaq(1)" class="w-full flex items-center justify-between p-5 text-left font-bold text-slate-800 dark:text-white focus:outline-none">
+                                <span>Do I need to arrange anything beforehand?</span>
+                                <i id="faq-chevron-1" class="fa-solid fa-chevron-down text-ios-gold transition-transform duration-300"></i>
+                            </button>
+                            <div id="faq-content-1" class="hidden px-5 pb-5 text-sm text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800/50 pt-3">
+                                No arrangement needed! Our professional stylist carries all tools, clean mats, and premium salon kits. All they need is access to regular warm/cold water and an electrical connection for the heating machines.
+                            </div>
+                        </div>
+                        <div class="glass-card rounded-2xl overflow-hidden border border-slate-200/50 dark:border-slate-800">
+                            <button onclick="toggleFaq(2)" class="w-full flex items-center justify-between p-5 text-left font-bold text-slate-800 dark:text-white focus:outline-none">
+                                <span>Are there any travel charges for Hazratganj or other locations?</span>
+                                <i id="faq-chevron-2" class="fa-solid fa-chevron-down text-ios-gold transition-transform duration-300"></i>
+                            </button>
+                            <div id="faq-content-2" class="hidden px-5 pb-5 text-sm text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800/50 pt-3">
+                                There are absolutely no travel charges added to your invoice for primary Hazratganj residential ranges. All our menu prices listed are inclusive of standard local service taxes.
+                            </div>
+                        </div>
+                        <div class="glass-card rounded-2xl overflow-hidden border border-slate-200/50 dark:border-slate-800">
+                            <button onclick="toggleFaq(3)" class="w-full flex items-center justify-between p-5 text-left font-bold text-slate-800 dark:text-white focus:outline-none">
+                                <span>How do I cancel or reschedule my appointment?</span>
+                                <i id="faq-chevron-3" class="fa-solid fa-chevron-down text-ios-gold transition-transform duration-300"></i>
+                            </button>
+                            <div id="faq-content-3" class="hidden px-5 pb-5 text-sm text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800/50 pt-3">
+                                You can cancel or reschedule absolutely free of charge by calling or dropping a quick message on WhatsApp (+91 9696939316) up to 2 hours before your scheduled session.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Floating iOS Bottom Tab Bar (App-like Mobile Nav) -->
+        <nav class="md:hidden fixed bottom-4 left-4 right-4 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-slate-200/30 dark:border-slate-800/50 h-16 rounded-3xl flex items-center justify-around shadow-xl px-2 ios-blur">
+            <button onclick="navigateTo('home')" class="mobile-nav-link flex flex-col items-center justify-center w-12 h-12 text-slate-400 transition-colors" data-page="home">
+                <i class="fa-solid fa-house text-lg"></i>
+                <span class="text-[9px] mt-1 font-semibold">Home</span>
+            </button>
+            <button onclick="navigateTo('services')" class="mobile-nav-link flex flex-col items-center justify-center w-12 h-12 text-slate-400 transition-colors" data-page="services">
+                <i class="fa-solid fa-scissors text-lg"></i>
+                <span class="text-[9px] mt-1 font-semibold">Services</span>
+            </button>
+            <button onclick="toggleCartSheet()" class="relative flex flex-col items-center justify-center w-12 h-12 text-slate-400 transition-colors">
+                <i class="fa-solid fa-basket-shopping text-lg text-slate-400" id="cart-nav-icon"></i>
+                <span class="absolute top-1 right-2 w-4 h-4 bg-ios-gold text-white text-[9px] font-bold rounded-full flex items-center justify-center hidden" id="cart-badge-count">0</span>
+                <span class="text-[9px] mt-1 font-semibold">Bookings</span>
+            </button>
+            <button onclick="navigateTo('about')" class="mobile-nav-link flex flex-col items-center justify-center w-12 h-12 text-slate-400 transition-colors" data-page="about">
+                <i class="fa-solid fa-compass text-lg"></i>
+                <span class="text-[9px] mt-1 font-semibold">About</span>
+            </button>
+        </nav>
+
+        <!-- Desktop Cart Floating Pill -->
+        <div class="hidden md:block fixed bottom-8 right-8 z-40">
+            <button onclick="toggleCartSheet()" class="bg-slate-900 hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 font-bold py-3 px-6 rounded-full shadow-2xl flex items-center gap-3 transition-transform hover:scale-105 active:scale-95 bounce-active border border-slate-800 dark:border-white">
+                <div class="relative">
+                    <i class="fa-solid fa-basket-shopping text-base"></i>
+                    <span class="absolute -top-2 -right-3 w-4 h-4 bg-ios-gold text-white text-[8px] rounded-full flex items-center justify-center hidden" id="desktop-cart-badge">0</span>
+                </div>
+                <span>Your Booking Selection</span>
+                <span id="desktop-cart-total" class="font-black bg-ios-gold text-slate-950 px-2 py-0.5 rounded-full text-xs">₹0</span>
+            </button>
+        </div>
+
+        <!-- Dynamic iOS bottom slide-up booking sheet -->
+        <div id="cart-bottom-sheet" class="fixed inset-0 z-50 bg-slate-950/40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+            <div id="cart-content" class="absolute bottom-0 left-0 right-0 max-w-xl mx-auto bg-white dark:bg-slate-900 rounded-t-[32px] p-6 shadow-2xl transition-transform duration-500 translate-y-full flex flex-col max-h-[85vh]">
+                <!-- Drag handle visual -->
+                <div class="w-12 h-1 bg-slate-200 dark:bg-slate-700 rounded-full mx-auto mb-4 cursor-pointer" onclick="toggleCartSheet()"></div>
+                
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-extrabold text-slate-800 dark:text-white">Review Pamper List</h3>
+                    <button onclick="toggleCartSheet()" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 flex items-center justify-center hover:scale-105 transition-transform">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <!-- Empty state container -->
+                <div id="cart-empty-view" class="flex flex-col items-center justify-center py-12 text-center space-y-4">
+                    <div class="w-20 h-20 rounded-full bg-slate-100 dark:bg-slate-800/50 flex items-center justify-center text-slate-400 dark:text-slate-600">
+                        <i class="fa-solid fa-leaf text-4xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-800 dark:text-white">Your list is looking empty!</h4>
+                        <p class="text-xs text-slate-400 mt-1 max-w-[280px]">Add waxing, threading, facial, or other premium products to construct your home luxury session.</p>
+                    </div>
+                    <button onclick="toggleCartSheet(); navigateTo('services')" class="bg-gradient-to-r from-ios-gold to-ios-rose text-white font-bold text-xs px-5 py-2.5 rounded-full shadow-lg">
+                        Browse Services
+                    </button>
+                </div>
+
+                <!-- Selected items wrapper -->
+                <div id="cart-items-container" class="space-y-3 overflow-y-auto no-scrollbar flex-grow hidden pr-1">
+                    <!-- Dynamic Cart elements injected via JS -->
+                </div>
+
+                <!-- Form & Summary -->
+                <div id="cart-summary-section" class="border-t border-slate-200/50 dark:border-slate-800 pt-4 mt-4 space-y-4 hidden">
+                    
+                    <!-- Pricing computation -->
+                    <div class="space-y-1.5 text-xs">
+                        <div class="flex justify-between text-slate-500">
+                            <span>Services Total</span>
+                            <span id="cart-subtotal" class="font-bold">₹0</span>
+                        </div>
+                        <div class="flex justify-between text-slate-500">
+                            <span>Travel & Consultation Charge</span>
+                            <span class="text-emerald-500 font-bold">FREE</span>
+                        </div>
+                        <div class="flex justify-between text-slate-500">
+                            <span>Inclusive of Taxes</span>
+                            <span class="font-bold">₹0</span>
+                        </div>
+                        <div class="flex justify-between text-base font-extrabold text-slate-800 dark:text-white pt-2 border-t border-slate-100 dark:border-slate-800/40">
+                            <span>Grand Total</span>
+                            <span id="cart-grandtotal" class="text-ios-gold font-black">₹0</span>
+                        </div>
+                    </div>
+
+                    <!-- Client Detail form for direct booking formulation -->
+                    <div class="space-y-2.5 bg-slate-50 dark:bg-slate-800/40 p-4 rounded-2xl border border-slate-200/50 dark:border-slate-800">
+                        <p class="text-[10px] uppercase font-bold tracking-widest text-ios-gold text-center mb-1">Appointment Details</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <input type="text" id="cust-name" placeholder="Full Name" class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 px-3 py-1.5 rounded-xl text-xs focus:outline-none">
+                            <input type="tel" id="cust-phone" placeholder="WhatsApp Number" class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 px-3 py-1.5 rounded-xl text-xs focus:outline-none">
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <input type="date" id="cust-date" class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 px-3 py-1.5 rounded-xl text-xs focus:outline-none">
+                            <select id="cust-time" class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 px-3 py-1.5 rounded-xl text-xs focus:outline-none">
+                                <option value="" disabled selected>Select Preferable Time Slot</option>
+                                <option value="09:00 AM - 11:00 AM">09:00 AM - 11:00 AM</option>
+                                <option value="11:00 AM - 01:00 PM">11:00 AM - 01:00 PM</option>
+                                <option value="01:00 PM - 03:00 PM">01:00 PM - 03:00 PM</option>
+                                <option value="03:00 PM - 05:00 PM">03:00 PM - 05:00 PM</option>
+                                <option value="05:00 PM - 06:00 PM">05:00 PM - 06:00 PM</option>
+                            </select>
+                        </div>
+                        <textarea id="cust-address" placeholder="At-Home Complete Address in Lucknow" rows="2" class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 px-3 py-1.5 rounded-xl text-xs focus:outline-none"></textarea>
+                    </div>
+
+                    <!-- Final book trigger buttons -->
+                    <div class="flex gap-2">
+                        <button onclick="confirmWhatsAppBooking()" class="flex-1 bg-gradient-to-r from-emerald-500 to-green-600 hover:brightness-105 text-white font-extrabold text-sm py-3 px-4 rounded-2xl shadow-lg transition-transform active:scale-95 flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-lg"></i> Send WhatsApp Booking
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Styled Notification Alert System (replaces standard alerts) -->
+        <div id="toast-message" class="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-slate-900 dark:bg-white text-white dark:text-slate-950 font-bold px-6 py-3 rounded-full shadow-2xl opacity-0 pointer-events-none transition-opacity duration-300 flex items-center gap-2.5">
+            <i class="fa-solid fa-circle-check text-ios-gold text-lg"></i>
+            <span id="toast-text" class="text-xs tracking-wide">Item Added to Session List</span>
+        </div>
+
+        <!-- Footer -->
+        <footer class="bg-slate-900 text-slate-400 py-12 px-4 sm:px-6 lg:px-8 border-t border-slate-800 mt-12">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-gradient-to-tr from-ios-gold to-ios-rose text-white font-black flex items-center justify-center rounded-xl">
+                            AR
+                        </div>
+                        <div>
+                            <h3 class="text-white font-extrabold tracking-wider leading-none">AR HOME BEAUTY SALON</h3>
+                            <span class="text-[10px] text-ios-gold font-bold uppercase tracking-widest">Premium At-Home Luxury</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed max-w-sm">We provide high-quality premium aesthetic spa treatments in Lucknow, delivering complete hygienic salon solutions within home comfort.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Contact & timings</h4>
+                    <p class="text-xs leading-relaxed">
+                        Monday - Sunday: 9:00 AM - 6:00 PM <br>
+                        Address: Hazratganj, Lucknow, UP<br>
+                        Direct Call Line: +91 9696939316
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Quality Assurance</h4>
+                    <p class="text-xs leading-relaxed">
+                        Prices are completely inclusive of all local taxes. All safety standard certifications are verified. No surge fee applied.
+                    </p>
+                </div>
+            </div>
+            <div class="max-w-7xl mx-auto border-t border-slate-800/80 mt-10 pt-6 text-center text-[10px] text-slate-500 tracking-wider">
+                &copy; 2026 AR Home Beauty Salon Lucknow. All rights reserved. Designed to GitHub Deploy specification.
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- MAIN INTERACTIVE JAVASCRIPT LOGIC -->
+    <script>
+        // 1. SERVICES MENU DATABASE
+        const SERVICES_DATABASE = [
+            // Category: Waxing
+            { id: 'wax-1', category: 'Waxing', subcat: 'Waxing Normal', name: 'Normal Underarms Waxing', price: 49, duration: '10 Min' },
+            { id: 'wax-2', category: 'Waxing', subcat: 'Waxing Normal', name: 'Normal Full Hand Waxing', price: 149, duration: '20 Min' },
+            { id: 'wax-3', category: 'Waxing', subcat: 'Waxing Normal', name: 'Normal Bikini Waxing', price: 249, duration: '35 Min' },
+            { id: 'wax-4', category: 'Waxing', subcat: 'Waxing Normal', name: 'Normal Full Leg Waxing', price: 299, duration: '30 Min' },
+            { id: 'wax-5', category: 'Waxing', subcat: 'Waxing Normal', name: 'Normal Full Body Waxing', price: 899, duration: '75 Min' },
+            { id: 'wax-6', category: 'Waxing', subcat: 'Rica Wax', name: 'Premium Rica Underarms Waxing', price: 99, duration: '10 Min' },
+            { id: 'wax-7', category: 'Waxing', subcat: 'Rica Wax', name: 'Premium Rica Full Hand Waxing', price: 349, duration: '25 Min' },
+            { id: 'wax-8', category: 'Waxing', subcat: 'Rica Wax', name: 'Premium Rica Bikini Waxing', price: 449, duration: '40 Min' },
+            { id: 'wax-9', category: 'Waxing', subcat: 'Rica Wax', name: 'Premium Rica Full Leg Waxing', price: 499, duration: '35 Min' },
+            { id: 'wax-10', category: 'Waxing', subcat: 'Rica Wax', name: 'Premium Rica Full Body Waxing', price: 1499, duration: '90 Min' },
+
+            // Category: Manicure & Pedicure
+            { id: 'mani-1', category: 'Manicure & Pedicure', name: 'Basic Manicure/Pedicure combo', price: 349, duration: '40 Min' },
+            { id: 'mani-2', category: 'Manicure & Pedicure', name: 'Deluxe Restorative Manicure/Pedicure', price: 499, duration: '55 Min' },
+            { id: 'mani-3', category: 'Manicure & Pedicure', name: 'Aroma Therapeutic Manicure/Pedicure', price: 599, duration: '60 Min' },
+
+            // Category: Fruits Bleach
+            { id: 'bleach-1', category: 'Fruits Bleach', name: 'Face & Neck Fruit Bleach', price: 199, duration: '20 Min' },
+            { id: 'bleach-2', category: 'Fruits Bleach', name: 'Oxy Bleach Face & Neck Treatment', price: 249, duration: '25 Min' },
+            { id: 'bleach-3', category: 'Fruits Bleach', name: 'Full Body Radiance Bleach', price: 499, duration: '50 Min' },
+
+            // Category: Threading & Detan
+            { id: 'thread-1', category: 'Threading & Detan', subcat: 'THREADING', name: 'Threading: Chin Care', price: 19, duration: '5 Min' },
+            { id: 'thread-2', category: 'Threading & Detan', subcat: 'THREADING', name: 'Threading: Forehead', price: 19, duration: '5 Min' },
+            { id: 'thread-3', category: 'Threading & Detan', subcat: 'THREADING', name: 'Threading: Upperlips', price: 19, duration: '5 Min' },
+            { id: 'thread-4', category: 'Threading & Detan', subcat: 'THREADING', name: 'Threading: Neck Area', price: 19, duration: '5 Min' },
+            { id: 'thread-5', category: 'Threading & Detan', subcat: 'THREADING', name: 'Threading: Precision Eyebrow', price: 29, duration: '8 Min' },
+            { id: 'detan-1', category: 'Threading & Detan', subcat: 'DETAN', name: 'Skin Brightening Underarms Detan', price: 79, duration: '15 Min' },
+            { id: 'detan-2', category: 'Threading & Detan', subcat: 'DETAN', name: 'Face & Neck Premium Detan', price: 149, duration: '20 Min' },
+            { id: 'detan-3', category: 'Threading & Detan', subcat: 'DETAN', name: 'Full Hands Hydrating Detan', price: 249, duration: '30 Min' },
+
+            // Category: Cleanup
+            { id: 'clean-1', category: 'Cleanup', name: 'Organic Fruits Refreshing Cleanup', price: 149, duration: '25 Min' },
+            { id: 'clean-2', category: 'Cleanup', name: 'Soothe Pearl Glow Cleanup', price: 149, duration: '25 Min' },
+            { id: 'clean-3', category: 'Cleanup', name: 'Pure Gold Lustre Cleanup', price: 199, duration: '30 Min' },
+            { id: 'clean-4', category: 'Cleanup', name: 'Diamond Radiance Shield Cleanup', price: 249, duration: '30 Min' },
+            { id: 'clean-5', category: 'Cleanup', name: 'Activated Charcoal Deep Cleanup', price: 249, duration: '30 Min' },
+
+            // Category: Facial
+            { id: 'facial-1', category: 'Facial', name: 'Organic Fruits Nourishing Facial', price: 449, duration: '45 Min' },
+            { id: 'facial-2', category: 'Facial', name: 'Pure Gold Bridal Glow Facial', price: 499, duration: '50 Min' },
+            { id: 'facial-3', category: 'Facial', name: 'Pearl Radiance Whitening Facial', price: 499, duration: '50 Min' },
+            { id: 'facial-4', category: 'Facial', name: 'Diamond Youth Restoration Facial', price: 499, duration: '50 Min' },
+            { id: 'facial-5', category: 'Facial', name: 'Vitamin C Brightening facial', price: 599, duration: '55 Min' },
+            { id: 'facial-6', category: 'Facial', name: 'Red Wine Age Defying facial', price: 699, duration: '60 Min' },
+            { id: 'facial-7', category: 'Facial', name: 'Lotus Whitening Elite Therapy', price: 699, duration: '60 Min' },
+
+            // Category: Haircuts
+            { id: 'hair-1', category: 'Haircuts', name: 'Elite Straight Hair Cut', price: 99, duration: '20 Min' },
+            { id: 'hair-2', category: 'Haircuts', name: 'Creative U-Shape Hair Cut', price: 149, duration: '25 Min' },
+            { id: 'hair-3', category: 'Haircuts', name: 'Premium V-Shape Styling Cut', price: 179, duration: '30 Min' },
+
+            // Category: Body Polishing
+            { id: 'polish-1', category: 'Body Polishing', name: 'Premium Full Body Polishing', price: 1599, duration: '120 Min' }
+        ];
+
+        // 2. STATE CONTROLLERS
+        let currentSlide = 0;
+        let cart = [];
+        let activeCategory = 'All';
+
+        // 3. PAGE ROUTER SIMULATOR
+        function navigateTo(pageId) {
+            // Hide all pages
+            document.querySelectorAll('section[id^="page-"]').forEach(section => {
+                section.classList.add('hidden');
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(15px)';
+            });
+
+            // Show active page
+            const targetPage = document.getElementById(`page-${pageId}`);
+            if (targetPage) {
+                targetPage.classList.remove('hidden');
+                // Allow browser drawing frame to register hidden state removal, then fade in with iOS spring animation
+                setTimeout(() => {
+                    targetPage.style.opacity = '1';
+                    targetPage.style.transform = 'translateY(0px)';
+                }, 50);
+            }
+
+            // Update Header links focus state
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('data-page') === pageId) {
+                    link.classList.add('text-ios-gold', 'dark:text-ios-gold', 'font-black');
+                    link.classList.remove('text-slate-600', 'dark:text-slate-300');
+                } else {
+                    link.classList.remove('text-ios-gold', 'dark:text-ios-gold', 'font-black');
+                    link.classList.add('text-slate-600', 'dark:text-slate-300');
+                }
+            });
+
+            // Update Bottom Mobile navigation links
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                if (link.getAttribute('data-page') === pageId) {
+                    link.classList.add('text-ios-gold', 'dark:text-ios-gold');
+                    link.classList.remove('text-slate-400');
+                } else {
+                    link.classList.remove('text-ios-gold', 'dark:text-ios-gold');
+                    link.classList.add('text-slate-400');
+                }
+            });
+
+            // Scroll to the top of screen
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 4. IMAGE CAROUSEL LOGIC
+        function setSlide(index) {
+            const slides = document.querySelectorAll('.slide-item');
+            const dots = document.querySelectorAll('.slide-dot');
+            if (index >= slides.length) index = 0;
+            if (index < 0) index = slides.length - 1;
+            
+            slides.forEach((slide, idx) => {
+                slide.style.opacity = idx === index ? '1' : '0';
+                slide.style.pointerEvents = idx === index ? 'auto' : 'none';
+            });
+
+            dots.forEach((dot, idx) => {
+                if (idx === index) {
+                    dot.classList.add('bg-white', 'w-6');
+                    dot.classList.remove('bg-white/50', 'w-3');
+                } else {
+                    dot.classList.remove('bg-white', 'w-6');
+                    dot.classList.add('bg-white/50', 'w-3');
+                }
+            });
+
+            currentSlide = index;
+        }
+
+        // Auto Slider execution loop
+        setInterval(() => {
+            setSlide(currentSlide + 1);
+        }, 5000);
+
+        // 5. THEME SWITCHING (DARK / LIGHT)
+        const themeBtn = document.getElementById('theme-toggle');
+        themeBtn.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.contains('dark');
+            if (isDark) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // 6. BUILD SERVICES LAYOUT DYNAMICALLY
+        function initServicesMenu() {
+            // Dynamically generate unique category titles list
+            const categories = ['All', ...new Set(SERVICES_DATABASE.map(s => s.category))];
+            const tabContainer = document.getElementById('categories-tabs');
+            tabContainer.innerHTML = '';
+
+            categories.forEach(cat => {
+                const button = document.createElement('button');
+                button.className = `category-pill px-5 py-2 rounded-full font-bold text-xs whitespace-nowrap transition-all bounce-active border focus:outline-none ${
+                    cat === 'All' 
+                    ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 border-slate-900 dark:border-white shadow-md' 
+                    : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-ios-gold/40'
+                }`;
+                button.textContent = cat;
+                button.onclick = () => filterByCategory(cat, button);
+                tabContainer.appendChild(button);
+            });
+
+            renderServiceGrid(SERVICES_DATABASE);
+        }
+
+        function renderServiceGrid(items) {
+            const grid = document.getElementById('services-grid');
+            grid.innerHTML = '';
+
+            if (items.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full py-16 text-center space-y-3">
+                        <i class="fa-solid fa-cookie-bite text-4xl text-slate-300 dark:text-slate-700"></i>
+                        <p class="text-slate-500 font-semibold">No treatments match your filters.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Grouping services by sub-categories within main category for cleaner iOS flow (e.g. Normal Wax vs Rica Wax)
+            items.forEach(service => {
+                const isSelected = cart.some(item => item.id === service.id);
+                const card = document.createElement('div');
+                // Rounded beautiful responsive styling
+                card.className = "glass-card rounded-2xl p-5 border border-slate-200/50 dark:border-slate-800 flex flex-col justify-between hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 relative";
+                
+                // Content inside
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] font-black tracking-widest text-ios-gold uppercase bg-ios-gold/10 dark:bg-ios-gold/5 py-1 px-2 rounded-md">
+                                ${service.subcat || service.category}
+                            </span>
+                            <span class="text-xs text-slate-400 dark:text-slate-500 font-medium">
+                                <i class="fa-regular fa-clock mr-1"></i>${service.duration}
+                            </span>
+                        </div>
+                        <h4 class="font-extrabold text-slate-800 dark:text-white mt-3 text-base group-hover:text-ios-gold transition-colors">${service.name}</h4>
+                    </div>
+                    <div class="flex items-center justify-between mt-6 pt-3 border-t border-slate-100 dark:border-slate-800/40">
+                        <div>
+                            <span class="text-[10px] text-slate-400 block font-medium">Prices Inclusive of Taxes</span>
+                            <span class="text-lg font-black text-slate-900 dark:text-white">₹${service.price}</span>
+                        </div>
+                        <button onclick="toggleCartItem('${service.id}')" id="btn-${service.id}" class="h-9 w-24 rounded-full font-bold text-xs flex items-center justify-center transition-all bounce-active ${
+                            isSelected 
+                            ? 'bg-rose-500 hover:bg-rose-600 text-white shadow-md' 
+                            : 'bg-slate-900 hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-950 shadow-md'
+                        }">
+                            ${isSelected ? '<i class="fa-solid fa-minus mr-1"></i> Remove' : '<i class="fa-solid fa-plus mr-1"></i> Add'}
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Search engine filter logic
+        function filterServices() {
+            const query = document.getElementById('service-search').value.toLowerCase();
+            const filtered = SERVICES_DATABASE.filter(service => {
+                const matchesSearch = service.name.toLowerCase().includes(query) || 
+                                      service.category.toLowerCase().includes(query) ||
+                                      (service.subcat && service.subcat.toLowerCase().includes(query));
+                const matchesCategory = activeCategory === 'All' || service.category === activeCategory;
+                return matchesSearch && matchesCategory;
+            });
+            renderServiceGrid(filtered);
+        }
+
+        // Tab selection modifier logic
+        function filterByCategory(cat, activeBtn) {
+            activeCategory = cat;
+            
+            // Adjust visual look on tabs list
+            document.querySelectorAll('.category-pill').forEach(btn => {
+                btn.className = "category-pill px-5 py-2 rounded-full font-bold text-xs whitespace-nowrap transition-all bounce-active border focus:outline-none bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-ios-gold/40";
+            });
+            activeBtn.className = "category-pill px-5 py-2 rounded-full font-bold text-xs whitespace-nowrap transition-all bounce-active border focus:outline-none bg-slate-900 dark:bg-white text-white dark:text-slate-900 border-slate-900 dark:border-white shadow-md";
+
+            filterServices();
+        }
+
+        // Direct scroll interaction triggers
+        function scrollToServicesCategory(catName) {
+            navigateTo('services');
+            // Wait for smooth transition sequence to load tabs container then simulate clicks
+            setTimeout(() => {
+                const pills = document.querySelectorAll('.category-pill');
+                pills.forEach(pill => {
+                    if (pill.textContent.trim().toLowerCase() === catName.toLowerCase()) {
+                        pill.click();
+                        pill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                    }
+                });
+            }, 350);
+        }
+
+        // 7. CART SYSTEM ENGINE
+        function toggleCartItem(id) {
+            const itemIndex = cart.findIndex(item => item.id === id);
+            const service = SERVICES_DATABASE.find(s => s.id === id);
+
+            if (itemIndex > -1) {
+                // Delete existing selection item
+                cart.splice(itemIndex, 1);
+                showToast(`Removed: ${service.name}`);
+            } else {
+                // Create selection
+                cart.push(service);
+                showToast(`Added: ${service.name}`);
+            }
+
+            // Sync visual button state modifications instantly
+            updateServiceButtons(id);
+            syncCartDetails();
+        }
+
+        function updateServiceButtons(id) {
+            const isSelected = cart.some(item => item.id === id);
+            const btn = document.getElementById(`btn-${id}`);
+            if (btn) {
+                if (isSelected) {
+                    btn.className = "h-9 w-24 rounded-full font-bold text-xs flex items-center justify-center transition-all bounce-active bg-rose-500 hover:bg-rose-600 text-white shadow-md";
+                    btn.innerHTML = '<i class="fa-solid fa-minus mr-1"></i> Remove';
+                } else {
+                    btn.className = "h-9 w-24 rounded-full font-bold text-xs flex items-center justify-center transition-all bounce-active bg-slate-900 hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-950 shadow-md";
+                    btn.innerHTML = '<i class="fa-solid fa-plus mr-1"></i> Add';
+                }
+            }
+        }
+
+        function syncCartDetails() {
+            const totalItems = cart.length;
+            const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+
+            // Update floating action indicators
+            const badgeCount = document.getElementById('cart-badge-count');
+            const dBadge = document.getElementById('desktop-cart-badge');
+            const dTotal = document.getElementById('desktop-cart-total');
+
+            if (totalItems > 0) {
+                badgeCount.textContent = totalItems;
+                badgeCount.classList.remove('hidden');
+                dBadge.textContent = totalItems;
+                dBadge.classList.remove('hidden');
+            } else {
+                badgeCount.classList.add('hidden');
+                dBadge.classList.add('hidden');
+            }
+            dTotal.textContent = `₹${subtotal}`;
+
+            // Sync slide sheet content variables
+            const emptyView = document.getElementById('cart-empty-view');
+            const container = document.getElementById('cart-items-container');
+            const summary = document.getElementById('cart-summary-section');
+
+            if (totalItems === 0) {
+                emptyView.classList.remove('hidden');
+                container.classList.add('hidden');
+                summary.classList.add('hidden');
+            } else {
+                emptyView.classList.add('hidden');
+                container.classList.remove('hidden');
+                summary.classList.remove('hidden');
+
+                // Render dynamic item list rows inside slide sheet
+                container.innerHTML = '';
+                cart.forEach(item => {
+                    const row = document.createElement('div');
+                    row.className = "flex items-center justify-between p-3.5 bg-slate-50 dark:bg-slate-800/60 border border-slate-200/50 dark:border-slate-800/60 rounded-2xl relative group";
+                    row.innerHTML = `
+                        <div class="pr-6">
+                            <span class="text-[9px] font-bold text-ios-gold uppercase block">${item.subcat || item.category}</span>
+                            <h5 class="font-bold text-xs text-slate-800 dark:text-white mt-0.5 leading-tight">${item.name}</h5>
+                            <span class="text-[10px] text-slate-400 block mt-1"><i class="fa-regular fa-clock mr-1"></i>${item.duration}</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="font-extrabold text-sm text-slate-900 dark:text-white">₹${item.price}</span>
+                            <button onclick="toggleCartItem('${item.id}')" class="text-rose-500 hover:text-rose-600 focus:outline-none p-1">
+                                <i class="fa-regular fa-trash-can text-base"></i>
+                            </button>
+                        </div>
+                    `;
+                    container.appendChild(row);
+                });
+
+                // Compute invoice prices details
+                document.getElementById('cart-subtotal').textContent = `₹${subtotal}`;
+                document.getElementById('cart-grandtotal').textContent = `₹${subtotal}`;
+            }
+        }
+
+        // 8. ACTIONS ON SHEET (OPEN/CLOSE MODAL)
+        function toggleCartSheet() {
+            const sheet = document.getElementById('cart-bottom-sheet');
+            const content = document.getElementById('cart-content');
+            const isShown = !sheet.classList.contains('pointer-events-none');
+
+            if (isShown) {
+                // Exit Animation sequence
+                content.classList.add('translate-y-full');
+                sheet.classList.add('opacity-0');
+                setTimeout(() => {
+                    sheet.classList.add('pointer-events-none');
+                }, 300);
+            } else {
+                // Entry animation sequence
+                sheet.classList.remove('pointer-events-none');
+                sheet.classList.remove('opacity-0');
+                // Wait frame for pointer-event cleanup
+                setTimeout(() => {
+                    content.classList.remove('translate-y-full');
+                }, 50);
+            }
+        }
+
+        // Close when clicking directly on background blur/dim zone
+        document.getElementById('cart-bottom-sheet').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('cart-bottom-sheet')) {
+                toggleCartSheet();
+            }
+        });
+
+        // 9. FORM SUBMISSION GENERATING DYNAMIC WHATSAPP LINKS
+        function confirmWhatsAppBooking() {
+            const name = document.getElementById('cust-name').value.trim();
+            const phone = document.getElementById('cust-phone').value.trim();
+            const date = document.getElementById('cust-date').value;
+            const time = document.getElementById('cust-time').value;
+            const address = document.getElementById('cust-address').value.trim();
+
+            if (!name || !phone || !date || !time || !address) {
+                showToast("Please complete all appointment details!");
+                return;
+            }
+
+            // Construct list string text formatting
+            let serviceList = "";
+            let grandTotal = 0;
+            cart.forEach((item, index) => {
+                serviceList += `\n${index + 1}. ${item.name} (₹${item.price})`;
+                grandTotal += item.price;
+            });
+
+            // Base format body content matching WhatsApp requirements
+            const textString = `✨ *AR Home Beauty Salon* ✨
+🌸 *Luxury Home Booking Confirmed* 🌸
+
+👤 *Client Name:* ${name}
+📞 *WhatsApp Contact:* ${phone}
+📅 *Date Request:* ${date}
+⏰ *Preferred Time Window:* ${time}
+🏠 *Service Address:* ${address}
+
+💇 *Selected Services List:* ${serviceList}
+
+━━━━━━━━━━━━━━━━━━━━━
+🌟 *Invoice Grand Total:* ₹${grandTotal} (Inclusive of Taxes)
+━━━━━━━━━━━━━━━━━━━━━
+_Please verify details to lock slot timing_`;
+
+            const encoded = encodeURIComponent(textString);
+            const targetPhone = "919696939316"; // AR Home Beauty Salon Business contact line
+            const waUrl = `https://wa.me/${targetPhone}?text=${encoded}`;
+
+            // Trigger window redirect safely
+            window.open(waUrl, '_blank');
+        }
+
+        // 10. FAQ ACCORDION LOGIC
+        function toggleFaq(id) {
+            const content = document.getElementById(`faq-content-${id}`);
+            const chevron = document.getElementById(`faq-chevron-${id}`);
+            const isHidden = content.classList.contains('hidden');
+
+            if (isHidden) {
+                content.classList.remove('hidden');
+                chevron.style.transform = 'rotate(180deg)';
+            } else {
+                content.classList.add('hidden');
+                chevron.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // 11. CUSTOM TOAST NOTIFICATION ALERTS
+        let toastTimeout;
+        function showToast(text) {
+            const toast = document.getElementById('toast-message');
+            const toastText = document.getElementById('toast-text');
+            
+            toastText.textContent = text;
+            toast.classList.remove('opacity-0', 'pointer-events-none');
+            
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.add('opacity-0', 'pointer-events-none');
+            }, 2500);
+        }
+
+        // 12. RUN INITIALIZATIONS AFTER LOADING WINDOW
+        window.onload = function() {
+            // Hide splash screen transition
+            const splash = document.getElementById('splash-screen');
+            setTimeout(() => {
+                splash.classList.add('opacity-0', 'pointer-events-none');
+            }, 1200);
+
+            // LocalStorage dark/light theme restore checking
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+
+            // Init custom system menu grid and tabs
+            initServicesMenu();
+            setSlide(0);
+            navigateTo('home');
+        };
+    </script>
+</body>
+</html>
