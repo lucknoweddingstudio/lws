@@ -118,8 +118,8 @@
         <!-- Dashboard Links -->
         <div class="space-y-3">
 
-            <!-- Portfolio -->
-            <a href="https://lucknoweddingstudio.github.io/lws/portfolio/" 
+            <!-- Portfolio (Dynamic Relative Path) -->
+            <a href="./portfolio/" 
                class="liquid-glass ios-btn flex items-center p-4 rounded-[1.8rem] group no-underline animate-item" style="animation-delay: 0.2s;">
                 <div class="bg-gradient-to-br from-rose-500 to-rose-700 w-12 h-12 flex items-center justify-center rounded-xl mr-4 shadow-lg group-hover:rotate-3 transition-transform">
                     <span class="text-white font-black text-sm tracking-tighter">LWS</span>
@@ -131,8 +131,8 @@
                 <i data-lucide="chevron-right" class="text-white/30 group-hover:translate-x-1 transition-transform"></i>
             </a>
             
-            <!-- Finance -->
-            <a href="https://lucknoweddingstudio.github.io/lws/portal/" 
+            <!-- Finance (Dynamic Relative Path) -->
+            <a href="./portal/" 
                class="liquid-glass ios-btn flex items-center p-4 rounded-[1.8rem] group no-underline animate-item" style="animation-delay: 0.3s;">
                 <div class="bg-gradient-to-br from-blue-500 to-blue-700 p-3 rounded-xl mr-4 shadow-lg group-hover:rotate-3 transition-transform">
                     <i data-lucide="wallet" class="text-white w-6 h-6"></i>
@@ -144,8 +144,8 @@
                 <i data-lucide="chevron-right" class="text-white/30 group-hover:translate-x-1 transition-transform"></i>
             </a>
 
-            <!-- Quotation -->
-            <a href="https://lucknoweddingstudio.github.io/lws/calculator/" 
+            <!-- Quotation (Dynamic Relative Path) -->
+            <a href="./calculator/" 
                class="liquid-glass ios-btn flex items-center p-4 rounded-[1.8rem] group no-underline animate-item" style="animation-delay: 0.4s;">
                 <div class="bg-gradient-to-br from-amber-500 to-amber-700 p-3 rounded-xl mr-4 shadow-lg group-hover:rotate-3 transition-transform">
                     <i data-lucide="calculator" class="text-white w-6 h-6"></i>
@@ -157,8 +157,8 @@
                 <i data-lucide="chevron-right" class="text-white/30 group-hover:translate-x-1 transition-transform"></i>
             </a>
 
-            <!-- Team Availability -->
-            <a href="https://lucknoweddingstudio.github.io/lws/calender/" 
+            <!-- Team Availability (Dynamic Relative Path) -->
+            <a href="./calender/" 
                class="liquid-glass ios-btn flex items-center p-4 rounded-[1.8rem] group no-underline animate-item" style="animation-delay: 0.5s;">
                 <div class="bg-gradient-to-br from-emerald-500 to-emerald-700 p-3 rounded-xl mr-4 shadow-lg group-hover:rotate-3 transition-transform">
                     <i data-lucide="calendar-days" class="text-white w-6 h-6"></i>
@@ -170,8 +170,8 @@
                 <i data-lucide="chevron-right" class="text-white/30 group-hover:translate-x-1 transition-transform"></i>
             </a>
 
-            <!-- Payment -->
-            <a href="https://lucknoweddingstudio.github.io/lws/payment/" 
+            <!-- Payment (Dynamic Relative Path) -->
+            <a href="./payment/" 
                class="liquid-glass ios-btn flex items-center p-4 rounded-[1.8rem] group no-underline animate-item" style="animation-delay: 0.6s;">
                 <div class="bg-gradient-to-br from-indigo-500 to-indigo-700 p-3 rounded-xl mr-4 shadow-lg group-hover:rotate-3 transition-transform">
                     <i data-lucide="indian-rupee" class="text-white w-6 h-6"></i>
@@ -183,8 +183,8 @@
                 <i data-lucide="chevron-right" class="text-white/30 group-hover:translate-x-1 transition-transform"></i>
             </a>
 
-            <!-- Invoice (NEW SECTION) -->
-            <a href="https://lucknoweddingstudio.github.io/lws/Invoice/" 
+            <!-- Invoice (Dynamic Relative Path) -->
+            <a href="./Invoice/" 
                class="liquid-glass ios-btn flex items-center p-4 rounded-[1.8rem] group no-underline animate-item" style="animation-delay: 0.7s;">
                 <div class="bg-gradient-to-br from-purple-500 to-purple-700 p-3 rounded-xl mr-4 shadow-lg group-hover:rotate-3 transition-transform">
                     <i data-lucide="file-text" class="text-white w-6 h-6"></i>
@@ -214,8 +214,10 @@
     </div>
 
     <script>
+        // Initialize Lucide icons
         lucide.createIcons();
 
+        // Copy dynamic URL handler (automatically handles whatever domain it is currently hosted on)
         function copyCurrentURL() {
             const textToCopy = window.location.href;
             const temp = document.createElement('input');
@@ -225,9 +227,10 @@
             document.execCommand('copy');
             document.body.removeChild(temp);
             
-            // Minimalist feedback could be added here if needed
+            // Optional: visual feedback can be added here
         }
 
+        // Handle body scroll options on window load
         setTimeout(() => {
             if (window.innerHeight > 800) {
                 document.body.style.overflow = 'hidden';
