@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Link-in-Bio Builder</title>
+    
+    <!-- Tailwind CSS for modern responsive utility styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts for ultra-premium typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;800&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for sleek social icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-glow: rgba(99, 102, 241, 0.25);
+            --secondary-glow: rgba(244, 63, 94, 0.2);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #090d16;
+            color: #f3f4f6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            transition: background 0.8s ease, background-image 0.8s ease;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .heading-font {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Animated glowing atmosphere spheres */
+        .glowing-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.45;
+            z-index: 0;
+            pointer-events: none;
+            transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes float-slow {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-30px) scale(1.08); }
+        }
+
+        @keyframes float-reverse {
+            0%, 100% { transform: translateY(0px) scale(1.08); }
+            50% { transform: translateY(30px) scale(0.92); }
+        }
+
+        .floating-1 { animation: float-slow 14s ease-in-out infinite; }
+        .floating-2 { animation: float-reverse 16s ease-in-out infinite; }
+
+        /* Premium Glassmorphic container with deep shadow dynamics */
+        .glass-card {
+            background: rgba(10, 15, 30, 0.65);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(255, 255, 255, 0.18);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.55), 0 0 50px rgba(99, 102, 241, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* Premium hover shine transition for cards */
+        .btn-premium {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .btn-premium::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.15),
+                transparent
+            );
+            transition: 0.6s;
+        }
+
+        .btn-premium:hover::before {
+            left: 100%;
+        }
+
+        /* Customized scrollbars */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(9, 13, 22, 0.9);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="relative min-h-screen flex flex-col justify-between overflow-x-hidden">
+
+    <!-- Background Ambient Orbs (Modified via Customizer) -->
+    <div id="orb-container" class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <div id="orb-1" class="glowing-orb floating-1 bg-indigo-600 w-[350px] h-[350px] sm:w-[600px] sm:h-[600px] top-[-10%] left-[-5%]"></div>
+        <div id="orb-2" class="glowing-orb floating-2 bg-rose-600 w-[350px] h-[350px] sm:w-[600px] sm:h-[600px] bottom-[-10%] right-[-5%]"></div>
+        <div id="orb-3" class="glowing-orb floating-1 bg-violet-600 w-[250px] h-[250px] sm:w-[400px] sm:h-[400px] top-[35%] right-[15%]" style="animation-delay: -4s;"></div>
+    </div>
+
+    <!-- Main Interactive Card Frame -->
+    <main class="relative z-10 flex-grow flex items-center justify-center p-4 sm:p-6 md:p-8 mt-6 mb-6">
+        <div class="w-full max-w-xl">
+            
+            <!-- Standard Glassmorphic Carrd Box -->
+            <div id="main-card" class="glass-card rounded-3xl p-6 sm:p-10 text-center relative overflow-hidden">
+                
+                <!-- Inner Border Outline -->
+                <div class="absolute inset-0 pointer-events-none border border-white/5 rounded-3xl" id="card-inner-border"></div>
+
+                <!-- Profile Info Block -->
+                <div class="relative mb-6">
+                    <!-- Glowing Avatar Container -->
+                    <div class="inline-block relative">
+                        <div id="avatar-glow" class="absolute inset-0 bg-gradient-to-r from-indigo-500 to-rose-500 rounded-full blur-xl opacity-80 scale-95 transition-all duration-700"></div>
+                        <img id="profile-img" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250&h=250" 
+                             alt="Profile Image" 
+                             class="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full border-2 border-white/20 object-cover mx-auto shadow-2xl transition-all duration-300">
+                        <span id="profile-badge" class="absolute bottom-1 right-2 bg-emerald-500 w-4 h-4 rounded-full border-2 border-[#090d16] flex items-center justify-center" title="Active Status"></span>
+                    </div>
+
+                    <!-- Profile Name, Handle & Text Bio -->
+                    <h1 id="profile-name" class="heading-font text-3xl sm:text-4xl font-extrabold tracking-tight mt-5 text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-slate-300">
+                        LWS Link Hub
+                    </h1>
+                    <p id="profile-tagline" class="text-indigo-400 font-semibold text-sm sm:text-base mt-1.5 tracking-wider uppercase">
+                        @lws_hub
+                    </p>
+                    
+                    <p id="profile-bio" class="text-slate-300 text-sm sm:text-base mt-4 max-w-sm mx-auto leading-relaxed">
+                        Bringing elegant design experiences to life. This is your premium customizable Carrd link-in-bio hub. Fully editable and host-ready!
+                    </p>
+                </div>
+
+                <!-- Interactive Premium Social Icons Box -->
+                <div id="social-container" class="flex items-center justify-center gap-4 mb-8 flex-wrap">
+                    <a href="https://instagram.com" target="_blank" class="social-icon text-slate-400 hover:text-rose-500 transition-colors text-xl p-2.5 bg-white/5 rounded-full hover:bg-white/10 w-11 h-11 flex items-center justify-center" data-platform="instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://youtube.com" target="_blank" class="social-icon text-slate-400 hover:text-red-500 transition-colors text-xl p-2.5 bg-white/5 rounded-full hover:bg-white/10 w-11 h-11 flex items-center justify-center" data-platform="youtube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="https://telegram.org" target="_blank" class="social-icon text-slate-400 hover:text-sky-400 transition-colors text-xl p-2.5 bg-white/5 rounded-full hover:bg-white/10 w-11 h-11 flex items-center justify-center" data-platform="telegram">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                    <a href="https://twitter.com" target="_blank" class="social-icon text-slate-400 hover:text-white transition-colors text-xl p-2.5 bg-white/5 rounded-full hover:bg-white/10 w-11 h-11 flex items-center justify-center" data-platform="twitter">
+                        <i class="fab fa-x-twitter"></i>
+                    </a>
+                    <a href="mailto:contact@lwslws.com" class="social-icon text-slate-400 hover:text-indigo-400 transition-colors text-xl p-2.5 bg-white/5 rounded-full hover:bg-white/10 w-11 h-11 flex items-center justify-center" data-platform="email">
+                        <i class="fa-regular fa-envelope"></i>
+                    </a>
+                </div>
+
+                <!-- Tabbed Interior Navigation -->
+                <div class="border-b border-white/10 mb-6 overflow-x-auto no-scrollbar">
+                    <div class="flex justify-center space-x-6 min-w-max pb-3">
+                        <button onclick="switchTab('links')" id="tab-links" class="tab-btn text-indigo-400 border-b-2 border-indigo-500 pb-1 px-1 text-sm font-semibold tracking-wide transition-all duration-300">
+                            <i class="fa-solid fa-link mr-1.5"></i> Links
+                        </button>
+                        <button onclick="switchTab('about')" id="tab-about" class="tab-btn text-slate-400 hover:text-slate-200 border-b-2 border-transparent pb-1 px-1 text-sm font-semibold tracking-wide transition-all duration-300">
+                            <i class="fa-solid fa-compass mr-1.5"></i> About Us
+                        </button>
+                        <button onclick="switchTab('contact')" id="tab-contact" class="tab-btn text-slate-400 hover:text-slate-200 border-b-2 border-transparent pb-1 px-1 text-sm font-semibold tracking-wide transition-all duration-300">
+                            <i class="fa-solid fa-paper-plane mr-1.5"></i> Contact
+                        </button>
+                    </div>
+                </div>
+
+                <!-- CONTENT TAB 1: Links Grid -->
+                <div id="sec-links" class="tab-content flex flex-col gap-4">
+                    <div id="links-wrapper" class="flex flex-col gap-4">
+                        <!-- Populated dynamically via JS -->
+                    </div>
+                </div>
+
+                <!-- CONTENT TAB 2: About Page -->
+                <div id="sec-about" class="tab-content hidden text-left leading-relaxed text-slate-300 text-sm sm:text-base space-y-4">
+                    <p>
+                        Welcome! We are the <strong class="text-white">LWS Development Team</strong>. Our goal is to provide developers, agencies, and creators with clean, lightweight, highly interactive, and beautiful landing pages.
+                    </p>
+                    <p>
+                        We believe that beautiful user interfaces shouldn't require hundreds of megabytes of heavy packages. This responsive, lightweight, single-file card template loads in milliseconds and fits perfectly across mobile, desktop, and tablets.
+                    </p>
+                    <div class="bg-indigo-500/10 border border-indigo-500/20 p-4 rounded-xl flex items-start gap-3.5">
+                        <i class="fa-solid fa-wand-magic-sparkles text-indigo-400 mt-1"></i>
+                        <p class="text-xs text-indigo-200 leading-normal">
+                            Pro Tip: Use the floating customizer (gear icon on top right) to dynamically update all content, and download the hosted ready-made HTML instantly.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- CONTENT TAB 3: Contact Page -->
+                <div id="sec-contact" class="tab-content hidden">
+                    <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-4 text-left">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">Your Name</label>
+                            <input type="text" required placeholder="Alex Mercer" 
+                                   class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">Email Address</label>
+                            <input type="email" required placeholder="alex@example.com" 
+                                   class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">Your Message</label>
+                            <textarea required rows="3" placeholder="Write down your queries or messages..." 
+                                      class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all text-sm resize-none"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-gradient-to-r from-indigo-500 to-rose-500 hover:from-indigo-600 hover:to-rose-600 text-white font-semibold py-3 px-4 rounded-xl shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/30 transition-all text-sm flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                    <div id="form-success" class="hidden bg-emerald-500/10 border border-emerald-500/20 p-6 rounded-2xl text-center text-emerald-300 space-y-2">
+                        <i class="fa-solid fa-circle-check text-3xl"></i>
+                        <p class="font-bold text-base">Message Sent Successfully!</p>
+                        <p class="text-xs text-slate-400">Thanks for reaching out. We will get back to you shortly.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Beautiful Bottom Footer -->
+    <footer class="relative z-10 text-center py-6 text-xs text-slate-500 border-t border-white/5 bg-slate-950/20">
+        <p>© <span id="footer-year">2026</span> <span id="footer-brand">LWS Link Hub</span>. All rights reserved.</p>
+        <p class="mt-1 text-slate-600">Created with ❤️ for the Web Design Community</p>
+    </footer>
+
+    <!-- FLOAT TRIGGER BUTTON - Customizer Gear -->
+    <button onclick="toggleCustomizer()" class="fixed top-4 right-4 z-50 bg-indigo-600 hover:bg-indigo-700 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 transition-all duration-300 hover:rotate-45" title="Customize Page">
+        <i class="fa-solid fa-sliders text-lg"></i>
+    </button>
+
+    <!-- SLIDEOUT LIVE CUSTOMIZER PANEL -->
+    <div id="customizer-panel" class="fixed inset-y-0 right-0 w-full max-w-md bg-[#0c101c] border-l border-white/10 z-50 shadow-2xl transform translate-x-full transition-transform duration-500 ease-in-out flex flex-col">
+        <!-- Panel Header -->
+        <div class="p-6 border-b border-white/10 flex items-center justify-between">
+            <div>
+                <h3 class="text-lg font-bold text-white heading-font">Carrd Customizer</h3>
+                <p class="text-xs text-slate-400">Live edit details and export host-ready code</p>
+            </div>
+            <button onclick="toggleCustomizer()" class="text-slate-400 hover:text-white text-xl p-1">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- Panel Body: Scrollable Fields -->
+        <div class="flex-grow overflow-y-auto p-6 space-y-6">
+            
+            <!-- SECTION 1: Avatar and Text Details -->
+            <div class="space-y-4">
+                <h4 class="text-xs font-bold text-indigo-400 uppercase tracking-wider">1. Profile Details</h4>
+                
+                <div>
+                    <label class="block text-[11px] text-slate-400 mb-1">Avatar Image URL</label>
+                    <input type="text" id="edit-avatar" oninput="updateProfile()" value="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250&h=250" class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-xs focus:outline-none focus:border-indigo-500">
+                </div>
+                <div>
+                    <label class="block text-[11px] text-slate-400 mb-1">Name (Header Title)</label>
+                    <input type="text" id="edit-name" oninput="updateProfile()" value="LWS Link Hub" class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-xs focus:outline-none focus:border-indigo-500">
+                </div>
+                <div>
+                    <label class="block text-[11px] text-slate-400 mb-1">Handle / Subtitle</label>
+                    <input type="text" id="edit-tagline" oninput="updateProfile()" value="@lws_hub" class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-xs focus:outline-none focus:border-indigo-500">
+                </div>
+                <div>
+                    <label class="block text-[11px] text-slate-400 mb-1">Bio Text Paragraph</label>
+                    <textarea id="edit-bio" oninput="updateProfile()" rows="3" class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-xs focus:outline-none focus:border-indigo-500 resize-none">Bringing elegant design experiences to life. This is your premium customizable Carrd link-in-bio hub. Fully editable and host-ready!</textarea>
+                </div>
+            </div>
+
+            <!-- SECTION 2: Dynamic Ambient Themes & Real Background Images -->
+            <div class="space-y-4">
+                <h4 class="text-xs font-bold text-indigo-400 uppercase tracking-wider">2. Wallpaper & Theme</h4>
+                
+                <!-- Preset Background Cards -->
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="applyBackground('nebula')" class="p-2 bg-indigo-950/40 border border-indigo-500/30 hover:border-indigo-400 rounded-lg text-left text-xs text-indigo-200">
+                        <span class="font-bold block">🌌 Space Nebula</span>
+                        <span class="text-[10px] text-slate-400">Deep stars wallpaper</span>
+                    </button>
+                    <button onclick="applyBackground('silk')" class="p-2 bg-slate-900 border border-slate-700 hover:border-white rounded-lg text-left text-xs text-white">
+                        <span class="font-bold block">🖤 Minimal Silk</span>
+                        <span class="text-[10px] text-slate-400">Matte black aesthetic</span>
+                    </button>
+                    <button onclick="applyBackground('cyberpunk')" class="p-2 bg-black/50 border border-cyan-500/30 hover:border-cyan-400 rounded-lg text-left text-xs text-cyan-300">
+                        <span class="font-bold block">🤖 Cyber City</span>
+                        <span class="text-[10px] text-slate-400">Synthwave neon aesthetic</span>
+                    </button>
+                    <button onclick="applyBackground('sunset')" class="p-2 bg-amber-950/40 border border-amber-600/30 hover:border-orange-500 rounded-lg text-left text-xs text-orange-200">
+                        <span class="font-bold block">🌅 Golden Sunset</span>
+                        <span class="text-[10px] text-slate-400">Ocean shore lighting</span>
+                    </button>
+                </div>
+
+                <!-- Custom URL Background -->
+                <div>
+                    <label class="block text-[11px] text-slate-400 mb-1">Or paste Custom Background Image URL</label>
+                    <div class="flex gap-2">
+                        <input type="text" id="custom-bg-input" placeholder="https://images.unsplash.com/..." class="flex-grow bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 text-white text-xs focus:outline-none focus:border-indigo-500">
+                        <button onclick="applyCustomBackground()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs px-3 py-1.5 rounded-lg font-bold">Apply</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 3: Social Profile Links -->
+            <div class="space-y-4">
+                <h4 class="text-xs font-bold text-indigo-400 uppercase tracking-wider">3. Social Links Handles</h4>
+                <div class="space-y-2">
+                    <div class="flex items-center gap-2">
+                        <span class="w-8 text-center text-rose-500"><i class="fab fa-instagram"></i></span>
+                        <input type="text" id="link-instagram" placeholder="Instagram Profile URL" oninput="updateSocials()" value="https://instagram.com" class="flex-grow bg-white/5 border border-white/10 rounded-lg px-2.5 py-1.5 text-white text-xs focus:outline-none focus:border-indigo-500">
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-8 text-center text-red-500"><i class="fab fa-youtube"></i></span>
+                        <input type="text" id="link-youtube" placeholder="YouTube Channel URL" oninput="updateSocials()" value="https://youtube.com" class="flex-grow bg-white/5 border border-white/10 rounded-lg px-2.5 py-1.5 text-white text-xs focus:outline-none focus:border-indigo-500">
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-8 text-center text-sky-400"><i class="fab fa-telegram"></i></span>
+                        <input type="text" id="link-telegram" placeholder="Telegram Group/Channel" oninput="updateSocials()" value="https://telegram.org" class="flex-grow bg-white/5 border border-white/10 rounded-lg px-2.5 py-1.5 text-white text-xs focus:outline-none focus:border-indigo-500">
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-8 text-center text-slate-300"><i class="fab fa-x-twitter"></i></span>
+                        <input type="text" id="link-twitter" placeholder="Twitter Profile URL" oninput="updateSocials()" value="https://twitter.com" class="flex-grow bg-white/5 border border-white/10 rounded-lg px-2.5 py-1.5 text-white text-xs focus:outline-none focus:border-indigo-500">
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-8 text-center text-indigo-400"><i class="fa-regular fa-envelope"></i></span>
+                        <input type="text" id="link-email" placeholder="Email (mailto:)" oninput="updateSocials()" value="mailto:contact@lwslws.com" class="flex-grow bg-white/5 border border-white/10 rounded-lg px-2.5 py-1.5 text-white text-xs focus:outline-none focus:border-indigo-500">
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 4: Interactive List Buttons -->
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <h4 class="text-xs font-bold text-indigo-400 uppercase tracking-wider">4. Card Redirect Buttons</h4>
+                    <button onclick="addCustomButton()" class="text-[11px] bg-indigo-600/30 border border-indigo-500/50 hover:bg-indigo-600 px-2.5 py-1 rounded-md text-white transition-all font-bold">
+                        <i class="fa-solid fa-plus mr-1"></i> Add Link
+                    </button>
+                </div>
+                
+                <div id="edit-buttons-container" class="space-y-3">
+                    <!-- Controlled Dynamically via JS -->
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Panel Footer with Dynamic HTML Code Exporter -->
+        <div class="p-6 border-t border-white/10 bg-[#080b15]">
+            <button onclick="generateExportHtml()" class="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold py-3 px-4 rounded-xl shadow-lg shadow-emerald-500/10 hover:shadow-emerald-500/20 transition-all text-sm flex items-center justify-center gap-2">
+                <i class="fa-solid fa-file-code"></i> Generate Clean Code
+            </button>
+        </div>
+    </div>
+
+    <!-- EXPORT RESULT MODAL -->
+    <div id="export-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-[#0b0e1a] border border-white/10 rounded-3xl w-full max-w-2xl overflow-hidden shadow-2xl flex flex-col max-h-[85vh]">
+            <div class="p-6 border-b border-white/10 flex items-center justify-between">
+                <div>
+                    <h3 class="text-lg font-bold text-white heading-font">🎉 Standalone HTML Code Ready!</h3>
+                    <p class="text-xs text-slate-400">Copy code below or download your clean host-ready index.html file.</p>
+                </div>
+                <button onclick="closeExportModal()" class="text-slate-400 hover:text-white text-xl p-1">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="p-6 overflow-y-auto flex-grow space-y-4">
+                <p class="text-xs text-amber-300 bg-amber-500/10 border border-amber-500/20 p-3 rounded-lg flex items-center gap-2">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    This exporter strips out the live-customizer drawer panel so your published web page is light and fast!
+                </p>
+                <div class="relative bg-slate-950 rounded-xl border border-white/5 p-4 max-h-64 overflow-y-auto">
+                    <!-- Standard pre-formatted text box for code visual -->
+                    <pre class="text-[10.5px] text-emerald-400 font-mono select-all leading-normal whitespace-pre" id="export-code-box">HTML Loading...</pre>
+                </div>
+            </div>
+            <div class="p-6 border-t border-white/10 bg-[#080a12] grid grid-cols-2 gap-4">
+                <button onclick="copyExportedCode()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 px-4 rounded-xl transition-all text-sm flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-copy"></i> Copy Code
+                </button>
+                <button onclick="downloadExportedFile()" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2.5 px-4 rounded-xl transition-all text-sm flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-download"></i> Download index.html
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Core interactive page state
+        const state = {
+            name: "LWS Link Hub",
+            tagline: "@lws_hub",
+            bio: "Bringing elegant design experiences to life. This is your premium customizable Carrd link-in-bio hub. Fully editable and host-ready!",
+            avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250&h=250",
+            bgType: "nebula", // options: nebula, silk, cyberpunk, sunset, custom
+            customBgUrl: "",
+            socials: {
+                instagram: "https://instagram.com",
+                youtube: "https://youtube.com",
+                telegram: "https://telegram.org",
+                twitter: "https://twitter.com",
+                email: "mailto:contact@lwslws.com"
+            },
+            buttons: [
+                {
+                    title: "Premium Courses",
+                    subtitle: "Upgrade your web development & technical skills",
+                    url: "https://learnwithsumit.in",
+                    iconClass: "fa-solid fa-graduation-cap",
+                    gradient: "from-indigo-500 to-indigo-600"
+                },
+                {
+                    title: "Telegram Community",
+                    subtitle: "Join for free resources, files & updates",
+                    url: "https://t.me/",
+                    iconClass: "fab fa-telegram",
+                    gradient: "from-sky-400 to-sky-500"
+                },
+                {
+                    title: "Portfolio Showcase",
+                    subtitle: "Check out our recent high-converting designs",
+                    url: "#",
+                    iconClass: "fa-solid fa-rocket",
+                    gradient: "from-rose-500 to-pink-500"
+                }
+            ]
+        };
+
+        // Unsplash high resolution background wallpapers for preset configurations
+        const presets = {
+            nebula: "https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?auto=format&fit=crop&w=1920&q=80",
+            silk: "https://images.unsplash.com/photo-1533134486753-c833f0ed4866?auto=format&fit=crop&w=1920&q=80",
+            cyberpunk: "https://images.unsplash.com/photo-1515621061946-eff1c2a352bd?auto=format&fit=crop&w=1920&q=80",
+            sunset: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80"
+        };
+
+        // Initialize state background wallpaper when window finishes loading
+        window.onload = function() {
+            document.getElementById('footer-year').textContent = new Date().getFullYear();
+            applyBackground(state.bgType);
+            renderInteractiveButtons();
+        };
+
+        // Function to smoothly load & apply preset backgrounds
+        function applyBackground(key) {
+            state.bgType = key;
+            const body = document.body;
+            const orbs = document.getElementById('orb-container');
+            const mainCard = document.getElementById('main-card');
+            const innerBorder = document.getElementById('card-inner-border');
+            const avatarGlow = document.getElementById('avatar-glow');
+            const tagline = document.getElementById('profile-tagline');
+
+            // Apply selected background picture
+            body.style.backgroundImage = `linear-gradient(rgba(9, 13, 22, 0.4), rgba(9, 13, 22, 0.65)), url('${presets[key]}')`;
+            
+            // Clean previous custom styles
+            mainCard.className = "rounded-3xl p-6 sm:p-10 text-center relative overflow-hidden ";
+            if (innerBorder) innerBorder.className = "absolute inset-0 pointer-events-none border rounded-3xl ";
+            
+            if (key === 'nebula') {
+                mainCard.classList.add('glass-card');
+                if (innerBorder) innerBorder.classList.add('border-white/5');
+                avatarGlow.className = "absolute inset-0 bg-gradient-to-r from-indigo-500 to-rose-500 rounded-full blur-xl opacity-80 scale-95 transition-all duration-700";
+                tagline.className = "text-indigo-400 font-semibold text-sm sm:text-base mt-1.5 tracking-wider uppercase";
+                orbs.innerHTML = `
+                    <div id="orb-1" class="glowing-orb floating-1 bg-indigo-600 w-[600px] h-[600px] top-[-10%] left-[-5%]"></div>
+                    <div id="orb-2" class="glowing-orb floating-2 bg-rose-600 w-[600px] h-[600px] bottom-[-10%] right-[-5%]"></div>
+                    <div id="orb-3" class="glowing-orb floating-1 bg-violet-600 w-[400px] h-[400px] top-[35%] right-[15%]" style="animation-delay: -4s;"></div>
+                `;
+            } else if (key === 'silk') {
+                mainCard.classList.add('bg-[#10141f]', 'border', 'border-white/5', 'shadow-2xl');
+                if (innerBorder) innerBorder.classList.add('border-white/5');
+                avatarGlow.className = "absolute inset-0 bg-white/10 rounded-full blur-lg opacity-40 scale-95";
+                tagline.className = "text-slate-400 font-semibold text-sm sm:text-base mt-1.5 tracking-wider uppercase";
+                orbs.innerHTML = ''; // Deep matte minimalism
+            } else if (key === 'cyberpunk') {
+                mainCard.classList.add('bg-black/85', 'border-2', 'border-cyan-500', 'shadow-[0_0_40px_rgba(6,182,212,0.18)]');
+                if (innerBorder) innerBorder.classList.add('border-cyan-500/30');
+                avatarGlow.className = "absolute inset-0 bg-gradient-to-r from-cyan-400 to-fuchsia-500 rounded-full blur-md opacity-95 scale-95";
+                tagline.className = "text-fuchsia-400 font-semibold font-mono text-xs sm:text-sm mt-1.5 tracking-widest uppercase";
+                orbs.innerHTML = `
+                    <div class="absolute inset-0 opacity-[0.05]" style="background-image: linear-gradient(rgba(6, 182, 212, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 182, 212, 0.4) 1px, transparent 1px); background-size: 24px 24px;"></div>
+                `;
+            } else if (key === 'sunset') {
+                mainCard.classList.add('glass-card');
+                if (innerBorder) innerBorder.classList.add('border-white/5');
+                avatarGlow.className = "absolute inset-0 bg-gradient-to-r from-amber-500 to-orange-600 rounded-full blur-xl opacity-80 scale-95";
+                tagline.className = "text-amber-400 font-semibold text-sm sm:text-base mt-1.5 tracking-wider uppercase";
+                orbs.innerHTML = `
+                    <div id="orb-1" class="glowing-orb floating-1 bg-amber-600 w-[550px] h-[550px] top-[-10%] left-[-5%]"></div>
+                    <div id="orb-2" class="glowing-orb floating-2 bg-orange-600 w-[550px] h-[550px] bottom-[-10%] right-[-5%]"></div>
+                `;
+            }
+
+            switchTab('links');
+        }
+
+        // Apply custom wallpaper link on demand
+        function applyCustomBackground() {
+            const url = document.getElementById('custom-bg-input').value.trim();
+            if (url) {
+                state.bgType = "custom";
+                state.customBgUrl = url;
+                document.body.style.backgroundImage = `linear-gradient(rgba(9, 13, 22, 0.5), rgba(9, 13, 22, 0.7)), url('${url}')`;
+            }
+        }
+
+        // Tab content visual toggler
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.className = "tab-btn text-slate-400 hover:text-slate-200 border-b-2 border-transparent pb-1 px-1 text-sm font-semibold tracking-wide transition-all duration-300";
+            });
+
+            const contentEl = document.getElementById(`sec-${tabId}`);
+            if (contentEl) contentEl.classList.remove('hidden');
+            
+            const highlightColor = (state.bgType === 'cyberpunk') ? 'text-cyan-400 border-cyan-400' : 'text-indigo-400 border-indigo-500';
+            const tabBtn = document.getElementById(`tab-${tabId}`);
+            if (tabBtn) tabBtn.className = `tab-btn ${highlightColor} border-b-2 pb-1 px-1 text-sm font-semibold tracking-wide transition-all duration-300`;
+        }
+
+        // Form processing simulation
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            document.getElementById('contact-form').classList.add('hidden');
+            document.getElementById('form-success').classList.remove('hidden');
+        }
+
+        // Slide Open / Slide Close Drawer Control
+        function toggleCustomizer() {
+            const panel = document.getElementById('customizer-panel');
+            panel.classList.toggle('translate-x-full');
+            renderButtonControls();
+        }
+
+        // Live synchronizer for profile configurations
+        function updateProfile() {
+            state.name = document.getElementById('edit-name').value;
+            state.tagline = document.getElementById('edit-tagline').value;
+            state.bio = document.getElementById('edit-bio').value;
+            state.avatarUrl = document.getElementById('edit-avatar').value;
+
+            document.getElementById('profile-name').textContent = state.name;
+            document.getElementById('profile-tagline').textContent = state.tagline;
+            document.getElementById('profile-bio').textContent = state.bio;
+            document.getElementById('profile-img').src = state.avatarUrl;
+            document.getElementById('footer-brand').textContent = state.name;
+        }
+
+        // Live updates for Social link icons
+        function updateSocials() {
+            state.socials.instagram = document.getElementById('link-instagram').value;
+            state.socials.youtube = document.getElementById('link-youtube').value;
+            state.socials.telegram = document.getElementById('link-telegram').value;
+            state.socials.twitter = document.getElementById('link-twitter').value;
+            state.socials.email = document.getElementById('link-email').value;
+
+            for (const [key, value] of Object.entries(state.socials)) {
+                const element = document.querySelector(`[data-platform="${key}"]`);
+                if (element) {
+                    if (value && value.trim()) {
+                        element.href = value;
+                        element.classList.remove('hidden');
+                    } else {
+                        element.classList.add('hidden');
+                    }
+                }
+            }
+        }
+
+        // Build editable input groups for dynamic links inside slide-out drawer
+        function renderButtonControls() {
+            const container = document.getElementById('edit-buttons-container');
+            container.innerHTML = '';
+
+            state.buttons.forEach((btn, idx) => {
+                const btnDiv = document.createElement('div');
+                btnDiv.className = "bg-white/5 border border-white/10 rounded-xl p-3.5 space-y-2 text-left relative";
+                btnDiv.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-slate-400">Link Button #${idx + 1}</span>
+                        <button onclick="removeButton(${idx})" class="text-xs text-rose-400 hover:text-rose-600">
+                            <i class="fa-solid fa-trash-can"></i> Remove
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="text-[10px] text-slate-400 block mb-0.5">Title</label>
+                            <input type="text" oninput="updateButtonProp(${idx}, 'title', this.value)" value="${btn.title || ''}" class="w-full bg-slate-950 border border-white/10 rounded px-2 py-1 text-[11px] text-white">
+                        </div>
+                        <div>
+                            <label class="text-[10px] text-slate-400 block mb-0.5">Subtitle</label>
+                            <input type="text" oninput="updateButtonProp(${idx}, 'subtitle', this.value)" value="${btn.subtitle || ''}" class="w-full bg-slate-950 border border-white/10 rounded px-2 py-1 text-[11px] text-white">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-slate-400 block mb-0.5">URL</label>
+                        <input type="text" oninput="updateButtonProp(${idx}, 'url', this.value)" value="${btn.url || ''}" class="w-full bg-slate-950 border border-white/10 rounded px-2 py-1 text-[11px] text-white">
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="text-[10px] text-slate-400 block mb-0.5">Icon Class</label>
+                            <input type="text" oninput="updateButtonProp(${idx}, 'iconClass', this.value)" value="${btn.iconClass || ''}" class="w-full bg-slate-950 border border-white/10 rounded px-2 py-1 text-[11px] text-white">
+                        </div>
+                        <div>
+                            <label class="text-[10px] text-slate-400 block mb-0.5">Gradient</label>
+                            <select onchange="updateButtonProp(${idx}, 'gradient', this.value)" class="w-full bg-slate-950 border border-white/10 rounded px-1.5 py-1 text-[11px] text-white">
+                                <option value="from-indigo-500 to-indigo-600" ${(btn.gradient && btn.gradient.includes('indigo')) ? 'selected' : ''}>Indigo (Blue)</option>
+                                <option value="from-rose-500 to-pink-500" ${(btn.gradient && btn.gradient.includes('rose')) ? 'selected' : ''}>Rose (Pink)</option>
+                                <option value="from-sky-400 to-sky-500" ${(btn.gradient && btn.gradient.includes('sky')) ? 'selected' : ''}>Sky Blue</option>
+                                <option value="from-emerald-500 to-teal-500" ${(btn.gradient && btn.gradient.includes('emerald')) ? 'selected' : ''}>Emerald (Green)</option>
+                                <option value="from-amber-400 to-orange-500" ${(btn.gradient && btn.gradient.includes('amber')) ? 'selected' : ''}>Amber (Orange)</option>
+                            </select>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(btnDiv);
+            });
+        }
+
+        // Live properties binder for redirects
+        function updateButtonProp(idx, prop, val) {
+            if (state.buttons[idx]) {
+                state.buttons[idx][prop] = val;
+                renderInteractiveButtons();
+            }
+        }
+
+        // Create new link redirect record
+        function addCustomButton() {
+            state.buttons.push({
+                title: "New Link Item",
+                subtitle: "Update description text",
+                url: "#",
+                iconClass: "fa-solid fa-link",
+                gradient: "from-indigo-500 to-indigo-600"
+            });
+            renderButtonControls();
+            renderInteractiveButtons();
+        }
+
+        // Remove link redirect record
+        function removeButton(idx) {
+            state.buttons.splice(idx, 1);
+            renderButtonControls();
+            renderInteractiveButtons();
+        }
+
+        // Re-render link visual nodes inside primary content glassbox card
+        function renderInteractiveButtons() {
+            const wrapper = document.getElementById('links-wrapper');
+            if (!wrapper) return;
+            
+            wrapper.innerHTML = '';
+
+            if (state.buttons.length === 0) {
+                wrapper.innerHTML = `
+                    <div class="text-center py-6 text-xs text-slate-500">
+                        No active link buttons. Open Customizer on the top right to insert records!
+                    </div>
+                `;
+                return;
+            }
+
+            state.buttons.forEach(btn => {
+                const node = document.createElement('a');
+                node.href = btn.url || '#';
+                node.target = (btn.url && btn.url.startsWith('#')) ? '' : '_blank';
+                node.className = "btn-premium flex items-center justify-between p-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl group transition-all duration-300";
+                node.innerHTML = `
+                    <div class="flex items-center gap-4">
+                        <span class="w-10 h-10 rounded-xl bg-gradient-to-tr ${btn.gradient || 'from-indigo-500 to-indigo-600'} flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform">
+                            <i class="${btn.iconClass || 'fa-solid fa-link'}"></i>
+                        </span>
+                        <div class="text-left">
+                            <h4 class="font-bold text-sm sm:text-base text-white group-hover:text-indigo-300 transition-colors">${btn.title || ''}</h4>
+                            <p class="text-xs text-slate-400">${btn.subtitle || ''}</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-slate-500 group-hover:text-white group-hover:translate-x-1 transition-all"></i>
+                `;
+                wrapper.appendChild(node);
+            });
+        }
+
+        // Generate pristine production file stripped of customizer or modal clutter
+        function generateExportHtml() {
+            let compiledButtons = '';
+            state.buttons.forEach(btn => {
+                compiledButtons += `
+                        <!-- Action Card -->
+                        <a href="${btn.url || '#'}" target="${(btn.url && btn.url.startsWith('#')) ? '' : '_blank'}" class="btn-premium flex items-center justify-between p-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl group transition-all duration-300">
+                            <div class="flex items-center gap-4">
+                                <span class="w-10 h-10 rounded-xl bg-gradient-to-tr ${btn.gradient || 'from-indigo-500 to-indigo-600'} flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform">
+                                    <i class="${btn.iconClass || 'fa-solid fa-link'}"></i>
+                                </span>
+                                <div class="text-left">
+                                    <h4 class="font-bold text-sm sm:text-base text-white group-hover:text-indigo-300 transition-colors">${btn.title || ''}</h4>
+                                    <p class="text-xs text-slate-400">${btn.subtitle || ''}</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-slate-500 group-hover:text-white group-hover:translate-x-1 transition-all"></i>
+                        </a>\n`;
+            });
+
+            // Set background properties based on configurations
+            let activeBgImage = presets[state.bgType] || state.customBgUrl || presets.nebula;
+            let cardClasses = 'glass-card';
+            let avatarGlowClasses = 'bg-gradient-to-r from-indigo-500 to-rose-500';
+            let taglineClasses = 'text-indigo-400';
+            let innerBorderTheme = 'border border-white/5';
+            let orbsMarkup = `
+        <div id="orb-1" class="glowing-orb floating-1 bg-indigo-600 w-[600px] h-[600px] top-[-10%] left-[-5%]"></div>
+        <div id="orb-2" class="glowing-orb floating-2 bg-rose-600 w-[600px] h-[600px] bottom-[-10%] right-[-5%]"></div>
+        <div id="orb-3" class="glowing-orb floating-1 bg-violet-600 w-[400px] h-[400px] top-[35%] right-[15%]" style="animation-delay: -4s;"></div>`;
+
+            if (state.bgType === 'silk') {
+                cardClasses = 'bg-[#10141f] border border-white/5 shadow-2xl';
+                avatarGlowClasses = 'bg-white/10';
+                taglineClasses = 'text-slate-400';
+                orbsMarkup = '';
+            } else if (state.bgType === 'cyberpunk') {
+                cardClasses = 'bg-black/85 border-2 border-cyan-500 shadow-[0_0_40px_rgba(6,182,212,0.18)]';
+                avatarGlowClasses = 'bg-gradient-to-r from-cyan-400 to-fuchsia-500';
+                taglineClasses = 'text-fuchsia-400 font-semibold font-mono text-xs sm:text-sm';
+                innerBorderTheme = 'border border-cyan-500/30';
+                orbsMarkup = `<div class="absolute inset-0 opacity-[0.05]" style="background-image: linear-gradient(rgba(6, 182, 212, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 182, 212, 0.4) 1px, transparent 1px); background-size: 24px 24px;"></div>`;
+            } else if (state.bgType === 'sunset') {
+                cardClasses = 'glass-card';
+                avatarGlowClasses = 'bg-gradient-to-r from-amber-500 to-orange-600';
+                taglineClasses = 'text-amber-400';
+                orbsMarkup = `
+        <div id="orb-1" class="glowing-orb floating-1 bg-amber-600 w-[550px] h-[550px] top-[-10%] left-[-5%]"></div>
+        <div id="orb-2" class="glowing-orb floating-2 bg-orange-600 w-[550px] h-[550px] bottom-[-10%] right-[-5%]"></div>`;
+            }
+
+            // Create pristine production index.html file 
+            // Note: Script tags are generated via hexadecimal escapes to completely prevent browser parsing crashes
+            const finalPristineHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${state.name} | Link-in-Bio</title>
+    \x3Cscript src="https://cdn.tailwindcss.com">\x3C/script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: #090d16; 
+            color: #f3f4f6; 
+            overflow-x: hidden; 
+            -webkit-font-smoothing: antialiased; 
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat; 
+            background-attachment: fixed;
+            background-image: linear-gradient(rgba(9, 13, 22, 0.4), rgba(9, 13, 22, 0.65)), url('${activeBgImage}');
+        }
+        .heading-font { font-family: 'Outfit', sans-serif; }
+        .glowing-orb { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.45; z-index: 0; pointer-events: none; }
+        @keyframes float-slow { 0%, 100% { transform: translateY(0px) scale(1); } 50% { transform: translateY(-30px) scale(1.08); } }
+        @keyframes float-reverse { 0%, 100% { transform: translateY(0px) scale(1.08); } 50% { transform: translateY(30px) scale(0.92); } }
+        .floating-1 { animation: float-slow 14s ease-in-out infinite; }
+        .floating-2 { animation: float-reverse 16s ease-in-out infinite; }
+        .glass-card { background: rgba(10, 15, 30, 0.65); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45); transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        .glass-card:hover { border-color: rgba(255, 255, 255, 0.18); box-shadow: 0 40px 80px rgba(0, 0, 0, 0.55), 0 0 50px rgba(99, 102, 241, 0.15); transform: translateY(-2px); }
+        .btn-premium { position: relative; overflow: hidden; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .btn-premium::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent); transition: 0.6s; }
+        .btn-premium:hover::before { left: 100%; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="relative min-h-screen flex flex-col justify-between overflow-x-hidden">
+
+    <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        ${orbsMarkup}
+    </div>
+
+    <main class="relative z-10 flex-grow flex items-center justify-center p-4 sm:p-6 md:p-8 mt-6 mb-6">
+        <div class="w-full max-w-xl">
+            <div class="${cardClasses} rounded-3xl p-6 sm:p-10 text-center relative overflow-hidden">
+                <div class="absolute inset-0 pointer-events-none ${innerBorderTheme} rounded-3xl"></div>
+
+                <!-- Profile Info Block -->
+                <div class="relative mb-6">
+                    <div class="inline-block relative">
+                        <div class="absolute inset-0 ${avatarGlowClasses} rounded-full blur-xl opacity-80 scale-95"></div>
+                        <img src="${state.avatarUrl}" alt="Profile Image" class="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full border-2 border-white/20 object-cover mx-auto shadow-2xl">
+                        <span class="absolute bottom-1 right-2 bg-emerald-500 w-4.5 h-4.5 rounded-full border-2 border-[#090d16]"></span>
+                    </div>
+
+                    <h1 class="heading-font text-3xl sm:text-4xl font-extrabold tracking-tight mt-5 text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-slate-300">
+                        ${state.name}
+                    </h1>
+                    <p class="${taglineClasses} font-semibold text-sm sm:text-base mt-1.5 tracking-wider uppercase">
+                        ${state.tagline}
+                    </p>
+                    <p class="text-slate-300 text-sm sm:text-base mt-4 max-w-sm mx-auto leading-relaxed">
+                        ${state.bio}
+                    </p>
+                </div>
+
+                <!-- Social Icons -->
+                <div class="flex items-center justify-center gap-4 mb-8 flex-wrap">
+                    ${state.socials.instagram ? `\x3Ca href="${state.socials.instagram}" target="_blank" class="text-slate-400 hover:text-rose-500 transition-colors text-xl p-2.5 bg-white/5 rounded-full hover:bg-white/10 w-11 h-11 flex items-center justify-center">\x3Ci class="fab fa-instagram">\x3C/i>\x3C/a>` : ''}
+                    ${state.socials.youtube ? `\x3Ca href="${state.socials.youtube}" target="_blank" class="text-slate-400 hover:text-red-500 transition-colors text-xl p-2.5 bg-white/5 rounded-full hover:bg-white/10 w-11 h-11 flex items-center justify-center">\x3Ci class="fab fa-youtube">\x3C/i>\x3C/a>` : ''}
+                    ${state.socials.telegram ? `\x3Ca href="${state.socials.telegram}" target="_blank" class="text-slate-400 hover:text-sky-400 transition-colors text-xl p-2.5 bg-white/5 rounded-full hover:bg-white/10 w-11 h-11 flex items-center justify-center">\x3Ci class="fab fa-telegram">\x3C/i>\x3C/a>` : ''}
+                    ${state.socials.twitter ? `\x3Ca href="${state.socials.twitter}" target="_blank" class="text-slate-400 hover:text-white transition-colors text-xl p-2.5 bg-white/5 rounded-full hover:bg-white/10 w-11 h-11 flex items-center justify-center">\x3Ci class="fab fa-x-twitter">\x3C/i>\x3C/a>` : ''}
+                    ${state.socials.email ? `\x3Ca href="${state.socials.email}" class="text-slate-400 hover:text-indigo-400 transition-colors text-xl p-2.5 bg-white/5 rounded-full hover:bg-white/10 w-11 h-11 flex items-center justify-center">\x3Ci class="fa-regular fa-envelope">\x3C/i>\x3C/a>` : ''}
+                </div>
+
+                <!-- Nav Tab -->
+                <div class="border-b border-white/10 mb-6 overflow-x-auto no-scrollbar">
+                    <div class="flex justify-center space-x-6 min-w-max pb-3">
+                        <button onclick="switchTab('links')" id="tab-links" class="tab-btn text-indigo-400 border-b-2 border-indigo-500 pb-1 px-1 text-sm font-semibold tracking-wide transition-all duration-300">
+                            <i class="fa-solid fa-link mr-1.5"></i> Links
+                        </button>
+                        <button onclick="switchTab('about')" id="tab-about" class="tab-btn text-slate-400 hover:text-slate-200 border-b-2 border-transparent pb-1 px-1 text-sm font-semibold tracking-wide transition-all duration-300">
+                            <i class="fa-solid fa-compass mr-1.5"></i> About Us
+                        </button>
+                        <button onclick="switchTab('contact')" id="tab-contact" class="tab-btn text-slate-400 hover:text-slate-200 border-b-2 border-transparent pb-1 px-1 text-sm font-semibold tracking-wide transition-all duration-300">
+                            <i class="fa-solid fa-paper-plane mr-1.5"></i> Contact
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Content Panels -->
+                <div id="sec-links" class="tab-content flex flex-col gap-4">
+                    <div class="flex flex-col gap-4">
+                        ${compiledButtons}
+                    </div>
+                </div>
+
+                <div id="sec-about" class="tab-content hidden text-left leading-relaxed text-slate-300 text-sm sm:text-base space-y-4">
+                    <p>Welcome! We are the <strong class="text-white">${state.name} Team</strong>. Our goal is to provide developers, agencies, and creators with clean, lightweight, highly interactive, and beautiful landing pages.</p>
+                    <p>We believe that beautiful user interfaces shouldn't require hundreds of MBs of packages. This responsive, lightweight, single-file card template loads in milliseconds and fits perfectly across mobile, desktop, and tablets.</p>
+                </div>
+
+                <div id="sec-contact" class="tab-content hidden">
+                    <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-4 text-left">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">Your Name</label>
+                            <input type="text" required placeholder="Alex Mercer" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">Email Address</label>
+                            <input type="email" required placeholder="alex@example.com" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">Your Message</label>
+                            <textarea required rows="3" placeholder="Write down your queries or messages..." class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all text-sm resize-none"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-gradient-to-r from-indigo-500 to-rose-500 hover:from-indigo-600 hover:to-rose-600 text-white font-semibold py-3 px-4 rounded-xl shadow-lg transition-all text-sm flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                    <div id="form-success" class="hidden bg-emerald-500/10 border border-emerald-500/20 p-6 rounded-2xl text-center text-emerald-300 space-y-2">
+                        <i class="fa-solid fa-circle-check text-3xl"></i>
+                        <p class="font-bold text-base">Message Sent Successfully!</p>
+                        <p class="text-xs text-slate-400">Thanks for reaching out. We will get back to you shortly.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="relative z-10 text-center py-6 text-xs text-slate-500 border-t border-white/5 bg-slate-950/20">
+        <p>© <span>${new Date().getFullYear()}</span> <span>${state.name}</span>. All rights reserved.</p>
+    </footer>
+
+    \x3Cscript>
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.className = "tab-btn text-slate-400 hover:text-slate-200 border-b-2 border-transparent pb-1 px-1 text-sm font-semibold tracking-wide transition-all duration-300";
+            });
+            const selectedContent = document.getElementById('sec-' + tabId);
+            if (selectedContent) selectedContent.classList.remove('hidden');
+            const highlightColor = ('${state.bgType}' === 'cyberpunk') ? 'text-cyan-400 border-cyan-400' : 'text-indigo-400 border-indigo-500';
+            const currentTabBtn = document.getElementById('tab-' + tabId);
+            if (currentTabBtn) currentTabBtn.className = "tab-btn " + highlightColor + " border-b-2 pb-1 px-1 text-sm font-semibold tracking-wide transition-all duration-300";
+        }
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            document.getElementById('contact-form').classList.add('hidden');
+            document.getElementById('form-success').classList.remove('hidden');
+        }
+    \x3C/script>
+</body>
+</html>`;
+
+            // Render output to the code content visualizer box securely
+            const escapedHtml = finalPristineHtml.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            document.getElementById('export-code-box').innerHTML = escapedHtml;
+            document.getElementById('export-modal').classList.remove('hidden');
+        }
+
+        // Close export modal window
+        function closeExportModal() {
+            document.getElementById('export-modal').classList.add('hidden');
+        }
+
+        // Copy exported standalone code directly to system clipboard
+        function copyExportedCode() {
+            const preElement = document.getElementById('export-code-box');
+            
+            // Standard fallback using temporary selection text area
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = preElement.textContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            
+            try {
+                document.execCommand('copy');
+                const copyBtn = document.querySelector('[onclick="copyExportedCode()"]');
+                const originalHtml = copyBtn.innerHTML;
+                
+                // Active status label swap
+                copyBtn.innerHTML = `<i class="fa-solid fa-circle-check"></i> Code Copied!`;
+                copyBtn.className = "bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-4 rounded-xl transition-all text-sm flex items-center justify-center gap-2";
+                
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalHtml;
+                    copyBtn.className = "bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 px-4 rounded-xl transition-all text-sm flex items-center justify-center gap-2";
+                }, 2000);
+            } catch (err) {
+                console.error("Copy operation failed: ", err);
+            } finally {
+                document.body.removeChild(tempTextArea);
+            }
+        }
+
+        // Generate immediate raw local file download
+        function downloadExportedFile() {
+            const codeRawText = document.getElementById('export-code-box').textContent;
+            const linkBlob = new Blob([codeRawText], { type: 'text/html' });
+            const directUrl = URL.createObjectURL(linkBlob);
+            
+            const tempLink = document.createElement('a');
+            tempLink.href = directUrl;
+            tempLink.download = 'index.html';
+            document.body.appendChild(tempLink);
+            tempLink.click();
+            
+            document.body.removeChild(tempLink);
+            URL.revokeObjectURL(directUrl);
+        }
+    </script>
+</body>
+</html>
