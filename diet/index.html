@@ -3,20 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NutriGlass - Diet & Calorie Tracker</title>
+<title>NutriGlass Pro - Diet & Calorie Tracker</title>
+<!-- html2pdf library to capture absolute match of application's glassmorphism UI -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 :root {
   --blue: #0A84FF; --green: #30D158; --orange: #FF9F0A; --red: #FF453A; --purple: #BF5AF2;
   --ink: #1C1C1E; --ink-soft: #8A8A8E; --ink-faint: #B8B8BD;
-  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-bg: rgba(255, 255, 255, 0.65);
   --glass-bg-strong: rgba(255, 255, 255, 0.85);
   --glass-border: rgba(255, 255, 255, 0.65);
   --page-bg-1: #EEF3FF; --page-bg-2: #F7F3FF; --page-bg-3: #FFFFFF;
   --shadow: 0 8px 32px rgba(31,38,68,.08);
   --shadow-lift: 0 16px 40px rgba(31,38,68,.14);
-  --card-z-index: 10;
 }
 [data-theme="dark"] {
   --ink: #F2F2F7; --ink-soft: #8E8E93; --ink-faint: #5C5C60;
@@ -73,6 +74,14 @@ nav.floatnav {
 .today-meta { display: flex; justify-content: center; gap: 28px; font-size: 13px; color: var(--ink-soft); flex-wrap: wrap; }
 .today-meta b { color: var(--ink); font-weight: 700; }
 
+.today-actions { display: flex; justify-content: center; gap: 12px; margin-top: 18px; }
+.btn-primary {
+  border: none; background: linear-gradient(135deg, var(--blue), var(--purple)); color: #fff;
+  padding: 12px 24px; border-radius: 16px; font-size: 13.5px; font-weight: 700; cursor: pointer;
+  box-shadow: 0 4px 14px rgba(10, 132, 255, 0.25); transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(10, 132, 255, 0.35); }
+
 /* Alcohol Warning Summary */
 .alcohol-alert-box {
   margin-top: 16px; padding: 14px 18px; border-radius: 16px; font-size: 12.5px; line-height: 1.5;
@@ -82,15 +91,10 @@ nav.floatnav {
 .alcohol-alert-box.visible { display: block; }
 .alcohol-alert-title { font-weight: 700; color: var(--orange); display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
 
-/* Profile and Settings */
-details.settings { margin-bottom: 20px; position: relative; z-index: 30; }
-details.settings summary {
-  list-style: none; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--ink-soft);
-  padding: 12px 18px; display: flex; align-items: center; gap: 8px;
-}
-details.settings summary::-webkit-details-marker { display: none; }
-details.settings[open] summary { color: var(--ink); }
-.profile-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; padding: 0 18px 18px; }
+/* Profile Configuration Board */
+.settings { margin-bottom: 20px; position: relative; z-index: 30; padding: 18px; }
+.settings h3 { margin: 0 0 14px; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.profile-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
 @media(max-width:760px){ .profile-grid { grid-template-columns: repeat(2, 1fr); } }
 .profile-grid label { font-size: 10px; color: var(--ink-soft); display: block; margin-bottom: 4px; font-weight: 600; }
 .profile-grid input, .profile-grid select {
@@ -98,10 +102,26 @@ details.settings[open] summary { color: var(--ink); }
   background: var(--glass-bg-strong); color: var(--ink); font-size: 12px; font-family: inherit;
 }
 
+/* ---- Nutrition Summary (Progress Bars instead of rings) ---- */
+.nutrition-panel { padding: 24px; margin-bottom: 20px; display: block; }
+.macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px 28px; }
+@media(max-width: 600px) { .macro-grid { grid-template-columns: 1fr; gap: 14px; } }
+.macro-row { display: flex; flex-direction: column; gap: 8px; }
+.macro-header { display: flex; justify-content: space-between; align-items: flex-end; font-size: 13.5px; font-weight: 700; }
+.macro-label { display: flex; align-items: center; gap: 6px; color: var(--ink-soft); }
+.macro-val { color: var(--ink); }
+.macro-val small { color: var(--ink-faint); font-weight: 600; font-size: 11px; }
+.macro-track { height: 8px; border-radius: 6px; background: var(--glass-border); overflow: hidden; box-shadow: inset 0 1px 3px rgba(0,0,0,0.05); }
+.macro-fill { height: 100%; border-radius: 6px; transition: width 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.3s ease; }
+
+.nutrition-tips { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--glass-border); }
+.nutrition-tips h4 { margin: 0 0 8px; font-size: 13px; font-weight: 700; }
+.nutrition-tips ul { margin: 0; padding-left: 18px; font-size: 13px; color: var(--ink-soft); line-height: 1.8; }
+.nutrition-tips .ok { color: var(--green); font-size: 13px; font-weight: 600; }
+
 /* ---- Meal Cards ---- */
 .meals { display: flex; flex-direction: column; gap: 16px; position: relative; }
 .meal-card { padding: 22px 24px; position: relative; transition: z-index 0.1s ease; }
-/* Critical Fix: Elevate meal card context when active to overlay over other cards without clipping */
 .meal-card.dropdown-active { z-index: 90 !important; }
 .meal-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 4px; }
 .meal-title { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; }
@@ -123,14 +143,12 @@ details.settings[open] summary { color: var(--ink); }
 .food-row .name { font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 6px; }
 .food-row .subtext { font-size: 11px; color: var(--ink-soft); }
 
-/* Health/Alcohol Badges */
 .badge { font-size: 9.5px; padding: 2px 6px; border-radius: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; display: inline-flex; align-items: center; }
 .badge.healthy { background: rgba(48, 209, 88, 0.15); color: #30D158; }
 .badge.moderate { background: rgba(255, 159, 10, 0.15); color: #FF9F0A; }
 .badge.indulgent { background: rgba(255, 69, 58, 0.15); color: #FF453A; }
 .badge.alcohol { background: rgba(191, 90, 242, 0.15); color: #BF5AF2; }
 
-/* Serving Options dropdown in logged item */
 .food-row .qty-wrap { display: flex; align-items: center; gap: 4px; }
 .food-row .qty {
   width: 52px; text-align: center; border: 1px solid var(--glass-border); background: var(--glass-bg-strong); border-radius: 8px;
@@ -162,7 +180,6 @@ details.settings[open] summary { color: var(--ink); }
   outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.15);
 }
 
-/* Float Autocomplete Menu above all adjacent meals & elements */
 .dropdown {
   position: absolute; left: 0; right: 0; z-index: 1000; max-height: 280px; overflow-y: auto;
   border-radius: 14px; padding: 6px; background: var(--glass-bg-strong); backdrop-filter: blur(28px) saturate(180%);
@@ -195,28 +212,31 @@ details.settings[open] summary { color: var(--ink); }
   border: none; background: var(--blue); color: #fff; border-radius: 10px; padding: 8px 12px; font-size: 12px; font-weight: 700; cursor: pointer;
 }
 
-/* ---- Nutrition Summary ---- */
-.nutrition-toggle-wrap { display: flex; justify-content: center; margin: 26px 0 10px; }
-.nutrition-btn {
-  border: 1px solid var(--glass-border); background: var(--glass-bg-strong); color: var(--ink);
-  padding: 10px 20px; border-radius: 16px; font-size: 13px; font-weight: 700; cursor: pointer;
+/* Modal Overlay & Card design */
+.modal-overlay {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.45); backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px); z-index: 2000;
+  display: flex; align-items: center; justify-content: center;
+  animation: fadeUp 0.2s ease both;
 }
-.nutrition-panel { display: none; padding: 24px; margin-bottom: 20px; }
-.nutrition-panel.open { display: block; animation: fadeUp .35s ease both; }
-.rings { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
-@media(max-width:700px){ .rings { grid-template-columns: repeat(2,1fr); } }
-@media(max-width:400px){ .rings { grid-template-columns: repeat(1,1fr); } }
-.ring-card { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-.ring-card svg { transform: rotate(-90deg); }
-.ring-card .track { stroke: var(--glass-border); fill: none; stroke-width: 7; }
-.ring-card .fill { fill: none; stroke-width: 7; stroke-linecap: round; transition: stroke-dashoffset .6s cubic-bezier(.2,.8,.2,1); }
-.ring-card .ringval { margin-top: -84px; font-size: 12px; font-weight: 700; text-align: center; width: 88px; }
-.ring-card .ringval small { display: block; font-weight: 500; color: var(--ink-soft); font-size: 9px; margin-top: 2px; }
-.ring-card .lbl { font-size: 11px; font-weight: 700; color: var(--ink-soft); text-transform: uppercase; letter-spacing: .04em; margin-top: 14px; }
-.nutrition-tips { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--glass-border); }
-.nutrition-tips h4 { margin: 0 0 8px; font-size: 13px; font-weight: 700; }
-.nutrition-tips ul { margin: 0; padding-left: 18px; font-size: 13px; color: var(--ink-soft); line-height: 1.8; }
-.nutrition-tips .ok { color: var(--green); font-size: 13px; font-weight: 600; }
+.modal-card {
+  max-width: 480px; width: 92%; padding: 28px; border-radius: 26px;
+  box-shadow: var(--shadow-lift); text-align: left;
+}
+.modal-title { margin-top: 0; font-size: 18px; font-weight: 800; margin-bottom: 14px; }
+.modal-field { margin-bottom: 14px; }
+.modal-field label { font-size: 11px; font-weight: 700; color: var(--ink-soft); display: block; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.04em; }
+.modal-field input, .modal-field textarea, .modal-field select {
+  width: 100%; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--glass-border);
+  background: var(--glass-bg-strong); color: var(--ink); font-size: 13px; font-family: inherit;
+}
+.modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+.modal-btn {
+  border: none; padding: 10px 18px; border-radius: 12px; font-size: 13px; font-weight: 700; cursor: pointer;
+}
+.modal-btn.cancel { background: var(--glass-border); color: var(--ink); }
+.modal-btn.confirm { background: linear-gradient(135deg, var(--blue), var(--purple)); color: #fff; box-shadow: 0 4px 12px rgba(10, 132, 255, 0.2); }
 
 @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes rowIn { from { opacity: 0; } to { opacity: 1; } }
@@ -251,9 +271,9 @@ details.settings[open] summary { color: var(--ink); }
   <button class="icon-btn" id="themeBtn" title="Toggle theme">🌙</button>
 </nav>
 
-<div class="wrap">
+<div class="wrap" id="mainWrap">
 
-  <div class="today-card glass">
+  <div class="today-card glass" id="todayCard">
     <div class="kcal-big" id="todayKcal">-- <small>/ -- kcal</small></div>
     <div class="today-track"><div class="today-fill" id="todayFill"></div></div>
     <div class="today-meta">
@@ -266,53 +286,110 @@ details.settings[open] summary { color: var(--ink); }
       <div class="alcohol-alert-title">🍺 Alcohol Intake Warning</div>
       <div id="alcoholAlertContent"></div>
     </div>
-  </div>
 
-  <details class="settings glass">
-    <summary>⚙️ Profile & target settings</summary>
-    <div class="profile-grid">
-      <div><label>Height (cm)</label><input type="number" id="p_height" value="172"></div>
-      <div><label>Weight (kg)</label><input type="number" id="p_weight" value="79"></div>
-      <div><label>Age</label><input type="number" id="p_age" value="40"></div>
-      <div><label>Sex</label><select id="p_sex"><option value="male">Male</option><option value="female">Female</option></select></div>
-      <div><label>Activity</label>
-        <select id="p_activity">
-          <option value="1.2">Sedentary</option>
-          <option value="1.375">Lightly active</option>
-          <option value="1.55">Moderately active</option>
-          <option value="1.725">Very active</option>
-        </select>
-      </div>
-      <div><label>Weekly loss</label>
-        <select id="p_rate">
-          <option value="0.5">0.5 kg/wk</option>
-          <option value="0.75">0.75 kg/wk</option>
-          <option value="1">1 kg/wk</option>
-        </select>
-      </div>
+    <!-- Chart Action Area -->
+    <div class="today-actions">
+      <button class="btn-primary" id="triggerDownload">📥 Download Diet Chart</button>
     </div>
-  </details>
-
-  <div class="meals" id="mealsWrap"></div>
-
-  <div class="nutrition-toggle-wrap">
-    <button class="nutrition-btn" id="nutritionToggle">View Nutrition ▾</button>
   </div>
+
+  <!-- VIEW NUTRITION (Positioned right below todayCard, always open) -->
   <div class="nutrition-panel glass" id="nutritionPanel">
-    <div class="rings" id="ringsWrap"></div>
+    <div class="macro-grid" id="ringsWrap"></div>
     <div class="nutrition-tips">
       <h4>Suggestions</h4>
       <div id="suggestBody"></div>
     </div>
   </div>
 
+  <!-- Profile configuration - fully visible directly -->
+  <div class="settings glass">
+    <h3>⚙️ Profile & Target Configurations</h3>
+    <div class="profile-grid">
+      <div><label>Height (cm)</label><input type="number" id="p_height" value="172"></div>
+      <div><label>Weight (kg)</label><input type="number" id="p_weight" value="79"></div>
+      <div><label>Age</label><input type="number" id="p_age" value="40"></div>
+      <div><label>Sex</label>
+        <select id="p_sex">
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+      <div><label>Activity Level</label>
+        <select id="p_activity">
+          <option value="1.2" selected>Sedentary (< 5k steps • Little/No exercise)</option>
+          <option value="1.375">Lightly active (5k - 7.5k steps • +200-400 kcal)</option>
+          <option value="1.55">Moderately active (7.5k - 10k steps • +400-700 kcal)</option>
+          <option value="1.725">Very active (> 10k steps • +700 - 1000+ kcal)</option>
+        </select>
+      </div>
+      <div><label>Weekly loss</label>
+        <select id="p_rate">
+          <option value="0.5" selected>0.5 kg/wk</option>
+          <option value="0.75">0.75 kg/wk</option>
+          <option value="1">1 kg/wk</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Meal listing -->
+  <div class="meals" id="mealsWrap"></div>
+
+</div>
+
+<!-- PDF Download Custom Confirmation/Notes Modal -->
+<div class="modal-overlay" id="downloadModal" style="display: none;">
+  <div class="modal-card glass">
+    <div class="modal-title">📥 Download Diet Chart PDF</div>
+    
+    <div class="modal-field">
+      <label>Full Name</label>
+      <input type="text" id="pdf_user_name" value="Rahul" placeholder="Enter your name">
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+      <div class="modal-field">
+        <label>Height (cm)</label>
+        <input type="number" id="modal_height" value="172">
+      </div>
+      <div class="modal-field">
+        <label>Weight (kg)</label>
+        <input type="number" id="modal_weight" value="79">
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+      <div class="modal-field">
+        <label>Age</label>
+        <input type="number" id="modal_age" value="40">
+      </div>
+      <div class="modal-field">
+        <label>Sex</label>
+        <select id="modal_sex">
+          <option value="male" selected>Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="modal-field">
+      <label>Custom Goal / Advisory Notes</label>
+      <textarea id="pdf_custom_notes" placeholder="e.g. Target: Fat Loss, High Protein Vegetarian diet. No processed food." rows="3"></textarea>
+    </div>
+
+    <div class="modal-actions">
+      <button class="modal-btn cancel" id="cancelDownload">Cancel</button>
+      <button class="modal-btn confirm" id="confirmDownload">Generate PDF</button>
+    </div>
+  </div>
 </div>
 
 <button class="fab" title="Add food">+</button>
 <div class="toast" id="toast"><span id="toastMsg"></span><button id="undoBtn">Undo</button></div>
 
 <script>
-/* ---------- Structured Food database ---------- */
+/* ---------- STREAMING_CHUNK: Initializing database and plan... ---------- */
 const DB = [
   // --- Fruits ---
   ["Apple","Fruits","🍎","100g",52,0.3,14,0.2,2.4,"healthy", ["apple", "seb"]],
@@ -370,7 +447,7 @@ const DB = [
   ["Curd","Dairy","🥣","100g",60,3.5,4.7,3.3,0,"healthy", ["curd", "dahi", "yogurt"]],
   ["Greek Yogurt","Dairy","🥣","100g",59,10,3.6,0.4,0,"healthy", ["greek yogurt", "yogurt"]],
 
-  // --- Non-Vegetarian (Chicken & Eggs) ---
+  // --- Non-Vegetarian ---
   ["Boiled Chicken Breast","Non-Vegetarian","🍗","100g",150,31,0,3.2,0,"healthy", ["boiled chicken breast", "chicken breast", "boiled chick", "chick", "diet chicken"]],
   ["Grilled Chicken Breast","Non-Vegetarian","🍗","100g",165,31,0,3.6,0,"healthy", ["grilled chicken breast", "grilled chicken", "grilled chick", "chick"]],
   ["Roasted Chicken","Non-Vegetarian","🍗","100g",190,25,0,9.5,0,"healthy", ["roasted chicken", "roasted chick", "chicken roasted"]],
@@ -494,9 +571,8 @@ const DB = [
   ["Cake","Desserts","🍰","1 slice",235,3,35,9,0.5,"indulgent", ["cake", "pastry"]],
 ];
 
-/* Structured Portions Definitions for Smooth Selection Updates */
+/* Portion sizing factor map */
 const PORTIONS_CONFIG = {
-  // Spirits (Whisky, Vodka, Rum, Gin)
   "Whisky": [
     { label: "30 ml (Small Peg)", factor: 1.0 },
     { label: "60 ml (Large Peg)", factor: 2.0 },
@@ -529,7 +605,6 @@ const PORTIONS_CONFIG = {
     { label: "Half Bottle (375 ml)", factor: 12.5 },
     { label: "Full Bottle (750 ml)", factor: 25.0 }
   ],
-  // Beers
   "Beer": [
     { label: "330 ml Can", factor: 0.5 },
     { label: "500 ml Can", factor: 0.77 },
@@ -537,14 +612,12 @@ const PORTIONS_CONFIG = {
     { label: "2 Beers (1300ml)", factor: 2.0 },
     { label: "3 Beers (1950ml)", factor: 3.0 }
   ],
-  // Wines
   "Wine": [
     { label: "150 ml Glass", factor: 1.0 },
     { label: "250 ml Glass", factor: 1.67 },
     { label: "Half Bottle (375ml)", factor: 2.5 },
     { label: "Full Bottle (750ml)", factor: 5.0 }
   ],
-  // Meats and general weights
   "Boiled Chicken Breast": [
     { label: "100g (Standard)", factor: 1.0 },
     { label: "150g Serving", factor: 1.5 },
@@ -587,7 +660,6 @@ const PORTIONS_CONFIG = {
   ]
 };
 
-// Map original array representation to structured objects
 const FOODS = DB.map((r,i)=>({
   id: "f"+i,
   name: r[0],
@@ -605,10 +677,10 @@ const FOODS = DB.map((r,i)=>({
 
 function byName(n){ return FOODS.find(f=>f.name===n); }
 
-// Elegant initial default diet plan
+/* ---------- STREAMING_CHUNK: Setting default customized meal plan ---------- */
 const DEFAULT_MEAL_PLAN = {
   breakfast: [
-    { foodId: byName("Tea with Sugar").id, qty: 1, portionIndex: 0 },
+    { foodId: byName("Tea with Sugar").id, qty: 1 },
     { foodId: byName("Paneer").id, qty: 1 }
   ],
   lunch: [
@@ -646,7 +718,7 @@ function freshMeals() {
 }
 
 let MEALS = freshMeals();
-let openAddPanel = null; // Key of active meal panel
+let openAddPanel = null;
 let lastRemoved = null;
 
 function foodOf(item){ return FOODS.find(f=>f.id===item.foodId); }
@@ -668,7 +740,6 @@ function subtotal(items) {
     const f = item.custom ? item : foodOf(item);
     if (!f) return acc;
     
-    // Calculate factor based on selected portion preset or fall back to 1.0
     let factor = 1.0;
     const config = PORTIONS_CONFIG[f.name];
     if (config && item.portionIndex !== undefined && item.portionIndex >= 0) {
@@ -697,6 +768,7 @@ function getHealthBadge(health) {
   return '';
 }
 
+/* ---------- STREAMING_CHUNK: Rendering meal cards ---------- */
 function renderMeals() {
   const wrap = document.getElementById("mealsWrap");
   wrap.innerHTML = "";
@@ -704,9 +776,8 @@ function renderMeals() {
   MEALS.forEach((meal, mi) => {
     const sub = subtotal(meal.items);
     const card = document.createElement("div");
-    
-    // If the add panel for this meal is open, flag the active state to handle clean dropdown overlays
     const isOpen = openAddPanel === meal.key;
+    
     card.className = `meal-card glass ${isOpen ? 'dropdown-active' : ''}`;
     card.style.animationDelay = (mi * 0.05) + "s";
     card.id = `meal-${meal.key}`;
@@ -743,7 +814,6 @@ function renderMeals() {
       const f = item.custom ? item : foodOf(item);
       if (!f) return;
       
-      // Compute correct factor & label
       const hasPortions = PORTIONS_CONFIG[f.name] !== undefined;
       let factor = 1.0;
       let portionDropdownHTML = '';
@@ -786,7 +856,7 @@ function renderMeals() {
     });
   });
 
-  // Attach interactive listeners for portion selection and quantity multipliers
+  /* Quantity and portion events */
   document.querySelectorAll(".qty").forEach(inp => {
     inp.addEventListener("change", e => {
       const meal = MEALS.find(m => m.key === e.target.dataset.meal);
@@ -837,7 +907,7 @@ function renderMeals() {
     });
   });
 
-  // Search logic and input auto-positioning
+  /* Autocomplete search dropdown overlay */
   document.querySelectorAll(".searchInput").forEach(inp => {
     inp.addEventListener("input", e => {
       const mk = e.target.dataset.meal;
@@ -849,7 +919,6 @@ function renderMeals() {
         return; 
       }
       
-      // Dynamic overlay direction based on viewport positioning to avoid cutting off screen
       const rect = inp.getBoundingClientRect();
       const spaceBelow = window.innerHeight - rect.bottom;
       if (spaceBelow < 260) {
@@ -858,7 +927,6 @@ function renderMeals() {
         dd.classList.remove("open-upward");
       }
 
-      // Search matches by keywords, category, or name
       const matches = FOODS.filter(f => {
         const matchesName = f.name.toLowerCase().includes(q);
         const matchesCat = f.cat.toLowerCase().includes(q);
@@ -866,7 +934,6 @@ function renderMeals() {
         return matchesName || matchesCat || matchesKw;
       }).slice(0, 15);
 
-      // Render search items classified nicely
       if (matches.length) {
         let sections = {};
         matches.forEach(f => {
@@ -904,7 +971,6 @@ function renderMeals() {
     });
   });
 
-  // Action dispatcher on selection
   document.querySelectorAll(".dropdown").forEach(dd => {
     dd.addEventListener("mousedown", e => {
       const opt = e.target.closest(".opt");
@@ -914,7 +980,6 @@ function renderMeals() {
         const meal = MEALS.find(m => m.key === opt.dataset.meal);
         const foodItem = FOODS.find(f => f.id === opt.dataset.food);
         
-        // Push with default first portion if a portion config is available
         const hasPortions = PORTIONS_CONFIG[foodItem.name] !== undefined;
         meal.items.push({
           foodId: opt.dataset.food,
@@ -958,14 +1023,7 @@ function renderMeals() {
   });
 }
 
-const RING_COLORS = {
-  Calories: "var(--blue)", 
-  Protein: "var(--green)", 
-  Carbs: "var(--orange)", 
-  Fat: "var(--purple)", 
-  Fiber: "var(--red)"
-};
-
+/* ---------- STREAMING_CHUNK: Calculations and macro rings rendering ---------- */
 function renderRings(t, target, proteinGoal, carbGoal, fatGoal, fiberGoal) {
   const data = [
     { label: "Calories", val: t.k, goal: target, emoji: "🔥" },
@@ -974,30 +1032,35 @@ function renderRings(t, target, proteinGoal, carbGoal, fatGoal, fiberGoal) {
     { label: "Fat", val: t.f, goal: fatGoal, emoji: "🥑" },
     { label: "Fiber", val: t.fb, goal: fiberGoal, emoji: "🥗" },
   ];
-  const R = 38, C = 2 * Math.PI * R;
-  document.getElementById("ringsWrap").innerHTML = data.map((d, i) => {
-    const pct = Math.max(0, Math.min(1, d.val / d.goal));
-    const offset = C * (1 - pct);
-    return `<div class="ring-card">
-      <svg width="96" height="96" viewBox="0 0 96 96">
-        <circle class="track" cx="48" cy="48" r="${R}"></circle>
-        <circle class="fill" cx="48" cy="48" r="${R}" stroke="${RING_COLORS[d.label]}" stroke-dasharray="${C}" stroke-dashoffset="${offset}"></circle>
-      </svg>
-      <div class="ringval">${d.emoji} ${Math.round(d.val)}<small>/ ${Math.round(d.goal)}${d.label==="Calories"?"":"g"}</small></div>
-      <div class="lbl">${d.label}</div>
-    </div>`;
+  
+  document.getElementById("ringsWrap").innerHTML = data.map((d) => {
+    const pct = Math.max(0, Math.min(100, (d.val / d.goal) * 100));
+    const color = RING_COLORS[d.label];
+    const unit = d.label === "Calories" ? "" : "g";
+    
+    return `
+      <div class="macro-row">
+        <div class="macro-header">
+          <span class="macro-label">${d.emoji} ${d.label}</span>
+          <span class="macro-val">${Math.round(d.val)}<small> / ${Math.round(d.goal)}${unit}</small></span>
+        </div>
+        <div class="macro-track">
+          <div class="macro-fill" style="width: ${pct}%; background: ${color};"></div>
+        </div>
+      </div>
+    `;
   }).join("");
 }
 
 function renderSuggestions(t, target, proteinGoal, fiberGoal) {
   const tips = [];
-  if (t.p < proteinGoal * 0.8) tips.push("Protein intake is on the lower side — include Grilled Chicken Breast, Boiled Eggs, Greek Yogurt, Sprouts, or Paneer.");
+  if (t.p < proteinGoal * 0.8) tips.push("Protein intake is on the lower side — include Sprouts, Paneer, Tofu, Greek Yogurt, or Moong Dal.");
   if (t.fb < fiberGoal * 0.7) tips.push("Fiber is low — try adding extra green salad, cucumbers, papaya, or apples to your meals.");
-  if (t.k > target + 100) tips.push(`You are ${Math.round(t.k-target)} kcal over your budget limit. Trimming sugary tea, rice portions, or indulgence foods will help keep you on track.`);
-  if (t.k < target - 400) tips.push("You're well under your target budget. Ensure you're meeting your recovery requirements with lean proteins and healthy carbs.");
+  if (t.k > target + 100) tips.push(`You are ${Math.round(t.k-target)} kcal over your budget limit. Trimming sugary tea or extra chapatis will help keep you on track.`);
+  if (t.k < target - 400) tips.push("You're well under your target budget. Ensure you're meeting your recovery requirements with healthy options.");
   
   if (t.alk > 0) {
-    tips.push("⚠️ Alcohol consumed: Remember, alcohol calories are nutrient-empty. Prioritize drinking extra water to counter dehydration and support metabolic recovery.");
+    tips.push("⚠️ Alcohol consumed: Remember, alcohol calories are nutrient-empty. Prioritize drinking extra water to counter dehydration.");
   }
 
   document.getElementById("suggestBody").innerHTML = tips.length
@@ -1011,17 +1074,18 @@ function renderTop() {
   const remaining = Math.max(0, target - Math.round(t.k));
   const intake = Math.round(t.k);
   
-  // Custom Dynamic Color Logic:
-  // Red: Intake is more than 100 kcal above target limit
-  // Green: Intake is in the safe target zone (within 200 kcal below to 100 kcal above target)
-  // Yellow/Orange: Intake is too low (less than 200 kcal below target)
+  /* Color warning logic requested by user:
+     - RED: Over calorie (Target + 100 kcal)
+     - GREEN: Target Sweet Spot (Target - 200 up to Target + 100)
+     - YELLOW/ORANGE: Deficit Warnings (More than 200 kcal below target)
+  */
   let stateColor = "var(--green)";
   if (intake > (target + 100)) {
     stateColor = "var(--red)";
   } else if (intake >= (target - 200)) {
     stateColor = "var(--green)";
   } else {
-    stateColor = "var(--orange)"; // Acts as Yellow warning for low intake
+    stateColor = "var(--orange)";
   }
 
   const kcalEl = document.getElementById("todayKcal");
@@ -1034,13 +1098,11 @@ function renderTop() {
   document.getElementById("remainKcal").textContent = remaining + " kcal";
   document.getElementById("weightGoal").textContent = "-" + rate + " kg/wk";
 
-  // Macro Target Estimations
-  const proteinGoal = Math.round(weight * 1.5); // Standard dynamic protein target for active/dieting profiles (1.5g per kg)
+  const proteinGoal = Math.round(weight * 1.5); 
   const fiberGoal = 30; 
   const fatGoal = Math.round(target * 0.25 / 9);
   const carbGoal = Math.max(50, Math.round((target - proteinGoal * 4 - fatGoal * 9) / 4));
   
-  // Handle Dynamic Alcohol Card Warning & Advisories
   const alertBox = document.getElementById("alcoholAlert");
   const alertContent = document.getElementById("alcoholAlertContent");
   if (t.alk > 0) {
@@ -1061,7 +1123,131 @@ function renderAll() {
   renderTop(); 
 }
 
-// Global Event Listeners
+/* ---------- STREAMING_CHUNK: Implementing beautiful PDF Export function ---------- */
+document.getElementById("triggerDownload").addEventListener("click", () => {
+  document.getElementById("modal_height").value = document.getElementById("p_height").value;
+  document.getElementById("modal_weight").value = document.getElementById("p_weight").value;
+  document.getElementById("modal_age").value = document.getElementById("p_age").value;
+  document.getElementById("modal_sex").value = document.getElementById("p_sex").value;
+  
+  document.getElementById("downloadModal").style.display = "flex";
+});
+
+document.getElementById("cancelDownload").addEventListener("click", () => {
+  document.getElementById("downloadModal").style.display = "none";
+});
+
+document.getElementById("confirmDownload").addEventListener("click", () => {
+  const userName = document.getElementById("pdf_user_name").value.trim() || "Rahul";
+  const heightVal = document.getElementById("modal_height").value;
+  const weightVal = document.getElementById("modal_weight").value;
+  const ageVal = document.getElementById("modal_age").value;
+  const sexVal = document.getElementById("modal_sex").value;
+  const customNotes = document.getElementById("pdf_custom_notes").value.trim() || "Target: Maintained Healthy Nutrition Intake Plan.";
+
+  document.getElementById("p_height").value = heightVal;
+  document.getElementById("p_weight").value = weightVal;
+  document.getElementById("p_age").value = ageVal;
+  document.getElementById("p_sex").value = sexVal;
+  renderTop();
+
+  document.getElementById("downloadModal").style.display = "none";
+  showToast("Generating premium styled PDF...");
+
+  const printContainer = document.createElement("div");
+  printContainer.style.padding = "25px";
+  printContainer.style.background = "linear-gradient(180deg, #EEF3FF, #FFFFFF)";
+  printContainer.style.fontFamily = "'Inter', sans-serif";
+  printContainer.style.color = "#1C1C1E";
+
+  const headerCard = document.createElement("div");
+  headerCard.style.background = "rgba(255, 255, 255, 0.75)";
+  headerCard.style.border = "1px solid rgba(255, 255, 255, 0.85)";
+  headerCard.style.padding = "20px";
+  headerCard.style.borderRadius = "20px";
+  headerCard.style.marginBottom = "20px";
+  headerCard.style.boxShadow = "0 8px 32px rgba(31,38,68,0.05)";
+
+  const dateNow = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+  headerCard.innerHTML = `
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #0A84FF; padding-bottom: 12px; margin-bottom: 12px;">
+      <h2 style="margin: 0; color: #0A84FF; font-weight: 800;">NutriGlass Pro - Personalized Diet Chart</h2>
+      <span style="font-size: 12px; font-weight: 700; color: #8A8A8E;">Date: ${dateNow}</span>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; font-size: 13px; line-height: 1.6;">
+      <div>Patient/User: <b>${userName}</b></div>
+      <div>Height: <b>${heightVal} cm</b></div>
+      <div>Weight: <b>${weightVal} kg</b></div>
+      <div>Age: <b>${ageVal} yrs (${sexVal})</b></div>
+    </div>
+    <div style="margin-top: 10px; padding: 10px; background: rgba(10, 132, 255, 0.08); border-radius: 10px; font-size: 12.5px;">
+      <b>Target Objectives:</b> ${customNotes}
+    </div>
+  `;
+  printContainer.appendChild(headerCard);
+
+  const clonedToday = document.getElementById("todayCard").cloneNode(true);
+  const actionArea = clonedToday.querySelector(".today-actions");
+  if (actionArea) actionArea.remove();
+  clonedToday.style.marginBottom = "20px";
+  printContainer.appendChild(clonedToday);
+
+  const clonedNutrition = document.getElementById("nutritionPanel").cloneNode(true);
+  clonedNutrition.style.marginBottom = "20px";
+  printContainer.appendChild(clonedNutrition);
+
+  const clonedMeals = document.getElementById("mealsWrap").cloneNode(true);
+  
+  const mealCards = clonedMeals.querySelectorAll(".meal-card");
+  mealCards.forEach((card, index) => {
+    const addPanel = card.querySelector(".add-panel");
+    if (addPanel) addPanel.remove();
+    const actionBlock = card.querySelector(".meal-actions");
+    if (actionBlock) actionBlock.remove();
+
+    const rows = card.querySelectorAll(".food-row");
+    rows.forEach(row => {
+      const xButton = row.querySelector(".x");
+      if (xButton) xButton.remove();
+
+      const qtyInput = row.querySelector(".qty");
+      let qtyVal = 1;
+      if (qtyInput) {
+        qtyVal = qtyInput.value;
+        qtyInput.replaceWith(document.createTextNode(`Qty: ${qtyVal} `));
+      }
+
+      const portionSelect = row.querySelector(".portion-select");
+      if (portionSelect) {
+        const portionText = portionSelect.options[portionSelect.selectedIndex].text;
+        portionSelect.replaceWith(document.createTextNode(`(${portionText})`));
+      }
+    });
+  });
+  printContainer.appendChild(clonedMeals);
+
+  const opt = {
+    margin:       [12, 12, 12, 12],
+    filename:     `${userName.replace(/\s+/g, '_')}_NutriGlass_DietChart.pdf`,
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { scale: 2, useCORS: true, letterRendering: true },
+    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  };
+
+  html2pdf().from(printContainer).set(opt).save().then(() => {
+    showToast("PDF Diet chart downloaded successfully!");
+  });
+});
+
+/* ---------- STREAMING_CHUNK: App core wiring and listeners ---------- */
+const RING_COLORS = {
+  Calories: "var(--blue)", 
+  Protein: "var(--green)", 
+  Carbs: "var(--orange)", 
+  Fat: "var(--purple)", 
+  Fiber: "var(--red)"
+};
+
 document.querySelectorAll("#p_height, #p_weight, #p_age, #p_sex, #p_activity, #p_rate").forEach(el => {
   el.addEventListener("input", renderTop);
   el.addEventListener("change", renderTop);
@@ -1079,12 +1265,6 @@ document.getElementById("themeBtn").addEventListener("click", () => {
   const isDark = html.getAttribute("data-theme") === "dark";
   html.setAttribute("data-theme", isDark ? "light" : "dark");
   document.getElementById("themeBtn").textContent = isDark ? "🌙" : "☀️";
-});
-
-document.getElementById("nutritionToggle").addEventListener("click", () => {
-  const panel = document.getElementById("nutritionPanel");
-  const open = panel.classList.toggle("open");
-  document.getElementById("nutritionToggle").textContent = open ? "Hide Nutrition ▴" : "View Nutrition ▾";
 });
 
 document.querySelector(".fab").addEventListener("click", () => {
