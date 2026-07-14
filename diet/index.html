@@ -3,190 +3,241 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Diet & Calorie Tracker</title>
+<title>NutriGlass - Diet & Calorie Tracker</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-:root{
-  --blue:#0A84FF; --green:#30D158; --orange:#FF9F0A; --red:#FF453A; --purple:#BF5AF2;
-  --ink:#1C1C1E; --ink-soft:#8A8A8E; --ink-faint:#B8B8BD;
-  --glass-bg: rgba(255,255,255,0.6);
-  --glass-bg-strong: rgba(255,255,255,0.8);
-  --glass-border: rgba(255,255,255,0.65);
-  --page-bg-1:#EEF3FF; --page-bg-2:#F7F3FF; --page-bg-3:#FFFFFF;
+:root {
+  --blue: #0A84FF; --green: #30D158; --orange: #FF9F0A; --red: #FF453A; --purple: #BF5AF2;
+  --ink: #1C1C1E; --ink-soft: #8A8A8E; --ink-faint: #B8B8BD;
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-bg-strong: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.65);
+  --page-bg-1: #EEF3FF; --page-bg-2: #F7F3FF; --page-bg-3: #FFFFFF;
   --shadow: 0 8px 32px rgba(31,38,68,.08);
   --shadow-lift: 0 16px 40px rgba(31,38,68,.14);
+  --card-z-index: 10;
 }
-[data-theme="dark"]{
-  --ink:#F2F2F7; --ink-soft:#8E8E93; --ink-faint:#5C5C60;
-  --glass-bg: rgba(30,30,36,0.55);
-  --glass-bg-strong: rgba(34,34,40,0.75);
-  --glass-border: rgba(255,255,255,0.09);
-  --page-bg-1:#0B0B10; --page-bg-2:#121018; --page-bg-3:#0D0D12;
+[data-theme="dark"] {
+  --ink: #F2F2F7; --ink-soft: #8E8E93; --ink-faint: #5C5C60;
+  --glass-bg: rgba(30, 30, 36, 0.55);
+  --glass-bg-strong: rgba(34, 34, 40, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.09);
+  --page-bg-1: #0B0B10; --page-bg-2: #121018; --page-bg-3: #0D0D12;
   --shadow: 0 8px 32px rgba(0,0,0,.4);
   --shadow-lift: 0 20px 50px rgba(0,0,0,.5);
 }
-*{box-sizing:border-box;}
-html,body{height:100%;}
-body{
-  margin:0; font-family:'Inter',sans-serif; color:var(--ink);
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0; font-family: 'Inter', sans-serif; color: var(--ink);
   background:
     radial-gradient(700px 500px at 8% -5%, color-mix(in srgb, var(--blue) 16%, transparent), transparent 60%),
     radial-gradient(600px 500px at 100% 0%, color-mix(in srgb, var(--purple) 14%, transparent), transparent 60%),
     linear-gradient(180deg, var(--page-bg-1), var(--page-bg-2) 45%, var(--page-bg-3));
-  min-height:100%; padding-bottom:110px; transition:background .3s;
+  min-height: 100%; padding-bottom: 110px; transition: background .3s;
 }
-.blob{position:fixed; border-radius:50%; filter:blur(80px); z-index:-1; opacity:.35;}
-.blob1{width:340px; height:340px; background:var(--blue); top:-120px; left:-100px;}
-.blob2{width:300px; height:300px; background:var(--purple); bottom:5%; right:-100px;}
+.blob { position: fixed; border-radius: 50%; filter: blur(80px); z-index: -1; opacity: .35; }
+.blob1 { width: 340px; height: 340px; background: var(--blue); top: -120px; left: -100px; }
+.blob2 { width: 300px; height: 300px; background: var(--purple); bottom: 5%; right: -100px; }
 
-.glass{
-  background:var(--glass-bg); backdrop-filter: blur(24px) saturate(160%); -webkit-backdrop-filter: blur(24px) saturate(160%);
-  border:1px solid var(--glass-border); border-radius:26px; box-shadow:var(--shadow);
-  transition: transform .25s ease, box-shadow .25s ease;
-}
-
-nav.floatnav{
-  position:sticky; top:14px; z-index:50; margin:14px auto 24px; max-width:920px;
-  display:flex; align-items:center; justify-content:space-between; padding:12px 20px; border-radius:22px;
-}
-.logo{font-weight:800; font-size:16px; display:flex; align-items:center; gap:8px;}
-.logo .dot{width:9px; height:9px; border-radius:50%; background:linear-gradient(135deg,var(--blue),var(--purple));}
-.nav-spacer{flex:1;}
-.icon-btn{
-  width:36px; height:36px; border-radius:50%; border:1px solid var(--glass-border);
-  background:var(--glass-bg-strong); display:flex; align-items:center; justify-content:center;
-  cursor:pointer; font-size:15px; transition:transform .15s;
-}
-.icon-btn:hover{ transform:translateY(-2px); }
-.icon-btn:active{ transform:scale(.92); }
-
-.wrap{max-width:920px; margin:0 auto; padding:0 18px;}
-
-/* ---- Today summary (only thing visible up top) ---- */
-.today-card{padding:28px 30px; margin-bottom:20px; text-align:center;}
-.today-card .kcal-big{font-size:44px; font-weight:800; letter-spacing:-.02em;}
-.today-card .kcal-big small{font-size:18px; font-weight:600; color:var(--ink-soft);}
-.today-track{height:8px; border-radius:6px; background:var(--glass-border); margin:16px auto 12px; max-width:420px; overflow:hidden;}
-.today-fill{height:100%; border-radius:6px; background:linear-gradient(90deg,var(--blue),var(--purple)); transition:width .5s;}
-.today-meta{display:flex; justify-content:center; gap:28px; font-size:13px; color:var(--ink-soft); flex-wrap:wrap;}
-.today-meta b{color:var(--ink); font-weight:700;}
-.today-actions{margin-top:16px; display:flex; justify-content:center; gap:10px;}
-
-details.settings{margin-bottom:20px;}
-details.settings summary{
-  list-style:none; cursor:pointer; font-size:13px; font-weight:600; color:var(--ink-soft);
-  padding:12px 18px; display:flex; align-items:center; gap:8px;
-}
-details.settings summary::-webkit-details-marker{display:none;}
-details.settings[open] summary{color:var(--ink);}
-.profile-grid{display:grid; grid-template-columns:repeat(6,1fr); gap:10px; padding:0 18px 18px;}
-@media(max-width:760px){.profile-grid{grid-template-columns:repeat(2,1fr);}}
-.profile-grid label{font-size:10px; color:var(--ink-soft); display:block; margin-bottom:4px; font-weight:600;}
-.profile-grid input,.profile-grid select{
-  width:100%; padding:7px 9px; border-radius:10px; border:1px solid var(--glass-border);
-  background:var(--glass-bg-strong); color:var(--ink); font-size:12px; font-family:inherit;
+.glass {
+  background: var(--glass-bg); backdrop-filter: blur(24px) saturate(160%); -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid var(--glass-border); border-radius: 26px; box-shadow: var(--shadow);
+  transition: transform .25s ease, box-shadow .25s ease, z-index .25s;
 }
 
-/* ---- Meal cards: minimal ---- */
-.meals{display:flex; flex-direction:column; gap:16px;}
-.meal-card{padding:22px 24px; animation:fadeUp .4s ease both;}
-.meal-head{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:4px;}
-.meal-title{display:flex; align-items:center; gap:10px; font-weight:700; font-size:18px;}
-.meal-title .emoji{font-size:21px;}
-.meal-kcal{font-size:13px; color:var(--ink-soft); font-weight:600;}
-.meal-sep{height:1px; background:var(--glass-border); margin:14px 0 12px;}
+nav.floatnav {
+  position: sticky; top: 14px; z-index: 100; margin: 14px auto 24px; max-width: 920px;
+  display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; border-radius: 22px;
+}
+.logo { font-weight: 800; font-size: 16px; display: flex; align-items: center; gap: 8px; }
+.logo .dot { width: 9px; height: 9px; border-radius: 50%; background: linear-gradient(135deg, var(--blue), var(--purple)); }
+.nav-spacer { flex: 1; }
+.icon-btn {
+  width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--glass-border);
+  background: var(--glass-bg-strong); display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 15px; transition: transform .15s, background .15s; color: var(--ink);
+}
+.icon-btn:hover { transform: translateY(-2px); }
+.icon-btn:active { transform: scale(.92); }
 
-.food-list{display:flex; flex-direction:column;}
-.food-row{
-  display:flex; align-items:center; gap:12px; padding:11px 4px; border-bottom:1px solid var(--glass-border);
-  animation:rowIn .25s ease both;
-}
-.food-row:last-child{border-bottom:none;}
-.food-row .icon{font-size:18px; width:22px; text-align:center;}
-.food-row .name{flex:1; font-size:14px; font-weight:500;}
-.food-row .qty{
-  width:44px; text-align:center; border:none; background:var(--glass-bg-strong); border-radius:8px;
-  font-size:12px; color:var(--ink-soft); padding:4px 0; font-family:inherit;
-}
-.food-row .kc{font-size:11px; color:var(--ink-faint); min-width:38px; text-align:right; font-weight:600;}
-.food-row .x{border:none; background:none; color:var(--ink-faint); cursor:pointer; font-size:15px; padding:2px;}
-.food-row .x:hover{color:var(--red);}
-.empty-note{font-size:13px; color:var(--ink-faint); padding:10px 4px;}
+.wrap { max-width: 920px; margin: 0 auto; padding: 0 18px; }
 
-.meal-actions{display:flex; justify-content:space-between; align-items:center; margin-top:14px;}
-.link-btn{background:none; border:none; color:var(--blue); font-size:13px; font-weight:600; cursor:pointer; padding:4px 0;}
-.link-btn.muted{color:var(--ink-faint);}
-.link-btn:hover{text-decoration:underline;}
+/* ---- Today summary ---- */
+.today-card { padding: 28px 30px; margin-bottom: 20px; text-align: center; position: relative; z-index: 20; }
+.today-card .kcal-big { font-size: 44px; font-weight: 800; letter-spacing: -.02em; }
+.today-card .kcal-big small { font-size: 18px; font-weight: 600; color: var(--ink-soft); }
+.today-track { height: 8px; border-radius: 6px; background: var(--glass-border); margin: 16px auto 12px; max-width: 420px; overflow: hidden; }
+.today-fill { height: 100%; border-radius: 6px; background: linear-gradient(90deg, var(--blue), var(--purple)); transition: width .5s ease, background .3s ease; }
+.today-meta { display: flex; justify-content: center; gap: 28px; font-size: 13px; color: var(--ink-soft); flex-wrap: wrap; }
+.today-meta b { color: var(--ink); font-weight: 700; }
 
-.add-panel{margin-top:12px; display:none;}
-.add-panel.open{display:block; animation:fadeUp .25s ease both;}
-.search-wrap{position:relative;}
-.search-wrap input{
-  width:100%; padding:10px 14px; border-radius:14px; border:1px solid var(--glass-border);
-  background:var(--glass-bg-strong); color:var(--ink); font-size:13px; font-family:inherit;
+/* Alcohol Warning Summary */
+.alcohol-alert-box {
+  margin-top: 16px; padding: 14px 18px; border-radius: 16px; font-size: 12.5px; line-height: 1.5;
+  background: rgba(255, 159, 10, 0.12); border: 1px solid rgba(255, 159, 10, 0.3); text-align: left;
+  display: none; animation: fadeUp .3s ease both; color: var(--ink);
 }
-.dropdown{
-  position:absolute; top:44px; left:0; right:0; z-index:30; max-height:220px; overflow-y:auto;
-  border-radius:14px; padding:6px; background:var(--glass-bg-strong); backdrop-filter:blur(20px);
-  border:1px solid var(--glass-border); box-shadow:var(--shadow-lift);
+.alcohol-alert-box.visible { display: block; }
+.alcohol-alert-title { font-weight: 700; color: var(--orange); display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+
+/* Profile and Settings */
+details.settings { margin-bottom: 20px; position: relative; z-index: 30; }
+details.settings summary {
+  list-style: none; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--ink-soft);
+  padding: 12px 18px; display: flex; align-items: center; gap: 8px;
 }
-.dropdown .opt{padding:9px 10px; border-radius:10px; cursor:pointer; font-size:13px; display:flex; justify-content:space-between; gap:8px;}
-.dropdown .opt:hover{background:color-mix(in srgb, var(--blue) 10%, transparent);}
-.dropdown .empty{padding:10px; font-size:12px; color:var(--ink-soft);}
-.custom-toggle{padding:8px 10px; font-size:12px; color:var(--blue); cursor:pointer; font-weight:600;}
-.custom-form{display:none; gap:6px; margin-top:8px;}
-.custom-form.open{display:flex;}
-.custom-form input{
-  flex:1; padding:8px 10px; border-radius:10px; border:1px dashed var(--glass-border);
-  background:transparent; color:var(--ink); font-size:12px; font-family:inherit;
-}
-.custom-form button{
-  border:none; background:var(--blue); color:#fff; border-radius:10px; padding:8px 12px; font-size:12px; font-weight:700; cursor:pointer;
+details.settings summary::-webkit-details-marker { display: none; }
+details.settings[open] summary { color: var(--ink); }
+.profile-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; padding: 0 18px 18px; }
+@media(max-width:760px){ .profile-grid { grid-template-columns: repeat(2, 1fr); } }
+.profile-grid label { font-size: 10px; color: var(--ink-soft); display: block; margin-bottom: 4px; font-weight: 600; }
+.profile-grid input, .profile-grid select {
+  width: 100%; padding: 7px 9px; border-radius: 10px; border: 1px solid var(--glass-border);
+  background: var(--glass-bg-strong); color: var(--ink); font-size: 12px; font-family: inherit;
 }
 
-/* ---- Nutrition summary (single place, collapsible) ---- */
-.nutrition-toggle-wrap{display:flex; justify-content:center; margin:26px 0 10px;}
-.nutrition-btn{
-  border:1px solid var(--glass-border); background:var(--glass-bg-strong); color:var(--ink);
-  padding:10px 20px; border-radius:16px; font-size:13px; font-weight:700; cursor:pointer;
+/* ---- Meal Cards ---- */
+.meals { display: flex; flex-direction: column; gap: 16px; position: relative; }
+.meal-card { padding: 22px 24px; position: relative; transition: z-index 0.1s ease; }
+/* Critical Fix: Elevate meal card context when active to overlay over other cards without clipping */
+.meal-card.dropdown-active { z-index: 90 !important; }
+.meal-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 4px; }
+.meal-title { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; }
+.meal-title .emoji { font-size: 21px; }
+.meal-kcal { font-size: 13px; color: var(--ink-soft); font-weight: 600; }
+.meal-sep { height: 1px; background: var(--glass-border); margin: 14px 0 12px; }
+
+.food-list { display: flex; flex-direction: column; }
+.food-row {
+  display: flex; align-items: center; gap: 12px; padding: 11px 4px; border-bottom: 1px solid var(--glass-border);
+  animation: rowIn .25s ease both; flex-wrap: wrap;
 }
-.nutrition-panel{display:none; padding:24px; margin-bottom:20px;}
-.nutrition-panel.open{display:block; animation:fadeUp .35s ease both;}
-.rings{display:grid; grid-template-columns:repeat(5,1fr); gap:14px;}
-@media(max-width:700px){.rings{grid-template-columns:repeat(2,1fr);}}
-.ring-card{display:flex; flex-direction:column; align-items:center; gap:6px;}
-.ring-card svg{transform:rotate(-90deg);}
-.ring-card .track{stroke:var(--glass-border); fill:none; stroke-width:7;}
-.ring-card .fill{fill:none; stroke-width:7; stroke-linecap:round; transition:stroke-dashoffset .6s cubic-bezier(.2,.8,.2,1);}
-.ring-card .ringval{margin-top:-84px; font-size:12px; font-weight:700; text-align:center; width:88px;}
-.ring-card .ringval small{display:block; font-weight:500; color:var(--ink-soft); font-size:9px; margin-top:2px;}
-.ring-card .lbl{font-size:11px; font-weight:700; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.04em;}
-.nutrition-tips{margin-top:20px; padding-top:18px; border-top:1px solid var(--glass-border);}
-.nutrition-tips h4{margin:0 0 8px; font-size:13px; font-weight:700;}
-.nutrition-tips ul{margin:0; padding-left:18px; font-size:13px; color:var(--ink-soft); line-height:1.8;}
-.nutrition-tips .ok{color:var(--green); font-size:13px; font-weight:600;}
-
-@keyframes fadeUp{ from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
-@keyframes rowIn{ from{opacity:0;} to{opacity:1;} }
-
-.fab{
-  position:fixed; bottom:22px; right:22px; z-index:60; width:56px; height:56px; border-radius:50%;
-  background:linear-gradient(135deg,var(--blue),var(--purple)); color:#fff; font-size:26px; border:none;
-  box-shadow:var(--shadow-lift); cursor:pointer; display:none; align-items:center; justify-content:center;
+@media (max-width: 480px) {
+  .food-row { gap: 8px; }
 }
-@media(max-width:600px){ .fab{display:flex;} }
+.food-row:last-child { border-bottom: none; }
+.food-row .icon { font-size: 18px; width: 22px; text-align: center; }
+.food-row .name-wrap { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 140px; }
+.food-row .name { font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 6px; }
+.food-row .subtext { font-size: 11px; color: var(--ink-soft); }
 
-.toast{
-  position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(10px); z-index:70;
-  padding:10px 18px; border-radius:20px; font-size:12px; display:flex; gap:12px; align-items:center;
-  opacity:0; pointer-events:none; transition:opacity .25s, transform .25s;
-  background:linear-gradient(135deg,var(--blue),var(--purple)); color:#fff;
+/* Health/Alcohol Badges */
+.badge { font-size: 9.5px; padding: 2px 6px; border-radius: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; display: inline-flex; align-items: center; }
+.badge.healthy { background: rgba(48, 209, 88, 0.15); color: #30D158; }
+.badge.moderate { background: rgba(255, 159, 10, 0.15); color: #FF9F0A; }
+.badge.indulgent { background: rgba(255, 69, 58, 0.15); color: #FF453A; }
+.badge.alcohol { background: rgba(191, 90, 242, 0.15); color: #BF5AF2; }
+
+/* Serving Options dropdown in logged item */
+.food-row .qty-wrap { display: flex; align-items: center; gap: 4px; }
+.food-row .qty {
+  width: 52px; text-align: center; border: 1px solid var(--glass-border); background: var(--glass-bg-strong); border-radius: 8px;
+  font-size: 12px; color: var(--ink); padding: 4px 0; font-family: inherit; font-weight: 600;
 }
-.toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
-.toast button{background:none; border:none; color:#fff; text-decoration:underline; cursor:pointer; font-size:12px; font-weight:700;}
+.food-row .portion-select {
+  padding: 4px 6px; border-radius: 8px; border: 1px solid var(--glass-border);
+  background: var(--glass-bg-strong); color: var(--ink); font-size: 12px; font-family: inherit; font-weight: 500;
+}
+.food-row .kc { font-size: 13px; color: var(--ink-soft); min-width: 48px; text-align: right; font-weight: 600; }
+.food-row .x { border: none; background: none; color: var(--ink-faint); cursor: pointer; font-size: 16px; padding: 2px; }
+.food-row .x:hover { color: var(--red); }
+.empty-note { font-size: 13px; color: var(--ink-faint); padding: 10px 4px; }
 
-@media (prefers-reduced-motion: reduce){ *{animation:none !important; transition:none !important;} }
+.meal-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; }
+.link-btn { background: none; border: none; color: var(--blue); font-size: 13px; font-weight: 600; cursor: pointer; padding: 4px 0; }
+.link-btn.muted { color: var(--ink-faint); }
+.link-btn:hover { text-decoration: underline; }
+
+/* ---- Add Food Panel & Dropdown Stacking Fix ---- */
+.add-panel { margin-top: 12px; display: none; position: relative; }
+.add-panel.open { display: block; animation: fadeUp .25s ease both; }
+.search-wrap { position: relative; width: 100%; }
+.search-wrap input {
+  width: 100%; padding: 10px 14px; border-radius: 14px; border: 1px solid var(--glass-border);
+  background: var(--glass-bg-strong); color: var(--ink); font-size: 13.5px; font-family: inherit;
+}
+.search-wrap input:focus {
+  outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.15);
+}
+
+/* Float Autocomplete Menu above all adjacent meals & elements */
+.dropdown {
+  position: absolute; left: 0; right: 0; z-index: 1000; max-height: 280px; overflow-y: auto;
+  border-radius: 14px; padding: 6px; background: var(--glass-bg-strong); backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%); border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-lift); margin-top: 6px;
+}
+.dropdown.open-upward {
+  bottom: 44px; top: auto; margin-top: 0; margin-bottom: 6px;
+}
+.dropdown .dropdown-section-title {
+  font-size: 9px; font-weight: 800; color: var(--ink-faint); text-transform: uppercase;
+  padding: 6px 10px 3px; letter-spacing: 0.05em; border-top: 1px solid rgba(255,255,255,0.05);
+}
+.dropdown .dropdown-section-title:first-child { border-top: none; }
+.dropdown .opt {
+  padding: 8px 10px; border-radius: 10px; cursor: pointer; font-size: 13px;
+  display: flex; align-items: center; justify-content: space-between; gap: 8px; transition: background .1s;
+}
+.dropdown .opt:hover { background: color-mix(in srgb, var(--blue) 12%, transparent); }
+.dropdown .opt-meta { display: flex; align-items: center; gap: 6px; }
+.dropdown .empty { padding: 12px 10px; font-size: 12.5px; color: var(--ink-soft); text-align: center; }
+.custom-toggle { padding: 9px 10px; font-size: 12px; color: var(--blue); cursor: pointer; font-weight: 600; border-top: 1px dashed var(--glass-border); }
+.custom-form { display: none; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+.custom-form.open { display: flex; }
+.custom-form input {
+  flex: 1; min-width: 80px; padding: 8px 10px; border-radius: 10px; border: 1px dashed var(--glass-border);
+  background: transparent; color: var(--ink); font-size: 12px; font-family: inherit;
+}
+.custom-form button {
+  border: none; background: var(--blue); color: #fff; border-radius: 10px; padding: 8px 12px; font-size: 12px; font-weight: 700; cursor: pointer;
+}
+
+/* ---- Nutrition Summary ---- */
+.nutrition-toggle-wrap { display: flex; justify-content: center; margin: 26px 0 10px; }
+.nutrition-btn {
+  border: 1px solid var(--glass-border); background: var(--glass-bg-strong); color: var(--ink);
+  padding: 10px 20px; border-radius: 16px; font-size: 13px; font-weight: 700; cursor: pointer;
+}
+.nutrition-panel { display: none; padding: 24px; margin-bottom: 20px; }
+.nutrition-panel.open { display: block; animation: fadeUp .35s ease both; }
+.rings { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+@media(max-width:700px){ .rings { grid-template-columns: repeat(2,1fr); } }
+@media(max-width:400px){ .rings { grid-template-columns: repeat(1,1fr); } }
+.ring-card { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.ring-card svg { transform: rotate(-90deg); }
+.ring-card .track { stroke: var(--glass-border); fill: none; stroke-width: 7; }
+.ring-card .fill { fill: none; stroke-width: 7; stroke-linecap: round; transition: stroke-dashoffset .6s cubic-bezier(.2,.8,.2,1); }
+.ring-card .ringval { margin-top: -84px; font-size: 12px; font-weight: 700; text-align: center; width: 88px; }
+.ring-card .ringval small { display: block; font-weight: 500; color: var(--ink-soft); font-size: 9px; margin-top: 2px; }
+.ring-card .lbl { font-size: 11px; font-weight: 700; color: var(--ink-soft); text-transform: uppercase; letter-spacing: .04em; margin-top: 14px; }
+.nutrition-tips { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--glass-border); }
+.nutrition-tips h4 { margin: 0 0 8px; font-size: 13px; font-weight: 700; }
+.nutrition-tips ul { margin: 0; padding-left: 18px; font-size: 13px; color: var(--ink-soft); line-height: 1.8; }
+.nutrition-tips .ok { color: var(--green); font-size: 13px; font-weight: 600; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes rowIn { from { opacity: 0; } to { opacity: 1; } }
+
+.fab {
+  position: fixed; bottom: 22px; right: 22px; z-index: 60; width: 56px; height: 56px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue), var(--purple)); color: #fff; font-size: 26px; border: none;
+  box-shadow: var(--shadow-lift); cursor: pointer; display: none; align-items: center; justify-content: center;
+}
+@media(max-width:600px){ .fab { display: flex; } }
+
+.toast {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(10px); z-index: 2000;
+  padding: 10px 18px; border-radius: 20px; font-size: 12px; display: flex; gap: 12px; align-items: center;
+  opacity: 0; pointer-events: none; transition: opacity .25s, transform .25s;
+  background: linear-gradient(135deg, var(--blue), var(--purple)); color: #fff; box-shadow: var(--shadow-lift);
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+.toast button { background: none; border: none; color: #fff; text-decoration: underline; cursor: pointer; font-size: 12px; font-weight: 700; }
+
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
 </style>
 </head>
 <body>
@@ -194,9 +245,9 @@ details.settings[open] summary{color:var(--ink);}
 <div class="blob blob2"></div>
 
 <nav class="floatnav glass">
-  <div class="logo"><span class="dot"></span>NutriGlass</div>
+  <div class="logo"><span class="dot"></span>NutriGlass Pro</div>
   <div class="nav-spacer"></div>
-  <button class="icon-btn" id="resetBtn" title="Reset to default diet">↺</button>
+  <button class="icon-btn" id="resetBtn" title="Reset to default diet" style="margin-right: 8px;">↺</button>
   <button class="icon-btn" id="themeBtn" title="Toggle theme">🌙</button>
 </nav>
 
@@ -208,6 +259,12 @@ details.settings[open] summary{color:var(--ink);}
     <div class="today-meta">
       <span>Remaining <b id="remainKcal">--</b></span>
       <span>Weight goal <b id="weightGoal">--</b></span>
+    </div>
+    
+    <!-- Dynamic Alcohol Information Banner -->
+    <div class="alcohol-alert-box" id="alcoholAlert">
+      <div class="alcohol-alert-title">🍺 Alcohol Intake Warning</div>
+      <div id="alcoholAlertContent"></div>
     </div>
   </div>
 
@@ -255,166 +312,405 @@ details.settings[open] summary{color:var(--ink);}
 <div class="toast" id="toast"><span id="toastMsg"></span><button id="undoBtn">Undo</button></div>
 
 <script>
-/* ---------- Food database ---------- */
+/* ---------- Structured Food database ---------- */
 const DB = [
-["Apple","Fruits","🍎","100g",52,0.3,14,0.2,2.4],
-["Banana","Fruits","🍎","100g",89,1.1,23,0.3,2.6],
-["Orange","Fruits","🍎","100g",47,0.9,12,0.1,2.4],
-["Papaya","Fruits","🍎","100g",43,0.5,11,0.3,1.7],
-["Mango","Fruits","🍎","100g",60,0.8,15,0.4,1.6],
-["Watermelon","Fruits","🍎","100g",30,0.6,8,0.2,0.4],
-["Muskmelon","Fruits","🍎","100g",34,0.8,8,0.2,0.9],
-["Guava","Fruits","🍎","100g",68,2.6,14,1,5.4],
-["Grapes","Fruits","🍎","100g",69,0.7,18,0.2,0.9],
-["Pineapple","Fruits","🍎","100g",50,0.5,13,0.1,1.4],
-["Kiwi","Fruits","🍎","100g",61,1.1,15,0.5,3],
-["Pomegranate","Fruits","🍎","100g",83,1.7,19,1.2,4],
-["Pear","Fruits","🍎","100g",57,0.4,15,0.1,3.1],
-["Litchi","Fruits","🍎","100g",66,0.8,17,0.4,1.3],
-["Strawberry","Fruits","🍎","100g",32,0.7,8,0.3,2],
-["Blueberries","Fruits","🍎","100g",57,0.7,14,0.3,2.4],
-["Cherries","Fruits","🍎","100g",63,1.1,16,0.2,2.1],
-["Potato (boiled)","Vegetables","🥗","100g",77,2,17,0.1,2.2],
-["Sweet Potato","Vegetables","🥗","100g",86,1.6,20,0.1,3],
-["Onion","Vegetables","🥗","100g",40,1.1,9,0.1,1.7],
-["Tomato","Vegetables","🥗","100g",18,0.9,3.9,0.2,1.2],
-["Cucumber","Vegetables","🥗","100g",15,0.7,3.6,0.1,0.5],
-["Carrot","Vegetables","🥗","100g",41,0.9,10,0.2,2.8],
-["Beetroot","Vegetables","🥗","100g",43,1.6,10,0.2,2.8],
-["Capsicum","Vegetables","🥗","100g",20,0.9,4.6,0.2,1.7],
-["Spinach (cooked)","Vegetables","🥗","100g",23,2.9,3.6,0.4,2.2],
-["Broccoli","Vegetables","🥗","100g",34,2.8,7,0.4,2.6],
-["Cabbage","Vegetables","🥗","100g",25,1.3,6,0.1,2.5],
-["Cauliflower","Vegetables","🥗","100g",25,1.9,5,0.3,2],
-["Green Peas","Vegetables","🥗","100g",81,5.4,14,0.4,5.7],
-["Beans","Vegetables","🥗","100g",31,1.8,7,0.2,3.4],
-["Pumpkin","Vegetables","🥗","100g",26,1,6.5,0.1,0.5],
-["Bottle Gourd","Vegetables","🥗","100g",15,0.6,3.4,0.02,0.5],
-["Bitter Gourd","Vegetables","🥗","100g",17,1,3.7,0.2,2.8],
-["Lady Finger (Bhindi)","Vegetables","🥗","100g",33,1.9,7,0.2,3.2],
-["Eggplant (Baingan)","Vegetables","🥗","100g",25,1,6,0.2,3],
-["Radish","Vegetables","🥗","100g",16,0.7,3.4,0.1,1.6],
-["White Rice (cooked)","Rice","🍚","bowl",130,2.7,28,0.3,0.4],
-["Brown Rice (cooked)","Rice","🍚","100g",123,2.7,26,1,1.8],
-["Basmati Rice (cooked)","Rice","🍚","100g",121,3.5,25,0.4,0.6],
-["Jeera Rice","Rice","🍚","100g",150,3,26,3,0.5],
-["Fried Rice","Rice","🍚","100g",163,4,27,4,1],
-["Lemon Rice","Rice","🍚","100g",150,3,25,4,0.8],
-["Vegetable Pulao","Rice","🍚","100g",160,4,28,3,1.5],
-["Khichdi","Rice","🍚","bowl",120,4,22,2,1.8],
-["Chapati","Breads","🫓","1 pc",80,2.5,15,1,2],
-["Roti","Breads","🫓","1 pc",80,2.5,15,1,2],
-["Phulka","Breads","🫓","1 pc",70,2,13,0.8,1.8],
-["Tandoori Roti","Breads","🫓","1 pc",100,3,18,1.5,2],
-["Paratha (plain)","Breads","🫓","1 pc",150,3,20,6,2],
-["Stuffed Paratha","Breads","🫓","1 pc",200,5,25,8,2.5],
-["Naan","Breads","🫓","1 pc",160,4,28,3,1.5],
-["Kulcha","Breads","🫓","1 pc",170,4,29,4,1.5],
-["Bhakri","Breads","🫓","1 pc",120,3,20,3,2],
-["Paneer","Protein","🫘","serving",265,18,1.2,21,0],
-["Tofu","Protein","🫘","100g",76,8,1.9,4.8,0.3],
-["Soy Chunks (cooked)","Protein","🫘","100g",345,52,33,0.5,13],
-["Dal (cooked)","Protein","🫘","bowl",116,9,20,0.4,8],
-["Rajma (cooked)","Protein","🫘","bowl",127,8.7,22.8,0.5,6.4],
-["Chole (cooked)","Protein","🫘","bowl",164,8.9,27,2.6,7.6],
-["Sprouts","Protein","🫘","100g",30,3,6,0.2,1.8],
-["Chickpeas (cooked)","Protein","🫘","100g",164,8.9,27,2.6,7.6],
-["Moong Dal (cooked)","Protein","🫘","bowl",105,7,19,0.4,7.6],
-["Black Dal (cooked)","Protein","🫘","bowl",120,9,20,0.5,5],
-["Milk","Protein","🫘","100ml",60,3.2,4.8,3.2,0],
-["Curd","Protein","🫘","100g",60,3.5,4.7,3.3,0],
-["Greek Yogurt","Protein","🫘","100g",59,10,3.6,0.4,0],
-["Tea with Sugar","Beverages","☕","cup",60,1.0,10.0,1.0,0],
-["Tea without Sugar","Beverages","☕","cup",20,1,2,1,0],
-["Black Tea","Beverages","☕","cup",2,0,0.5,0,0],
-["Green Tea","Beverages","☕","cup",2,0,0.5,0,0],
-["Coffee (with milk & sugar)","Beverages","☕","cup",45,1,6,1.5,0],
-["Coffee with Milk","Beverages","☕","cup",60,1.5,7,2,0],
-["Coffee without Sugar","Beverages","☕","cup",30,1,3,1.5,0],
-["Black Coffee","Beverages","☕","cup",2,0,0.3,0,0],
-["Cold Coffee","Beverages","☕","cup",120,3,16,4,0],
-["Lemon Tea","Beverages","☕","cup",25,0,6,0,0],
-["Roasted Chana","Snacks","🥜","30g",90,5,12,2,4],
-["Makhana","Snacks","🥜","20g",65,2,13,0.2,1],
-["Almonds","Snacks","🥜","10 pc",70,2.5,2.5,6,1.5],
-["Walnuts","Snacks","🥜","5 pc",98,2.3,2,9.8,1],
-["Peanuts","Snacks","🥜","serving",170,7.0,6.0,14.0,2.4],
-["Cashews","Snacks","🥜","10 pc",85,2.5,4.5,7,0.5],
-["Biscuits","Snacks","🥜","2 pc",90,1.5,14,3,0.5],
-["Toast","Snacks","🥜","1 slice",75,2.5,13,1,1],
-["Popcorn","Snacks","🥜","1 cup",30,1,6,0.3,1.2],
-["Dal Rice","Meals","🍛","plate",300,10,50,6,6],
-["Rajma Rice","Meals","🍛","plate",350,12,55,8,7],
-["Chole Rice","Meals","🍛","plate",340,11,54,8,7],
-["Paneer Curry","Meals","🍛","bowl",280,14,10,20,2],
-["Mix Vegetable","Meals","🍛","serving",150,4.0,15.0,8.0,4.0],
-["Aloo Sabzi","Meals","🍛","bowl",180,3,25,7,3],
-["Bhindi Sabzi","Meals","🍛","bowl",120,3,10,8,3.5],
-["Kadhi Rice","Meals","🍛","plate",280,8,40,9,2],
-["Veg Biryani","Meals","🍛","plate",350,8,55,10,3],
-["Pulao","Meals","🍛","plate",300,6,50,8,2],
-["Upma","Meals","🍛","bowl",200,5,30,6,2.5],
-["Poha","Meals","🍛","bowl",250,5,40,7,2],
-["Idli","Meals","🍛","2 pc",78,2,16,0.2,1],
-["Dosa","Meals","🍛","1 pc",133,3,18,6,1],
-["Uttapam","Meals","🍛","1 pc",160,4,22,6,1.5],
-["Sambar","Meals","🍛","bowl",100,5,15,2,3],
-["Gulab Jamun","Desserts","🍰","1 pc",150,2,20,7,0],
-["Rasgulla","Desserts","🍰","1 pc",106,4,22,0.5,0],
-["Jalebi","Desserts","🍰","50g",150,1,25,5,0],
-["Kheer","Desserts","🍰","bowl",250,6,35,9,0.5],
-["Ice Cream","Desserts","🍰","1 scoop",137,2.3,16,7.3,0.5],
-["Chocolate","Desserts","🍰","25g",135,1.5,15,8,1],
-["Cake","Desserts","🍰","1 slice",235,3,35,9,0.5],
+  // --- Fruits ---
+  ["Apple","Fruits","🍎","100g",52,0.3,14,0.2,2.4,"healthy", ["apple", "seb"]],
+  ["Banana","Fruits","🍌","100g",89,1.1,23,0.3,2.6,"healthy", ["banana", "kela"]],
+  ["Orange","Fruits","🍊","100g",47,0.9,12,0.1,2.4,"healthy", ["orange", "santara"]],
+  ["Papaya","Fruits","🥭","100g",43,0.5,11,0.3,1.7,"healthy", ["papaya", "papita"]],
+  ["Mango","Fruits","🥭","100g",60,0.8,15,0.4,1.6,"healthy", ["mango", "aam"]],
+  ["Watermelon","Fruits","🍉","100g",30,0.6,8,0.2,0.4,"healthy", ["watermelon", "tarbooz"]],
+  ["Muskmelon","Fruits","🍈","100g",34,0.8,8,0.2,0.9,"healthy", ["muskmelon", "kharbooja"]],
+  ["Guava","Fruits","🥑","100g",68,2.6,14,1,5.4,"healthy", ["guava", "amrood"]],
+  ["Grapes","Fruits","🍇","100g",69,0.7,18,0.2,0.9,"healthy", ["grapes", "angoor"]],
+  ["Pineapple","Fruits","🍍","100g",50,0.5,13,0.1,1.4,"healthy", ["pineapple", "ananas"]],
+  ["Kiwi","Fruits","🥝","100g",61,1.1,15,0.5,3,"healthy", ["kiwi"]],
+  ["Pomegranate","Fruits","🍎","100g",83,1.7,19,1.2,4,"healthy", ["pomegranate", "anaar"]],
+  ["Pear","Fruits","🍐","100g",57,0.4,15,0.1,3.1,"healthy", ["pear", "nashpati"]],
+  ["Litchi","Fruits","🍒","100g",66,0.8,17,0.4,1.3,"healthy", ["litchi", "lichee"]],
+  ["Strawberry","Fruits","🍓","100g",32,0.7,8,0.3,2,"healthy", ["strawberry", "berry"]],
+  ["Blueberries","Fruits","🫐","100g",57,0.7,14,0.3,2.4,"healthy", ["blueberries", "berry"]],
+  ["Cherries","Fruits","🍒","100g",63,1.1,16,0.2,2.1,"healthy", ["cherries", "cherry"]],
+
+  // --- Vegetables ---
+  ["Potato (boiled)","Vegetables","🥔","100g",77,2,17,0.1,2.2,"moderate", ["potato", "aloo"]],
+  ["Sweet Potato","Vegetables","🍠","100g",86,1.6,20,0.1,3,"healthy", ["sweet potato", "shakarkand"]],
+  ["Onion","Vegetables","🧅","100g",40,1.1,9,0.1,1.7,"healthy", ["onion", "pyaz"]],
+  ["Tomato","Vegetables","🍅","100g",18,0.9,3.9,0.2,1.2,"healthy", ["tomato", "tamatar"]],
+  ["Cucumber","Vegetables","🥒","100g",15,0.7,3.6,0.1,0.5,"healthy", ["cucumber", "kheera"]],
+  ["Carrot","Vegetables","🥕","100g",41,0.9,10,0.2,2.8,"healthy", ["carrot", "gajar"]],
+  ["Beetroot","Vegetables","🥬","100g",43,1.6,10,0.2,2.8,"healthy", ["beetroot", "chukandar"]],
+  ["Capsicum","Vegetables","🫑","100g",20,0.9,4.6,0.2,1.7,"healthy", ["capsicum", "shimla mirch"]],
+  ["Spinach (cooked)","Vegetables","🥬","100g",23,2.9,3.6,0.4,2.2,"healthy", ["spinach", "palak"]],
+  ["Broccoli","Vegetables","🥦","100g",34,2.8,7,0.4,2.6,"healthy", ["broccoli"]],
+  ["Cabbage","Vegetables","🥬","100g",25,1.3,6,0.1,2.5,"healthy", ["cabbage", "patta gobhi"]],
+  ["Cauliflower","Vegetables","🥦","100g",25,1.9,5,0.3,2,"healthy", ["cauliflower", "phool gobhi"]],
+  ["Green Peas","Vegetables","🫛","100g",81,5.4,14,0.4,5.7,"healthy", ["peas", "matar"]],
+  ["Beans","Vegetables","🫛","100g",31,1.8,7,0.2,3.4,"healthy", ["beans", "farasbi"]],
+  ["Pumpkin","Vegetables","🎃","100g",26,1,6.5,0.1,0.5,"healthy", ["pumpkin", "kaddu"]],
+  ["Bottle Gourd","Vegetables","🥒","100g",15,0.6,3.4,0.02,0.5,"healthy", ["bottle gourd", "lauki"]],
+  ["Bitter Gourd","Vegetables","🥒","100g",17,1,3.7,0.2,2.8,"healthy", ["bitter gourd", "karela"]],
+  ["Lady Finger (Bhindi)","Vegetables","🥒","100g",33,1.9,7,0.2,3.2,"healthy", ["lady finger", "bhindi", "okra"]],
+  ["Eggplant (Baingan)","Vegetables","🍆","100g",25,1,6,0.2,3,"healthy", ["eggplant", "baingan", "aubergine"]],
+  ["Radish","Vegetables","🥕","100g",16,0.7,3.4,0.1,1.6,"healthy", ["radish", "mooli"]],
+
+  // --- Dairy & Vegetarian Protein ---
+  ["Paneer","Vegetarian Protein","🫕","100g",265,18,1.2,21,0,"healthy", ["paneer", "cottage cheese"]],
+  ["Tofu","Vegetarian Protein","🫘","100g",76,8,1.9,4.8,0.3,"healthy", ["tofu", "soy tofu"]],
+  ["Soy Chunks (cooked)","Vegetarian Protein","🫘","100g",345,52,33,0.5,13,"healthy", ["soy chunks", "nutrela", "soya"]],
+  ["Dal (cooked)","Vegetarian Protein","🥣","bowl",116,9,20,0.4,8,"healthy", ["dal", "lentil", "pulses"]],
+  ["Rajma (cooked)","Vegetarian Protein","🥣","bowl",127,8.7,22.8,0.5,6.4,"healthy", ["rajma", "kidney beans"]],
+  ["Chole (cooked)","Vegetarian Protein","🥣","bowl",164,8.9,27,2.6,7.6,"healthy", ["chole", "chana", "chickpeas"]],
+  ["Sprouts","Vegetarian Protein","🌱","100g",30,3,6,0.2,1.8,"healthy", ["sprouts", "moong sprouts"]],
+  ["Chickpeas (cooked)","Vegetarian Protein","🫘","100g",164,8.9,27,2.6,7.6,"healthy", ["chickpeas", "kabuli chana"]],
+  ["Moong Dal (cooked)","Vegetarian Protein","🥣","bowl",105,7,19,0.4,7.6,"healthy", ["moong dal", "yellow dal"]],
+  ["Black Dal (cooked)","Vegetarian Protein","🥣","bowl",120,9,20,0.5,5,"moderate", ["black dal", "dal makhani"]],
+  ["Milk","Dairy","🥛","100ml",60,3.2,4.8,3.2,0,"healthy", ["milk", "doodh"]],
+  ["Curd","Dairy","🥣","100g",60,3.5,4.7,3.3,0,"healthy", ["curd", "dahi", "yogurt"]],
+  ["Greek Yogurt","Dairy","🥣","100g",59,10,3.6,0.4,0,"healthy", ["greek yogurt", "yogurt"]],
+
+  // --- Non-Vegetarian (Chicken & Eggs) ---
+  ["Boiled Chicken Breast","Non-Vegetarian","🍗","100g",150,31,0,3.2,0,"healthy", ["boiled chicken breast", "chicken breast", "boiled chick", "chick", "diet chicken"]],
+  ["Grilled Chicken Breast","Non-Vegetarian","🍗","100g",165,31,0,3.6,0,"healthy", ["grilled chicken breast", "grilled chicken", "grilled chick", "chick"]],
+  ["Roasted Chicken","Non-Vegetarian","🍗","100g",190,25,0,9.5,0,"healthy", ["roasted chicken", "roasted chick", "chicken roasted"]],
+  ["Tandoori Chicken","Non-Vegetarian","🍗","1 plate",280,30,4,16,1.2,"moderate", ["tandoori chicken", "tandoori chick", "chicken tandoori"]],
+  ["Chicken Curry","Non-Vegetarian","🍲","1 bowl",290,24,8,18,1.5,"moderate", ["chicken curry", "curry chicken", "chicken gravy", "chick curry"]],
+  ["Chicken Biryani","Non-Vegetarian","🍛","1 plate",480,26,58,15,2.5,"indulgent", ["chicken biryani", "biryani chicken", "chick biryani"]],
+  ["Fried Chicken","Non-Vegetarian","🍗","1 piece",290,16,15,19,0.8,"indulgent", ["fried chicken", "kfc chicken", "fried chick", "crispy chicken"]],
+  ["Chicken Wings","Non-Vegetarian","🍗","100g",260,18,2,20,0,"indulgent", ["chicken wings", "wings", "hot wings"]],
+  ["Chicken Nuggets","Non-Vegetarian","🍟","6 pieces",280,14,18,17,0.5,"indulgent", ["chicken nuggets", "nuggets", "mcnuggets"]],
+  ["Chicken Tikka","Non-Vegetarian","🍢","1 plate",270,26,4,16,0.5,"moderate", ["chicken tikka", "tikka", "chicken kebab"]],
+  ["Chicken Keema","Non-Vegetarian","🍛","1 plate",320,28,6,20,1.5,"moderate", ["chicken keema", "keema chicken", "minced chicken"]],
+  ["Boiled Egg","Non-Vegetarian","🥚","1 large",78,6.3,0.6,5.3,0,"healthy", ["boiled egg", "egg boiled", "anda"]],
+  ["Egg White","Non-Vegetarian","🥚","1 large",17,3.6,0.2,0.1,0,"healthy", ["egg white", "anda white"]],
+  ["Omelette","Non-Vegetarian","🍳","1 egg",120,6.5,1.2,9.5,0,"moderate", ["omelette", "omlet", "egg omelette"]],
+  ["Fried Egg","Non-Vegetarian","🍳","1 egg",92,6.3,0.6,7.2,0,"moderate", ["fried egg", "sunny side up"]],
+  ["Scrambled Egg","Non-Vegetarian","🍳","1 egg",100,6.5,1,8,0,"moderate", ["scrambled egg", "egg scrambled"]],
+  ["Egg Bhurji","Non-Vegetarian","🍳","1 serving",180,12,4,13,0.5,"moderate", ["egg bhurji", "bhurji", "scrambled egg indian"]],
+
+  // --- Seafood ---
+  ["Grilled Fish","Seafood","🐟","100g",120,22,0,3,0,"healthy", ["grilled fish", "fish grilled", "diet fish"]],
+  ["Salmon","Seafood","🐟","100g",180,22,0,10,0,"healthy", ["salmon", "raw salmon", "grilled salmon"]],
+  ["Tuna","Seafood","🐟","100g",130,28,0,1,0,"healthy", ["tuna", "tuna fish", "canned tuna"]],
+  ["Rohu Fish","Seafood","🐟","100g",102,19.7,0,2.4,0,"healthy", ["rohu", "rohu fish", "indian fish"]],
+  ["Hilsa Fish","Seafood","🐟","100g",270,22,0,19.5,0,"moderate", ["hilsa", "ilish", "hilsa fish"]],
+  ["Fish Curry","Seafood","🍲","1 bowl",240,18,6,15,1,"moderate", ["fish curry", "machher jhol", "fish gravity"]],
+  ["Fried Fish","Seafood","🐟","1 piece",250,14,12,16,0.5,"indulgent", ["fried fish", "fish fry", "fish and chips"]],
+  ["Prawns","Seafood","🍤","100g",100,20,1,1.5,0,"healthy", ["prawns", "shrimp", "jhinga"]],
+  ["Shrimp","Seafood","🍤","100g",85,18,0.2,1,0,"healthy", ["shrimp", "prawn"]],
+  ["Crab","Seafood","🦀","100g",90,19,0,1.2,0,"healthy", ["crab", "kekda"]],
+  ["Lobster","Seafood","🦞","100g",89,19,0,0.9,0,"healthy", ["lobster", "lobsters"]],
+
+  // --- Mutton ---
+  ["Mutton Curry","Non-Vegetarian","🍲","1 bowl",340,22,8,24,1.2,"moderate", ["mutton curry", "mutton grav", "mutton korma"]],
+  ["Roasted Mutton","Non-Vegetarian","🥩","100g",250,26,0,16,0,"moderate", ["roasted mutton", "mutton roasted"]],
+  ["Grilled Mutton","Seafood","🥩","100g",240,26,0,15,0,"moderate", ["grilled mutton", "mutton grill"]],
+  ["Mutton Biryani","Non-Vegetarian","🍛","1 plate",540,28,62,18,2,"indulgent", ["mutton biryani", "biryani mutton", "bakra biryani"]],
+  ["Fried Mutton","Non-Vegetarian","🥩","100g",360,20,10,26,0,"indulgent", ["fried mutton", "mutton fry", "tala mutton"]],
+
+  // --- Rice ---
+  ["White Rice (cooked)","Rice","🍚","1 bowl",130,2.7,28,0.3,0.4,"moderate", ["white rice", "rice", "chawal"]],
+  ["Brown Rice (cooked)","Rice","🍚","100g",123,2.7,26,1,1.8,"healthy", ["brown rice", "diet rice"]],
+  ["Basmati Rice (cooked)","Rice","🍚","100g",121,3.5,25,0.4,0.6,"healthy", ["basmati rice", "basmati"]],
+  ["Jeera Rice","Rice","🍚","100g",150,3,26,3,0.5,"moderate", ["jeera rice"]],
+  ["Fried Rice","Rice","🍚","100g",163,4,27,4,1,"indulgent", ["fried rice", "veg fried rice"]],
+  ["Lemon Rice","Rice","🍚","100g",150,3,25,4,0.8,"moderate", ["lemon rice"]],
+  ["Vegetable Pulao","Rice","🍚","100g",160,4,28,3,1.5,"healthy", ["veg pulao", "pulao"]],
+  ["Khichdi","Rice","🍚","bowl",120,4,22,2,1.8,"healthy", ["khichdi", "khichri"]],
+
+  // --- Breads ---
+  ["Chapati","Breads","🫓","1 pc",80,2.5,15,1,2,"healthy", ["chapati", "roti", "phulka"]],
+  ["Roti","Breads","🫓","1 pc",80,2.5,15,1,2,"healthy", ["roti", "rooti"]],
+  ["Phulka","Breads","🫓","1 pc",70,2,13,0.8,1.8,"healthy", ["phulka"]],
+  ["Tandoori Roti","Breads","🫓","1 pc",100,3,18,1.5,2,"healthy", ["tandoori roti", "tandoori"]],
+  ["Paratha (plain)","Breads","🫓","1 pc",150,3,20,6,2,"moderate", ["paratha", "parantha"]],
+  ["Stuffed Paratha","Breads","🫓","1 pc",200,5,25,8,2.5,"moderate", ["stuffed paratha", "aloo paratha"]],
+  ["Naan","Breads","🫓","1 pc",160,4,28,3,1.5,"indulgent", ["naan", "butter naan"]],
+  ["Kulcha","Breads","🫓","1 pc",170,4,29,4,1.5,"moderate", ["kulcha"]],
+  ["Bhakri","Breads","🫓","1 pc",120,3,20,3,2,"healthy", ["bhakri"]],
+
+  // --- Alcohol Category ---
+  ["Whisky","Alcohol","🥃","30ml",70,0,0.1,0,0,"alcohol", ["whisky", "whiskey", "patiala peg", "peg", "alcohol", "alcohol-drink", "liquor"]],
+  ["Vodka","Alcohol","🍸","30ml",64,0,0,0,0,"alcohol", ["vodka", "smirnoff", "vodka shot", "shot", "alcohol", "alcohol-drink"]],
+  ["Rum","Alcohol","🥃","30ml",64,0,0,0,0,"alcohol", ["rum", "old monk", "rum shot", "alcohol", "alcohol-drink"]],
+  ["Gin","Alcohol","🍸","30ml",64,0,0,0,0,"alcohol", ["gin", "gin shot", "alcohol", "alcohol-drink"]],
+  ["Beer","Alcohol","🍺","1 Bottle (650ml)",275,2.6,22,0,0,"alcohol", ["beer", "kingfisher", "budweiser", "corona", "pilsner", "brew", "alcohol", "alcohol-drink"]],
+  ["Wine","Alcohol","🍷","1 Glass (150ml)",125,0.1,3.8,0,0,"alcohol", ["wine", "red wine", "white wine", "sula", "alcohol", "alcohol-drink"]],
+  ["Mojito","Alcohol","🍹","1 Glass",160,0.1,25,0.1,0.1,"alcohol", ["mojito", "cocktail", "lime mojito", "alcohol"]],
+  ["Margarita","Alcohol","🍹","1 Glass",170,0,10,0,0,"alcohol", ["margarita", "cocktail", "alcohol"]],
+  ["Cosmopolitan","Alcohol","🍸","1 Glass",150,0,12,0,0,"alcohol", ["cosmopolitan", "cosmo", "cocktail", "alcohol"]],
+  ["Long Island Iced Tea","Alcohol","🍹","1 Glass",280,0.1,32,0.1,0,"alcohol", ["liit", "long island", "long island iced tea", "cocktail", "alcohol"]],
+  ["Whiskey Sour","Alcohol","🥃","1 Glass",160,0.2,14,0.1,0,"alcohol", ["whiskey sour", "whisky sour", "cocktail", "alcohol"]],
+
+  // --- Beverages (Non-Alcoholic) ---
+  ["Tea with Sugar","Beverages","☕","1 cup",60,1,10,1,0,"moderate", ["tea with sugar", "chai", "tea"]],
+  ["Tea without Sugar","Beverages","☕","1 cup",20,1,2,1,0,"healthy", ["tea without sugar", "tea no sugar", "sugarless chai"]],
+  ["Black Tea","Beverages","☕","1 cup",2,0,0.5,0,0,"healthy", ["black tea"]],
+  ["Green Tea","Beverages","☕","1 cup",2,0,0.5,0,0,"healthy", ["green tea"]],
+  ["Coffee (with milk & sugar)","Beverages","☕","1 cup",45,1,6,1.5,0,"moderate", ["coffee", "nescafe"]],
+  ["Coffee with Milk","Beverages","☕","1 cup",60,1.5,7,2,0,"healthy", ["coffee with milk"]],
+  ["Coffee without Sugar","Beverages","☕","1 cup",30,1,3,1.5,0,"healthy", ["coffee no sugar"]],
+  ["Black Coffee","Beverages","☕","1 cup",2,0,0.3,0,0,"healthy", ["black coffee"]],
+  ["Cold Coffee","Beverages","☕","1 cup",120,3,16,4,0,"moderate", ["cold coffee"]],
+  ["Lemon Tea","Beverages","☕","1 cup",25,0,6,0,0,"healthy", ["lemon tea"]],
+
+  // --- Snacks ---
+  ["Roasted Chana","Snacks","🥜","30g",90,5,12,2,4,"healthy", ["chana", "roasted chana", "snack"]],
+  ["Makhana","Snacks","🥜","20g",65,2,13,0.2,1,"healthy", ["makhana", "lotus seed", "snack"]],
+  ["Almonds","Snacks","🥜","10 pc",70,2.5,2.5,6,1.5,"healthy", ["almonds", "badam"]],
+  ["Walnuts","Snacks","🥜","5 pc",98,2.3,2,9.8,1,"healthy", ["walnuts", "akhrot"]],
+  ["Peanuts","Snacks","🥜","30g serving",170,7,6,14,2.4,"healthy", ["peanuts", "mungfali"]],
+  ["Cashews","Snacks","🥜","10 pc",85,2.5,4.5,7,0.5,"healthy", ["cashews", "kaju"]],
+  ["Biscuits","Snacks","🍪","2 pc",90,1.5,14,3,0.5,"moderate", ["biscuits", "parle-g", "cookie"]],
+  ["Toast","Snacks","🍞","1 slice",75,2.5,13,1,1,"healthy", ["toast", "bread toast"]],
+  ["Popcorn","Snacks","🍿","1 cup",30,1,6,0.3,1.2,"healthy", ["popcorn", "snacks"]],
+
+  // --- Meals / Fast Foods ---
+  ["Dal Rice","Indian Meals","🍛","1 plate",300,10,50,6,6,"healthy", ["dal rice", "dal chawal"]],
+  ["Rajma Rice","Indian Meals","🍛","1 plate",350,12,55,8,7,"healthy", ["rajma rice", "rajma chawal"]],
+  ["Chole Rice","Indian Meals","🍛","1 plate",340,11,54,8,7,"moderate", ["chole rice", "chole chawal"]],
+  ["Paneer Curry","Indian Meals","🍛","1 bowl",280,14,10,20,2,"moderate", ["paneer curry", "paneer masala"]],
+  ["Mix Vegetable","Indian Meals","🍛","serving",150,4,15,8,4,"healthy", ["mix veg", "sabzi"]],
+  ["Aloo Sabzi","Indian Meals","🍛","1 bowl",180,3,25,7,3,"moderate", ["aloo sabzi", "aloo dum"]],
+  ["Bhindi Sabzi","Indian Meals","🍛","1 bowl",120,3,10,8,3.5,"healthy", ["bhindi sabzi", "okra fry"]],
+  ["Kadhi Rice","Indian Meals","🍛","1 plate",280,8,40,9,2,"healthy", ["kadhi rice", "kadhi chawal"]],
+  ["Veg Biryani","Indian Meals","🍛","1 plate",350,8,55,10,3,"moderate", ["veg biryani", "biryani veg"]],
+  ["Pulao","Indian Meals","🍛","1 plate",300,6,50,8,2,"healthy", ["pulao", "veg pulao"]],
+  ["Upma","Indian Meals","🥣","1 bowl",200,5,30,6,2.5,"healthy", ["upma", "ravva upma"]],
+  ["Poha","Indian Meals","🥣","1 bowl",250,5,40,7,2,"healthy", ["poha"]],
+  ["Idli","Indian Meals","🍛","2 pc",78,2,16,0.2,1,"healthy", ["idli", "idly"]],
+  ["Dosa","Indian Meals","🍛","1 pc",133,3,18,6,1,"moderate", ["dosa", "masala dosa"]],
+  ["Uttapam","Indian Meals","🍛","1 pc",160,4,22,6,1.5,"healthy", ["uttapam", "onion uttapam"]],
+  ["Sambar","Indian Meals","🥣","1 bowl",100,5,15,2,3,"healthy", ["sambar", "sambhar"]],
+
+  // --- Desserts ---
+  ["Gulab Jamun","Desserts","🍰","1 pc",150,2,20,7,0,"indulgent", ["gulab jamun", "sweet"]],
+  ["Rasgulla","Desserts","🍰","1 pc",106,4,22,0.5,0,"moderate", ["rasgulla", "sweet"]],
+  ["Jalebi","Desserts","🍰","50g",150,1,25,5,0,"indulgent", ["jalebi", "sweet"]],
+  ["Kheer","Desserts","🍰","1 bowl",250,6,35,9,0.5,"moderate", ["kheer", "payasam"]],
+  ["Ice Cream","Desserts","🍨","1 scoop",137,2.3,16,7.3,0.5,"indulgent", ["ice cream", "vanilla icecream"]],
+  ["Chocolate","Desserts","🍫","25g",135,1.5,15,8,1,"indulgent", ["chocolate", "dairy milk"]],
+  ["Cake","Desserts","🍰","1 slice",235,3,35,9,0.5,"indulgent", ["cake", "pastry"]],
 ];
-const FOODS = DB.map((r,i)=>({id:"f"+i, name:r[0], cat:r[1], icon:r[2], unit:r[3], k:r[4], p:r[5], c:r[6], f:r[7], fb:r[8]}));
+
+/* Structured Portions Definitions for Smooth Selection Updates */
+const PORTIONS_CONFIG = {
+  // Spirits (Whisky, Vodka, Rum, Gin)
+  "Whisky": [
+    { label: "30 ml (Small Peg)", factor: 1.0 },
+    { label: "60 ml (Large Peg)", factor: 2.0 },
+    { label: "90 ml (Double Peg)", factor: 3.0 },
+    { label: "Quarter (180 ml)", factor: 6.0 },
+    { label: "Half Bottle (375 ml)", factor: 12.5 },
+    { label: "Full Bottle (750 ml)", factor: 25.0 }
+  ],
+  "Vodka": [
+    { label: "30 ml (Small Peg)", factor: 1.0 },
+    { label: "60 ml (Large Peg)", factor: 2.0 },
+    { label: "90 ml (Double Peg)", factor: 3.0 },
+    { label: "Quarter (180 ml)", factor: 6.0 },
+    { label: "Half Bottle (375 ml)", factor: 12.5 },
+    { label: "Full Bottle (750 ml)", factor: 25.0 }
+  ],
+  "Rum": [
+    { label: "30 ml (Small Peg)", factor: 1.0 },
+    { label: "60 ml (Large Peg)", factor: 2.0 },
+    { label: "90 ml (Double Peg)", factor: 3.0 },
+    { label: "Quarter (180 ml)", factor: 6.0 },
+    { label: "Half Bottle (375 ml)", factor: 12.5 },
+    { label: "Full Bottle (750 ml)", factor: 25.0 }
+  ],
+  "Gin": [
+    { label: "30 ml (Small Peg)", factor: 1.0 },
+    { label: "60 ml (Large Peg)", factor: 2.0 },
+    { label: "90 ml (Double Peg)", factor: 3.0 },
+    { label: "Quarter (180 ml)", factor: 6.0 },
+    { label: "Half Bottle (375 ml)", factor: 12.5 },
+    { label: "Full Bottle (750 ml)", factor: 25.0 }
+  ],
+  // Beers
+  "Beer": [
+    { label: "330 ml Can", factor: 0.5 },
+    { label: "500 ml Can", factor: 0.77 },
+    { label: "1 Beer (650ml Bottle)", factor: 1.0 },
+    { label: "2 Beers (1300ml)", factor: 2.0 },
+    { label: "3 Beers (1950ml)", factor: 3.0 }
+  ],
+  // Wines
+  "Wine": [
+    { label: "150 ml Glass", factor: 1.0 },
+    { label: "250 ml Glass", factor: 1.67 },
+    { label: "Half Bottle (375ml)", factor: 2.5 },
+    { label: "Full Bottle (750ml)", factor: 5.0 }
+  ],
+  // Meats and general weights
+  "Boiled Chicken Breast": [
+    { label: "100g (Standard)", factor: 1.0 },
+    { label: "150g Serving", factor: 1.5 },
+    { label: "200g (Large portion)", factor: 2.0 },
+    { label: "250g Double", factor: 2.5 }
+  ],
+  "Grilled Chicken Breast": [
+    { label: "100g (Standard)", factor: 1.0 },
+    { label: "150g Serving", factor: 1.5 },
+    { label: "200g (Large portion)", factor: 2.0 }
+  ],
+  "Tandoori Chicken": [
+    { label: "Half Plate (4 pcs)", factor: 1.0 },
+    { label: "Full Plate (8 pcs)", factor: 2.0 }
+  ],
+  "Boiled Egg": [
+    { label: "1 Egg (Large)", factor: 1.0 },
+    { label: "2 Eggs", factor: 2.0 },
+    { label: "3 Eggs", factor: 3.0 },
+    { label: "4 Eggs", factor: 4.0 }
+  ],
+  "Egg White": [
+    { label: "1 Egg White", factor: 1.0 },
+    { label: "2 Egg Whites", factor: 2.0 },
+    { label: "3 Egg Whites", factor: 3.0 },
+    { label: "4 Egg Whites", factor: 4.0 },
+    { label: "6 Egg Whites", factor: 6.0 }
+  ],
+  "Chapati": [
+    { label: "1 Roti/Chapati", factor: 1.0 },
+    { label: "2 Rotis", factor: 2.0 },
+    { label: "3 Rotis", factor: 3.0 },
+    { label: "4 Rotis", factor: 4.0 }
+  ],
+  "Roti": [
+    { label: "1 Roti", factor: 1.0 },
+    { label: "2 Rotis", factor: 2.0 },
+    { label: "3 Rotis", factor: 3.0 },
+    { label: "4 Rotis", factor: 4.0 }
+  ]
+};
+
+// Map original array representation to structured objects
+const FOODS = DB.map((r,i)=>({
+  id: "f"+i,
+  name: r[0],
+  cat: r[1],
+  icon: r[2],
+  unit: r[3],
+  k: r[4],
+  p: r[5],
+  c: r[6],
+  f: r[7],
+  fb: r[8],
+  health: r[9],
+  keywords: r[10] || []
+}));
+
 function byName(n){ return FOODS.find(f=>f.name===n); }
 
+// Elegant initial default diet plan
 const DEFAULT_MEAL_PLAN = {
-  breakfast: [ {foodId: byName("Tea with Sugar").id, qty:1}, {foodId: byName("Paneer").id, qty:1} ],
-  lunch: [ {foodId: byName("Chapati").id, qty:3}, {foodId: byName("Cucumber").id, qty:2}, {foodId: byName("Mix Vegetable").id, qty:1}, {foodId: byName("White Rice (cooked)").id, qty:1} ],
-  evening: [ {foodId: byName("Tea with Sugar").id, qty:1}, {foodId: byName("Peanuts").id, qty:1} ],
-  dinner: [ {foodId: byName("Chapati").id, qty:3}, {foodId: byName("Dal (cooked)").id, qty:1} ],
+  breakfast: [
+    { foodId: byName("Tea with Sugar").id, qty: 1, portionIndex: 0 },
+    { foodId: byName("Paneer").id, qty: 1 }
+  ],
+  lunch: [
+    { foodId: byName("Chapati").id, qty: 4, portionIndex: 0 },
+    { foodId: byName("Cucumber").id, qty: 1 },
+    { foodId: byName("Mix Vegetable").id, qty: 1 },
+    { foodId: byName("Curd").id, qty: 1 }
+  ],
+  evening: [
+    { foodId: byName("Tea with Sugar").id, qty: 1 },
+    { foodId: byName("Roasted Chana").id, qty: 1 }
+  ],
+  dinner: [
+    { foodId: byName("Roti").id, qty: 3, portionIndex: 0 },
+    { foodId: byName("Dal (cooked)").id, qty: 1 },
+    { foodId: byName("Curd").id, qty: 1 }
+  ],
 };
+
 const MEAL_META = [
-  {key:"breakfast", label:"Breakfast", emoji:"🍳"},
-  {key:"lunch", label:"Lunch", emoji:"🍛"},
-  {key:"evening", label:"Evening", emoji:"☕"},
-  {key:"dinner", label:"Dinner", emoji:"🌙"},
+  { key: "breakfast", label: "Breakfast", emoji: "🍳" },
+  { key: "lunch", label: "Lunch", emoji: "🍛" },
+  { key: "evening", label: "Evening Snack", emoji: "☕" },
+  { key: "dinner", label: "Dinner", emoji: "🌙" },
 ];
-function freshMeals(){ return MEAL_META.map(m=>({...m, items: DEFAULT_MEAL_PLAN[m.key].map(i=>({...i}))})); }
+
+function freshMeals() {
+  return MEAL_META.map(m => ({
+    ...m,
+    items: DEFAULT_MEAL_PLAN[m.key].map(i => ({
+      ...i,
+      portionIndex: i.portionIndex !== undefined ? i.portionIndex : -1
+    }))
+  }));
+}
+
 let MEALS = freshMeals();
-let openAddPanel = null; // meal key currently showing its add-food panel
-function foodOf(item){ return FOODS.find(f=>f.id===item.foodId); }
+let openAddPanel = null; // Key of active meal panel
 let lastRemoved = null;
 
-function computeTarget(){
-  const h=+document.getElementById("p_height").value, w=+document.getElementById("p_weight").value,
-        a=+document.getElementById("p_age").value, sex=document.getElementById("p_sex").value,
-        act=+document.getElementById("p_activity").value, rate=+document.getElementById("p_rate").value;
+function foodOf(item){ return FOODS.find(f=>f.id===item.foodId); }
+
+function computeTarget() {
+  const h = +document.getElementById("p_height").value,
+        w = +document.getElementById("p_weight").value,
+        a = +document.getElementById("p_age").value,
+        sex = document.getElementById("p_sex").value,
+        act = +document.getElementById("p_activity").value,
+        rate = +document.getElementById("p_rate").value;
   const bmr = sex==="male" ? (10*w+6.25*h-5*a+5) : (10*w+6.25*h-5*a-161);
   const target = Math.round(bmr*act - rate*1100);
-  return {target, weight:w, rate};
+  return { target, weight: w, rate };
 }
 
-function subtotal(items){
-  return items.reduce((acc,item)=>{
+function subtotal(items) {
+  return items.reduce((acc, item) => {
     const f = item.custom ? item : foodOf(item);
-    acc.k += f.k*item.qty; acc.p += (f.p||0)*item.qty; acc.c += (f.c||0)*item.qty;
-    acc.f += (f.f||0)*item.qty; acc.fb += (f.fb||0)*item.qty;
+    if (!f) return acc;
+    
+    // Calculate factor based on selected portion preset or fall back to 1.0
+    let factor = 1.0;
+    const config = PORTIONS_CONFIG[f.name];
+    if (config && item.portionIndex !== undefined && item.portionIndex >= 0) {
+      factor = config[item.portionIndex].factor;
+    }
+
+    const multiplier = item.qty * factor;
+    acc.k += f.k * multiplier;
+    acc.p += (f.p||0) * multiplier;
+    acc.c += (f.c||0) * multiplier;
+    acc.f += (f.f||0) * multiplier;
+    acc.fb += (f.fb||0) * multiplier;
+    
+    if (f.cat === "Alcohol") {
+      acc.alk += f.k * multiplier;
+    }
     return acc;
-  }, {k:0,p:0,c:0,f:0,fb:0});
+  }, { k: 0, p: 0, c: 0, f: 0, fb: 0, alk: 0 });
 }
 
-function renderMeals(){
+function getHealthBadge(health) {
+  if (health === "healthy") return `<span class="badge healthy">🟢 Healthy</span>`;
+  if (health === "moderate") return `<span class="badge moderate">🟡 Moderate</span>`;
+  if (health === "indulgent") return `<span class="badge indulgent">🔴 High Calorie</span>`;
+  if (health === "alcohol") return `<span class="badge alcohol">🍷 Alcohol</span>`;
+  return '';
+}
+
+function renderMeals() {
   const wrap = document.getElementById("mealsWrap");
   wrap.innerHTML = "";
-  MEALS.forEach((meal, mi)=>{
+  
+  MEALS.forEach((meal, mi) => {
     const sub = subtotal(meal.items);
     const card = document.createElement("div");
-    card.className = "meal-card glass";
-    card.style.animationDelay = (mi*0.05)+"s";
+    
+    // If the add panel for this meal is open, flag the active state to handle clean dropdown overlays
     const isOpen = openAddPanel === meal.key;
+    card.className = `meal-card glass ${isOpen ? 'dropdown-active' : ''}`;
+    card.style.animationDelay = (mi * 0.05) + "s";
+    card.id = `meal-${meal.key}`;
+    
     card.innerHTML = `
       <div class="meal-head">
         <div class="meal-title"><span class="emoji">${meal.emoji}</span>${meal.label}</div>
@@ -425,98 +721,210 @@ function renderMeals(){
         ${meal.items.length ? "" : `<div class="empty-note">No foods added yet.</div>`}
       </div>
       <div class="meal-actions">
-        <button class="link-btn" data-role="toggleAdd" data-meal="${meal.key}">+ Add food</button>
+        <button class="link-btn" data-role="toggleAdd" data-meal="${meal.key}">${isOpen ? '✕ Close Search' : '+ Add food'}</button>
         <button class="link-btn muted" data-role="clear" data-meal="${meal.key}">Clear meal</button>
       </div>
-      <div class="add-panel ${isOpen?'open':''}" data-meal="${meal.key}">
+      <div class="add-panel ${isOpen ? 'open' : ''}" data-meal="${meal.key}">
         <div class="search-wrap">
-          <input type="text" placeholder="Search foods" data-meal="${meal.key}" class="searchInput" autocomplete="off">
+          <input type="text" placeholder="Type to search (e.g., chick, beer, whis, apple)" data-meal="${meal.key}" class="searchInput" autocomplete="off">
           <div class="dropdown" style="display:none;" data-meal="${meal.key}"></div>
         </div>
         <div class="custom-form" data-meal="${meal.key}">
-          <input type="text" placeholder="Food name" class="customName">
-          <input type="text" placeholder="kcal" style="max-width:60px" class="customKcal">
-          <button data-meal="${meal.key}" data-role="customSave">Add</button>
+          <input type="text" placeholder="Custom food name" class="customName">
+          <input type="number" placeholder="kcal" style="max-width:70px" class="customKcal">
+          <button data-meal="${meal.key}" data-role="customSave">Add Custom</button>
         </div>
       </div>
     `;
     wrap.appendChild(card);
 
     const foodList = card.querySelector(".food-list");
-    meal.items.forEach((item, idx)=>{
+    meal.items.forEach((item, idx) => {
       const f = item.custom ? item : foodOf(item);
-      const k = f.k*item.qty;
+      if (!f) return;
+      
+      // Compute correct factor & label
+      const hasPortions = PORTIONS_CONFIG[f.name] !== undefined;
+      let factor = 1.0;
+      let portionDropdownHTML = '';
+      
+      if (hasPortions) {
+        const configs = PORTIONS_CONFIG[f.name];
+        portionDropdownHTML = `<select class="portion-select" data-meal="${meal.key}" data-idx="${idx}" title="Select portion">`;
+        configs.forEach((cfg, cIdx) => {
+          const selected = item.portionIndex === cIdx ? 'selected' : '';
+          portionDropdownHTML += `<option value="${cIdx}" ${selected}>${cfg.label}</option>`;
+          if (item.portionIndex === cIdx) {
+            factor = cfg.factor;
+          }
+        });
+        portionDropdownHTML += `</select>`;
+      }
+
+      const totalKcal = f.k * item.qty * factor;
+      const unitLabel = f.custom ? (f.unit || 'serving') : f.unit;
+      
       const row = document.createElement("div");
       row.className = "food-row";
       row.innerHTML = `
-        <span class="icon">${f.icon||"🍽️"}</span>
-        <span class="name">${f.name}</span>
-        <input type="number" min="0" step="0.25" value="${item.qty}" data-meal="${meal.key}" data-idx="${idx}" class="qty" title="quantity">
-        <span class="kc">${Math.round(k)}</span>
+        <span class="icon">${f.icon || "🍽️"}</span>
+        <div class="name-wrap">
+          <span class="name">
+            ${f.name} 
+            ${getHealthBadge(f.health)}
+          </span>
+          <span class="subtext">${f.cat} • Base: ${f.k} kcal / ${unitLabel}</span>
+        </div>
+        <div class="qty-wrap">
+          <input type="number" min="0" step="0.25" value="${item.qty}" data-meal="${meal.key}" data-idx="${idx}" class="qty" title="Quantity multiplier">
+          ${portionDropdownHTML}
+        </div>
+        <span class="kc">${Math.round(totalKcal)} kcal</span>
         <button class="x" data-meal="${meal.key}" data-idx="${idx}">×</button>
       `;
       foodList.appendChild(row);
     });
   });
 
-  document.querySelectorAll(".qty").forEach(inp=>{
-    inp.addEventListener("change", e=>{
-      const meal = MEALS.find(m=>m.key===e.target.dataset.meal);
-      meal.items[+e.target.dataset.idx].qty = parseFloat(e.target.value)||0;
+  // Attach interactive listeners for portion selection and quantity multipliers
+  document.querySelectorAll(".qty").forEach(inp => {
+    inp.addEventListener("change", e => {
+      const meal = MEALS.find(m => m.key === e.target.dataset.meal);
+      meal.items[+e.target.dataset.idx].qty = parseFloat(e.target.value) || 0;
       renderAll();
     });
   });
-  document.querySelectorAll(".food-row .x").forEach(btn=>{
-    btn.addEventListener("click", e=>{
-      const meal = MEALS.find(m=>m.key===e.target.dataset.meal);
+
+  document.querySelectorAll(".portion-select").forEach(sel => {
+    sel.addEventListener("change", e => {
+      const meal = MEALS.find(m => m.key === e.target.dataset.meal);
+      meal.items[+e.target.dataset.idx].portionIndex = parseInt(e.target.value);
+      renderAll();
+    });
+  });
+
+  document.querySelectorAll(".food-row .x").forEach(btn => {
+    btn.addEventListener("click", e => {
+      const meal = MEALS.find(m => m.key === e.target.dataset.meal);
       const idx = +e.target.dataset.idx;
-      lastRemoved = {mealKey:meal.key, item:meal.items[idx], index:idx};
-      meal.items.splice(idx,1);
-      showToast(`Removed ${lastRemoved.item.custom?lastRemoved.item.name:foodOf(lastRemoved.item).name}`);
+      lastRemoved = { mealKey: meal.key, item: { ...meal.items[idx] }, index: idx };
+      const name = lastRemoved.item.custom ? lastRemoved.item.name : foodOf(lastRemoved.item).name;
+      meal.items.splice(idx, 1);
+      showToast(`Removed "${name}"`);
       renderAll();
     });
   });
-  document.querySelectorAll('[data-role="clear"]').forEach(btn=>{
-    btn.addEventListener("click", e=>{
-      MEALS.find(m=>m.key===e.target.dataset.meal).items = [];
+
+  document.querySelectorAll('[data-role="clear"]').forEach(btn => {
+    btn.addEventListener("click", e => {
+      const meal = MEALS.find(m => m.key === e.target.dataset.meal);
+      meal.items = [];
       renderAll();
     });
   });
-  document.querySelectorAll('[data-role="toggleAdd"]').forEach(btn=>{
-    btn.addEventListener("click", e=>{
+
+  document.querySelectorAll('[data-role="toggleAdd"]').forEach(btn => {
+    btn.addEventListener("click", e => {
       const mk = e.target.dataset.meal;
-      openAddPanel = openAddPanel===mk ? null : mk;
+      openAddPanel = openAddPanel === mk ? null : mk;
       renderAll();
-      if(openAddPanel){
-        setTimeout(()=>{ const inp = document.querySelector(`.searchInput[data-meal="${mk}"]`); if(inp) inp.focus(); }, 30);
+      if (openAddPanel) {
+        setTimeout(() => {
+          const inp = document.querySelector(`.searchInput[data-meal="${mk}"]`);
+          if (inp) inp.focus();
+        }, 30);
       }
     });
   });
-  document.querySelectorAll(".searchInput").forEach(inp=>{
-    inp.addEventListener("input", e=>{
+
+  // Search logic and input auto-positioning
+  document.querySelectorAll(".searchInput").forEach(inp => {
+    inp.addEventListener("input", e => {
       const mk = e.target.dataset.meal;
       const dd = document.querySelector(`.dropdown[data-meal="${mk}"]`);
       const q = e.target.value.trim().toLowerCase();
-      if(!q){ dd.style.display="none"; return; }
-      const matches = FOODS.filter(f=>f.name.toLowerCase().includes(q)).slice(0,8);
-      dd.innerHTML = (matches.length
-        ? matches.map(f=>`<div class="opt" data-meal="${mk}" data-food="${f.id}"><span>${f.icon} ${f.name}</span><span style="color:var(--ink-faint);font-size:11px">${f.k} kcal</span></div>`).join("")
-        : `<div class="empty">No matches</div>`)
-        + `<div class="custom-toggle" data-meal="${mk}">+ Add "${e.target.value.trim()}" as custom food</div>`;
+      
+      if (!q) { 
+        dd.style.display = "none"; 
+        return; 
+      }
+      
+      // Dynamic overlay direction based on viewport positioning to avoid cutting off screen
+      const rect = inp.getBoundingClientRect();
+      const spaceBelow = window.innerHeight - rect.bottom;
+      if (spaceBelow < 260) {
+        dd.classList.add("open-upward");
+      } else {
+        dd.classList.remove("open-upward");
+      }
+
+      // Search matches by keywords, category, or name
+      const matches = FOODS.filter(f => {
+        const matchesName = f.name.toLowerCase().includes(q);
+        const matchesCat = f.cat.toLowerCase().includes(q);
+        const matchesKw = f.keywords && f.keywords.some(k => k.includes(q));
+        return matchesName || matchesCat || matchesKw;
+      }).slice(0, 15);
+
+      // Render search items classified nicely
+      if (matches.length) {
+        let sections = {};
+        matches.forEach(f => {
+          if (!sections[f.cat]) sections[f.cat] = [];
+          sections[f.cat].push(f);
+        });
+
+        let listHTML = '';
+        for (const cat in sections) {
+          listHTML += `<div class="dropdown-section-title">${cat}</div>`;
+          sections[cat].forEach(f => {
+            const badge = getHealthBadge(f.health);
+            listHTML += `
+              <div class="opt" data-meal="${mk}" data-food="${f.id}">
+                <span>${f.icon} <b>${f.name}</b> ${badge}</span>
+                <span class="opt-meta">
+                  <span style="font-size: 11px; color: var(--ink-faint);">${f.k} kcal / ${f.unit}</span>
+                </span>
+              </div>`;
+          });
+        }
+        
+        dd.innerHTML = listHTML + `<div class="custom-toggle" data-meal="${mk}">+ Create custom item for "${e.target.value.trim()}"</div>`;
+      } else {
+        dd.innerHTML = `<div class="empty">No exact matches found</div>` + 
+                       `<div class="custom-toggle" data-meal="${mk}">+ Create custom item for "${e.target.value.trim()}"</div>`;
+      }
       dd.style.display = "block";
     });
-    inp.addEventListener("blur", ()=> setTimeout(()=>{document.querySelectorAll(".dropdown").forEach(d=>d.style.display="none");}, 180));
+
+    inp.addEventListener("blur", () => {
+      setTimeout(() => {
+        document.querySelectorAll(".dropdown").forEach(d => d.style.display = "none");
+      }, 220);
+    });
   });
-  document.querySelectorAll(".dropdown").forEach(dd=>{
-    dd.addEventListener("mousedown", e=>{
+
+  // Action dispatcher on selection
+  document.querySelectorAll(".dropdown").forEach(dd => {
+    dd.addEventListener("mousedown", e => {
       const opt = e.target.closest(".opt");
       const custom = e.target.closest(".custom-toggle");
-      if(opt){
-        const meal = MEALS.find(m=>m.key===opt.dataset.meal);
-        meal.items.push({foodId:opt.dataset.food, qty:1});
+      
+      if (opt) {
+        const meal = MEALS.find(m => m.key === opt.dataset.meal);
+        const foodItem = FOODS.find(f => f.id === opt.dataset.food);
+        
+        // Push with default first portion if a portion config is available
+        const hasPortions = PORTIONS_CONFIG[foodItem.name] !== undefined;
+        meal.items.push({
+          foodId: opt.dataset.food,
+          qty: 1,
+          portionIndex: hasPortions ? 0 : -1
+        });
+        
         openAddPanel = null;
         renderAll();
-      } else if(custom){
+      } else if (custom) {
         const mk = custom.dataset.meal;
         const form = document.querySelector(`.custom-form[data-meal="${mk}"]`);
         form.classList.add("open");
@@ -524,34 +932,52 @@ function renderMeals(){
       }
     });
   });
-  document.querySelectorAll('[data-role="customSave"]').forEach(btn=>{
-    btn.addEventListener("click", e=>{
+
+  document.querySelectorAll('[data-role="customSave"]').forEach(btn => {
+    btn.addEventListener("click", e => {
       const mk = e.target.dataset.meal;
       const form = e.target.closest(".custom-form");
       const name = form.querySelector(".customName").value.trim();
       const kcal = parseFloat(form.querySelector(".customKcal").value);
-      if(!name || !kcal) return;
-      const meal = MEALS.find(m=>m.key===mk);
-      meal.items.push({custom:true, name, icon:"🍽️", unit:"serving", k:kcal, p:0,c:0,f:0,fb:0, qty:1});
+      if (!name || isNaN(kcal)) return;
+      
+      const meal = MEALS.find(m => m.key === mk);
+      meal.items.push({
+        custom: true,
+        name,
+        icon: "🍽️",
+        unit: "serving",
+        k: kcal,
+        p: 0, c: 0, f: 0, fb: 0,
+        qty: 1,
+        portionIndex: -1
+      });
       openAddPanel = null;
       renderAll();
     });
   });
 }
 
-const RING_COLORS = {Calories:"var(--blue)", Protein:"var(--green)", Carbs:"var(--orange)", Fat:"var(--purple)", Fiber:"var(--red)"};
-function renderRings(t, target, proteinGoal, carbGoal, fatGoal, fiberGoal){
+const RING_COLORS = {
+  Calories: "var(--blue)", 
+  Protein: "var(--green)", 
+  Carbs: "var(--orange)", 
+  Fat: "var(--purple)", 
+  Fiber: "var(--red)"
+};
+
+function renderRings(t, target, proteinGoal, carbGoal, fatGoal, fiberGoal) {
   const data = [
-    {label:"Calories", val:t.k, goal:target, emoji:"🔥"},
-    {label:"Protein", val:t.p, goal:proteinGoal, emoji:"🥩"},
-    {label:"Carbs", val:t.c, goal:carbGoal, emoji:"🍚"},
-    {label:"Fat", val:t.f, goal:fatGoal, emoji:"🥑"},
-    {label:"Fiber", val:t.fb, goal:fiberGoal, emoji:"🥗"},
+    { label: "Calories", val: t.k, goal: target, emoji: "🔥" },
+    { label: "Protein", val: t.p, goal: proteinGoal, emoji: "🥩" },
+    { label: "Carbs", val: t.c, goal: carbGoal, emoji: "🍚" },
+    { label: "Fat", val: t.f, goal: fatGoal, emoji: "🥑" },
+    { label: "Fiber", val: t.fb, goal: fiberGoal, emoji: "🥗" },
   ];
-  const R = 38, C = 2*Math.PI*R;
-  document.getElementById("ringsWrap").innerHTML = data.map((d,i)=>{
-    const pct = Math.max(0,Math.min(1, d.val/d.goal));
-    const offset = C*(1-pct);
+  const R = 38, C = 2 * Math.PI * R;
+  document.getElementById("ringsWrap").innerHTML = data.map((d, i) => {
+    const pct = Math.max(0, Math.min(1, d.val / d.goal));
+    const offset = C * (1 - pct);
     return `<div class="ring-card">
       <svg width="96" height="96" viewBox="0 0 96 96">
         <circle class="track" cx="48" cy="48" r="${R}"></circle>
@@ -563,73 +989,127 @@ function renderRings(t, target, proteinGoal, carbGoal, fatGoal, fiberGoal){
   }).join("");
 }
 
-function renderSuggestions(t, target, proteinGoal, fiberGoal){
+function renderSuggestions(t, target, proteinGoal, fiberGoal) {
   const tips = [];
-  if(t.p < proteinGoal*0.8) tips.push("Protein is a bit low — add Paneer, Soy Chunks, Dal, Greek Yogurt or Sprouts.");
-  if(t.fb < fiberGoal*0.7) tips.push("Fiber is low — add a fruit, extra vegetables, or a salad.");
-  if(t.k > target + 100) tips.push(`You're ${Math.round(t.k-target)} kcal over target — consider trimming rice, sugar, or fried items.`);
-  if(t.k < target - 400) tips.push("You're well under target — make sure you're eating enough, especially protein and vegetables.");
+  if (t.p < proteinGoal * 0.8) tips.push("Protein intake is on the lower side — include Grilled Chicken Breast, Boiled Eggs, Greek Yogurt, Sprouts, or Paneer.");
+  if (t.fb < fiberGoal * 0.7) tips.push("Fiber is low — try adding extra green salad, cucumbers, papaya, or apples to your meals.");
+  if (t.k > target + 100) tips.push(`You are ${Math.round(t.k-target)} kcal over your budget limit. Trimming sugary tea, rice portions, or indulgence foods will help keep you on track.`);
+  if (t.k < target - 400) tips.push("You're well under your target budget. Ensure you're meeting your recovery requirements with lean proteins and healthy carbs.");
+  
+  if (t.alk > 0) {
+    tips.push("⚠️ Alcohol consumed: Remember, alcohol calories are nutrient-empty. Prioritize drinking extra water to counter dehydration and support metabolic recovery.");
+  }
+
   document.getElementById("suggestBody").innerHTML = tips.length
-    ? `<ul>${tips.map(x=>`<li>${x}</li>`).join("")}</ul>`
-    : `<div class="ok">✓ Nicely balanced — protein, fiber and calories are all in good range.</div>`;
+    ? `<ul>${tips.map(x => `<li>${x}</li>`).join("")}</ul>`
+    : `<div class="ok">✓ Beautifully balanced! Your protein, fiber, and calorie targets are matching up perfectly today.</div>`;
 }
 
-function renderTop(){
-  const {target, weight, rate} = computeTarget();
-  const t = subtotal(MEALS.flatMap(m=>m.items));
+function renderTop() {
+  const { target, weight, rate } = computeTarget();
+  const t = subtotal(MEALS.flatMap(m => m.items));
   const remaining = Math.max(0, target - Math.round(t.k));
-  document.getElementById("todayKcal").innerHTML = `${Math.round(t.k)} <small>/ ${target} kcal</small>`;
-  document.getElementById("todayFill").style.width = Math.min(100, (t.k/target)*100) + "%";
+  const intake = Math.round(t.k);
+  
+  // Custom Dynamic Color Logic:
+  // Red: Intake is more than 100 kcal above target limit
+  // Green: Intake is in the safe target zone (within 200 kcal below to 100 kcal above target)
+  // Yellow/Orange: Intake is too low (less than 200 kcal below target)
+  let stateColor = "var(--green)";
+  if (intake > (target + 100)) {
+    stateColor = "var(--red)";
+  } else if (intake >= (target - 200)) {
+    stateColor = "var(--green)";
+  } else {
+    stateColor = "var(--orange)"; // Acts as Yellow warning for low intake
+  }
+
+  const kcalEl = document.getElementById("todayKcal");
+  kcalEl.innerHTML = `<span style="color: ${stateColor}; transition: color 0.3s ease;">${intake}</span> <small>/ ${target} kcal</small>`;
+  
+  const fillEl = document.getElementById("todayFill");
+  fillEl.style.width = Math.min(100, (intake / target) * 100) + "%";
+  fillEl.style.background = stateColor;
+  
   document.getElementById("remainKcal").textContent = remaining + " kcal";
   document.getElementById("weightGoal").textContent = "-" + rate + " kg/wk";
 
-  const proteinGoal = Math.round(weight*1.2), fiberGoal = 30, fatGoal = Math.round(target*0.25/9);
-  const carbGoal = Math.max(50, Math.round((target - proteinGoal*4 - fatGoal*9)/4));
+  // Macro Target Estimations
+  const proteinGoal = Math.round(weight * 1.5); // Standard dynamic protein target for active/dieting profiles (1.5g per kg)
+  const fiberGoal = 30; 
+  const fatGoal = Math.round(target * 0.25 / 9);
+  const carbGoal = Math.max(50, Math.round((target - proteinGoal * 4 - fatGoal * 9) / 4));
+  
+  // Handle Dynamic Alcohol Card Warning & Advisories
+  const alertBox = document.getElementById("alcoholAlert");
+  const alertContent = document.getElementById("alcoholAlertContent");
+  if (t.alk > 0) {
+    alertBox.classList.add("visible");
+    alertContent.innerHTML = `You have consumed <b>${Math.round(t.alk)} kcal</b> from alcoholic beverages today (<b>${Math.round((t.alk / t.k) * 100)}%</b> of your current intake). <br/>
+    <span style="color: var(--ink-soft); font-size: 11px; display: block; margin-top: 6px;">
+    <i>Note: Alcohol delivers liquid calories without essential nutrients. It temporarily downregulates fat-burning, slows recovery, and can increase cravings.</i></span>`;
+  } else {
+    alertBox.classList.remove("visible");
+  }
+
   renderRings(t, target, proteinGoal, carbGoal, fatGoal, fiberGoal);
   renderSuggestions(t, target, proteinGoal, fiberGoal);
 }
 
-function renderAll(){ renderMeals(); renderTop(); }
+function renderAll() { 
+  renderMeals(); 
+  renderTop(); 
+}
 
-document.querySelectorAll("#p_height,#p_weight,#p_age,#p_sex,#p_activity,#p_rate").forEach(el=>{
+// Global Event Listeners
+document.querySelectorAll("#p_height, #p_weight, #p_age, #p_sex, #p_activity, #p_rate").forEach(el => {
   el.addEventListener("input", renderTop);
   el.addEventListener("change", renderTop);
 });
-document.getElementById("resetBtn").addEventListener("click", ()=>{
-  MEALS = freshMeals(); openAddPanel=null; renderAll(); showToast("Reset to default diet");
+
+document.getElementById("resetBtn").addEventListener("click", () => {
+  MEALS = freshMeals(); 
+  openAddPanel = null; 
+  renderAll(); 
+  showToast("Reset to default premium plan");
 });
-document.getElementById("themeBtn").addEventListener("click", ()=>{
+
+document.getElementById("themeBtn").addEventListener("click", () => {
   const html = document.documentElement;
-  const isDark = html.getAttribute("data-theme")==="dark";
-  html.setAttribute("data-theme", isDark?"light":"dark");
+  const isDark = html.getAttribute("data-theme") === "dark";
+  html.setAttribute("data-theme", isDark ? "light" : "dark");
   document.getElementById("themeBtn").textContent = isDark ? "🌙" : "☀️";
 });
-document.getElementById("nutritionToggle").addEventListener("click", ()=>{
+
+document.getElementById("nutritionToggle").addEventListener("click", () => {
   const panel = document.getElementById("nutritionPanel");
   const open = panel.classList.toggle("open");
   document.getElementById("nutritionToggle").textContent = open ? "Hide Nutrition ▴" : "View Nutrition ▾";
 });
-document.querySelector(".fab").addEventListener("click", ()=>{
-  document.getElementById("mealsWrap").scrollIntoView({behavior:"smooth"});
+
+document.querySelector(".fab").addEventListener("click", () => {
+  document.getElementById("mealsWrap").scrollIntoView({ behavior: "smooth" });
 });
 
 let toastTimer;
-function showToast(msg){
+function showToast(msg) {
   const toast = document.getElementById("toast");
   document.getElementById("toastMsg").textContent = msg;
   toast.classList.add("show");
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(()=>toast.classList.remove("show"), 5000);
+  toastTimer = setTimeout(() => toast.classList.remove("show"), 5000);
 }
-document.getElementById("undoBtn").addEventListener("click", ()=>{
-  if(!lastRemoved) return;
-  const meal = MEALS.find(m=>m.key===lastRemoved.mealKey);
+
+document.getElementById("undoBtn").addEventListener("click", () => {
+  if (!lastRemoved) return;
+  const meal = MEALS.find(m => m.key === lastRemoved.mealKey);
   meal.items.splice(lastRemoved.index, 0, lastRemoved.item);
   lastRemoved = null;
   document.getElementById("toast").classList.remove("show");
   renderAll();
 });
 
+// App Initial Startup Run
 renderAll();
 </script>
 </body>
