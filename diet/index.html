@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Indian Diet & Calorie Tracker</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --bg:#EEF3EA; --panel:#FBFDFA; --ink:#1C2B22; --ink-soft:#5A6A5F;
+  --teal:#1B4B43; --teal-dim:#33635A; --gold:#C9971C; --coral:#D9694F;
+  --line:#DCE4D6; --good:#3E7A52; --chip:#E4ECDD;
+}
+[data-theme="dark"]{
+  --bg:#0F1713; --panel:#17221D; --ink:#EAF0E7; --ink-soft:#93A398;
+  --teal:#6FBFAE; --teal-dim:#4F9284; --gold:#E0B04A; --coral:#E9836A;
+  --line:#26332B; --good:#5FAE7C; --chip:#1E2A23;
+}
+*{box-sizing:border-box;}
+body{margin:0; background:var(--bg); color:var(--ink); font-family:'Work Sans',sans-serif; padding:24px 18px 140px; transition:background .2s,color .2s;}
+h1,h2,h3{font-family:'Fraunces',serif; margin:0;}
+.wrap{max-width:1180px; margin:0 auto;}
+header{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:22px; gap:16px; flex-wrap:wrap;}
+header .eyebrow{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--teal-dim); margin-bottom:4px;}
+header h1{font-size:28px; font-weight:700; color:var(--teal);}
+header p{color:var(--ink-soft); font-size:14px; max-width:520px; margin-top:6px;}
+.theme-btn{background:var(--panel); border:1px solid var(--line); border-radius:20px; padding:8px 16px; cursor:pointer; color:var(--ink); font-size:13px;}
+
+details.profile{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px 18px; margin-bottom:20px;}
+details.profile summary{cursor:pointer; font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--teal); text-transform:uppercase; letter-spacing:.06em;}
+.profile-grid{display:grid; grid-template-columns:repeat(6,1fr); gap:12px; margin-top:14px;}
+@media(max-width:900px){.profile-grid{grid-template-columns:repeat(2,1fr);}}
+.profile-grid label{font-size:11px; color:var(--ink-soft); display:block; margin-bottom:4px;}
+.profile-grid input,.profile-grid select{width:100%; padding:6px 8px; border-radius:6px; border:1px solid var(--line); background:var(--bg); color:var(--ink); font-size:13px;}
+.profile-out{margin-top:10px; font-size:13px; color:var(--ink-soft); font-family:'IBM Plex Mono',monospace;}
+.profile-out b{color:var(--teal);}
+
+.meals{display:grid; grid-template-columns:repeat(2,1fr); gap:16px;}
+@media(max-width:760px){.meals{grid-template-columns:1fr;}}
+
+.meal-card{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:16px;}
+.meal-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;}
+.meal-head h3{font-size:16px; color:var(--teal);}
+.meal-sub{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-soft);}
+.clear-btn{background:none; border:none; color:var(--coral); font-size:12px; cursor:pointer;}
+
+.search-wrap{position:relative; margin-bottom:10px;}
+.search-wrap input{width:100%; padding:9px 12px; border-radius:8px; border:1px solid var(--line); background:var(--bg); color:var(--ink); font-size:14px;}
+.dropdown{position:absolute; top:38px; left:0; right:0; background:var(--panel); border:1px solid var(--line); border-radius:10px; max-height:240px; overflow-y:auto; z-index:20; box-shadow:0 8px 20px rgba(0,0,0,.12);}
+.dropdown .opt{padding:8px 12px; cursor:pointer; font-size:13px; display:flex; justify-content:space-between; gap:8px;}
+.dropdown .opt:hover{background:var(--chip);}
+.dropdown .opt .cat{color:var(--ink-soft); font-size:11px;}
+.dropdown .empty{padding:10px 12px; font-size:12px; color:var(--ink-soft);}
+
+.item-row{display:flex; align-items:center; gap:8px; padding:7px 0; border-bottom:1px solid var(--line); font-size:13px;}
+.item-row .icon{font-size:16px;}
+.item-row .nm{flex:1; min-width:0;}
+.item-row .nm .macros{display:block; font-size:11px; color:var(--ink-soft); font-family:'IBM Plex Mono',monospace;}
+.item-row input[type=number]{width:52px; padding:4px; border-radius:6px; border:1px solid var(--line); background:var(--bg); color:var(--ink); font-size:12px;}
+.item-row .kcal{font-family:'IBM Plex Mono',monospace; color:var(--teal); font-weight:600; width:56px; text-align:right;}
+.item-row .rm{background:none; border:none; color:var(--coral); cursor:pointer; font-size:15px;}
+.subtotal{display:flex; justify-content:space-between; margin-top:8px; font-size:12px; color:var(--ink-soft); font-family:'IBM Plex Mono',monospace;}
+
+.custom-add{display:flex; gap:6px; margin-top:10px;}
+.custom-add input{flex:1; padding:6px 8px; border-radius:6px; border:1px dashed var(--line); background:var(--bg); color:var(--ink); font-size:12px;}
+.custom-add button{background:var(--teal-dim); color:#fff; border:none; border-radius:6px; padding:6px 10px; font-size:12px; cursor:pointer;}
+
+.suggestions{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:16px 18px; margin-top:18px;}
+.suggestions h3{font-size:15px; color:var(--teal); margin-bottom:8px;}
+.suggestions ul{margin:0; padding-left:18px; font-size:13px; color:var(--ink-soft); line-height:1.7;}
+.suggestions .allgood{color:var(--good); font-size:13px;}
+
+.sticky-bar{position:fixed; bottom:0; left:0; right:0; background:var(--panel); border-top:1px solid var(--line); padding:12px 20px; box-shadow:0 -8px 20px rgba(0,0,0,.08);}
+.sticky-inner{max-width:1180px; margin:0 auto; display:grid; grid-template-columns:repeat(5,1fr); gap:16px; align-items:center;}
+@media(max-width:760px){.sticky-inner{grid-template-columns:repeat(2,1fr); row-gap:10px;}}
+.mac{}
+.mac .lbl{font-size:10px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-soft); display:flex; justify-content:space-between;}
+.mac .lbl b{color:var(--ink); font-family:'IBM Plex Mono',monospace;}
+.mac .track{height:6px; background:var(--line); border-radius:4px; overflow:hidden; margin-top:4px;}
+.mac .fill{height:100%; border-radius:4px; transition:width .25s;}
+
+.toast{position:fixed; bottom:80px; left:50%; transform:translateX(-50%); background:var(--teal); color:#fff; padding:8px 16px; border-radius:20px; font-size:12px; display:flex; gap:10px; align-items:center; opacity:0; pointer-events:none; transition:opacity .2s;}
+.toast.show{opacity:1;}
+.toast button{background:none; border:none; color:#fff; text-decoration:underline; cursor:pointer; font-size:12px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <div class="eyebrow">Indian Food Database</div>
+      <h1>Diet &amp; Calorie Tracker</h1>
+      <p>Search any food, add it to a meal, and watch calories, protein, carbs, fat and fiber total up live against your daily target.</p>
+    </div>
+    <button class="theme-btn" id="themeBtn">🌙 Dark mode</button>
+  </header>
+
+  <details class="profile" open>
+    <summary>Profile &amp; daily target</summary>
+    <div class="profile-grid">
+      <div><label>Height (cm)</label><input type="number" id="p_height" value="172"></div>
+      <div><label>Weight (kg)</label><input type="number" id="p_weight" value="79"></div>
+      <div><label>Age</label><input type="number" id="p_age" value="40"></div>
+      <div><label>Sex</label><select id="p_sex"><option value="male">Male</option><option value="female">Female</option></select></div>
+      <div><label>Activity</label>
+        <select id="p_activity">
+          <option value="1.2">Sedentary</option>
+          <option value="1.375">Lightly active</option>
+          <option value="1.55">Moderately active</option>
+          <option value="1.725">Very active</option>
+        </select>
+      </div>
+      <div><label>Weekly loss</label>
+        <select id="p_rate">
+          <option value="0.5">0.5 kg/wk</option>
+          <option value="0.75">0.75 kg/wk</option>
+          <option value="1">1 kg/wk</option>
+        </select>
+      </div>
+    </div>
+    <div class="profile-out" id="profileOut"></div>
+  </details>
+
+  <div class="meals" id="mealsWrap"></div>
+
+  <div class="suggestions">
+    <h3>Smart suggestions</h3>
+    <div id="suggestBody"></div>
+  </div>
+</div>
+
+<div class="sticky-bar">
+  <div class="sticky-inner" id="stickyBar"></div>
+</div>
+<div class="toast" id="toast"><span id="toastMsg"></span><button id="undoBtn">Undo</button></div>
+
+<script>
+/* ---------- Food database ---------- */
+// [name, category, icon, unit, kcal, protein, carbs, fat, fiber]  -- values per the stated unit/serving
+const DB = [
+["Apple","Fruits","🍎","100g",52,0.3,14,0.2,2.4],
+["Banana","Fruits","🍎","100g",89,1.1,23,0.3,2.6],
+["Orange","Fruits","🍎","100g",47,0.9,12,0.1,2.4],
+["Papaya","Fruits","🍎","100g",43,0.5,11,0.3,1.7],
+["Mango","Fruits","🍎","100g",60,0.8,15,0.4,1.6],
+["Watermelon","Fruits","🍎","100g",30,0.6,8,0.2,0.4],
+["Muskmelon","Fruits","🍎","100g",34,0.8,8,0.2,0.9],
+["Guava","Fruits","🍎","100g",68,2.6,14,1,5.4],
+["Grapes","Fruits","🍎","100g",69,0.7,18,0.2,0.9],
+["Pineapple","Fruits","🍎","100g",50,0.5,13,0.1,1.4],
+["Kiwi","Fruits","🍎","100g",61,1.1,15,0.5,3],
+["Pomegranate","Fruits","🍎","100g",83,1.7,19,1.2,4],
+["Pear","Fruits","🍎","100g",57,0.4,15,0.1,3.1],
+["Litchi","Fruits","🍎","100g",66,0.8,17,0.4,1.3],
+["Strawberry","Fruits","🍎","100g",32,0.7,8,0.3,2],
+["Blueberries","Fruits","🍎","100g",57,0.7,14,0.3,2.4],
+["Cherries","Fruits","🍎","100g",63,1.1,16,0.2,2.1],
+
+["Potato (boiled)","Vegetables","🥗","100g",77,2,17,0.1,2.2],
+["Sweet Potato","Vegetables","🥗","100g",86,1.6,20,0.1,3],
+["Onion","Vegetables","🥗","100g",40,1.1,9,0.1,1.7],
+["Tomato","Vegetables","🥗","100g",18,0.9,3.9,0.2,1.2],
+["Cucumber","Vegetables","🥗","100g",15,0.7,3.6,0.1,0.5],
+["Carrot","Vegetables","🥗","100g",41,0.9,10,0.2,2.8],
+["Beetroot","Vegetables","🥗","100g",43,1.6,10,0.2,2.8],
+["Capsicum","Vegetables","🥗","100g",20,0.9,4.6,0.2,1.7],
+["Spinach (cooked)","Vegetables","🥗","100g",23,2.9,3.6,0.4,2.2],
+["Broccoli","Vegetables","🥗","100g",34,2.8,7,0.4,2.6],
+["Cabbage","Vegetables","🥗","100g",25,1.3,6,0.1,2.5],
+["Cauliflower","Vegetables","🥗","100g",25,1.9,5,0.3,2],
+["Green Peas","Vegetables","🥗","100g",81,5.4,14,0.4,5.7],
+["Beans","Vegetables","🥗","100g",31,1.8,7,0.2,3.4],
+["Pumpkin","Vegetables","🥗","100g",26,1,6.5,0.1,0.5],
+["Bottle Gourd","Vegetables","🥗","100g",15,0.6,3.4,0.02,0.5],
+["Bitter Gourd","Vegetables","🥗","100g",17,1,3.7,0.2,2.8],
+["Lady Finger (Bhindi)","Vegetables","🥗","100g",33,1.9,7,0.2,3.2],
+["Eggplant (Baingan)","Vegetables","🥗","100g",25,1,6,0.2,3],
+["Radish","Vegetables","🥗","100g",16,0.7,3.4,0.1,1.6],
+
+["White Rice (cooked)","Rice","🍚","100g",130,2.7,28,0.3,0.4],
+["Brown Rice (cooked)","Rice","🍚","100g",123,2.7,26,1,1.8],
+["Basmati Rice (cooked)","Rice","🍚","100g",121,3.5,25,0.4,0.6],
+["Jeera Rice","Rice","🍚","100g",150,3,26,3,0.5],
+["Fried Rice","Rice","🍚","100g",163,4,27,4,1],
+["Lemon Rice","Rice","🍚","100g",150,3,25,4,0.8],
+["Vegetable Pulao","Rice","🍚","100g",160,4,28,3,1.5],
+["Khichdi","Rice","🍚","bowl",120,4,22,2,1.8],
+
+["Chapati","Breads","🫓","1 pc",80,2.5,15,1,2],
+["Roti","Breads","🫓","1 pc",80,2.5,15,1,2],
+["Phulka","Breads","🫓","1 pc",70,2,13,0.8,1.8],
+["Tandoori Roti","Breads","🫓","1 pc",100,3,18,1.5,2],
+["Paratha (plain)","Breads","🫓","1 pc",150,3,20,6,2],
+["Stuffed Paratha","Breads","🫓","1 pc",200,5,25,8,2.5],
+["Naan","Breads","🫓","1 pc",160,4,28,3,1.5],
+["Kulcha","Breads","🫓","1 pc",170,4,29,4,1.5],
+["Bhakri","Breads","🫓","1 pc",120,3,20,3,2],
+
+["Paneer","Protein","🫘","100g",265,18,1.2,21,0],
+["Tofu","Protein","🫘","100g",76,8,1.9,4.8,0.3],
+["Soy Chunks (cooked)","Protein","🫘","100g",345,52,33,0.5,13],
+["Dal (cooked)","Protein","🫘","bowl",116,9,20,0.4,8],
+["Rajma (cooked)","Protein","🫘","bowl",127,8.7,22.8,0.5,6.4],
+["Chole (cooked)","Protein","🫘","bowl",164,8.9,27,2.6,7.6],
+["Sprouts","Protein","🫘","100g",30,3,6,0.2,1.8],
+["Chickpeas (cooked)","Protein","🫘","100g",164,8.9,27,2.6,7.6],
+["Moong Dal (cooked)","Protein","🫘","bowl",105,7,19,0.4,7.6],
+["Black Dal (cooked)","Protein","🫘","bowl",120,9,20,0.5,5],
+["Milk","Protein","🫘","100ml",60,3.2,4.8,3.2,0],
+["Curd","Protein","🫘","100g",60,3.5,4.7,3.3,0],
+["Greek Yogurt","Protein","🫘","100g",59,10,3.6,0.4,0],
+
+["Tea (with milk, no sugar)","Beverages","☕","cup",40,1,6,1,0],
+["Tea with Sugar","Beverages","☕","cup",60,1,10,1,0],
+["Tea without Sugar","Beverages","☕","cup",20,1,2,1,0],
+["Black Tea","Beverages","☕","cup",2,0,0.5,0,0],
+["Green Tea","Beverages","☕","cup",2,0,0.5,0,0],
+["Coffee (with milk & sugar)","Beverages","☕","cup",45,1,6,1.5,0],
+["Coffee with Milk","Beverages","☕","cup",60,1.5,7,2,0],
+["Coffee without Sugar","Beverages","☕","cup",30,1,3,1.5,0],
+["Black Coffee","Beverages","☕","cup",2,0,0.3,0,0],
+["Cold Coffee","Beverages","☕","cup",120,3,16,4,0],
+["Lemon Tea","Beverages","☕","cup",25,0,6,0,0],
+
+["Roasted Chana","Snacks","🥜","30g",90,5,12,2,4],
+["Makhana","Snacks","🥜","20g",65,2,13,0.2,1],
+["Almonds","Snacks","🥜","10 pc",70,2.5,2.5,6,1.5],
+["Walnuts","Snacks","🥜","5 pc",98,2.3,2,9.8,1],
+["Peanuts","Snacks","🥜","30g",170,7,6,14,2.4],
+["Cashews","Snacks","🥜","10 pc",85,2.5,4.5,7,0.5],
+["Biscuits","Snacks","🥜","2 pc",90,1.5,14,3,0.5],
+["Toast","Snacks","🥜","1 slice",75,2.5,13,1,1],
+["Popcorn","Snacks","🥜","1 cup",30,1,6,0.3,1.2],
+
+["Dal Rice","Meals","🍛","plate",300,10,50,6,6],
+["Rajma Rice","Meals","🍛","plate",350,12,55,8,7],
+["Chole Rice","Meals","🍛","plate",340,11,54,8,7],
+["Paneer Curry","Meals","🍛","bowl",280,14,10,20,2],
+["Mix Vegetable","Meals","🍛","bowl",150,4,15,8,4],
+["Aloo Sabzi","Meals","🍛","bowl",180,3,25,7,3],
+["Bhindi Sabzi","Meals","🍛","bowl",120,3,10,8,3.5],
+["Kadhi Rice","Meals","🍛","plate",280,8,40,9,2],
+["Veg Biryani","Meals","🍛","plate",350,8,55,10,3],
+["Pulao","Meals","🍛","plate",300,6,50,8,2],
+["Upma","Meals","🍛","bowl",200,5,30,6,2.5],
+["Poha","Meals","🍛","bowl",250,5,40,7,2],
+["Idli","Meals","🍛","2 pc",78,2,16,0.2,1],
+["Dosa","Meals","🍛","1 pc",133,3,18,6,1],
+["Uttapam","Meals","🍛","1 pc",160,4,22,6,1.5],
+["Sambar","Meals","🍛","bowl",100,5,15,2,3],
+
+["Gulab Jamun","Desserts","🍰","1 pc",150,2,20,7,0],
+["Rasgulla","Desserts","🍰","1 pc",106,4,22,0.5,0],
+["Jalebi","Desserts","🍰","50g",150,1,25,5,0],
+["Kheer","Desserts","🍰","bowl",250,6,35,9,0.5],
+["Ice Cream","Desserts","🍰","1 scoop",137,2.3,16,7.3,0.5],
+["Chocolate","Desserts","🍰","25g",135,1.5,15,8,1],
+["Cake","Desserts","🍰","1 slice",235,3,35,9,0.5],
+];
+
+const FOODS = DB.map((r,i)=>({id:"f"+i, name:r[0], cat:r[1], icon:r[2], unit:r[3], k:r[4], p:r[5], c:r[6], f:r[7], fb:r[8]}));
+
+const MEALS = [
+  {key:"breakfast", label:"Breakfast", items:[
+    {id:"tea1", ...pick("Tea with Sugar"), qty:1},
+    {id:"ban1", ...pick("Banana"), qty:1},
+  ]},
+  {key:"lunch", label:"Lunch", items:[
+    {id:"ch1", ...pick("Chapati"), qty:3},
+    {id:"pn1", ...pick("Paneer"), qty:1},
+    {id:"sal1", ...pick("Cucumber"), qty:1},
+  ]},
+  {key:"evening", label:"Evening", items:[
+    {id:"tea2", ...pick("Tea with Sugar"), qty:1},
+  ]},
+  {key:"dinner", label:"Dinner", items:[
+    {id:"ch2", ...pick("Chapati"), qty:2},
+    {id:"pn2", ...pick("Paneer"), qty:0.75},
+  ]},
+];
+function pick(name){ const f = FOODS.find(x=>x.name===name); return {foodId:f.id}; }
+// resolve foodId->food object helper
+function foodOf(item){ return FOODS.find(f=>f.id===item.foodId); }
+
+let lastRemoved = null; // {mealKey, item, index}
+let customCounter = 1;
+
+/* ---------- Profile / target ---------- */
+function computeTarget(){
+  const h = +document.getElementById("p_height").value;
+  const w = +document.getElementById("p_weight").value;
+  const a = +document.getElementById("p_age").value;
+  const sex = document.getElementById("p_sex").value;
+  const act = +document.getElementById("p_activity").value;
+  const rate = +document.getElementById("p_rate").value;
+  const bmr = sex==="male" ? (10*w+6.25*h-5*a+5) : (10*w+6.25*h-5*a-161);
+  const tdee = bmr*act;
+  const target = tdee - rate*1100;
+  document.getElementById("profileOut").innerHTML =
+    `BMR <b>${Math.round(bmr)}</b> kcal &nbsp;·&nbsp; TDEE <b>${Math.round(tdee)}</b> kcal &nbsp;·&nbsp; Daily target <b>${Math.round(target)}</b> kcal`;
+  return {target: Math.round(target), weight: w};
+}
+
+/* ---------- Rendering ---------- */
+function renderMeals(){
+  const wrap = document.getElementById("mealsWrap");
+  wrap.innerHTML = "";
+  MEALS.forEach(meal=>{
+    const card = document.createElement("div");
+    card.className = "meal-card";
+    let sub = subtotal(meal.items);
+    card.innerHTML = `
+      <div class="meal-head">
+        <h3>${meal.label}</h3>
+        <span class="meal-sub">${Math.round(sub.k)} kcal</span>
+      </div>
+      <div class="search-wrap">
+        <input type="text" placeholder="Search food to add… (e.g. Pan, Ric, App)" data-meal="${meal.key}" class="searchInput" autocomplete="off">
+        <div class="dropdown" style="display:none;" data-meal="${meal.key}"></div>
+      </div>
+      <div class="itemsList" data-meal="${meal.key}"></div>
+      <div class="subtotal">
+        <span>P ${sub.p.toFixed(1)}g</span><span>C ${sub.c.toFixed(1)}g</span><span>F ${sub.f.toFixed(1)}g</span><span>Fib ${sub.fb.toFixed(1)}g</span>
+      </div>
+      <div class="custom-add">
+        <input type="text" placeholder="Custom food name" data-meal="${meal.key}" class="customName">
+        <input type="number" placeholder="kcal" style="width:60px" data-meal="${meal.key}" class="customKcal">
+        <button data-meal="${meal.key}" class="customAddBtn">+ Add</button>
+      </div>
+      <div style="margin-top:8px;"><button class="clear-btn" data-meal="${meal.key}">Clear meal</button></div>
+    `;
+    wrap.appendChild(card);
+
+    const itemsList = card.querySelector(".itemsList");
+    meal.items.forEach((item, idx)=>{
+      const f = item.custom ? item : foodOf(item);
+      const k = f.k*item.qty, p=(f.p||0)*item.qty, c=(f.c||0)*item.qty, fat=(f.f||0)*item.qty, fb=(f.fb||0)*item.qty;
+      const row = document.createElement("div");
+      row.className = "item-row";
+      row.innerHTML = `
+        <span class="icon">${f.icon||"🍽️"}</span>
+        <span class="nm">${f.name}<span class="macros">P${p.toFixed(1)} C${c.toFixed(1)} F${fat.toFixed(1)} Fib${fb.toFixed(1)}</span></span>
+        <input type="number" min="0" step="0.25" value="${item.qty}" data-meal="${meal.key}" data-idx="${idx}" class="qtyIn" title="× ${f.unit||''}">
+        <span class="kcal">${Math.round(k)}</span>
+        <button class="rm" data-meal="${meal.key}" data-idx="${idx}">×</button>
+      `;
+      itemsList.appendChild(row);
+    });
+  });
+
+  // wire qty inputs
+  document.querySelectorAll(".qtyIn").forEach(inp=>{
+    inp.addEventListener("change", e=>{
+      const mk = e.target.dataset.meal, idx = +e.target.dataset.idx;
+      const meal = MEALS.find(m=>m.key===mk);
+      meal.items[idx].qty = parseFloat(e.target.value)||0;
+      renderAll();
+    });
+  });
+  // wire remove
+  document.querySelectorAll(".rm").forEach(btn=>{
+    btn.addEventListener("click", e=>{
+      const mk = e.target.dataset.meal, idx = +e.target.dataset.idx;
+      const meal = MEALS.find(m=>m.key===mk);
+      lastRemoved = {mealKey:mk, item:meal.items[idx], index:idx};
+      meal.items.splice(idx,1);
+      showToast(`Removed ${lastRemoved.item.custom?lastRemoved.item.name:foodOf(lastRemoved.item).name}`);
+      renderAll();
+    });
+  });
+  // wire clear meal
+  document.querySelectorAll(".clear-btn").forEach(btn=>{
+    btn.addEventListener("click", e=>{
+      const mk = e.target.dataset.meal;
+      const meal = MEALS.find(m=>m.key===mk);
+      meal.items = [];
+      renderAll();
+    });
+  });
+  // wire search
+  document.querySelectorAll(".searchInput").forEach(inp=>{
+    inp.addEventListener("input", e=>{
+      const mk = e.target.dataset.meal;
+      const dd = document.querySelector(`.dropdown[data-meal="${mk}"]`);
+      const q = e.target.value.trim().toLowerCase();
+      if(!q){ dd.style.display="none"; return; }
+      const matches = FOODS.filter(f=>f.name.toLowerCase().includes(q)).slice(0,10);
+      dd.innerHTML = matches.length
+        ? matches.map(f=>`<div class="opt" data-meal="${mk}" data-food="${f.id}"><span>${f.icon} ${f.name}</span><span class="cat">${f.k} kcal/${f.unit}</span></div>`).join("")
+        : `<div class="empty">No matches — use "Custom food" below to add it.</div>`;
+      dd.style.display = "block";
+    });
+    inp.addEventListener("blur", ()=> setTimeout(()=>{document.querySelectorAll(".dropdown").forEach(d=>d.style.display="none");}, 150));
+  });
+  document.querySelectorAll(".dropdown").forEach(dd=>{
+    dd.addEventListener("mousedown", e=>{
+      const opt = e.target.closest(".opt");
+      if(!opt) return;
+      const mk = opt.dataset.meal, foodId = opt.dataset.food;
+      const meal = MEALS.find(m=>m.key===mk);
+      meal.items.push({foodId, qty:1});
+      renderAll();
+    });
+  });
+  // custom add
+  document.querySelectorAll(".customAddBtn").forEach(btn=>{
+    btn.addEventListener("click", e=>{
+      const mk = e.target.dataset.meal;
+      const card = e.target.closest(".meal-card");
+      const nameInp = card.querySelector(".customName");
+      const kcalInp = card.querySelector(".customKcal");
+      const name = nameInp.value.trim();
+      const kcal = parseFloat(kcalInp.value);
+      if(!name || !kcal) return;
+      const meal = MEALS.find(m=>m.key===mk);
+      meal.items.push({custom:true, name, icon:"🍽️", unit:"serving", k:kcal, p:0,c:0,f:0,fb:0, qty:1});
+      nameInp.value=""; kcalInp.value="";
+      renderAll();
+    });
+  });
+}
+
+function subtotal(items){
+  return items.reduce((acc,item)=>{
+    const f = item.custom ? item : foodOf(item);
+    acc.k += f.k*item.qty; acc.p += (f.p||0)*item.qty; acc.c += (f.c||0)*item.qty;
+    acc.f += (f.f||0)*item.qty; acc.fb += (f.fb||0)*item.qty;
+    return acc;
+  }, {k:0,p:0,c:0,f:0,fb:0});
+}
+
+function renderSticky(){
+  const {target, weight} = computeTarget();
+  const all = MEALS.flatMap(m=>m.items);
+  const t = subtotal(all);
+  const proteinGoal = Math.round(weight*1.2);
+  const fiberGoal = 30;
+  const fatGoal = Math.round(target*0.25/9);
+  const carbGoal = Math.round((target - proteinGoal*4 - fatGoal*9)/4);
+
+  const macros = [
+    {label:"Calories", val:t.k, goal:target, unit:"kcal"},
+    {label:"Protein", val:t.p, goal:proteinGoal, unit:"g"},
+    {label:"Carbs", val:t.c, goal:Math.max(carbGoal,50), unit:"g"},
+    {label:"Fat", val:t.f, goal:fatGoal, unit:"g"},
+    {label:"Fiber", val:t.fb, goal:fiberGoal, unit:"g"},
+  ];
+  const bar = document.getElementById("stickyBar");
+  bar.innerHTML = macros.map(m=>{
+    const pct = Math.min(100,(m.val/m.goal)*100);
+    let color = "var(--good)";
+    if(m.label==="Calories"){ color = m.val>m.goal+100 ? "var(--coral)" : (m.val<m.goal-300 ? "var(--gold)" : "var(--good)"); }
+    else { color = pct<60 ? "var(--gold)" : "var(--good)"; }
+    return `<div class="mac">
+      <div class="lbl"><span>${m.label}</span><b>${Math.round(m.val)} / ${Math.round(m.goal)}${m.unit}</b></div>
+      <div class="track"><div class="fill" style="width:${pct}%; background:${color}"></div></div>
+    </div>`;
+  }).join("");
+
+  renderSuggestions(t, target, proteinGoal, fiberGoal);
+}
+
+function renderSuggestions(t, target, proteinGoal, fiberGoal){
+  const box = document.getElementById("suggestBody");
+  const tips = [];
+  if(t.p < proteinGoal*0.8) tips.push("Protein is low — add Paneer, Soy Chunks, Dal, Greek Yogurt or Sprouts.");
+  if(t.fb < fiberGoal*0.7) tips.push("Fiber is low — add a fruit, extra vegetables, or a salad.");
+  if(t.k > target + 100) tips.push(`You're ${Math.round(t.k-target)} kcal over target — consider trimming rice, sugar, or fried items.`);
+  if(t.k < target - 400) tips.push("You're well under target — make sure you're eating enough, especially protein and vegetables.");
+  if(t.f*9 > target*0.35) tips.push("Fat intake is on the higher side relative to your target — go easy on ghee, fried snacks, or extra paneer.");
+  box.innerHTML = tips.length
+    ? `<ul>${tips.map(t=>`<li>${t}</li>`).join("")}</ul>`
+    : `<div class="allgood">Nicely balanced so far — protein, fiber and calories are all in a good range.</div>`;
+}
+
+function renderAll(){ renderMeals(); renderSticky(); }
+
+/* ---------- misc UI ---------- */
+document.querySelectorAll("#p_height,#p_weight,#p_age,#p_sex,#p_activity,#p_rate").forEach(el=>{
+  el.addEventListener("input", renderSticky);
+  el.addEventListener("change", renderSticky);
+});
+
+document.getElementById("themeBtn").addEventListener("click", ()=>{
+  const html = document.documentElement;
+  const isDark = html.getAttribute("data-theme")==="dark";
+  html.setAttribute("data-theme", isDark?"light":"dark");
+  document.getElementById("themeBtn").textContent = isDark ? "🌙 Dark mode" : "☀️ Light mode";
+});
+
+let toastTimer;
+function showToast(msg){
+  const toast = document.getElementById("toast");
+  document.getElementById("toastMsg").textContent = msg;
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>toast.classList.remove("show"), 5000);
+}
+document.getElementById("undoBtn").addEventListener("click", ()=>{
+  if(!lastRemoved) return;
+  const meal = MEALS.find(m=>m.key===lastRemoved.mealKey);
+  meal.items.splice(lastRemoved.index, 0, lastRemoved.item);
+  lastRemoved = null;
+  document.getElementById("toast").classList.remove("show");
+  renderAll();
+});
+
+renderAll();
+</script>
+</body>
+</html>
