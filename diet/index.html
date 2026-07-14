@@ -3,101 +3,220 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Indian Diet & Calorie Tracker</title>
+<title>Diet & Calorie Tracker</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 :root{
-  --bg:#EEF3EA; --panel:#FBFDFA; --ink:#1C2B22; --ink-soft:#5A6A5F;
-  --teal:#1B4B43; --teal-dim:#33635A; --gold:#C9971C; --coral:#D9694F;
-  --line:#DCE4D6; --good:#3E7A52; --chip:#E4ECDD;
+  --blue:#0A84FF; --green:#30D158; --orange:#FF9F0A; --red:#FF453A; --purple:#BF5AF2;
+  --ink:#1C1C1E; --ink-soft:#6E6E73;
+  --glass-bg: rgba(255,255,255,0.55);
+  --glass-bg-strong: rgba(255,255,255,0.75);
+  --glass-border: rgba(255,255,255,0.65);
+  --page-bg-1:#EAF2FF; --page-bg-2:#F6F0FF; --page-bg-3:#FFFFFF;
+  --shadow: 0 8px 32px rgba(31,38,68,.10);
+  --shadow-lift: 0 16px 40px rgba(31,38,68,.16);
 }
 [data-theme="dark"]{
-  --bg:#0F1713; --panel:#17221D; --ink:#EAF0E7; --ink-soft:#93A398;
-  --teal:#6FBFAE; --teal-dim:#4F9284; --gold:#E0B04A; --coral:#E9836A;
-  --line:#26332B; --good:#5FAE7C; --chip:#1E2A23;
+  --ink:#F2F2F7; --ink-soft:#9A9AA2;
+  --glass-bg: rgba(30,30,36,0.55);
+  --glass-bg-strong: rgba(34,34,40,0.72);
+  --glass-border: rgba(255,255,255,0.10);
+  --page-bg-1:#0B0B10; --page-bg-2:#121018; --page-bg-3:#0D0D12;
+  --shadow: 0 8px 32px rgba(0,0,0,.45);
+  --shadow-lift: 0 20px 50px rgba(0,0,0,.55);
 }
 *{box-sizing:border-box;}
-body{margin:0; background:var(--bg); color:var(--ink); font-family:'Work Sans',sans-serif; padding:24px 18px 140px; transition:background .2s,color .2s;}
-h1,h2,h3{font-family:'Fraunces',serif; margin:0;}
-.wrap{max-width:1180px; margin:0 auto;}
-header{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:22px; gap:16px; flex-wrap:wrap;}
-header .eyebrow{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--teal-dim); margin-bottom:4px;}
-header h1{font-size:28px; font-weight:700; color:var(--teal);}
-header p{color:var(--ink-soft); font-size:14px; max-width:520px; margin-top:6px;}
-.theme-btn{background:var(--panel); border:1px solid var(--line); border-radius:20px; padding:8px 16px; cursor:pointer; color:var(--ink); font-size:13px;}
+html,body{height:100%;}
+body{
+  margin:0; font-family:'Inter',sans-serif; color:var(--ink);
+  background:
+    radial-gradient(700px 500px at 8% -5%, color-mix(in srgb, var(--blue) 22%, transparent), transparent 60%),
+    radial-gradient(600px 500px at 100% 0%, color-mix(in srgb, var(--purple) 20%, transparent), transparent 60%),
+    linear-gradient(180deg, var(--page-bg-1), var(--page-bg-2) 45%, var(--page-bg-3));
+  min-height:100%;
+  padding-bottom:150px;
+  transition:background .3s;
+}
+.blob{position:fixed; border-radius:50%; filter:blur(70px); z-index:-1; opacity:.5;}
+.blob1{width:340px; height:340px; background:var(--blue); top:-100px; left:-100px;}
+.blob2{width:300px; height:300px; background:var(--green); bottom:10%; right:-80px;}
+.blob3{width:260px; height:260px; background:var(--orange); top:40%; left:45%; opacity:.25;}
 
-details.profile{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px 18px; margin-bottom:20px;}
-details.profile summary{cursor:pointer; font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--teal); text-transform:uppercase; letter-spacing:.06em;}
-.profile-grid{display:grid; grid-template-columns:repeat(6,1fr); gap:12px; margin-top:14px;}
+.glass{
+  background:var(--glass-bg);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border:1px solid var(--glass-border);
+  border-radius:24px;
+  box-shadow:var(--shadow);
+  transition: transform .25s ease, box-shadow .25s ease, background .3s;
+}
+.glass:hover{ box-shadow:var(--shadow-lift); }
+
+/* ---- Nav ---- */
+nav.floatnav{
+  position:sticky; top:14px; z-index:50; margin:14px auto 22px; max-width:1180px;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:10px 18px; border-radius:22px;
+}
+.nav-inner{display:flex; align-items:center; gap:14px; width:100%; flex-wrap:wrap;}
+.logo{font-weight:800; font-size:17px; display:flex; align-items:center; gap:8px;}
+.logo .dot{width:9px; height:9px; border-radius:50%; background:linear-gradient(135deg,var(--blue),var(--purple));}
+.nav-cal{font-size:13px; color:var(--ink-soft); font-weight:600; padding:6px 12px; border-radius:14px; background:var(--glass-bg-strong); border:1px solid var(--glass-border);}
+.nav-cal b{color:var(--ink);}
+.nav-spacer{flex:1;}
+.icon-btn{
+  width:38px; height:38px; border-radius:50%; border:1px solid var(--glass-border);
+  background:var(--glass-bg-strong); display:flex; align-items:center; justify-content:center;
+  cursor:pointer; font-size:16px; transition:transform .15s;
+}
+.icon-btn:hover{ transform:translateY(-2px) scale(1.05); }
+.icon-btn:active{ transform:scale(.92); }
+
+.wrap{max-width:1180px; margin:0 auto; padding:0 16px;}
+.hero{padding:8px 4px 26px;}
+.hero h1{font-size:30px; font-weight:800; margin:0 0 6px; letter-spacing:-.02em;}
+.hero p{color:var(--ink-soft); font-size:14px; margin:0; max-width:560px;}
+
+/* ---- Profile panel ---- */
+.profile-card{padding:18px 20px; margin-bottom:22px;}
+.profile-card summary{cursor:pointer; font-weight:700; font-size:14px; list-style:none; display:flex; align-items:center; gap:8px;}
+.profile-card summary::-webkit-details-marker{display:none;}
+.profile-grid{display:grid; grid-template-columns:repeat(6,1fr); gap:12px; margin-top:16px;}
 @media(max-width:900px){.profile-grid{grid-template-columns:repeat(2,1fr);}}
-.profile-grid label{font-size:11px; color:var(--ink-soft); display:block; margin-bottom:4px;}
-.profile-grid input,.profile-grid select{width:100%; padding:6px 8px; border-radius:6px; border:1px solid var(--line); background:var(--bg); color:var(--ink); font-size:13px;}
-.profile-out{margin-top:10px; font-size:13px; color:var(--ink-soft); font-family:'IBM Plex Mono',monospace;}
-.profile-out b{color:var(--teal);}
+.profile-grid label{font-size:11px; color:var(--ink-soft); display:block; margin-bottom:4px; font-weight:600;}
+.profile-grid input,.profile-grid select{
+  width:100%; padding:8px 10px; border-radius:12px; border:1px solid var(--glass-border);
+  background:var(--glass-bg-strong); color:var(--ink); font-size:13px; font-family:inherit;
+}
 
+/* ---- Ring dashboard ---- */
+.rings{display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-bottom:24px;}
+@media(max-width:760px){.rings{grid-template-columns:repeat(2,1fr);}}
+.ring-card{padding:16px; display:flex; flex-direction:column; align-items:center; gap:8px; animation:fadeUp .5s ease both;}
+.ring-card svg{transform:rotate(-90deg); overflow:visible;}
+.ring-card .ringval{position:relative; margin-top:-92px; font-size:13px; font-weight:700; text-align:center; width:92px;}
+.ring-card .ringval small{display:block; font-weight:500; color:var(--ink-soft); font-size:10px; margin-top:2px;}
+.ring-card .track{stroke:var(--glass-border); fill:none; stroke-width:8;}
+.ring-card .fill{fill:none; stroke-width:8; stroke-linecap:round; transition:stroke-dashoffset .6s cubic-bezier(.2,.8,.2,1);}
+.ring-card .lbl{font-size:12px; font-weight:700; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.04em;}
+
+/* ---- Meal cards ---- */
 .meals{display:grid; grid-template-columns:repeat(2,1fr); gap:16px;}
 @media(max-width:760px){.meals{grid-template-columns:1fr;}}
+.meal-card{padding:18px 20px; animation:fadeUp .5s ease both;}
+.meal-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;}
+.meal-title{display:flex; align-items:center; gap:10px; font-weight:700; font-size:16px;}
+.meal-title .emoji{font-size:20px;}
+.meal-kcal{font-size:13px; font-weight:700; color:var(--blue); background:color-mix(in srgb, var(--blue) 14%, transparent); padding:4px 10px; border-radius:12px;}
 
-.meal-card{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:16px;}
-.meal-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;}
-.meal-head h3{font-size:16px; color:var(--teal);}
-.meal-sub{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-soft);}
-.clear-btn{background:none; border:none; color:var(--coral); font-size:12px; cursor:pointer;}
+.search-wrap{position:relative; margin-bottom:12px;}
+.search-wrap input{
+  width:100%; padding:11px 14px 11px 36px; border-radius:16px; border:1px solid var(--glass-border);
+  background:var(--glass-bg-strong); color:var(--ink); font-size:13px; font-family:inherit;
+}
+.search-wrap .sicon{position:absolute; left:12px; top:11px; font-size:14px; opacity:.6;}
+.dropdown{
+  position:absolute; top:44px; left:0; right:0; z-index:30; max-height:230px; overflow-y:auto;
+  border-radius:16px; padding:6px; background:var(--glass-bg-strong); backdrop-filter:blur(20px);
+  border:1px solid var(--glass-border); box-shadow:var(--shadow-lift);
+}
+.dropdown .opt{padding:9px 10px; border-radius:10px; cursor:pointer; font-size:13px; display:flex; justify-content:space-between; gap:8px;}
+.dropdown .opt:hover{background:color-mix(in srgb, var(--blue) 12%, transparent);}
+.dropdown .empty{padding:10px; font-size:12px; color:var(--ink-soft);}
 
-.search-wrap{position:relative; margin-bottom:10px;}
-.search-wrap input{width:100%; padding:9px 12px; border-radius:8px; border:1px solid var(--line); background:var(--bg); color:var(--ink); font-size:14px;}
-.dropdown{position:absolute; top:38px; left:0; right:0; background:var(--panel); border:1px solid var(--line); border-radius:10px; max-height:240px; overflow-y:auto; z-index:20; box-shadow:0 8px 20px rgba(0,0,0,.12);}
-.dropdown .opt{padding:8px 12px; cursor:pointer; font-size:13px; display:flex; justify-content:space-between; gap:8px;}
-.dropdown .opt:hover{background:var(--chip);}
-.dropdown .opt .cat{color:var(--ink-soft); font-size:11px;}
-.dropdown .empty{padding:10px 12px; font-size:12px; color:var(--ink-soft);}
+.pills{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px;}
+.pill{
+  display:flex; align-items:center; gap:8px; padding:7px 8px 7px 12px; border-radius:18px;
+  background:var(--glass-bg-strong); border:1px solid var(--glass-border); font-size:12px;
+  animation:pillIn .25s ease both;
+}
+.pill .pname{font-weight:600;}
+.pill .pmeta{color:var(--ink-soft); font-size:11px;}
+.pill input[type=number]{
+  width:44px; border:none; background:transparent; text-align:center; font-size:12px; color:var(--ink); font-family:inherit;
+}
+.pill .kc{font-weight:700; color:var(--blue); font-size:11px;}
+.pill .x{border:none; background:none; cursor:pointer; color:var(--red); font-size:14px; line-height:1;}
 
-.item-row{display:flex; align-items:center; gap:8px; padding:7px 0; border-bottom:1px solid var(--line); font-size:13px;}
-.item-row .icon{font-size:16px;}
-.item-row .nm{flex:1; min-width:0;}
-.item-row .nm .macros{display:block; font-size:11px; color:var(--ink-soft); font-family:'IBM Plex Mono',monospace;}
-.item-row input[type=number]{width:52px; padding:4px; border-radius:6px; border:1px solid var(--line); background:var(--bg); color:var(--ink); font-size:12px;}
-.item-row .kcal{font-family:'IBM Plex Mono',monospace; color:var(--teal); font-weight:600; width:56px; text-align:right;}
-.item-row .rm{background:none; border:none; color:var(--coral); cursor:pointer; font-size:15px;}
-.subtotal{display:flex; justify-content:space-between; margin-top:8px; font-size:12px; color:var(--ink-soft); font-family:'IBM Plex Mono',monospace;}
+.subtotal-row{display:flex; gap:10px; flex-wrap:wrap; font-size:11px; color:var(--ink-soft); margin:6px 0 12px;}
+.subtotal-row b{color:var(--ink);}
 
-.custom-add{display:flex; gap:6px; margin-top:10px;}
-.custom-add input{flex:1; padding:6px 8px; border-radius:6px; border:1px dashed var(--line); background:var(--bg); color:var(--ink); font-size:12px;}
-.custom-add button{background:var(--teal-dim); color:#fff; border:none; border-radius:6px; padding:6px 10px; font-size:12px; cursor:pointer;}
+.custom-add{display:flex; gap:6px; margin-bottom:10px;}
+.custom-add input{
+  flex:1; padding:8px 10px; border-radius:12px; border:1px dashed var(--glass-border);
+  background:transparent; color:var(--ink); font-size:12px; font-family:inherit;
+}
+.glass-btn{
+  border:1px solid var(--glass-border); background:var(--glass-bg-strong); color:var(--ink);
+  padding:8px 14px; border-radius:14px; font-size:12px; font-weight:700; cursor:pointer;
+  position:relative; overflow:hidden; transition:transform .15s;
+}
+.glass-btn:hover{transform:translateY(-2px);}
+.glass-btn:active{transform:scale(.95);}
+.glass-btn.primary{background:linear-gradient(135deg,var(--blue),var(--purple)); color:#fff; border:none;}
+.glass-btn.danger{color:var(--red);}
+.meal-foot{display:flex; justify-content:space-between; align-items:center;}
 
-.suggestions{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:16px 18px; margin-top:18px;}
-.suggestions h3{font-size:15px; color:var(--teal); margin-bottom:8px;}
-.suggestions ul{margin:0; padding-left:18px; font-size:13px; color:var(--ink-soft); line-height:1.7;}
-.suggestions .allgood{color:var(--good); font-size:13px;}
+/* ---- Suggestions ---- */
+.suggest-card{padding:18px 20px; margin-top:20px;}
+.suggest-card h3{margin:0 0 10px; font-size:15px;}
+.suggest-card ul{margin:0; padding-left:18px; font-size:13px; color:var(--ink-soft); line-height:1.8;}
+.suggest-card .ok{color:var(--green); font-size:13px; font-weight:600;}
 
-.sticky-bar{position:fixed; bottom:0; left:0; right:0; background:var(--panel); border-top:1px solid var(--line); padding:12px 20px; box-shadow:0 -8px 20px rgba(0,0,0,.08);}
-.sticky-inner{max-width:1180px; margin:0 auto; display:grid; grid-template-columns:repeat(5,1fr); gap:16px; align-items:center;}
-@media(max-width:760px){.sticky-inner{grid-template-columns:repeat(2,1fr); row-gap:10px;}}
-.mac{}
-.mac .lbl{font-size:10px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-soft); display:flex; justify-content:space-between;}
-.mac .lbl b{color:var(--ink); font-family:'IBM Plex Mono',monospace;}
-.mac .track{height:6px; background:var(--line); border-radius:4px; overflow:hidden; margin-top:4px;}
-.mac .fill{height:100%; border-radius:4px; transition:width .25s;}
+/* ---- Sticky bottom ---- */
+.sticky-bar{position:fixed; bottom:14px; left:0; right:0; z-index:60; display:flex; justify-content:center; padding:0 16px;}
+.sticky-inner{
+  max-width:960px; width:100%; display:flex; align-items:center; gap:18px; padding:12px 20px; border-radius:24px;
+  overflow-x:auto;
+}
+.mac-mini{display:flex; flex-direction:column; gap:4px; min-width:90px;}
+.mac-mini .top{display:flex; justify-content:space-between; font-size:10px; color:var(--ink-soft); font-weight:700; text-transform:uppercase;}
+.mac-mini .track{height:5px; border-radius:4px; background:var(--glass-border); overflow:hidden;}
+.mac-mini .fill{height:100%; border-radius:4px; transition:width .4s;}
 
-.toast{position:fixed; bottom:80px; left:50%; transform:translateX(-50%); background:var(--teal); color:#fff; padding:8px 16px; border-radius:20px; font-size:12px; display:flex; gap:10px; align-items:center; opacity:0; pointer-events:none; transition:opacity .2s;}
-.toast.show{opacity:1;}
-.toast button{background:none; border:none; color:#fff; text-decoration:underline; cursor:pointer; font-size:12px;}
+/* ---- toast ---- */
+.toast{
+  position:fixed; bottom:96px; left:50%; transform:translateX(-50%) translateY(10px); z-index:70;
+  padding:10px 18px; border-radius:20px; font-size:12px; display:flex; gap:12px; align-items:center;
+  opacity:0; pointer-events:none; transition:opacity .25s, transform .25s;
+  background:linear-gradient(135deg,var(--blue),var(--purple)); color:#fff;
+}
+.toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+.toast button{background:none; border:none; color:#fff; text-decoration:underline; cursor:pointer; font-size:12px; font-weight:700;}
+
+@keyframes fadeUp{ from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:translateY(0);} }
+@keyframes pillIn{ from{opacity:0; transform:scale(.9);} to{opacity:1; transform:scale(1);} }
+
+@media (prefers-reduced-motion: reduce){
+  *{animation:none !important; transition:none !important;}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <div>
-      <div class="eyebrow">Indian Food Database</div>
-      <h1>Diet &amp; Calorie Tracker</h1>
-      <p>Search any food, add it to a meal, and watch calories, protein, carbs, fat and fiber total up live against your daily target.</p>
-    </div>
-    <button class="theme-btn" id="themeBtn">🌙 Dark mode</button>
-  </header>
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+<div class="blob blob3"></div>
 
-  <details class="profile" open>
-    <summary>Profile &amp; daily target</summary>
+<nav class="floatnav glass">
+  <div class="nav-inner">
+    <div class="logo"><span class="dot"></span>NutriGlass</div>
+    <div class="nav-cal" id="navCal">🔥 -- / -- kcal</div>
+    <div class="nav-spacer"></div>
+    <button class="icon-btn" id="resetBtn" title="Reset to default diet">↺</button>
+    <button class="icon-btn" id="themeBtn" title="Toggle theme">🌙</button>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="hero">
+    <h1>Diet & Calorie Tracker</h1>
+    <p>Loads with your usual day already filled in — tea, chapati, paneer, dal and rice — so you see real totals immediately. Edit anything, or hit reset to snap back.</p>
+  </div>
+
+  <details class="profile-card glass">
+    <summary>⚙️ Profile & daily target</summary>
     <div class="profile-grid">
       <div><label>Height (cm)</label><input type="number" id="p_height" value="172"></div>
       <div><label>Weight (kg)</label><input type="number" id="p_weight" value="79"></div>
@@ -119,25 +238,25 @@ details.profile summary{cursor:pointer; font-family:'IBM Plex Mono',monospace; f
         </select>
       </div>
     </div>
-    <div class="profile-out" id="profileOut"></div>
   </details>
+
+  <div class="rings" id="ringsWrap"></div>
 
   <div class="meals" id="mealsWrap"></div>
 
-  <div class="suggestions">
-    <h3>Smart suggestions</h3>
+  <div class="suggest-card glass">
+    <h3>✨ Smart suggestions</h3>
     <div id="suggestBody"></div>
   </div>
 </div>
 
 <div class="sticky-bar">
-  <div class="sticky-inner" id="stickyBar"></div>
+  <div class="sticky-inner glass" id="stickyBar"></div>
 </div>
 <div class="toast" id="toast"><span id="toastMsg"></span><button id="undoBtn">Undo</button></div>
 
 <script>
 /* ---------- Food database ---------- */
-// [name, category, icon, unit, kcal, protein, carbs, fat, fiber]  -- values per the stated unit/serving
 const DB = [
 ["Apple","Fruits","🍎","100g",52,0.3,14,0.2,2.4],
 ["Banana","Fruits","🍎","100g",89,1.1,23,0.3,2.6],
@@ -156,7 +275,6 @@ const DB = [
 ["Strawberry","Fruits","🍎","100g",32,0.7,8,0.3,2],
 ["Blueberries","Fruits","🍎","100g",57,0.7,14,0.3,2.4],
 ["Cherries","Fruits","🍎","100g",63,1.1,16,0.2,2.1],
-
 ["Potato (boiled)","Vegetables","🥗","100g",77,2,17,0.1,2.2],
 ["Sweet Potato","Vegetables","🥗","100g",86,1.6,20,0.1,3],
 ["Onion","Vegetables","🥗","100g",40,1.1,9,0.1,1.7],
@@ -177,8 +295,7 @@ const DB = [
 ["Lady Finger (Bhindi)","Vegetables","🥗","100g",33,1.9,7,0.2,3.2],
 ["Eggplant (Baingan)","Vegetables","🥗","100g",25,1,6,0.2,3],
 ["Radish","Vegetables","🥗","100g",16,0.7,3.4,0.1,1.6],
-
-["White Rice (cooked)","Rice","🍚","100g",130,2.7,28,0.3,0.4],
+["White Rice (cooked)","Rice","🍚","bowl",130,2.7,28,0.3,0.4],
 ["Brown Rice (cooked)","Rice","🍚","100g",123,2.7,26,1,1.8],
 ["Basmati Rice (cooked)","Rice","🍚","100g",121,3.5,25,0.4,0.6],
 ["Jeera Rice","Rice","🍚","100g",150,3,26,3,0.5],
@@ -186,7 +303,6 @@ const DB = [
 ["Lemon Rice","Rice","🍚","100g",150,3,25,4,0.8],
 ["Vegetable Pulao","Rice","🍚","100g",160,4,28,3,1.5],
 ["Khichdi","Rice","🍚","bowl",120,4,22,2,1.8],
-
 ["Chapati","Breads","🫓","1 pc",80,2.5,15,1,2],
 ["Roti","Breads","🫓","1 pc",80,2.5,15,1,2],
 ["Phulka","Breads","🫓","1 pc",70,2,13,0.8,1.8],
@@ -196,8 +312,7 @@ const DB = [
 ["Naan","Breads","🫓","1 pc",160,4,28,3,1.5],
 ["Kulcha","Breads","🫓","1 pc",170,4,29,4,1.5],
 ["Bhakri","Breads","🫓","1 pc",120,3,20,3,2],
-
-["Paneer","Protein","🫘","100g",265,18,1.2,21,0],
+["Paneer","Protein","🫘","serving",265,18,1.2,21,0],
 ["Tofu","Protein","🫘","100g",76,8,1.9,4.8,0.3],
 ["Soy Chunks (cooked)","Protein","🫘","100g",345,52,33,0.5,13],
 ["Dal (cooked)","Protein","🫘","bowl",116,9,20,0.4,8],
@@ -210,9 +325,7 @@ const DB = [
 ["Milk","Protein","🫘","100ml",60,3.2,4.8,3.2,0],
 ["Curd","Protein","🫘","100g",60,3.5,4.7,3.3,0],
 ["Greek Yogurt","Protein","🫘","100g",59,10,3.6,0.4,0],
-
-["Tea (with milk, no sugar)","Beverages","☕","cup",40,1,6,1,0],
-["Tea with Sugar","Beverages","☕","cup",60,1,10,1,0],
+["Tea with Sugar","Beverages","☕","cup",60,1.0,10.0,1.0,0],
 ["Tea without Sugar","Beverages","☕","cup",20,1,2,1,0],
 ["Black Tea","Beverages","☕","cup",2,0,0.5,0,0],
 ["Green Tea","Beverages","☕","cup",2,0,0.5,0,0],
@@ -222,22 +335,20 @@ const DB = [
 ["Black Coffee","Beverages","☕","cup",2,0,0.3,0,0],
 ["Cold Coffee","Beverages","☕","cup",120,3,16,4,0],
 ["Lemon Tea","Beverages","☕","cup",25,0,6,0,0],
-
 ["Roasted Chana","Snacks","🥜","30g",90,5,12,2,4],
 ["Makhana","Snacks","🥜","20g",65,2,13,0.2,1],
 ["Almonds","Snacks","🥜","10 pc",70,2.5,2.5,6,1.5],
 ["Walnuts","Snacks","🥜","5 pc",98,2.3,2,9.8,1],
-["Peanuts","Snacks","🥜","30g",170,7,6,14,2.4],
+["Peanuts","Snacks","🥜","serving",170,7.0,6.0,14.0,2.4],
 ["Cashews","Snacks","🥜","10 pc",85,2.5,4.5,7,0.5],
 ["Biscuits","Snacks","🥜","2 pc",90,1.5,14,3,0.5],
 ["Toast","Snacks","🥜","1 slice",75,2.5,13,1,1],
 ["Popcorn","Snacks","🥜","1 cup",30,1,6,0.3,1.2],
-
 ["Dal Rice","Meals","🍛","plate",300,10,50,6,6],
 ["Rajma Rice","Meals","🍛","plate",350,12,55,8,7],
 ["Chole Rice","Meals","🍛","plate",340,11,54,8,7],
 ["Paneer Curry","Meals","🍛","bowl",280,14,10,20,2],
-["Mix Vegetable","Meals","🍛","bowl",150,4,15,8,4],
+["Mix Vegetable","Meals","🍛","serving",150,4.0,15.0,8.0,4.0],
 ["Aloo Sabzi","Meals","🍛","bowl",180,3,25,7,3],
 ["Bhindi Sabzi","Meals","🍛","bowl",120,3,10,8,3.5],
 ["Kadhi Rice","Meals","🍛","plate",280,8,40,9,2],
@@ -249,7 +360,6 @@ const DB = [
 ["Dosa","Meals","🍛","1 pc",133,3,18,6,1],
 ["Uttapam","Meals","🍛","1 pc",160,4,22,6,1.5],
 ["Sambar","Meals","🍛","bowl",100,5,15,2,3],
-
 ["Gulab Jamun","Desserts","🍰","1 pc",150,2,20,7,0],
 ["Rasgulla","Desserts","🍰","1 pc",106,4,22,0.5,0],
 ["Jalebi","Desserts","🍰","50g",150,1,25,5,0],
@@ -258,33 +368,43 @@ const DB = [
 ["Chocolate","Desserts","🍰","25g",135,1.5,15,8,1],
 ["Cake","Desserts","🍰","1 slice",235,3,35,9,0.5],
 ];
-
 const FOODS = DB.map((r,i)=>({id:"f"+i, name:r[0], cat:r[1], icon:r[2], unit:r[3], k:r[4], p:r[5], c:r[6], f:r[7], fb:r[8]}));
+function byName(n){ return FOODS.find(f=>f.name===n); }
 
-const MEALS = [
-  {key:"breakfast", label:"Breakfast", items:[
-    {id:"tea1", ...pick("Tea with Sugar"), qty:1},
-    {id:"ban1", ...pick("Banana"), qty:1},
-  ]},
-  {key:"lunch", label:"Lunch", items:[
-    {id:"ch1", ...pick("Chapati"), qty:3},
-    {id:"pn1", ...pick("Paneer"), qty:1},
-    {id:"sal1", ...pick("Cucumber"), qty:1},
-  ]},
-  {key:"evening", label:"Evening", items:[
-    {id:"tea2", ...pick("Tea with Sugar"), qty:1},
-  ]},
-  {key:"dinner", label:"Dinner", items:[
-    {id:"ch2", ...pick("Chapati"), qty:2},
-    {id:"pn2", ...pick("Paneer"), qty:0.75},
-  ]},
+/* ---------- Default meal plan (separate config, references DB by id) ---------- */
+const DEFAULT_MEAL_PLAN = {
+  breakfast: [
+    {foodId: byName("Tea with Sugar").id, qty:1},
+    {foodId: byName("Paneer").id, qty:1},
+  ],
+  lunch: [
+    {foodId: byName("Chapati").id, qty:3},
+    {foodId: byName("Cucumber").id, qty:2},
+    {foodId: byName("Mix Vegetable").id, qty:1},
+    {foodId: byName("White Rice (cooked)").id, qty:1},
+  ],
+  evening: [
+    {foodId: byName("Tea with Sugar").id, qty:1},
+    {foodId: byName("Peanuts").id, qty:1},
+  ],
+  dinner: [
+    {foodId: byName("Chapati").id, qty:3},
+    {foodId: byName("Dal (cooked)").id, qty:1},
+  ],
+};
+const MEAL_META = [
+  {key:"breakfast", label:"Breakfast", emoji:"🍳"},
+  {key:"lunch", label:"Lunch", emoji:"🍛"},
+  {key:"evening", label:"Evening", emoji:"☕"},
+  {key:"dinner", label:"Dinner", emoji:"🌙"},
 ];
-function pick(name){ const f = FOODS.find(x=>x.name===name); return {foodId:f.id}; }
-// resolve foodId->food object helper
+function freshMeals(){
+  return MEAL_META.map(m=>({...m, items: DEFAULT_MEAL_PLAN[m.key].map(i=>({...i}))}));
+}
+let MEALS = freshMeals();
 function foodOf(item){ return FOODS.find(f=>f.id===item.foodId); }
 
-let lastRemoved = null; // {mealKey, item, index}
-let customCounter = 1;
+let lastRemoved = null;
 
 /* ---------- Profile / target ---------- */
 function computeTarget(){
@@ -296,89 +416,85 @@ function computeTarget(){
   const rate = +document.getElementById("p_rate").value;
   const bmr = sex==="male" ? (10*w+6.25*h-5*a+5) : (10*w+6.25*h-5*a-161);
   const tdee = bmr*act;
-  const target = tdee - rate*1100;
-  document.getElementById("profileOut").innerHTML =
-    `BMR <b>${Math.round(bmr)}</b> kcal &nbsp;·&nbsp; TDEE <b>${Math.round(tdee)}</b> kcal &nbsp;·&nbsp; Daily target <b>${Math.round(target)}</b> kcal`;
-  return {target: Math.round(target), weight: w};
+  const target = Math.round(tdee - rate*1100);
+  return {target, weight:w};
 }
 
 /* ---------- Rendering ---------- */
 function renderMeals(){
   const wrap = document.getElementById("mealsWrap");
   wrap.innerHTML = "";
-  MEALS.forEach(meal=>{
+  MEALS.forEach((meal, mi)=>{
+    const sub = subtotal(meal.items);
     const card = document.createElement("div");
-    card.className = "meal-card";
-    let sub = subtotal(meal.items);
+    card.className = "meal-card glass";
+    card.style.animationDelay = (mi*0.06)+"s";
     card.innerHTML = `
       <div class="meal-head">
-        <h3>${meal.label}</h3>
-        <span class="meal-sub">${Math.round(sub.k)} kcal</span>
+        <div class="meal-title"><span class="emoji">${meal.emoji}</span>${meal.label}</div>
+        <span class="meal-kcal">${Math.round(sub.k)} kcal</span>
       </div>
       <div class="search-wrap">
-        <input type="text" placeholder="Search food to add… (e.g. Pan, Ric, App)" data-meal="${meal.key}" class="searchInput" autocomplete="off">
+        <span class="sicon">🔍</span>
+        <input type="text" placeholder="Search food… (Pan, Ric, App)" data-meal="${meal.key}" class="searchInput" autocomplete="off">
         <div class="dropdown" style="display:none;" data-meal="${meal.key}"></div>
       </div>
-      <div class="itemsList" data-meal="${meal.key}"></div>
-      <div class="subtotal">
-        <span>P ${sub.p.toFixed(1)}g</span><span>C ${sub.c.toFixed(1)}g</span><span>F ${sub.f.toFixed(1)}g</span><span>Fib ${sub.fb.toFixed(1)}g</span>
+      <div class="pills" data-meal="${meal.key}"></div>
+      <div class="subtotal-row">
+        <span>P <b>${sub.p.toFixed(1)}g</b></span><span>C <b>${sub.c.toFixed(1)}g</b></span><span>F <b>${sub.f.toFixed(1)}g</b></span><span>Fib <b>${sub.fb.toFixed(1)}g</b></span>
       </div>
       <div class="custom-add">
         <input type="text" placeholder="Custom food name" data-meal="${meal.key}" class="customName">
-        <input type="number" placeholder="kcal" style="width:60px" data-meal="${meal.key}" class="customKcal">
-        <button data-meal="${meal.key}" class="customAddBtn">+ Add</button>
+        <input type="number" placeholder="kcal" style="width:56px;flex:none" data-meal="${meal.key}" class="customKcal">
+        <button class="glass-btn" data-meal="${meal.key}" data-role="customAdd">Add</button>
       </div>
-      <div style="margin-top:8px;"><button class="clear-btn" data-meal="${meal.key}">Clear meal</button></div>
+      <div class="meal-foot">
+        <button class="glass-btn danger" data-meal="${meal.key}" data-role="clear">Clear meal</button>
+      </div>
     `;
     wrap.appendChild(card);
 
-    const itemsList = card.querySelector(".itemsList");
+    const pillsWrap = card.querySelector(".pills");
     meal.items.forEach((item, idx)=>{
       const f = item.custom ? item : foodOf(item);
-      const k = f.k*item.qty, p=(f.p||0)*item.qty, c=(f.c||0)*item.qty, fat=(f.f||0)*item.qty, fb=(f.fb||0)*item.qty;
-      const row = document.createElement("div");
-      row.className = "item-row";
-      row.innerHTML = `
-        <span class="icon">${f.icon||"🍽️"}</span>
-        <span class="nm">${f.name}<span class="macros">P${p.toFixed(1)} C${c.toFixed(1)} F${fat.toFixed(1)} Fib${fb.toFixed(1)}</span></span>
-        <input type="number" min="0" step="0.25" value="${item.qty}" data-meal="${meal.key}" data-idx="${idx}" class="qtyIn" title="× ${f.unit||''}">
-        <span class="kcal">${Math.round(k)}</span>
-        <button class="rm" data-meal="${meal.key}" data-idx="${idx}">×</button>
+      const k = f.k*item.qty;
+      const pill = document.createElement("div");
+      pill.className = "pill";
+      pill.innerHTML = `
+        <span>${f.icon||"🍽️"}</span>
+        <span class="pname">${f.name}</span>
+        <input type="number" min="0" step="0.25" value="${item.qty}" data-meal="${meal.key}" data-idx="${idx}" class="qtyIn">
+        <span class="kc">${Math.round(k)}k</span>
+        <button class="x" data-meal="${meal.key}" data-idx="${idx}">×</button>
       `;
-      itemsList.appendChild(row);
+      pillsWrap.appendChild(pill);
     });
   });
 
-  // wire qty inputs
   document.querySelectorAll(".qtyIn").forEach(inp=>{
     inp.addEventListener("change", e=>{
-      const mk = e.target.dataset.meal, idx = +e.target.dataset.idx;
-      const meal = MEALS.find(m=>m.key===mk);
-      meal.items[idx].qty = parseFloat(e.target.value)||0;
+      const meal = MEALS.find(m=>m.key===e.target.dataset.meal);
+      meal.items[+e.target.dataset.idx].qty = parseFloat(e.target.value)||0;
       renderAll();
     });
   });
-  // wire remove
-  document.querySelectorAll(".rm").forEach(btn=>{
+  document.querySelectorAll(".pill .x").forEach(btn=>{
     btn.addEventListener("click", e=>{
-      const mk = e.target.dataset.meal, idx = +e.target.dataset.idx;
-      const meal = MEALS.find(m=>m.key===mk);
-      lastRemoved = {mealKey:mk, item:meal.items[idx], index:idx};
+      const meal = MEALS.find(m=>m.key===e.target.dataset.meal);
+      const idx = +e.target.dataset.idx;
+      lastRemoved = {mealKey:meal.key, item:meal.items[idx], index:idx};
       meal.items.splice(idx,1);
       showToast(`Removed ${lastRemoved.item.custom?lastRemoved.item.name:foodOf(lastRemoved.item).name}`);
       renderAll();
     });
   });
-  // wire clear meal
-  document.querySelectorAll(".clear-btn").forEach(btn=>{
+  document.querySelectorAll('[data-role="clear"]').forEach(btn=>{
     btn.addEventListener("click", e=>{
-      const mk = e.target.dataset.meal;
-      const meal = MEALS.find(m=>m.key===mk);
+      const meal = MEALS.find(m=>m.key===e.target.dataset.meal);
       meal.items = [];
       renderAll();
     });
   });
-  // wire search
   document.querySelectorAll(".searchInput").forEach(inp=>{
     inp.addEventListener("input", e=>{
       const mk = e.target.dataset.meal;
@@ -387,8 +503,8 @@ function renderMeals(){
       if(!q){ dd.style.display="none"; return; }
       const matches = FOODS.filter(f=>f.name.toLowerCase().includes(q)).slice(0,10);
       dd.innerHTML = matches.length
-        ? matches.map(f=>`<div class="opt" data-meal="${mk}" data-food="${f.id}"><span>${f.icon} ${f.name}</span><span class="cat">${f.k} kcal/${f.unit}</span></div>`).join("")
-        : `<div class="empty">No matches — use "Custom food" below to add it.</div>`;
+        ? matches.map(f=>`<div class="opt" data-meal="${mk}" data-food="${f.id}"><span>${f.icon} ${f.name}</span><span style="color:var(--ink-soft);font-size:11px">${f.k} kcal/${f.unit}</span></div>`).join("")
+        : `<div class="empty">No matches — use "Custom food" below.</div>`;
       dd.style.display = "block";
     });
     inp.addEventListener("blur", ()=> setTimeout(()=>{document.querySelectorAll(".dropdown").forEach(d=>d.style.display="none");}, 150));
@@ -397,23 +513,19 @@ function renderMeals(){
     dd.addEventListener("mousedown", e=>{
       const opt = e.target.closest(".opt");
       if(!opt) return;
-      const mk = opt.dataset.meal, foodId = opt.dataset.food;
-      const meal = MEALS.find(m=>m.key===mk);
-      meal.items.push({foodId, qty:1});
+      const meal = MEALS.find(m=>m.key===opt.dataset.meal);
+      meal.items.push({foodId:opt.dataset.food, qty:1});
       renderAll();
     });
   });
-  // custom add
-  document.querySelectorAll(".customAddBtn").forEach(btn=>{
+  document.querySelectorAll('[data-role="customAdd"]').forEach(btn=>{
     btn.addEventListener("click", e=>{
-      const mk = e.target.dataset.meal;
       const card = e.target.closest(".meal-card");
       const nameInp = card.querySelector(".customName");
       const kcalInp = card.querySelector(".customKcal");
-      const name = nameInp.value.trim();
-      const kcal = parseFloat(kcalInp.value);
+      const name = nameInp.value.trim(), kcal = parseFloat(kcalInp.value);
       if(!name || !kcal) return;
-      const meal = MEALS.find(m=>m.key===mk);
+      const meal = MEALS.find(m=>m.key===e.target.dataset.meal);
       meal.items.push({custom:true, name, icon:"🍽️", unit:"serving", k:kcal, p:0,c:0,f:0,fb:0, qty:1});
       nameInp.value=""; kcalInp.value="";
       renderAll();
@@ -430,6 +542,32 @@ function subtotal(items){
   }, {k:0,p:0,c:0,f:0,fb:0});
 }
 
+const RING_COLORS = {Calories:"var(--blue)", Protein:"var(--green)", Carbs:"var(--orange)", Fat:"var(--purple)", Fiber:"var(--red)"};
+function renderRings(t, target, proteinGoal, carbGoal, fatGoal, fiberGoal){
+  const data = [
+    {label:"Calories", val:t.k, goal:target, emoji:"🔥"},
+    {label:"Protein", val:t.p, goal:proteinGoal, emoji:"🥩"},
+    {label:"Carbs", val:t.c, goal:carbGoal, emoji:"🍚"},
+    {label:"Fat", val:t.f, goal:fatGoal, emoji:"🥑"},
+    {label:"Fiber", val:t.fb, goal:fiberGoal, emoji:"🥗"},
+  ];
+  const wrap = document.getElementById("ringsWrap");
+  const R = 40, C = 2*Math.PI*R;
+  wrap.innerHTML = data.map((d,i)=>{
+    const pct = Math.max(0,Math.min(1, d.val/d.goal));
+    const offset = C*(1-pct);
+    return `<div class="ring-card glass" style="animation-delay:${i*0.06}s">
+      <svg width="100" height="100" viewBox="0 0 100 100">
+        <circle class="track" cx="50" cy="50" r="${R}"></circle>
+        <circle class="fill" cx="50" cy="50" r="${R}" stroke="${RING_COLORS[d.label]}"
+          stroke-dasharray="${C}" stroke-dashoffset="${offset}"></circle>
+      </svg>
+      <div class="ringval">${d.emoji} ${Math.round(d.val)}<small>/ ${Math.round(d.goal)} ${d.label==="Calories"?"kcal":"g"}</small></div>
+      <div class="lbl">${d.label}</div>
+    </div>`;
+  }).join("");
+}
+
 function renderSticky(){
   const {target, weight} = computeTarget();
   const all = MEALS.flatMap(m=>m.items);
@@ -437,58 +575,66 @@ function renderSticky(){
   const proteinGoal = Math.round(weight*1.2);
   const fiberGoal = 30;
   const fatGoal = Math.round(target*0.25/9);
-  const carbGoal = Math.round((target - proteinGoal*4 - fatGoal*9)/4);
+  const carbGoal = Math.max(50, Math.round((target - proteinGoal*4 - fatGoal*9)/4));
+
+  document.getElementById("navCal").innerHTML = `🔥 <b>${Math.round(t.k)}</b> / ${target} kcal`;
 
   const macros = [
-    {label:"Calories", val:t.k, goal:target, unit:"kcal"},
-    {label:"Protein", val:t.p, goal:proteinGoal, unit:"g"},
-    {label:"Carbs", val:t.c, goal:Math.max(carbGoal,50), unit:"g"},
-    {label:"Fat", val:t.f, goal:fatGoal, unit:"g"},
-    {label:"Fiber", val:t.fb, goal:fiberGoal, unit:"g"},
+    {label:"Cal", val:t.k, goal:target, color:"var(--blue)"},
+    {label:"Prot", val:t.p, goal:proteinGoal, color:"var(--green)"},
+    {label:"Carb", val:t.c, goal:carbGoal, color:"var(--orange)"},
+    {label:"Fat", val:t.f, goal:fatGoal, color:"var(--purple)"},
+    {label:"Fiber", val:t.fb, goal:fiberGoal, color:"var(--red)"},
   ];
-  const bar = document.getElementById("stickyBar");
-  bar.innerHTML = macros.map(m=>{
-    const pct = Math.min(100,(m.val/m.goal)*100);
-    let color = "var(--good)";
-    if(m.label==="Calories"){ color = m.val>m.goal+100 ? "var(--coral)" : (m.val<m.goal-300 ? "var(--gold)" : "var(--good)"); }
-    else { color = pct<60 ? "var(--gold)" : "var(--good)"; }
-    return `<div class="mac">
-      <div class="lbl"><span>${m.label}</span><b>${Math.round(m.val)} / ${Math.round(m.goal)}${m.unit}</b></div>
-      <div class="track"><div class="fill" style="width:${pct}%; background:${color}"></div></div>
+  document.getElementById("stickyBar").innerHTML = macros.map(m=>{
+    const pct = Math.min(100, (m.val/m.goal)*100);
+    return `<div class="mac-mini">
+      <div class="top"><span>${m.label}</span><span>${Math.round(m.val)}/${Math.round(m.goal)}</span></div>
+      <div class="track"><div class="fill" style="width:${pct}%; background:${m.color}"></div></div>
     </div>`;
   }).join("");
 
+  renderRings(t, target, proteinGoal, carbGoal, fatGoal, fiberGoal);
   renderSuggestions(t, target, proteinGoal, fiberGoal);
 }
 
 function renderSuggestions(t, target, proteinGoal, fiberGoal){
   const box = document.getElementById("suggestBody");
   const tips = [];
-  if(t.p < proteinGoal*0.8) tips.push("Protein is low — add Paneer, Soy Chunks, Dal, Greek Yogurt or Sprouts.");
+  if(t.p < proteinGoal*0.8) tips.push("Protein is a bit low — add Paneer, Soy Chunks, Dal, Greek Yogurt or Sprouts.");
   if(t.fb < fiberGoal*0.7) tips.push("Fiber is low — add a fruit, extra vegetables, or a salad.");
   if(t.k > target + 100) tips.push(`You're ${Math.round(t.k-target)} kcal over target — consider trimming rice, sugar, or fried items.`);
   if(t.k < target - 400) tips.push("You're well under target — make sure you're eating enough, especially protein and vegetables.");
-  if(t.f*9 > target*0.35) tips.push("Fat intake is on the higher side relative to your target — go easy on ghee, fried snacks, or extra paneer.");
+  if(t.f*9 > target*0.35) tips.push("Fat intake is on the higher side relative to target — go easy on ghee, fried snacks or extra paneer.");
   box.innerHTML = tips.length
-    ? `<ul>${tips.map(t=>`<li>${t}</li>`).join("")}</ul>`
-    : `<div class="allgood">Nicely balanced so far — protein, fiber and calories are all in a good range.</div>`;
+    ? `<ul>${tips.map(x=>`<li>${x}</li>`).join("")}</ul>`
+    : `<div class="ok">✓ Nicely balanced — protein, fiber and calories are all in good range.</div>`;
 }
 
 function renderAll(){ renderMeals(); renderSticky(); }
 
-/* ---------- misc UI ---------- */
+/* ---------- Profile listeners ---------- */
 document.querySelectorAll("#p_height,#p_weight,#p_age,#p_sex,#p_activity,#p_rate").forEach(el=>{
   el.addEventListener("input", renderSticky);
   el.addEventListener("change", renderSticky);
 });
 
+/* ---------- Reset ---------- */
+document.getElementById("resetBtn").addEventListener("click", ()=>{
+  MEALS = freshMeals();
+  renderAll();
+  showToast("Reset to default diet");
+});
+
+/* ---------- Theme ---------- */
 document.getElementById("themeBtn").addEventListener("click", ()=>{
   const html = document.documentElement;
   const isDark = html.getAttribute("data-theme")==="dark";
   html.setAttribute("data-theme", isDark?"light":"dark");
-  document.getElementById("themeBtn").textContent = isDark ? "🌙 Dark mode" : "☀️ Light mode";
+  document.getElementById("themeBtn").textContent = isDark ? "🌙" : "☀️";
 });
 
+/* ---------- Toast / undo ---------- */
 let toastTimer;
 function showToast(msg){
   const toast = document.getElementById("toast");
