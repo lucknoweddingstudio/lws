@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucknow Wedding Studio | Capturing Your Love Story</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+        
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #000; color: #fff; }
+
+        /* Highly Transparent Liquid Glass */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .bg-fixed {
+            position: fixed; inset: 0; z-index: -1;
+            background: url('https://lh3.googleusercontent.com/d/1sYLWjHInYJ_QYRUMVqFOO-ywGDInXBUa') center/cover no-repeat;
+        }
+
+        .tab-content { display: none; }
+        .tab-active { display: grid; }
+        
+        /* Optimized Logo Styling */
+        .logo-img { height: 45px; width: 45px; object-fit: contain; }
+
+        /* Map Dark Mode Simulation */
+        .dark-map {
+            filter: invert(90%) hue-rotate(180deg) brightness(1.1) contrast(90%);
+        }
+    </style>
+</head>
+<body class="pb-10">
+    
+    <div class="bg-fixed"></div>
+
+    <!-- Header -->
+    <nav class="sticky top-0 z-50 p-4 md:p-6 flex justify-center w-full">
+        <div class="glass-card px-4 md:px-6 py-3 rounded-full flex gap-4 md:gap-8 items-center text-sm font-semibold border-white/10 w-full max-w-6xl justify-between overflow-x-auto">
+            <!-- Logo & Brand Name -->
+            <div class="flex items-center gap-3 shrink-0 ml-2">
+                <img src="https://lh3.googleusercontent.com/d/1FM-5R0KJMOliLaAQk1UYzJhnAQ6OBi48" alt="Logo" class="logo-img rounded-full shrink-0">
+                <div class="flex flex-col">
+                    <span class="text-white text-lg font-bold leading-none">Lucknow</span>
+                    <span class="text-yellow-600/80 text-xs font-bold uppercase tracking-wider">Wedding Studio</span>
+                </div>
+            </div>
+            
+            <!-- Navigation -->
+            <div class="flex gap-4 md:gap-6 items-center whitespace-nowrap hidden md:flex">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#packages">Packages</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#contact">Contact</a>
+                <a href="#contact" class="bg-white text-black px-5 py-2 rounded-full font-bold ml-2">Book Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="max-w-6xl mx-auto px-6 mt-10 grid lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-8 glass-card p-12 rounded-[2rem]">
+            <div class="text-xs font-bold mb-4 opacity-70 tracking-widest">★ CANDID & CINEMATIC • SINCE 2018</div>
+            <h1 class="text-5xl md:text-6xl font-extrabold tracking-tighter mb-6 leading-[0.9]">Wedding Photographer in Lucknow — <span class="opacity-50">capturing your love story perfectly.</span></h1>
+            <p class="text-lg opacity-70 mb-8 max-w-lg">We are amongst the best artists of the latest photography genre in Lucknow — specialising in candid photography, cinematic wedding films and dreamy pre-wedding shoots.</p>
+            <div class="flex gap-4">
+                <a href="#packages" class="bg-white text-black px-8 py-4 rounded-full font-bold">Explore Packages →</a>
+                <a href="#contact" class="glass-card px-8 py-4 rounded-full font-bold">Contact Us</a>
+            </div>
+        </div>
+        <div class="lg:col-span-4 glass-card p-10 rounded-[2rem] flex flex-col justify-center gap-6">
+            <div><h3 class="text-4xl font-bold">500+</h3><p class="opacity-60 text-sm">WEDDINGS SHOT</p></div>
+            <div><h3 class="text-4xl font-bold">7+</h3><p class="opacity-60 text-sm">YEARS EXPERIENCE</p></div>
+            <div><h3 class="text-4xl font-bold">50k+</h3><p class="opacity-60 text-sm">MEMORIES FRAMED</p></div>
+        </div>
+    </section>
+   
+    <!-- ABOUT SECTION -->
+    <section id="about" class="py-20 px-6 max-w-6xl mx-auto">
+        <div class="grid lg:grid-cols-12 gap-8">
+            <div class="lg:col-span-7 glass-card p-10 rounded-[2rem]">
+                <div class="flex items-center gap-3 mb-6"><i data-lucide="camera" class="text-yellow-500"></i><h2 class="text-2xl font-bold">Our Journey</h2></div>
+                <p class="opacity-70 mb-6 leading-relaxed">A leading photography studio in Lucknow, <strong>Lucknow Wedding Studio</strong> has been providing professional and high-quality photos to couples since 2018. Choosing the right photography company for your wedding functions is quite essential. With a huge team of professional photographers, we listen to your ideas and make sure that at the end of the day you are 100% satisfied. With their enthusiasm and imagination, they try to capture the most joyful days of your life — creating timeless memories that you will cherish forever.</p>
+                
+                <div class="grid grid-cols-4 gap-4 mb-10">
+                    <div class="text-center p-4 glass-card rounded-2xl"><div class="text-xl font-bold">2018</div><div class="text-[10px] opacity-60">FOUNDED</div></div>
+                    <div class="text-center p-4 glass-card rounded-2xl"><div class="text-xl font-bold">500+</div><div class="text-[10px] opacity-60">WEDDINGS</div></div>
+                    <div class="text-center p-4 glass-card rounded-2xl"><div class="text-xl font-bold">15+</div><div class="text-[10px] opacity-60">AWARDS</div></div>
+                    <div class="text-center p-4 glass-card rounded-2xl"><div class="text-xl font-bold">100%</div><div class="text-[10px] opacity-60">SATISFIED</div></div>
+                </div>
+
+                <h3 class="text-lg font-bold mb-4">WHY COUPLES CHOOSE US</h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="flex items-center gap-2 text-sm"><i data-lucide="check-circle" class="checkmark"></i> Award-Winning Studio</div>
+                    <div class="flex items-center gap-2 text-sm"><i data-lucide="check-circle" class="checkmark"></i> Candid Specialists</div>
+                    <div class="flex items-center gap-2 text-sm"><i data-lucide="check-circle" class="checkmark"></i> Professional Equipment</div>
+                    <div class="flex items-center gap-2 text-sm"><i data-lucide="check-circle" class="checkmark"></i> On-Time Delivery</div>
+                </div>
+            </div>
+            
+            <div class="lg:col-span-5 flex flex-col gap-6">
+                <div class="glass-card p-4 rounded-[2rem] overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e" class="rounded-[1.5rem] w-full h-64 object-cover" alt="Photographer">
+                </div>
+                <div class="glass-card p-8 rounded-[2rem]">
+                    <i data-lucide="quote" class="text-yellow-500 mb-4"></i>
+                    <p class="italic opacity-80 mb-6">"We are a dedicated Candid photography company having an award-winning well-equipped studio based in Lucknow. We are well-recognized for our pre-wedding shoots and wedding shoots."</p>
+                    <div class="font-bold">Avneesh Kumar Yadav</div>
+                    <div class="text-xs opacity-60">Owner & Lead Photographer</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 px-6 max-w-6xl mx-auto">
+        <h2 class="text-4xl font-bold text-center mb-12">Our Professional Services</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="glass-card p-8 rounded-3xl text-center">
+                <i data-lucide="camera" class="mx-auto mb-4 w-10 h-10 text-white/50"></i>
+                <h3 class="font-bold text-xl mb-2">Candid Photography</h3>
+                <p class="text-sm opacity-60">Capturing raw, unposed emotions and spontaneous moments as they happen.</p>
+            </div>
+            <div class="glass-card p-8 rounded-3xl text-center">
+                <i data-lucide="film" class="mx-auto mb-4 w-10 h-10 text-white/50"></i>
+                <h3 class="font-bold text-xl mb-2">Cinematic Wedding Films</h3>
+                <p class="text-sm opacity-60">High-definition storytelling with professional color grading and emotional music scores.</p>
+            </div>
+            <div class="glass-card p-8 rounded-3xl text-center">
+                <i data-lucide="heart" class="mx-auto mb-4 w-10 h-10 text-white/50"></i>
+                <h3 class="font-bold text-xl mb-2">Pre-Wedding Shoots</h3>
+                <p class="text-sm opacity-60">Creative and dreamy shoots designed to capture your pre-nuptial chemistry and love.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Packages Section -->
+    <section id="packages" class="py-20 px-6 max-w-6xl mx-auto">
+        <h2 class="text-4xl font-bold text-center mb-12">Wedding Photography Packages</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="glass-card p-8 rounded-3xl border-t-4 border-yellow-600">
+                <h3 class="text-xl font-bold mb-4">Silver Package</h3>
+                <div class="text-3xl font-extrabold mb-6">₹45,000</div>
+                <ul class="space-y-3 opacity-70 text-sm mb-8">
+                    <li>✓ 2 Day Coverage</li>
+                    <li>✓ Candid Photography</li>
+                    <li>✓ 200 Edited Photos</li>
+                    <li>✓ Online Digital Gallery</li>
+                </ul>
+                <a href="#contact" class="block text-center bg-white text-black p-3 rounded-full font-bold">Select</a>
+            </div>
+            <div class="glass-card p-8 rounded-3xl border-t-4 border-white">
+                <h3 class="text-xl font-bold mb-4">Gold Package</h3>
+                <div class="text-3xl font-extrabold mb-6">₹85,000</div>
+                <ul class="space-y-3 opacity-70 text-sm mb-8">
+                    <li>✓ 3 Day Coverage</li>
+                    <li>✓ Cinematic Film</li>
+                    <li>✓ Traditional & Candid</li>
+                    <li>✓ Premium Album</li>
+                </ul>
+                <a href="#contact" class="block text-center bg-yellow-600 text-white p-3 rounded-full font-bold">Select</a>
+            </div>
+            <div class="glass-card p-8 rounded-3xl border-t-4 border-yellow-600">
+                <h3 class="text-xl font-bold mb-4">Platinum Package</h3>
+                <div class="text-3xl font-extrabold mb-6">₹1,50,000</div>
+                <ul class="space-y-3 opacity-70 text-sm mb-8">
+                    <li>✓ Full Coverage</li>
+                    <li>✓ Cinematic Feature Film</li>
+                    <li>✓ Drone Cinematography</li>
+                    <li>✓ Luxury Coffee Table Book</li>
+                </ul>
+                <a href="#contact" class="block text-center bg-white text-black p-3 rounded-full font-bold">Select</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 px-6 max-w-6xl mx-auto">
+        <h2 class="text-4xl font-bold text-center mb-10">Our Portfolio</h2>
+        <div class="flex justify-center gap-4 mb-10">
+            <button onclick="showTab('tab-all')" class="px-6 py-2 rounded-full glass-card hover:bg-white/10">All</button>
+            <button onclick="showTab('tab-weddings')" class="px-6 py-2 rounded-full glass-card hover:bg-white/10">Weddings</button>
+            <button onclick="showTab('tab-prewed')" class="px-6 py-2 rounded-full glass-card hover:bg-white/10">Pre-Wedding</button>
+        </div>
+        
+        <div id="tab-all" class="tab-content tab-active grid-cols-2 md:grid-cols-4 gap-4">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552" class="rounded-2xl h-60 w-full object-cover" alt="Gallery">
+            <img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b" class="rounded-2xl h-60 w-full object-cover" alt="Gallery">
+            <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a" class="rounded-2xl h-60 w-full object-cover" alt="Gallery">
+            <img src="https://images.unsplash.com/photo-1522673607200-165d7b934789" class="rounded-2xl h-60 w-full object-cover" alt="Gallery">
+            <img src="https://images.unsplash.com/photo-1469371670807-013ccf34f16a" class="rounded-2xl h-60 w-full object-cover" alt="Gallery">
+            <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8" class="rounded-2xl h-60 w-full object-cover" alt="Gallery">
+            <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc" class="rounded-2xl h-60 w-full object-cover" alt="Gallery">
+            <img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e" class="rounded-2xl h-60 w-full object-cover" alt="Gallery">
+        </div>
+        <div id="tab-weddings" class="tab-content grid-cols-2 md:grid-cols-4 gap-4">
+            <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc" class="rounded-2xl h-60 w-full object-cover" alt="Wedding">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552" class="rounded-2xl h-60 w-full object-cover" alt="Wedding">
+            <img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b" class="rounded-2xl h-60 w-full object-cover" alt="Wedding">
+        </div>
+        <div id="tab-prewed" class="tab-content grid-cols-2 md:grid-cols-4 gap-4">
+            <img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e" class="rounded-2xl h-60 w-full object-cover" alt="Prewed">
+            <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e" class="rounded-2xl h-60 w-full object-cover" alt="Prewed">
+        </div>
+    </section>
+
+    <!-- Contact & Footer -->
+    <section id="contact" class="py-20 px-6 max-w-6xl mx-auto">
+        <h2 class="text-4xl font-bold text-center mb-12">Get in Touch</h2>
+        <div class="grid md:grid-cols-2 gap-10">
+            <div class="space-y-6">
+                <div class="glass-card p-8 rounded-[2rem]">
+                    <h3 class="text-2xl font-bold mb-6">Contact Information</h3>
+                    <div class="space-y-4 text-opacity-80">
+                        <a href="https://maps.google.com/?q=4th+Floor,+94,+Mahatma+Gandhi+Marg,+Raj+Bhavan+Colony,+Hazratganj,+Lucknow,+Uttar+Pradesh+226001" target="_blank" class="flex gap-4 hover:text-yellow-400 transition">
+                            <i data-lucide="map-pin"></i> 4th Floor, 94, Mahatma Gandhi Marg, Raj Bhavan Colony, Hazratganj, Lucknow, Uttar Pradesh 226001
+                        </a>
+                        <a href="tel:+917394019474" class="flex gap-4 hover:text-yellow-400 transition"><i data-lucide="phone"></i> (+91) 73940 19474</a>
+                        <a href="tel:+918808808840" class="flex gap-4 hover:text-yellow-400 transition"><i data-lucide="phone"></i> (+91) 88088 08840</a>
+                        <a href="mailto:lucknowweddingstudio@gmail.com" class="flex gap-4 hover:text-yellow-400 transition"><i data-lucide="mail"></i> lucknowweddingstudio@gmail.com</a>
+                    </div>
+
+                    <!-- Social Media Section -->
+                    <div class="mt-8 pt-6 border-t border-white/10">
+                        <h3 class="text-lg font-bold mb-4">Connect With Us</h3>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="https://www.instagram.com/lucknow_wedding_studio" target="_blank" class="flex items-center gap-2 p-3 bg-white/5 rounded-full hover:bg-yellow-600 transition">
+                                <i data-lucide="instagram" class="w-5 h-5"></i>
+                            </a>
+                            <a href="https://www.facebook.com/lucknowweddingstudio" target="_blank" class="flex items-center gap-2 p-3 bg-white/5 rounded-full hover:bg-yellow-600 transition">
+                                <i data-lucide="facebook" class="w-5 h-5"></i>
+                            </a>
+                            <a href="https://www.youtube.com/channel/UC5U91LTdm-WEJkSeUl91ohQ" target="_blank" class="flex items-center gap-2 p-3 bg-white/5 rounded-full hover:bg-yellow-600 transition">
+                                <i data-lucide="youtube" class="w-5 h-5"></i>
+                            </a>
+                            <a href="https://maps.google.com/maps?q=Lucknow%20Wedding%20Studio" target="_blank" class="flex items-center gap-2 p-3 bg-white/5 rounded-full hover:bg-yellow-600 transition">
+                                <i data-lucide="map" class="w-5 h-5"></i>
+                            </a>
+                            <a href="https://web.whatsapp.com/send?phone=917394019474" target="_blank" class="flex items-center gap-2 p-3 bg-white/5 rounded-full hover:bg-yellow-600 transition">
+                                <i data-lucide="message-circle" class="w-5 h-5"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card p-8 rounded-[2rem]">
+                <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="space-y-4">
+                    <input type="text" name="name" placeholder="Name" required class="w-full p-4 rounded-xl bg-white/5 border border-white/10 focus:outline-none">
+                    <input type="email" name="email" placeholder="Email" required class="w-full p-4 rounded-xl bg-white/5 border border-white/10 focus:outline-none">
+                    <input type="tel" name="phone" placeholder="Phone" required class="w-full p-4 rounded-xl bg-white/5 border border-white/10 focus:outline-none">
+                    <textarea name="message" placeholder="Details/Quotation" required class="w-full p-4 rounded-xl bg-white/5 border border-white/10 focus:outline-none h-32"></textarea>
+                    <button type="submit" class="w-full bg-white text-black p-4 rounded-xl font-bold">Send Enquiry</button>
+                </form>
+            </div>
+        </div>
+        <div class="mt-10 glass-card p-4 rounded-[2rem] overflow-hidden">
+            <iframe class="w-full h-96 rounded-2xl border border-white/10 dark-map" src="https://maps.google.com/maps?q=Lucknow%20Wedding%20Studio&t=m&z=16&output=embed&iwloc=near"></iframe>
+        </div>
+    </section>
+
+    <footer class="text-center opacity-60 py-10 border-t border-white/10 mt-10">
+        <div class="flex justify-center mb-4">
+            <img src="https://lh3.googleusercontent.com/d/1FM-5R0KJMOliLaAQk1UYzJhnAQ6OBi48" alt="Logo" class="logo-img rounded-full">
+        </div>
+        <p>&copy; 2026 Lucknow Wedding Studio. All rights reserved.</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        function showTab(id) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('tab-active'));
+            document.getElementById(id).classList.add('tab-active');
+        }
+    </script>
+</body>
+</html>
