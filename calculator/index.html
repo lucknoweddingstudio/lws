@@ -1,5 +1,5 @@
 <!-- Chosen Palette: Warm Obsidian & Imperial Gold (Dark Luxury Atmosphere) -->
-<!-- Application Structure Plan: Single-page interactive proposal generator with instant calculations, dynamic event/crew selector, high-value project deliverables showcase, enlarged 'Team and Devices' gear matrix, and print-optimized PDF generation for Lucknow Wedding Studio. -->
+<!-- Application Structure Plan: Single-page interactive proposal generator with simplified client-friendly language, compact web form, enlarged PDF crew/gear allocation, strict Canva E-Invite terms, and standard 12x36 Album specifications. -->
 <!-- Visualization & Content Choices: Responsive cards, dynamic tags for crew, interactive pricing scale factor, and print CSS layout. NO SVG graphics used. NO Mermaid JS used. -->
 <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 
@@ -52,20 +52,19 @@
             border: 1px solid var(--glass-border);
             border-top: 1px solid rgba(255, 255, 255, 0.22);
             box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
-            border-radius: 28px;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 24px;
+            transition: all 0.3s ease;
         }
 
         .liquid-glass:hover {
             border-color: var(--glass-border-hover);
-            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.14);
         }
 
         .input-glass {
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.14);
-            border-radius: 14px;
-            padding: 12px 16px;
+            border-radius: 12px;
+            padding: 10px 14px;
             color: white;
             transition: all 0.3s ease;
         }
@@ -74,17 +73,17 @@
             outline: none;
             border-color: var(--accent-gold);
             background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
         }
 
         .btn-category {
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(212, 175, 55, 0.22);
             color: #e5e7eb;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.3s ease;
             text-transform: uppercase;
             font-size: 10px;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.1em;
             font-weight: 800;
         }
 
@@ -93,53 +92,44 @@
             color: #000000;
             border-color: #D4AF37;
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.35);
         }
 
         .deliverable-card {
             background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(20, 20, 26, 0.75) 100%);
-            border: 1px solid rgba(212, 175, 55, 0.35);
-            border-left: 5px solid var(--accent-gold);
-            padding: 20px 22px;
-            border-radius: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-left: 4px solid var(--accent-gold);
+            padding: 16px 18px;
+            border-radius: 16px;
             font-size: 13px;
-            font-weight: 700;
             color: #fff;
             display: flex;
             align-items: flex-start;
-            gap: 16px;
+            gap: 14px;
             transition: all 0.3s ease;
         }
 
-        .deliverable-card:hover {
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.14) 0%, rgba(26, 26, 34, 0.85) 100%);
-            transform: translateX(5px);
-            border-color: rgba(212, 175, 55, 0.65);
-            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.12);
-        }
-
         .deliverable-card.complimentary {
-            background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(20, 26, 22, 0.75) 100%);
-            border: 1px solid rgba(34, 197, 94, 0.4);
-            border-left: 5px solid #22c55e;
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.08) 0%, rgba(20, 26, 22, 0.75) 100%);
+            border: 1px solid rgba(34, 197, 94, 0.35);
+            border-left: 4px solid #22c55e;
         }
 
         .badge-gift {
             background: #22c55e;
             color: black;
-            font-size: 8.5px;
+            font-size: 8px;
             font-weight: 900;
-            padding: 3px 10px;
-            border-radius: 12px;
+            padding: 2px 8px;
+            border-radius: 10px;
             text-transform: uppercase;
-            letter-spacing: 0.6px;
+            letter-spacing: 0.5px;
         }
 
         .switch {
             position: relative;
             display: inline-block;
-            width: 46px;
-            height: 24px;
+            width: 44px;
+            height: 22px;
         }
         .switch input { opacity: 0; width: 0; height: 0; }
         .slider {
@@ -148,7 +138,7 @@
             border: 1px solid rgba(255,255,255,0.2);
         }
         .slider:before {
-            position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px;
+            position: absolute; content: ""; height: 14px; width: 14px; left: 3px; bottom: 3px;
             background-color: white; transition: .4s; border-radius: 50%;
         }
         input:checked + .slider { background-color: var(--accent-gold); }
@@ -157,27 +147,25 @@
         .btn-gold {
             background: linear-gradient(135deg, #F4E0A5 0%, #D4AF37 50%, #997A15 100%);
             color: #0b0b0d;
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.25);
+            transition: all 0.3s ease;
             font-weight: 800;
         }
         .btn-gold:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.55);
-            background: linear-gradient(135deg, #FFF0C2 0%, #E6C667 50%, #B8860B 100%);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.45);
         }
 
         .btn-green {
             background: linear-gradient(135deg, #34d399 0%, #10b981 50%, #059669 100%);
             color: #ffffff;
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.25);
+            transition: all 0.3s ease;
             font-weight: 800;
         }
         .btn-green:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.5);
-            background: linear-gradient(135deg, #6ee7b7 0%, #34d399 50%, #047857 100%);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
         }
 
         .event-title-orange {
@@ -186,57 +174,6 @@
 
         .client-name-orange {
             color: #D4AF37 !important;
-        }
-
-        /* Specific Tag Highlights for Photographers, Cinematographers & Lightman Crew */
-        .crew-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(212, 175, 55, 0.14);
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            padding: 6px 14px;
-            border-radius: 9999px;
-            font-size: 11.5px;
-            font-weight: 800;
-            color: #F4E0A5;
-            letter-spacing: 0.3px;
-            transition: all 0.3s ease;
-        }
-
-        .crew-tag:hover {
-            transform: translateY(-1px);
-            border-color: #D4AF37;
-        }
-
-        .crew-tag.photo {
-            background: rgba(59, 130, 246, 0.16);
-            border-color: rgba(96, 165, 250, 0.5);
-            color: #bfdbfe;
-        }
-
-        .crew-tag.candid {
-            background: rgba(236, 72, 153, 0.16);
-            border-color: rgba(244, 114, 182, 0.5);
-            color: #fbcfe8;
-        }
-
-        .crew-tag.cinema {
-            background: rgba(249, 115, 22, 0.16);
-            border-color: rgba(251, 146, 60, 0.5);
-            color: #ffedd5;
-        }
-
-        .crew-tag.support {
-            background: rgba(168, 85, 247, 0.16);
-            border-color: rgba(192, 132, 252, 0.5);
-            color: #f3e8ff;
-        }
-
-        .crew-tag.lightman {
-            background: rgba(234, 179, 8, 0.16);
-            border-color: rgba(250, 204, 21, 0.5);
-            color: #fef08a;
         }
 
         /* PRINT STYLES - OFFICIAL LUXURY PROPOSAL */
@@ -252,7 +189,7 @@
                 background-image: none !important;
                 height: auto !important;
                 overflow: visible !important;
-                font-size: 8.8pt !important;
+                font-size: 8.5pt !important;
                 font-family: 'Plus Jakarta Sans', sans-serif !important;
             }
             
@@ -269,15 +206,15 @@
             
             .p-header { 
                 border-bottom: 2px solid #D4AF37; 
-                padding-bottom: 12px; 
-                margin-bottom: 16px; 
+                padding-bottom: 10px; 
+                margin-bottom: 14px; 
                 display: flex; 
                 justify-content: space-between; 
                 align-items: flex-end; 
             }
             .p-studio-name { 
                 font-family: 'Cinzel', serif;
-                font-size: 20pt; 
+                font-size: 19pt; 
                 font-weight: 900; 
                 color: #0a0a0a; 
                 letter-spacing: 0.5px; 
@@ -288,8 +225,8 @@
             .p-table { 
                 width: 100%; 
                 border-collapse: collapse; 
-                margin: 10px 0; 
-                border: 1px solid #e2e8f0; 
+                margin: 8px 0 14px 0; 
+                border: 1px solid #cbd5e1; 
                 table-layout: fixed; 
             }
             .p-table th { 
@@ -298,18 +235,18 @@
                 font-weight: 800; 
                 text-transform: uppercase; 
                 font-size: 7.5pt; 
-                padding: 9px 11px; 
+                padding: 8px 10px; 
                 border: 1px solid #0f172a; 
                 text-align: left; 
-                letter-spacing: 0.8px;
+                letter-spacing: 0.6px;
             }
             .p-table td { 
-                padding: 9px 11px; 
+                padding: 10px 11px; 
                 border: 1px solid #e2e8f0; 
                 vertical-align: top; 
-                font-size: 8.3pt; 
+                font-size: 8.5pt; 
                 word-wrap: break-word; 
-                line-height: 1.45;
+                line-height: 1.5;
             }
             .p-table tr:nth-child(even) {
                 background: #f8fafc;
@@ -321,9 +258,10 @@
             }
 
             .p-event-title-print {
-                color: #997A15 !important;
+                color: #856404 !important;
                 font-family: 'Cinzel', serif;
                 font-weight: 800;
+                font-size: 10pt;
             }
 
             .p-client-name-print {
@@ -342,14 +280,14 @@
                 margin-top: 14px; 
                 margin-bottom: 8px; 
                 font-size: 9.5pt; 
-                letter-spacing: 1.2px; 
+                letter-spacing: 1px; 
                 break-after: avoid; 
                 display: flex;
                 align-items: center;
                 gap: 6px;
             }
             
-            .p-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 10px; }
+            .p-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
             .p-grid > div { break-inside: avoid; } 
             
             .p-deliverables-grid {
@@ -387,11 +325,12 @@
                 background: #f1f5f9;
                 border: 1px solid #cbd5e1;
                 border-radius: 4px;
-                padding: 1px 6px;
-                font-size: 7pt;
+                padding: 3px 8px;
+                font-size: 8pt;
                 font-weight: 800;
                 color: #0f172a;
-                margin-bottom: 3px;
+                margin-bottom: 4px;
+                margin-right: 5px;
             }
 
             .p-crew-badge-print.highlight {
@@ -400,14 +339,14 @@
                 color: #854d0e;
             }
 
-            .p-footer { margin-top: 24px; border-top: 1px solid #e2e8f0; padding-top: 14px; page-break-inside: avoid; }
-            .p-summary-wrapper { display: flex; gap: 14px; margin-top: 14px; align-items: stretch; page-break-inside: avoid; }
-            .p-summary-left { flex: 1.4; background: #f8fafc; padding: 12px 14px; border-radius: 8px; border: 1px solid #e2e8f0; }
+            .p-footer { margin-top: 20px; border-top: 1px solid #e2e8f0; padding-top: 12px; page-break-inside: avoid; }
+            .p-summary-wrapper { display: flex; gap: 14px; margin-top: 12px; align-items: stretch; page-break-inside: avoid; }
+            .p-summary-left { flex: 1.4; background: #f8fafc; padding: 10px 12px; border-radius: 8px; border: 1px solid #e2e8f0; }
             .p-summary-right { 
                 flex: 1; 
                 background: linear-gradient(135deg, #1e1e24 0%, #0d0d11 100%); 
                 color: white !important; 
-                padding: 14px; 
+                padding: 12px; 
                 border-radius: 8px; 
                 display: flex; 
                 flex-direction: column; 
@@ -417,16 +356,16 @@
                 -webkit-print-color-adjust: exact; 
             }
             
-            .p-breakdown-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #e2e8f0; }
+            .p-breakdown-row { display: flex; justify-content: space-between; padding: 3px 0; border-bottom: 1px solid #e2e8f0; }
             .p-breakdown-label { color: #475569; font-size: 7.5pt; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
             .p-breakdown-value { font-weight: 800; color: #0f172a; font-size: 8.5pt; }
             
-            .sig-container { position: relative; width: 280px; height: 90px; margin-top: 4px; }
+            .sig-container { position: relative; width: 260px; height: 80px; margin-top: 4px; }
             .p-stamp {
-                position: absolute; top: 0; right: 30px; width: 75px; height: 75px; border: 2px dashed rgba(184, 134, 11, 0.6); border-radius: 50%;
-                display: flex; align-items: center; justify-content: center; text-align: center; color: rgba(184, 134, 11, 0.85); font-size: 6.5px; font-weight: 900; padding: 5px; transform: rotate(-12deg); z-index: 1;
+                position: absolute; top: 0; right: 25px; width: 70px; height: 70px; border: 2px dashed rgba(184, 134, 11, 0.6); border-radius: 50%;
+                display: flex; align-items: center; justify-content: center; text-align: center; color: rgba(184, 134, 11, 0.85); font-size: 6px; font-weight: 900; padding: 4px; transform: rotate(-12deg); z-index: 1;
             }
-            .p-signature { position: absolute; top: 8px; right: 15px; font-family: 'Mrs Saint Delafield', cursive; font-size: 32pt; color: #0b2545; z-index: 2; transform: rotate(-4deg); pointer-events: none; opacity: 0.95; }
+            .p-signature { position: absolute; top: 6px; right: 10px; font-family: 'Mrs Saint Delafield', cursive; font-size: 30pt; color: #0b2545; z-index: 2; transform: rotate(-4deg); pointer-events: none; opacity: 0.95; }
 
             tr { page-break-inside: avoid; page-break-after: auto; }
             thead { display: table-header-group; }
@@ -436,25 +375,25 @@
         .print-only { display: none; }
     </style>
 </head>
-<body class="p-3 md:p-8 lg:p-10">
+<body class="p-3 md:p-6 lg:p-8">
 
     <!-- WEB APP UI -->
     <div class="screen-ui max-w-7xl mx-auto">
-        <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6 border-b border-white/10 pb-8">
+        <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-6 border-b border-white/10 pb-6">
             <div class="flex flex-col">
                 <div class="flex items-center gap-2 mb-1">
-                    <span class="w-3 h-3 rounded-full bg-[#D4AF37] animate-pulse"></span>
-                    <span class="text-[#D4AF37] font-bold text-xs uppercase tracking-[0.3em]">Signature Cinema & Photography</span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-[#D4AF37] animate-pulse"></span>
+                    <span class="text-[#D4AF37] font-bold text-xs uppercase tracking-[0.25em]">Wedding Photography & Film Studio</span>
                 </div>
-                <h1 class="text-3xl md:text-5xl font-black font-serif-heading tracking-wider text-white">
+                <h1 class="text-3xl md:text-4xl font-black font-serif-heading tracking-wider text-white">
                     LUCKNOW WEDDING <span class="text-[#D4AF37]">STUDIO</span>
                 </h1>
-                <p class="text-white/60 text-[11px] font-bold tracking-[0.35em] uppercase mt-2">Bespoke Quotation & Production Proposal Engine</p>
+                <p class="text-white/60 text-[10.5px] font-bold tracking-[0.3em] uppercase mt-1">Client Proposal & Quotation Builder</p>
             </div>
             <div class="flex items-center gap-4">
-                <button onclick="toggleCategorySection()" id="section-toggle-btn" class="bg-white/5 hover:bg-white/15 text-white/90 px-6 py-3 rounded-full text-[11px] font-extrabold uppercase tracking-widest border border-white/15 transition-all shadow-lg backdrop-blur-md">Configure Selection</button>
-                <div class="flex flex-col items-end bg-gradient-to-br from-white/10 to-white/5 px-7 py-3 rounded-2xl border border-[#D4AF37]/30 shadow-2xl backdrop-blur-xl">
-                    <span class="text-[9px] font-extrabold text-[#D4AF37] uppercase tracking-widest">Estimated Investment</span>
+                <button onclick="toggleCategorySection()" id="section-toggle-btn" class="bg-white/5 hover:bg-white/15 text-white/90 px-5 py-2.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest border border-white/15 transition-all shadow-lg">Configure Options</button>
+                <div class="flex flex-col items-end bg-gradient-to-br from-white/10 to-white/5 px-6 py-2.5 rounded-2xl border border-[#D4AF37]/30 shadow-xl">
+                    <span class="text-[9px] font-extrabold text-[#D4AF37] uppercase tracking-widest">Total Investment</span>
                     <div id="header-final-total" class="text-2xl md:text-3xl font-black text-white font-serif-heading">₹0</div>
                 </div>
             </div>
@@ -462,247 +401,182 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             <!-- Left Main Column -->
-            <div class="lg:col-span-8 space-y-8">
+            <div class="lg:col-span-8 space-y-6">
                 <!-- Client Details Card -->
-                <div class="liquid-glass p-6 md:p-8">
-                    <h2 class="text-[11px] font-black uppercase tracking-[0.25em] text-[#D4AF37] mb-6 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-[#D4AF37]"></span> Client & Event Portfolio Overview
+                <div class="liquid-glass p-6">
+                    <h2 class="text-[11px] font-black uppercase tracking-[0.2em] text-[#D4AF37] mb-4 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-[#D4AF37]"></span> Client Details
                     </h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div>
-                            <label class="text-[10px] font-extrabold text-gray-400 uppercase mb-2 block tracking-widest">Client / Couple Full Name</label>
-                            <input type="text" id="client-name" oninput="handleGlobalUpdate('clientName', this.value)" class="input-glass w-full text-base font-black uppercase tracking-wide client-name-orange" placeholder="E.G., ROHAN & AISHA">
+                            <label class="text-[10px] font-extrabold text-gray-400 uppercase mb-1.5 block tracking-wider">Client / Couple Name</label>
+                            <input type="text" id="client-name" oninput="handleGlobalUpdate('clientName', this.value)" class="input-glass w-full text-base font-black uppercase tracking-wide client-name-orange" placeholder="e.g. ROHAN & AISHA">
                         </div>
                         <div>
-                            <label class="text-[10px] font-extrabold text-gray-400 uppercase mb-2 block tracking-widest">Primary Contact Number</label>
+                            <label class="text-[10px] font-extrabold text-gray-400 uppercase mb-1.5 block tracking-wider">Contact Number</label>
                             <input type="tel" id="client-contact" oninput="handleGlobalUpdate('clientContact', this.value)" class="input-glass w-full text-base font-bold tracking-wider" placeholder="e.g. 9876543210">
                         </div>
                     </div>
 
-                    <!-- Global Quick Month Selector & Event Date Sync Helper -->
-                    <div class="mt-6 pt-6 border-t border-white/10 bg-white/5 p-4 rounded-2xl border border-white/10">
+                    <!-- Date Sync Helper -->
+                    <div class="mt-5 pt-4 border-t border-white/10 bg-white/5 p-3.5 rounded-xl border border-white/10">
                         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                             <div>
-                                <h3 class="text-[11px] font-black uppercase tracking-wider text-[#D4AF37] flex items-center gap-1.5">
-                                    <span>📅</span> Master Date & Month Navigation Helper
+                                <h3 class="text-[10.5px] font-black uppercase tracking-wider text-[#D4AF37] flex items-center gap-1.5">
+                                    <span>📅</span> Quick Month Selector
                                 </h3>
-                                <p class="text-[10px] text-gray-400 mt-0.5">Quickly select target month/year or sync dates across all wedding events without scrolling multiple months forward repeatedly.</p>
+                                <p class="text-[10px] text-gray-400 mt-0.5">Select target wedding month to sync dates across all ceremonies easily.</p>
                             </div>
                             <div class="flex items-center gap-2 w-full sm:w-auto">
-                                <input type="month" id="global-target-month" onchange="setGlobalBaseMonth(this.value)" class="bg-white/10 border border-[#D4AF37]/40 rounded-xl px-3 py-1.5 text-xs font-bold text-[#D4AF37] uppercase focus:outline-none">
-                                <button onclick="applyBaseMonthToAllEvents()" class="bg-[#997A15] hover:bg-[#D4AF37] hover:text-black text-white text-[10px] font-black uppercase px-3.5 py-2 rounded-xl transition-all shadow">Apply Month</button>
+                                <input type="month" id="global-target-month" onchange="setGlobalBaseMonth(this.value)" class="bg-white/10 border border-[#D4AF37]/40 rounded-xl px-3 py-1 text-xs font-bold text-[#D4AF37] uppercase focus:outline-none">
+                                <button onclick="applyBaseMonthToAllEvents()" class="bg-[#997A15] hover:bg-[#D4AF37] hover:text-black text-white text-[10px] font-black uppercase px-3 py-1.5 rounded-xl transition-all">Apply Month</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Service Modules Configuration -->
-                <div id="category-section-wrapper" class="space-y-8">
-                    <div class="liquid-glass p-6 md:p-8">
-                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+                <div id="category-section-wrapper" class="space-y-6">
+                    <div class="liquid-glass p-6">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
                             <div>
-                                <h2 class="text-[11px] font-black uppercase tracking-[0.25em] text-[#D4AF37]">Add Ritual Functions & Ceremonies</h2>
-                                <p class="text-[11px] text-gray-400 mt-0.5">Select ritual functions to assign dedicated mirrorless crew units</p>
+                                <h2 class="text-[11px] font-black uppercase tracking-[0.2em] text-[#D4AF37]">Add Ceremonies & Functions</h2>
+                                <p class="text-[10.5px] text-gray-400 mt-0.5">Click to add ritual functions to your proposal</p>
                             </div>
-                            <div class="flex items-center gap-3 bg-white/5 px-4 py-2 rounded-2xl border border-white/10">
-                                <span class="text-[10px] font-extrabold text-gray-300 uppercase tracking-widest">Show Line Items in PDF</span>
+                            <div class="flex items-center gap-3 bg-white/5 px-3.5 py-1.5 rounded-xl border border-white/10">
+                                <span class="text-[10px] font-extrabold text-gray-300 uppercase tracking-wider">Show Line Item Amounts in PDF</span>
                                 <label class="switch">
                                     <input type="checkbox" id="pdf-price-toggle" onchange="handleGlobalUpdate('showIndividualAmountsInPDF', this.checked)">
                                     <span class="slider"></span>
                                 </label>
                             </div>
                         </div>
-                        <div id="category-buttons-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3"></div>
+                        <div id="category-buttons-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2.5"></div>
                     </div>
 
-                    <div class="liquid-glass p-6 md:p-8">
-                        <h2 class="text-[11px] font-black uppercase tracking-[0.25em] text-[#D4AF37] mb-2">Handcrafted Royal Heritage Leather Photobooks</h2>
-                        <p class="text-[11px] text-gray-300 mb-6">Ultra-luxurious flush-mount photobooks wrapped in genuine imported leather, equipped with non-tearable matte-velvet leaves & customized leather presentation cases</p>
+                    <div class="liquid-glass p-6">
+                        <h2 class="text-[11px] font-black uppercase tracking-[0.2em] text-[#D4AF37] mb-1.5">Wedding Album (Standard 12x36 Size)</h2>
+                        <p class="text-[11px] text-gray-300 mb-4">All printed albums are created in standard <strong>12x36 inch size</strong>, with non-tearable matte-velvet sheets and luxury cover box.</p>
                         <div class="flex flex-wrap gap-3">
-                            <button onclick="addAlbum(20)" class="flex-1 py-4 border border-[#D4AF37]/40 bg-gradient-to-br from-[#D4AF37]/10 to-transparent rounded-2xl text-[10.5px] font-black hover:bg-[#D4AF37] hover:text-black transition-all uppercase tracking-wider text-[#F4E0A5]">+ 20 Sheets Royal Leather Photobook</button>
-                            <button onclick="addAlbum(40)" class="flex-1 py-4 border border-[#D4AF37]/40 bg-gradient-to-br from-[#D4AF37]/10 to-transparent rounded-2xl text-[10.5px] font-black hover:bg-[#D4AF37] hover:text-black transition-all uppercase tracking-wider text-[#F4E0A5]">+ 40 Sheets Signature Leather Heirloom</button>
-                            <button onclick="addAlbum(50)" class="flex-1 py-4 border border-[#D4AF37]/40 bg-gradient-to-br from-[#D4AF37]/10 to-transparent rounded-2xl text-[10.5px] font-black hover:bg-[#D4AF37] hover:text-black transition-all uppercase tracking-wider text-[#F4E0A5]">+ 50 Sheets Sovereign Leather Grand Volume</button>
+                            <button onclick="addAlbum(20)" class="flex-1 py-3 border border-[#D4AF37]/40 bg-gradient-to-br from-[#D4AF37]/10 to-transparent rounded-xl text-[10px] font-black hover:bg-[#D4AF37] hover:text-black transition-all uppercase tracking-wider text-[#F4E0A5]">+ 20 Sheets (12x36 Size Album)</button>
+                            <button onclick="addAlbum(40)" class="flex-1 py-3 border border-[#D4AF37]/40 bg-gradient-to-br from-[#D4AF37]/10 to-transparent rounded-xl text-[10px] font-black hover:bg-[#D4AF37] hover:text-black transition-all uppercase tracking-wider text-[#F4E0A5]">+ 40 Sheets (12x36 Size Album)</button>
+                            <button onclick="addAlbum(50)" class="flex-1 py-3 border border-[#D4AF37]/40 bg-gradient-to-br from-[#D4AF37]/10 to-transparent rounded-xl text-[10px] font-black hover:bg-[#D4AF37] hover:text-black transition-all uppercase tracking-wider text-[#F4E0A5]">+ 50 Sheets (12x36 Size Album)</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Dynamic Events List -->
-                <div id="events-container" class="space-y-6"></div>
+                <!-- Dynamic Events List (Clean, Compact, Minimal) -->
+                <div id="events-container" class="space-y-4"></div>
 
-                <!-- Dynamic Project Deliverables Section (High Impact, Value-Packed & Luxurious) -->
-                <div id="project-deliverables-section" class="liquid-glass p-7 md:p-10 border-[#D4AF37]/50 shadow-2xl">
-                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-3 border-b border-white/10 pb-5">
+                <!-- Deliverables Section (Client Friendly, Warm Language) -->
+                <div id="project-deliverables-section" class="liquid-glass p-6 md:p-8 border-[#D4AF37]/40">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-5 gap-3 border-b border-white/10 pb-4">
                         <div>
-                            <span class="text-[10px] font-black uppercase tracking-[0.3em] text-[#D4AF37] block mb-1">VIP Inclusions & Comprehensive Handover</span>
+                            <span class="text-[10px] font-black uppercase tracking-[0.25em] text-[#D4AF37] block mb-0.5">What You Will Receive</span>
                             <h2 class="text-xl md:text-2xl font-black uppercase font-serif-heading text-white tracking-wider flex items-center gap-2">
-                                <span class="w-3 h-3 rounded-full bg-[#D4AF37] shadow-[0_0_12px_#D4AF37]"></span> Master Project Deliverables & VIP Privileges
+                                <span class="w-2.5 h-2.5 rounded-full bg-[#D4AF37]"></span> Complete Deliverables & Included Gifts
                             </h2>
-                            <p class="text-xs text-gray-300 mt-1.5 leading-relaxed">High-value production assets delivered directly via encrypted High-Speed Google Cloud Drive with permanent archiving.</p>
+                            <p class="text-xs text-gray-300 mt-1">Simple and clear list of everything delivered to you after the wedding.</p>
                         </div>
-                        <span id="deliverable-badge-status" class="text-[10px] font-extrabold text-emerald-400 uppercase bg-emerald-950/80 border border-emerald-500/50 px-4 py-2 rounded-full tracking-wider shadow-lg">Cloud Drive Archival Delivery Guaranteed</span>
+                        <span id="deliverable-badge-status" class="text-[10px] font-extrabold text-emerald-400 uppercase bg-emerald-950/80 border border-emerald-500/50 px-3.5 py-1.5 rounded-full tracking-wider">Safe Cloud Drive Delivery Included</span>
                     </div>
-                    <div id="deliverables-list" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
+                    <div id="deliverables-list" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
                 </div>
 
                 <!-- Selected Albums -->
-                <div id="album-section" class="liquid-glass p-6 md:p-8 hidden">
-                    <h2 class="text-[11px] font-black uppercase tracking-[0.25em] text-[#D4AF37] mb-6">Selected Royal Genuine Leather Albums</h2>
-                    <div id="albums-container" class="space-y-4"></div>
+                <div id="album-section" class="liquid-glass p-6 hidden">
+                    <h2 class="text-[11px] font-black uppercase tracking-[0.2em] text-[#D4AF37] mb-4">Selected Wedding Albums (12x36 Size)</h2>
+                    <div id="albums-container" class="space-y-3"></div>
                 </div>
 
                 <!-- Special Notes & Instructions -->
-                <div class="liquid-glass p-6 md:p-8">
-                    <h2 class="text-[11px] font-black uppercase tracking-[0.25em] text-[#D4AF37] mb-4 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-[#D4AF37]"></span> Bespoke Notes & Client Guidelines
+                <div class="liquid-glass p-6">
+                    <h2 class="text-[11px] font-black uppercase tracking-[0.2em] text-[#D4AF37] mb-3 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-[#D4AF37]"></span> Special Notes & Terms
                     </h2>
-                    <textarea id="proposal-note" oninput="handleGlobalUpdate('note', this.value)" class="input-glass w-full h-28 text-sm font-medium focus:ring-1 focus:ring-[#D4AF37]" placeholder="e.g., Raw uncompressed digital photos and edited master videos will be delivered on high-speed cloud drive (Google Drive) within 10 days. Album sheets design selection will be conducted in coordination with the couple."></textarea>
+                    <textarea id="proposal-note" oninput="handleGlobalUpdate('note', this.value)" class="input-glass w-full h-24 text-xs font-medium focus:ring-1 focus:ring-[#D4AF37]" placeholder="Write any specific note for the client here..."></textarea>
                 </div>
 
-                <!-- Team and Devices Section (Prominently Enlarged, High Visual Impact) -->
-                <div class="liquid-glass p-8 md:p-11 border-[#D4AF37]/60 shadow-2xl relative overflow-hidden bg-gradient-to-br from-[#121218]/90 via-[#0a0a0f]/95 to-[#16140b]/90">
-                    <div class="absolute -top-12 -right-12 w-64 h-64 bg-[#D4AF37]/10 rounded-full filter blur-3xl pointer-events-none"></div>
-                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-white/10 pb-6 mb-8">
-                        <div>
-                            <span class="text-[11px] font-extrabold text-[#D4AF37] tracking-[0.35em] uppercase block mb-1">PRO-TIER HARDWARE & CREW SPECS</span>
-                            <h2 id="gear-inventory-title" class="text-2xl md:text-4xl font-black uppercase font-serif-heading text-white tracking-wider">Team and Devices</h2>
-                            <p class="text-xs text-gray-300 mt-1">Mirrorless camera technology & dedicated production grip units deployed for your wedding.</p>
-                        </div>
-                        <span class="text-[11px] font-extrabold px-4 py-2 rounded-full bg-[#D4AF37]/20 border border-[#D4AF37]/50 text-[#F4E0A5] tracking-widest uppercase shadow-lg">100% Professional Mirrorless Units</span>
+                <!-- Clean Team Overview Summary Box (Simple, Non-Technical for Web Form) -->
+                <div class="liquid-glass p-6 border-[#D4AF37]/30">
+                    <div class="flex items-center justify-between border-b border-white/10 pb-3 mb-3">
+                        <h2 class="text-base font-black uppercase font-serif-heading text-white tracking-wider flex items-center gap-2">
+                            <span>🎥</span> Production Team & Professional Equipment Summary
+                        </h2>
+                        <span class="text-[9.5px] bg-[#D4AF37]/20 text-[#F4E0A5] px-3 py-1 rounded-full font-bold uppercase">Full Details in Printed PDF</span>
                     </div>
-
-                    <!-- Hardware Specification Matrix Cards (Expanded & Detailed) -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-gray-200">
-                        <!-- Camera Bodies Card -->
-                        <div class="bg-white/5 border border-[#D4AF37]/30 p-6 rounded-2xl flex flex-col justify-between hover:border-[#D4AF37] transition-all group shadow-xl">
-                            <div>
-                                <div class="flex items-center gap-3 text-[#D4AF37] mb-3">
-                                    <span class="text-2xl">📷</span>
-                                    <h4 class="font-black uppercase tracking-wider text-sm text-white group-hover:text-[#D4AF37] transition-colors">Camera Bodies & Units</h4>
-                                </div>
-                                <div class="text-xs text-gray-300 leading-relaxed space-y-2">
-                                    <p class="font-bold text-white text-sm">• Body: Sony M4, Sony FX or Nikon Z6 Professional Units</p>
-                                    <p class="text-gray-400">Traditional ceremonies covered on <strong>Nikon Z6 / Sony mirrorless bodies</strong>. Candid photography handled by <strong>upgraded Sony mirrorless cameras</strong>. Cinematic films captured on <strong>Sony M4 (A7 IV) & Sony FX Cinema line</strong> with dual card safety redundancy.</p>
-                                </div>
-                            </div>
-                            <div class="mt-5 pt-3 border-t border-white/10 flex items-center justify-between">
-                                <span class="text-[10px] font-black text-[#F4E0A5] uppercase tracking-wider">Dual Card Slot Backup Safety</span>
-                                <span class="text-[9px] bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded font-bold uppercase">Pro Mirrorless</span>
-                            </div>
-                        </div>
-
-                        <!-- Lenses Card -->
-                        <div class="bg-white/5 border border-[#D4AF37]/30 p-6 rounded-2xl flex flex-col justify-between hover:border-[#D4AF37] transition-all group shadow-xl">
-                            <div>
-                                <div class="flex items-center gap-3 text-[#D4AF37] mb-3">
-                                    <span class="text-2xl">🔍</span>
-                                    <h4 class="font-black uppercase tracking-wider text-sm text-white group-hover:text-[#D4AF37] transition-colors">Lenses & Optical Glass</h4>
-                                </div>
-                                <div class="text-xs text-gray-300 leading-relaxed space-y-2">
-                                    <p class="font-bold text-white text-sm">• Lenses: 24-70mm, 70-200mm, 50mm f/1.2, 50mm f/1.8, 35mm f/1.4, 85mm f/1.8</p>
-                                    <p class="text-gray-400">Master G-Master & S-Line cinema lenses providing buttery background bokeh, crisp portrait detail, and low-light night function clarity.</p>
-                                </div>
-                            </div>
-                            <div class="mt-5 pt-3 border-t border-white/10 flex items-center justify-between">
-                                <span class="text-[10px] font-black text-[#F4E0A5] uppercase tracking-wider">Fast Prime & Cinema Zoom Lenses</span>
-                                <span class="text-[9px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-bold uppercase">Prime Glass</span>
-                            </div>
-                        </div>
-
-                        <!-- Accessories & Support Crew Card -->
-                        <div class="bg-white/5 border border-[#D4AF37]/30 p-6 rounded-2xl flex flex-col justify-between hover:border-[#D4AF37] transition-all group shadow-xl">
-                            <div>
-                                <div class="flex items-center gap-3 text-[#D4AF37] mb-3">
-                                    <span class="text-2xl">💡</span>
-                                    <h4 class="font-black uppercase tracking-wider text-sm text-white group-hover:text-[#D4AF37] transition-colors">Accessories & On-Site Crew</h4>
-                                </div>
-                                <div class="text-xs text-gray-300 leading-relaxed space-y-2">
-                                    <p class="font-bold text-white text-sm">• Accessories: LC, Studio Lights, Camera Stands, Gimbals</p>
-                                    <p class="text-gray-400">Heavy-duty LC (Light Controls), high-power studio flashes, 3-axis motorized gimbals paired with on-site <strong>Dedicated Lightman & Technical Assistant</strong> crew.</p>
-                                </div>
-                            </div>
-                            <div class="mt-5 pt-3 border-t border-white/10 flex items-center justify-between">
-                                <span class="text-[10px] font-black text-[#F4E0A5] uppercase tracking-wider">Assistant & Lightman Included</span>
-                                <span class="text-[9px] bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded font-bold uppercase">Grip & Lighting</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Detailed Dynamic Equipment Summary -->
-                    <div id="gear-inventory-container" class="mt-8 pt-8 border-t border-white/10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 text-gray-300"></div>
+                    <p class="text-xs text-gray-300 leading-relaxed">
+                        To keep this proposal form simple and clear, full detailed camera lists, lens specifications, and lighting setup breakdowns are automatically formatted in the printable PDF document.
+                    </p>
                 </div>
             </div>
 
             <!-- Right Investment Sidebar -->
-            <div class="lg:col-span-4 sticky top-8">
-                <div class="liquid-glass p-8 border-[#D4AF37]/40 shadow-2xl">
-                    <h2 class="text-xl font-black font-serif-heading mb-8 border-b border-white/10 pb-4 text-white uppercase tracking-wider flex items-center justify-between">
+            <div class="lg:col-span-4 sticky top-6">
+                <div class="liquid-glass p-6 border-[#D4AF37]/40 shadow-2xl">
+                    <h2 class="text-lg font-black font-serif-heading mb-6 border-b border-white/10 pb-3 text-white uppercase tracking-wider flex items-center justify-between">
                         <span>Investment Summary</span>
                         <span class="text-xs font-sans text-[#D4AF37] font-bold">LWS-2026</span>
                     </h2>
                     
-                    <div class="space-y-5">
-                        <div class="flex justify-between items-center text-xs text-gray-400 font-bold uppercase tracking-wider">
-                            <span>Core Event Coverage</span><span id="summary-event-total" class="text-white font-extrabold text-sm">₹0</span>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center text-xs text-gray-300 font-bold uppercase tracking-wider">
+                            <span>Ceremonies Coverage</span><span id="summary-event-total" class="text-white font-extrabold text-sm">₹0</span>
                         </div>
-                        <div class="flex justify-between items-center text-xs text-gray-400 font-bold uppercase tracking-wider">
-                            <span>Heritage Leather Albums</span><span id="summary-album-total" class="text-white font-extrabold text-sm">₹0</span>
+                        <div class="flex justify-between items-center text-xs text-gray-300 font-bold uppercase tracking-wider">
+                            <span>12x36 Leather Albums</span><span id="summary-album-total" class="text-white font-extrabold text-sm">₹0</span>
                         </div>
-                        <div class="flex justify-between items-center text-xs text-gray-400 font-bold uppercase tracking-wider">
-                            <span>Specialized Aerial & Gear</span><span id="summary-gear-total" class="text-white font-extrabold text-sm">₹0</span>
+                        <div class="flex justify-between items-center text-xs text-gray-300 font-bold uppercase tracking-wider">
+                            <span>Special Aerial & Screen Setup</span><span id="summary-gear-total" class="text-white font-extrabold text-sm">₹0</span>
                         </div>
 
-                        <!-- Global Package Scale Adjustment (% Increase / Decrease) -->
-                        <div class="pt-4 border-t border-white/10 bg-white/5 p-4 rounded-2xl border border-white/10">
-                            <div class="flex justify-between items-center mb-2">
-                                <label class="text-[9.5px] font-black text-[#D4AF37] uppercase tracking-widest block">Package Scaling Factor (+ / - %)</label>
-                                <span class="text-[9px] text-gray-300 font-extrabold" id="package-adj-status">Standard Rate</span>
+                        <!-- Package Scale Adjustment -->
+                        <div class="pt-3 border-t border-white/10 bg-white/5 p-3 rounded-xl border border-white/10">
+                            <div class="flex justify-between items-center mb-1.5">
+                                <label class="text-[9px] font-black text-[#D4AF37] uppercase tracking-widest block">Package Adjust (+ / - %)</label>
+                                <span class="text-[8.5px] text-gray-300 font-extrabold" id="package-adj-status">Standard</span>
                             </div>
                             <div class="flex items-center gap-2">
-                                <input type="number" id="package-adj-pct" oninput="handleGlobalUpdate('packageAdjPct', this.value)" class="input-glass w-full text-center font-bold text-base" placeholder="0" step="1">
+                                <input type="number" id="package-adj-pct" oninput="handleGlobalUpdate('packageAdjPct', this.value)" class="input-glass w-full text-center font-bold text-sm" placeholder="0" step="1">
                                 <span class="text-sm font-black text-[#D4AF37]">%</span>
                             </div>
-                            <p class="text-[8.5px] text-gray-400 mt-2 leading-tight">Dynamically scale package rate during client negotiations.</p>
                         </div>
 
-                        <div class="pt-4 border-t border-white/10 flex justify-between items-center text-[#D4AF37] font-black uppercase text-xs">
-                            <span>Gross Subtotal</span><span id="summary-gross-total" class="text-xl text-white font-serif-heading">₹0</span>
+                        <div class="pt-3 border-t border-white/10 flex justify-between items-center text-[#D4AF37] font-black uppercase text-xs">
+                            <span>Subtotal</span><span id="summary-gross-total" class="text-lg text-white font-serif-heading">₹0</span>
                         </div>
                         
-                        <div class="pt-4 border-t border-white/10">
-                            <label class="text-[9.5px] font-black text-gray-400 uppercase mb-2.5 block tracking-widest">Privilege Discount</label>
-                            <div class="grid grid-cols-2 gap-3">
-                                <input type="number" id="discount-pct" oninput="handleGlobalUpdate('discountPct', this.value)" class="input-glass w-full text-center font-bold text-sm" placeholder="%">
-                                <input type="number" id="discount-flat" oninput="handleGlobalUpdate('discountFlat', this.value)" class="input-glass w-full text-center font-bold text-sm" placeholder="FLAT ₹">
+                        <div class="pt-3 border-t border-white/10">
+                            <label class="text-[9px] font-black text-gray-400 uppercase mb-2 block tracking-widest">Special Discount</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <input type="number" id="discount-pct" oninput="handleGlobalUpdate('discountPct', this.value)" class="input-glass w-full text-center font-bold text-xs" placeholder="%">
+                                <input type="number" id="discount-flat" oninput="handleGlobalUpdate('discountFlat', this.value)" class="input-glass w-full text-center font-bold text-xs" placeholder="FLAT ₹">
                             </div>
                         </div>
 
-                        <div id="discount-layer" class="bg-emerald-950/40 p-4 rounded-2xl flex justify-between items-center text-emerald-400 font-bold text-xs border border-emerald-500/30">
-                            <span>Client Special Savings</span><span id="summary-discount-total" class="font-extrabold text-sm">- ₹0</span>
+                        <div id="discount-layer" class="bg-emerald-950/40 p-3 rounded-xl flex justify-between items-center text-emerald-400 font-bold text-xs border border-emerald-500/30">
+                            <span>Discount Applied</span><span id="summary-discount-total" class="font-extrabold text-sm">- ₹0</span>
                         </div>
 
-                        <div class="pt-4 border-t border-white/10">
-                            <label class="text-[9.5px] font-black text-gray-400 uppercase mb-2 block tracking-widest">Outstation Logistics & Travel</label>
-                            <input type="number" id="travel-cost" oninput="handleGlobalUpdate('travelCost', this.value)" class="input-glass w-full text-center font-bold text-base" placeholder="ENTER AMOUNT...">
+                        <div class="pt-3 border-t border-white/10">
+                            <label class="text-[9px] font-black text-gray-400 uppercase mb-1.5 block tracking-widest">Travel & Accommodation</label>
+                            <input type="number" id="travel-cost" oninput="handleGlobalUpdate('travelCost', this.value)" class="input-glass w-full text-center font-bold text-sm" placeholder="Enter amount...">
                         </div>
                     </div>
 
-                    <div class="mt-8 bg-gradient-to-br from-[#D4AF37]/20 to-[#997A15]/10 p-7 rounded-[28px] border border-[#D4AF37]/40 text-center shadow-xl">
-                        <p class="text-[10px] text-[#D4AF37] uppercase tracking-[0.35em] font-black mb-1">Final Net Investment</p>
-                        <p id="final-total" class="text-3xl md:text-4xl font-black text-white tracking-tight font-serif-heading">₹0</p>
+                    <div class="mt-6 bg-gradient-to-br from-[#D4AF37]/20 to-[#997A15]/10 p-5 rounded-2xl border border-[#D4AF37]/40 text-center shadow-lg">
+                        <p class="text-[9.5px] text-[#D4AF37] uppercase tracking-[0.25em] font-black mb-0.5">Final Net Amount</p>
+                        <p id="final-total" class="text-3xl font-black text-white tracking-tight font-serif-heading">₹0</p>
                     </div>
 
                     <!-- Share & Download Options -->
-                    <div class="mt-6 space-y-3">
-                        <p class="text-[9.5px] font-black text-gray-400 uppercase tracking-widest text-center mb-1">Export & Share Quotation</p>
-                        
-                        <!-- Option 1: Direct Share -->
-                        <button class="w-full btn-green py-4 rounded-[18px] text-[10.5px] font-black uppercase tracking-widest flex items-center justify-center gap-2" onclick="shareProposal()">
-                            <span>📲</span> Direct Share (WhatsApp / Web Share)
+                    <div class="mt-5 space-y-2.5">
+                        <button class="w-full btn-green py-3.5 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2" onclick="shareProposal()">
+                            <span>📲</span> Share Proposal (WhatsApp / Web Share)
                         </button>
 
-                        <!-- Option 2: Download PDF -->
-                        <button class="w-full btn-gold py-4 rounded-[18px] text-[10.5px] font-black uppercase tracking-widest flex items-center justify-center gap-2" onclick="generatePDF()">
-                            <span>📄</span> Download Official Proposal (PDF)
+                        <button class="w-full btn-gold py-3.5 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2" onclick="generatePDF()">
+                            <span>📄</span> Print / Download PDF
                         </button>
                     </div>
                 </div>
@@ -715,119 +589,120 @@
         <div class="p-header">
             <div>
                 <h1 class="p-studio-name">LUCKNOW WEDDING <span style="color: #997A15;">STUDIO</span></h1>
-                <p style="margin: 4px 0 2px 0; font-size: 8.5pt; color: #1e293b; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">Premium Cinema & High-Resolution Mirrorless Photography</p>
+                <p style="margin: 3px 0 2px 0; font-size: 8.5pt; color: #1e293b; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">Premium Wedding Photography & Cinematic Films</p>
                 <p style="margin: 0; font-size: 8pt; color: #64748b; text-transform: uppercase;">4th Floor, 94, MG Marg, Hazratganj, Lucknow | +91 7394019474, 8808808840</p>
             </div>
             <div style="text-align: right;">
-                <div style="background: #D4AF37; color: #000; padding: 7px 16px; font-weight: 900; font-size: 10.5pt; letter-spacing: 1px; font-family: 'Cinzel', serif; -webkit-print-color-adjust: exact;">OFFICIAL PROPOSAL</div>
-                <p style="margin-top:5px; font-size: 8.5pt;"><strong>DATE:</strong> <span id="print-doc-date"></span></p>
+                <div style="background: #D4AF37; color: #000; padding: 6px 14px; font-weight: 900; font-size: 10pt; letter-spacing: 1px; font-family: 'Cinzel', serif; -webkit-print-color-adjust: exact;">OFFICIAL PROPOSAL</div>
+                <p style="margin-top:4px; font-size: 8pt;"><strong>DATE:</strong> <span id="print-doc-date"></span></p>
             </div>
         </div>
 
-        <div style="display: flex; justify-content: space-between; margin-bottom: 16px; align-items: stretch;">
-            <div style="border-left: 4px solid #997A15; padding-left: 16px; background: #fffaf0; padding-top: 8px; padding-bottom: 8px; padding-right: 20px; min-width: 320px; border-radius: 4px;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 12px; align-items: stretch;">
+            <div style="border-left: 4px solid #997A15; padding-left: 14px; background: #fffaf0; padding-top: 6px; padding-bottom: 6px; padding-right: 18px; min-width: 300px; border-radius: 4px;">
                 <p style="margin: 0; font-size: 7.5pt; color: #64748b; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px;">PREPARED EXCLUSIVELY FOR:</p>
-                <p style="margin: 3px 0 0; font-size: 13pt;" class="p-client-name-print" id="print-client-name"></p>
-                <p style="margin: 2px 0 0; font-size: 8.5pt; color: #334155; font-weight: 700;" id="print-client-phone"></p>
+                <p style="margin: 2px 0 0; font-size: 12pt;" class="p-client-name-print" id="print-client-name"></p>
+                <p style="margin: 1px 0 0; font-size: 8.5pt; color: #334155; font-weight: 700;" id="print-client-phone"></p>
             </div>
-            <div style="text-align: right; font-size: 8pt; background: #f8fafc; padding: 8px 14px; border-radius: 4px; border: 1px solid #e2e8f0; min-width: 210px;">
+            <div style="text-align: right; font-size: 8pt; background: #f8fafc; padding: 6px 12px; border-radius: 4px; border: 1px solid #e2e8f0; min-width: 200px;">
                 <p><strong>PROPOSAL REF:</strong> #LWS-2026-QT</p>
-                <p style="margin-top:2px;"><strong>STATUS:</strong> Verified Luxury Proposal</p>
+                <p style="margin-top:2px;"><strong>STATUS:</strong> Confirmed Quotation</p>
                 <p style="margin-top:2px;"><strong>VALIDITY:</strong> 30 Days from Issuance</p>
             </div>
         </div>
 
-        <div class="p-section-title">1. Event Schedule & Specialized Crew Allocation</div>
+        <!-- PRINT TABLE WITH ENLARGED CREW / TEAM & COMPACT DATE/DURATION SECTION -->
+        <div class="p-section-title">1. Scheduled Functions & Detailed Crew Allocation</div>
         <table id="print-events-table" class="p-table">
             <thead>
                 <tr id="print-events-header">
-                    <th style="width: 25%;">Event & Function</th>
-                    <th style="width: 26%;">Date, Duration & Venue</th>
-                    <th style="width: 35%;">Allocated Crew & Mirrorless Gear</th>
-                    <th style="width: 14%; text-align: right;">Investment</th>
+                    <th style="width: 20%;">Function Name</th>
+                    <th style="width: 15%;">Date & Schedule</th>
+                    <th style="width: 51%;">Allocated Team & Camera Setup</th>
+                    <th style="width: 14%; text-align: right;">Amount</th>
                 </tr>
             </thead>
             <tbody id="print-events-body"></tbody>
         </table>
 
-        <div class="p-section-title">2. Guaranteed Master Deliverables & VIP Privileges</div>
+        <div class="p-section-title">2. Deliverables & Included Benefits</div>
         <div id="print-deliverables-body" class="p-deliverables-grid"></div>
 
         <div id="print-album-section" style="display:none;">
-            <div class="p-section-title">3. Handcrafted Heritage Genuine Leather Photobooks</div>
+            <div class="p-section-title">3. Handcrafted Wedding Photo Album (12x36 Size)</div>
             <table id="print-albums-table" class="p-table">
                 <thead>
                     <tr>
-                        <th style="width: 70%;">Album Specifications & Finishing Details</th>
+                        <th style="width: 70%;">Album Specifications</th>
                         <th style="width: 15%;">Quantity</th>
-                        <th style="width: 15%; text-align: right;">Investment</th>
+                        <th style="width: 15%; text-align: right;">Amount</th>
                     </tr>
                 </thead>
                 <tbody id="print-albums-body"></tbody>
             </table>
         </div>
 
-        <div id="print-note-section" style="display: none; break-inside: avoid; margin-top: 12px;">
-            <div class="p-section-title">Special Notes & Production Guidelines</div>
-            <div style="background: #fafafa; border: 1px dashed #D4AF37; padding: 10px 12px; border-radius: 6px; font-size: 7.8pt; line-height: 1.45; color: #1e293b; white-space: pre-line;" id="print-note-body"></div>
+        <div id="print-note-section" style="display: none; break-inside: avoid; margin-top: 10px;">
+            <div class="p-section-title">Special Notes & Specific Guidelines</div>
+            <div style="background: #fafafa; border: 1px dashed #D4AF37; padding: 8px 12px; border-radius: 6px; font-size: 8pt; line-height: 1.45; color: #1e293b; white-space: pre-line;" id="print-note-body"></div>
         </div>
 
         <div id="print-gear-section">
-            <div class="p-section-title" id="print-gear-title">4. Team and Devices Inventory</div>
-            <div style="background: #fafafa; padding: 12px 16px; border-radius: 6px; border: 1px solid #e2e8f0; margin-bottom: 12px;">
+            <div class="p-section-title" id="print-gear-title">4. Team and Equipment Specifications</div>
+            <div style="background: #fafafa; padding: 10px 14px; border-radius: 6px; border: 1px solid #e2e8f0; margin-bottom: 10px;">
                 <ul id="print-gear-list" style="font-size: 8pt; line-height: 1.6; list-style: none; padding-left: 0; margin: 0; color: #1e293b;"></ul>
             </div>
         </div>
 
         <div class="p-grid">
             <div>
-                <div class="p-section-title">5. Payment Schedule</div>
+                <div class="p-section-title">5. Payment Terms</div>
                 <div style="font-size: 7.8pt; line-height: 1.5; color: #334155;">
-                    <div style="border-bottom: 1px solid #e2e8f0; padding: 2px 0;">• <strong>Booking Advance:</strong> 20% (To reserve dates & lock crew)</div>
+                    <div style="border-bottom: 1px solid #e2e8f0; padding: 2px 0;">• <strong>Booking Advance:</strong> 20% (To reserve dates & crew)</div>
                     <div style="border-bottom: 1px solid #e2e8f0; padding: 2px 0;">• <strong>Pre-Event Milestone:</strong> 30% (30 days prior to event)</div>
-                    <div style="border-bottom: 1px solid #e2e8f0; padding: 2px 0;">• <strong>On-Site Payment:</strong> 40% (On first ceremony date)</div>
-                    <div style="padding: 2px 0;">• <strong>Final Handover:</strong> 10% (On Google Cloud Drive digital delivery)</div>
+                    <div style="border-bottom: 1px solid #e2e8f0; padding: 2px 0;">• <strong>On-Site Payment:</strong> 40% (On first event date)</div>
+                    <div style="padding: 2px 0;">• <strong>Final Handover:</strong> 10% (On Google Drive digital delivery)</div>
                 </div>
             </div>
             <div>
-                <div class="p-section-title">6. Terms & Production Standards</div>
-                <div style="font-size: 7.2pt; line-height: 1.4; color: #475569;">
-                    <p>1. Advance token guarantees production team allocation & camera reservation.</p>
-                    <p>2. Coverage commences upon completion of scheduled payments.</p>
-                    <p>3. Raw high-res files & masters archived safely on Google Drive.</p>
-                    <p>4. Client approves photo selection for custom leather albums prior to printing.</p>
-                    <p>5. Outstation travel, lodging, and local transit provided by client.</p>
+                <div class="p-section-title">6. Production Guidelines</div>
+                <div style="font-size: 7.5pt; line-height: 1.4; color: #475569;">
+                    <p>1. Advance amount locks shooting team and dates reservation.</p>
+                    <p>2. High-resolution photos & video files delivered securely on Google Drive link.</p>
+                    <p>3. E-Invite cards will be created strictly on Canva templates.</p>
+                    <p>4. All photo albums will be printed in standard 12x36 size after your photo approval.</p>
+                    <p>5. Outstation travel, meals, and lodging to be provided by client.</p>
                 </div>
             </div>
         </div>
 
         <div class="p-summary-wrapper">
             <div class="p-summary-left">
-                <div class="p-section-title" style="margin-top: 0; border-bottom: 2px solid #D4AF37;">Investment Breakdown</div>
-                <div class="p-breakdown-row"><span class="p-breakdown-label">Core Event Coverage:</span><span class="p-breakdown-value" id="print-breakdown-core">₹0</span></div>
-                <div class="p-breakdown-row"><span class="p-breakdown-label">Heritage Leather Albums:</span><span class="p-breakdown-value" id="print-breakdown-albums">₹0</span></div>
-                <div class="p-breakdown-row"><span class="p-breakdown-label">Aerial & Special Visual Units:</span><span class="p-breakdown-value" id="print-breakdown-gear">₹0</span></div>
-                <div class="p-breakdown-row" id="print-breakdown-adj-row" style="display:none;"><span class="p-breakdown-label">Package Scaling (+ / -):</span><span class="p-breakdown-value" id="print-breakdown-adj">0%</span></div>
-                <div class="p-breakdown-row" style="margin-top: 3px; border-top: 1px solid #cbd5e1; padding-top: 5px;"><span class="p-breakdown-label">Gross Subtotal:</span><span class="p-breakdown-value" id="print-breakdown-gross">₹0</span></div>
-                <div class="p-breakdown-row"><span class="p-breakdown-label">Privilege Discount:</span><span class="p-breakdown-value" style="color: #b91c1c;" id="print-breakdown-discount">- ₹0</span></div>
-                <div class="p-breakdown-row" style="border-bottom: none;"><span class="p-breakdown-label">Outstation Travel / Logistics:</span><span class="p-breakdown-value" id="print-breakdown-travel">₹0</span></div>
+                <div class="p-section-title" style="margin-top: 0; border-bottom: 2px solid #D4AF37;">Investment Summary</div>
+                <div class="p-breakdown-row"><span class="p-breakdown-label">Functions Coverage:</span><span class="p-breakdown-value" id="print-breakdown-core">₹0</span></div>
+                <div class="p-breakdown-row"><span class="p-breakdown-label">12x36 Leather Albums:</span><span class="p-breakdown-value" id="print-breakdown-albums">₹0</span></div>
+                <div class="p-breakdown-row"><span class="p-breakdown-label">Aerial & Live Setup:</span><span class="p-breakdown-value" id="print-breakdown-gear">₹0</span></div>
+                <div class="p-breakdown-row" id="print-breakdown-adj-row" style="display:none;"><span class="p-breakdown-label">Package Adjust (+ / -):</span><span class="p-breakdown-value" id="print-breakdown-adj">0%</span></div>
+                <div class="p-breakdown-row" style="margin-top: 3px; border-top: 1px solid #cbd5e1; padding-top: 4px;"><span class="p-breakdown-label">Subtotal Amount:</span><span class="p-breakdown-value" id="print-breakdown-gross">₹0</span></div>
+                <div class="p-breakdown-row"><span class="p-breakdown-label">Special Discount:</span><span class="p-breakdown-value" style="color: #b91c1c;" id="print-breakdown-discount">- ₹0</span></div>
+                <div class="p-breakdown-row" style="border-bottom: none;"><span class="p-breakdown-label">Travel & Accommodation:</span><span class="p-breakdown-value" id="print-breakdown-travel">₹0</span></div>
             </div>
             
             <div class="p-summary-right" style="-webkit-print-color-adjust: exact;">
-                <p style="margin: 0; text-transform: uppercase; font-size: 7.5pt; font-weight: 800; letter-spacing: 2px; color: #D4AF37;">Net Package Investment</p>
-                <h2 style="margin: 4px 0 0; font-size: 22pt; font-weight: 900; font-family: 'Cinzel', serif;" id="print-final-total"></h2>
-                <p style="font-size: 6.8pt; margin-top: 4px; opacity: 0.85; letter-spacing: 0.5px;">*ALL-INCLUSIVE BESPOKE CREW & MASTER DELIVERABLES</p>
+                <p style="margin: 0; text-transform: uppercase; font-size: 7.5pt; font-weight: 800; letter-spacing: 1.5px; color: #D4AF37;">Final Package Investment</p>
+                <h2 style="margin: 4px 0 0; font-size: 21pt; font-weight: 900; font-family: 'Cinzel', serif;" id="print-final-total"></h2>
+                <p style="font-size: 6.5pt; margin-top: 4px; opacity: 0.85; letter-spacing: 0.5px;">*ALL INCLUSIVE PROPOSED COVERAGE & DELIVERABLES</p>
             </div>
         </div>
 
         <div class="p-footer">
             <div style="display: flex; flex-direction: column; align-items: flex-end; width: 100%;">
                 <div class="sig-container">
-                    <div class="p-stamp">LUCKNOW WEDDING STUDIO<br>94, MG MARG, HAZRATGANJ<br>LUCKNOW - 226001</div>
+                    <div class="p-stamp">LUCKNOW WEDDING STUDIO<br>HAZRATGANJ, LUCKNOW<br>TEL: +91 7394019474</div>
                     <div class="p-signature">Avneesh Yadav</div>
                 </div>
                 <div style="text-align: right; margin-top: 2px; text-transform: uppercase;">
-                    <p style="margin: 0; font-weight: 900; font-size: 9pt; color: #0a0a0a;">Authorized Representative</p>
+                    <p style="margin: 0; font-weight: 900; font-size: 8.5pt; color: #0a0a0a;">Authorized Signatory</p>
                     <p style="margin: 0; color: #64748b; font-size: 7.5pt; font-weight: 700;">Avneesh Kumar Yadav</p>
                 </div>
             </div>
@@ -841,20 +716,19 @@
             assistant: 0, lightman: 0
         };
 
-        // Specific crew label mappings with explicit technology standards requested
         const TEAM_LABELS = {
-            trad_photo: "Traditional Photographer (Nikon Z6 / Sony Mirrorless System)", 
-            trad_video: "Traditional Videographer (Sony Mirrorless 4K Unit)", 
-            candid_photo: "Candid Specialist (Upgraded Sony Mirrorless Camera)", 
-            cinematographer: "Cinematographer (Sony FX Cinema Camera & Sony M4 Body)", 
-            drone: "Aerial Pilot (DJI 4K Drone Unit)", 
-            led_wall: "Ultra-HD Live LED Display Wall", 
-            crane: "Heavy-Duty Jimmy Jib Crane System", 
-            half: "Traditional Mirrorless Unit (Photo + Video)", 
+            trad_photo: "Traditional Photographer", 
+            trad_video: "Traditional Videographer", 
+            candid_photo: "Candid Specialist", 
+            cinematographer: "Cinematographer", 
+            drone: "Drone Pilot (4K Aerial)", 
+            led_wall: "Live LED Display Wall", 
+            crane: "Jimmy Jib Crane", 
+            half: "Traditional Unit (Photo + Video)", 
             full: "Complete Full Unit (Traditional + Candid + Cinema)", 
-            premium: "Signature Cinema Elite Unit (Sony FX & Upgraded Mirrorless)",
+            premium: "Signature Cinema Unit",
             assistant: "Technical Crew Assistant",
-            lightman: "Dedicated Lightman (Studio Lights & LC Lighting)"
+            lightman: "Lighting Assistant / Lightman"
         };
 
         const TEAM_EXPANSION = {
@@ -868,7 +742,7 @@
         let state = { 
             clientName: '', 
             clientContact: '', 
-            note: 'All raw uncompressed high-resolution digital photographs and 4K edited master videos will be delivered via high-speed encrypted Cloud Drive (Google Drive Archive) within 10 days. Album sheets design and custom photo curation will be conducted in coordination with the couple.', 
+            note: 'All edited photos and master videos will be delivered through a secure Google Drive link within 10-15 days. Album photos selection will be finalized in coordination with the couple before printing.', 
             events: [], 
             albums: [], 
             travelCost: 0, 
@@ -1008,7 +882,6 @@
             } 
         }
 
-        // Expanded Crew: includes assistant AND lightman automatically with candid/cinema or full setups
         function getDetailedCrew(teamSelections) {
             let crew = [];
             let needsCrewSupport = false;
@@ -1106,7 +979,7 @@
             if (adjStatusEl) {
                 if (adjVal > 0) adjStatusEl.innerText = `+${adjVal}% Scaled Up`;
                 else if (adjVal < 0) adjStatusEl.innerText = `${adjVal}% Scaled Down`;
-                else adjStatusEl.innerText = 'Standard Rate';
+                else adjStatusEl.innerText = 'Standard';
             }
 
             // Print view updates
@@ -1131,7 +1004,7 @@
                 adjRow.style.display = 'none';
             }
 
-            // Sync special notes
+            // Sync notes
             const printNoteSection = document.getElementById('print-note-section');
             const printNoteBody = document.getElementById('print-note-body');
             if (state.note && state.note.trim() !== '') {
@@ -1152,55 +1025,40 @@
                 albumsTable.classList.add('no-prices');
             }
 
-            // Render event rows in PDF
+            // Render event rows in PDF - ENLARGED CREW SECTION & COMPACT DATE/DURATION
             document.getElementById('print-events-body').innerHTML = state.events.map(ev => {
                 const c = calculateEventCost(ev); 
                 const crewDetailed = getDetailedCrew(ev.teamSelections);
-                
-                let detailLines = [];
-                const expanded = [];
-                ev.teamSelections.forEach(s => {
-                    if(TEAM_EXPANSION[s]) TEAM_EXPANSION[s].forEach(e => expanded.push(e));
-                    else expanded.push(s);
-                });
-
-                if(expanded.some(s => ['trad_photo', 'trad_video'].includes(s))) {
-                    detailLines.push("Traditional ritual coverage with Nikon Z6 / Sony Mirrorless units");
-                }
-                if(expanded.some(s => ['candid_photo', 'cinematographer'].includes(s))) {
-                    detailLines.push("Artistic couple portraits & candid coverage on Upgraded Sony Mirrorless & Sony FX Cinema cameras");
-                }
 
                 const isWedding = ev.name.includes("WEDDING") && !ev.name.includes("PRE");
-                const weddingDuration = "From Evening (4:00 PM) to next morning Vidai ceremony";
-                const shortDuration = "Approximately 4 - 5 Hours of dedicated coverage";
-                
-                const durationValue = isWedding ? weddingDuration : shortDuration;
+                const durationValue = isWedding ? "Full Night Coverage (Till Vidai)" : "Approx. 4-5 Hours Coverage";
                 const formattedDateStr = ev.date ? ev.date.split('-').reverse().join('.') : 'Date TBD';
 
                 return `<tr>
                     <td>
                         <strong class="p-event-title-print">${ev.name}</strong>
-                        ${detailLines.length > 0 ? `<br><span style="font-size: 7.2pt; color: #64748b; font-weight: 600;">${detailLines.join(' | ')}</span>` : ''}
                     </td>
                     <td>
-                        <div style="font-size: 8pt; font-weight: 800; color: #997A15; margin-bottom: 2px;">📅 ${formattedDateStr}</div>
-                        <div style="font-size: 7.3pt; color: #334155;">${durationValue}</div>
-                        <div style="font-size: 7.8pt; font-weight: 800; color: #0f172a; margin-top: 2px;">📍 ${ev.location}</div>
+                        <div style="font-size: 8pt; font-weight: 800; color: #997A15;">📅 ${formattedDateStr}</div>
+                        <div style="font-size: 7.2pt; color: #475569; margin-top: 2px;">⏱ ${durationValue}</div>
+                        <div style="font-size: 7.5pt; font-weight: 700; color: #0f172a; margin-top: 2px;">📍 ${ev.location}</div>
                     </td>
                     <td>
-                        <div style="font-size: 7.3pt; line-height: 1.5; color: #1e293b;">
+                        <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 4px;">
                             ${crewDetailed.map(crew => {
-                                const isHighlighted = crew.includes("Sony") || crew.includes("Nikon") || crew.includes("Candid") || crew.includes("Cinematographer") || crew.includes("Lightman");
-                                return `<div>• <span class="${isHighlighted ? 'font-bold text-black' : ''}">${crew}</span></div>`;
+                                const isHighlight = crew.includes("Specialist") || crew.includes("Cinematographer") || crew.includes("Lightman");
+                                return `<span class="p-crew-badge-print ${isHighlight ? 'highlight' : ''}">✓ ${crew}</span>`;
                             }).join('')}
+                        </div>
+                        <div style="font-size: 7.3pt; color: #475569; line-height: 1.35; margin-top: 3px;">
+                            Professional mirrorless camera unit, dedicated lighting support crew & high-quality video setup deployed for this ceremony.
                         </div>
                     </td>
                     <td style="text-align:right; font-weight: 800; color: #0f172a;">₹${c.total.toLocaleString()}</td>
                 </tr>`;
             }).join('');
 
-            // Render album rows in PDF with luxury descriptors
+            // Render album rows in PDF with explicit 12x36 size mention
             const pAlbum = document.getElementById('print-album-section');
             if(state.albums.length > 0) {
                 pAlbum.style.display = 'block';
@@ -1208,12 +1066,12 @@
                     const cost = Math.round((al.sheets * 250) * scaleFactor);
                     return `<tr>
                         <td>
-                            <strong style="font-family: 'Cinzel', serif; font-size: 8.8pt; color: #856404;">Handcrafted Heritage Royal Leather Photobook Album</strong><br>
+                            <strong style="font-family: 'Cinzel', serif; font-size: 8.8pt; color: #856404;">Standard 12x36 Size Premium Photo Album</strong><br>
                             <span style="font-size: 7.5pt; color: #475569; font-weight: 600; line-height: 1.4;">
-                                Bound in Imported Genuine Leather • Flush-Mount Custom Leather Presentation Box • Velvet Lined Hard Case & Tote Bag • Non-Tearable HD Matte-Velvet Leaves with Gold Foil Personalized Embossing.
+                                Standard 12x36 inch album size • Non-tearable matte velvet photo sheets • Custom leather album cover box & bag • Personalized couple name printing.
                             </span>
                         </td>
-                        <td style="font-weight: 800; vertical-align: middle;">${al.sheets} Sheets (Double-Sided)</td>
+                        <td style="font-weight: 800; vertical-align: middle;">${al.sheets} Sheets (Double Side)</td>
                         <td style="text-align:right; font-weight: 800; vertical-align: middle;">₹${cost.toLocaleString()}</td>
                     </tr>`;
                 }).join('');
@@ -1225,11 +1083,10 @@
             updateDynamicEquipmentInventory();
         }
 
-        // TEAM AND DEVICES SECTION - Enlarged & Detailed Hardware Specs
+        // FULL DETAILED EQUIPMENT BREAKDOWN FOR PRINT PDF ONLY
         function updateDynamicEquipmentInventory() {
             let hasCinema = false;
             let hasDrone = false;
-            let hasPhoto = false;
 
             state.events.forEach(ev => {
                 let expanded = [];
@@ -1240,68 +1097,19 @@
 
                 if (expanded.includes('cinematographer')) hasCinema = true;
                 if (expanded.includes('drone')) hasDrone = true;
-                if (expanded.includes('trad_photo') || expanded.includes('candid_photo') || expanded.includes('trad_video')) hasPhoto = true;
             });
 
-            const dynamicTitleText = "Team and Devices";
-            document.getElementById('gear-inventory-title').innerText = dynamicTitleText;
-            document.getElementById('print-gear-title').innerText = `4. ${dynamicTitleText}`;
-
-            let items = [];
-            
-            // Camera Bodies
-            items.push({
-                title: "Body: Sony M4, Sony FX or Nikon Z6 Professional Units",
-                desc: "100% Mirrorless camera technology featuring Sony A7 IV (M4), Sony Cinema Line (FX Series), and Nikon Z6 professional units equipped with dual slot memory card real-time backup safety."
-            });
-
-            // Optical Lenses
-            items.push({
-                title: "Lenses: 24-70mm, 70-200mm, 50mm f/1.2, 50mm f/1.8, 35mm f/1.4, 85mm f/1.8",
-                desc: "High-aperture G-Master & S-Line professional zoom and prime lenses providing dreamy background bokeh, crisp portrait detail, and ultra-sharp low-light ritual captures."
-            });
-
-            // Accessories & Support Crew
-            items.push({
-                title: "Accessories: LC, Studio Lights, Camera Stands, Gimbals",
-                desc: "Heavy-duty Light Controls (LC), high-CRI studio flash units, camera stands, 3-axis motorized electronic gimbals paired on-site with dedicated Lightman & Technical Assistant Crew."
-            });
-
-            // Cinema Body specifics
-            if (hasCinema) {
-                items.push({
-                    title: "Cinematography Unit & 4K Cinema Gear",
-                    desc: "Sony FX Cinema Series (FX3/FX6) paired with Sony M4 camera bodies, cinema lenses, 10-bit 4:2:2 color capture, 120 FPS high-frame-rate slow-motion, and pro XLR wireless audio systems."
-                });
-            }
-
-            // Aerial Units
-            if (hasDrone) {
-                items.push({
-                    title: "DJI 4K Professional Aerial Drone Unit",
-                    desc: "DJI 4K Ultra-HD Drone Fleet operated by licensed aerial pilots for high-altitude venue sweeps, grand entry visuals, and epic ritual perspectives."
-                });
-            }
-
-            // Render in UI
-            document.getElementById('gear-inventory-container').innerHTML = items.map(i => `
-                <div class="border-l-3 border-[#D4AF37] pl-4 py-2 bg-white/5 rounded-r-2xl border-t border-b border-r border-white/10">
-                    <h4 class="text-white font-extrabold mb-1.5 uppercase tracking-wider text-xs text-[#F4E0A5]">${i.title}</h4>
-                    <p class="text-gray-300 text-[11.5px] leading-relaxed font-medium">${i.desc}</p>
-                </div>
-            `).join('');
-
-            // Render in Print PDF proposal
+            // Render in Print PDF proposal with full detailed human explanations
             document.getElementById('print-gear-list').innerHTML = `
-                <li style="margin-bottom: 5px;">• <strong>Body:</strong> Sony M4, Sony FX or Nikon Z6 Professional Units (Dual Memory Card Real-time Backup)</li>
-                <li style="margin-bottom: 5px;">• <strong>Lenses:</strong> 24-70mm, 70-200mm, 50mm f/1.2, 50mm f/1.8, 35mm f/1.4, 85mm f/1.8 Ultra-Fast Cinema & Prime Glass</li>
-                <li style="margin-bottom: 5px;">• <strong>Accessories:</strong> LC (Light Controls), Studio Lights, Camera Stands, Gimbals (3-Axis Electronic Stabilizers)</li>
-                <li style="margin-bottom: 5px;">• <strong>Support Crew:</strong> On-Site Technical Assistants & Dedicated Lightman deployed for studio-grade lighting</li>
-                ${hasDrone ? '<li style="margin-bottom: 5px;">• <strong>Aerial Drone:</strong> DJI 4K Ultra-HD Drone System operated by certified aerial pilots</li>' : ''}
+                <li style="margin-bottom: 6px;">• <strong>Camera Systems:</strong> Professional Sony & Nikon mirrorless camera bodies with dual memory card slot safety backup.</li>
+                <li style="margin-bottom: 6px;">• <strong>Lenses & Optics:</strong> Fast prime and zoom lenses for sharp portrait photography, natural low-light photos, and soft background blur.</li>
+                <li style="margin-bottom: 6px;">• <strong>Lighting & Support Crew:</strong> Dedicated Lighting Assistant / Lightman on-site with high-power studio flash lights, stands, and camera stabilizers.</li>
+                ${hasCinema ? '<li style="margin-bottom: 6px;">• <strong>Cinematic Setup:</strong> Specialized cinema camera setups and wireless audio microphones for crisp ceremony sound recording.</li>' : ''}
+                ${hasDrone ? '<li style="margin-bottom: 6px;">• <strong>Aerial Drone:</strong> 4K Ultra-HD Drone unit with experienced pilot for venue entries and aerial perspectives.</li>' : ''}
             `;
         }
 
-        // PROJECT DELIVERABLES & HIGH VALUE-PACKED PRESENTATION
+        // SIMPLE, CLIENT-FRIENDLY DELIVERABLES WITH STRICT CANVA RULE & 12x36 ALBUM SIZE
         function updateProjectDeliverables() {
             const listEl = document.getElementById('deliverables-list');
             const printListEl = document.getElementById('print-deliverables-body');
@@ -1323,60 +1131,55 @@
 
             const hasCinematographer = allSelections.includes("cinematographer");
 
-            // Super-rich, compelling deliverables wording with maximum client value
+            // Simple, client-friendly deliverables wording
             if (hasCinematographer) { 
                 items.push({ 
-                    title: "4K Signature Cinematic Teaser & Highlight Film",
-                    desc: "04 - 05 Minutes 4K Ultra-HD cinematic film teaser featuring custom licensed music, emotional audio storytelling & magazine-grade color grading.", 
+                    title: "Short Cinematic Highlight Video (3-5 Mins)",
+                    desc: "A beautiful 3 to 5 minute video summary of your special moments set to your favorite music, perfect for sharing with family and friends.", 
                     type: "standard" 
                 });
                 items.push({ 
-                    title: "Feature-Length Master Cinematic Wedding Documentary",
-                    desc: "60 - 90 Minutes seamless high-definition documentary film capturing full ceremonies, family interviews, emotional moments & ritual festivities in crystal clear audio.", 
+                    title: "Full Length Wedding Documentary Film",
+                    desc: "A complete, beautifully edited video covering all ceremonies, rituals, family blessings, and stage moments so you can relive every memory.", 
                     type: "standard" 
                 });
             } else if (allSelections.includes("trad_video")) {
                 items.push({ 
-                    title: "Comprehensive Traditional Master Wedding Film",
-                    desc: "Full chronological ceremony coverage of all traditional rituals, stage blessings, and family celebrations edited with rich titles and musical highlights.", 
+                    title: "Full Traditional Ceremony Video",
+                    desc: "Complete video recording of stage meetings, ritual pujas, and family celebrations in clear HD quality.", 
                     type: "standard" 
                 });
             }
 
             if (allSelections.includes("candid_photo")) {
                 items.push({ 
-                    title: "Artistic High-Fashion Couple Portrait Suite",
-                    desc: "40 - 50 Masterfully retouched high-fashion social portraits curated for luxury magazine sharing and high-resolution printing.", 
-                    type: "standard" 
-                });
-                items.push({ 
-                    title: "Complete Candid Emotional Expressions Collection",
-                    desc: "Spontaneous laughter, tearful blessings, intimate family bonds, and celebratory moments captured naturally across all events.", 
+                    title: "Special Candid Photo Collection",
+                    desc: "Natural, emotional, and joyful candid photos capturing genuine smiles, laughter, and family bonds across all functions.", 
                     type: "standard" 
                 });
             }
 
             if (allSelections.includes("trad_photo")) {
                 items.push({ 
-                    title: "Exhaustive High-Resolution Ceremonial Photo Archive",
-                    desc: "Every single guest, family group photo, stage greeting, and Vedic ritual recorded in uncompressed high-resolution mirrorless clarity.", 
+                    title: "Complete High-Resolution Photo Collection",
+                    desc: "High-quality photographs capturing every family member, stage greeting, sacred ritual, and guest group photos.", 
                     type: "standard" 
                 });
             }
 
             if (allSelections.includes("drone")) {
                 items.push({ 
-                    title: "DJI 4K Aerial Cinematic Sequence Footage",
-                    desc: "Sweeping venue landscapes, grand bridal/groom entries, and bird's eye perspectives integrated directly into your cinematic film.", 
+                    title: "Aerial Drone Views & Venue Shots",
+                    desc: "Beautiful top-angle aerial video clips of venue decorations and grand entry moments.", 
                     type: "standard" 
                 });
             }
 
-            // Albums Description (Highlighting Genuine Leather Box, Velvet Leaves)
+            // Albums Description (Explicitly 12x36 size)
             if (state.albums.length > 0) {
                 items.push({ 
-                    title: "Handcrafted Royal Heritage Leather Photobook",
-                    desc: "Wrapped in genuine imported leather, featuring non-tearable high-definition matte-velvet pages, custom gold foil monogramming, luxury presentation box & protective slipcase.", 
+                    title: "Standard 12x36 Size Premium Photo Album",
+                    desc: "Handcrafted photo album made strictly in standard 12x36 inch size format, featuring non-tearable matte-velvet pages and a stylish leather cover box.", 
                     type: "standard" 
                 });
             }
@@ -1384,47 +1187,47 @@
             // Google Cloud Drive Archive
             if (allSelections.length > 0) {
                 items.push({ 
-                    title: "100% Uncompressed Master Data Cloud Archive Handover",
-                    desc: "Complete raw camera footage, edited high-resolution stills, and full master films delivered via a dedicated encrypted Google Cloud Drive link for instant global family sharing.", 
+                    title: "Google Drive Online Data Handover",
+                    desc: "All your edited photos and videos uploaded safely to a private Google Drive link so you can easily view and download them anytime.", 
                     type: "standard" 
                 });
             }
 
-            // VIP FREE COMPLIMENTARY PRIVILEGES
+            // VIP FREE COMPLIMENTARY GIFTS WITH CANVA RULE EXPLICITLY MENTIONED
             if (hasFullOrPremiumTeam || (hasCinematographer && hasFullOrPremiumTeam)) {
                 items.push({ 
-                    title: "2 Trending Instagram Vertical Cinematic Reels (9:16 HD)",
-                    desc: "Specially edited vertical reels with trending music ready for instant viral sharing on Instagram, WhatsApp & TikTok.", 
+                    title: "2 Trending Instagram Vertical Reels (HD)",
+                    desc: "Ready-to-post vertical reels created with popular trending songs for quick sharing on social media.", 
                     type: "gift" 
                 });
                 items.push({ 
-                    title: "Designer Digital E-Invite Card & Story Reel Layout",
-                    desc: "Customized typography and animated aesthetic wedding announcement creative for digital invitations.", 
+                    title: "Digital E-Invite Card (Canva Template Only)",
+                    desc: "Custom digital invitation created using Canva templates. Please note: We only provide e-invites created from our Canva templates. If you provide an invite file or design request from another software/application, we will not be able to process or edit it.", 
                     type: "gift" 
                 });
                 items.push({ 
-                    title: "Grand Archival Custom Framed Photo Portrait",
-                    desc: "Enlarged luxury photographic print mounted inside a premium wooden showcase frame for your living room showcase.", 
+                    title: "1 Large Wooden Wall Photo Frame",
+                    desc: "A beautiful enlarged portrait print framed in a wooden frame for your home wall.", 
                     type: "gift" 
                 });
                 if(badgeEl) {
-                    badgeEl.innerText = "VIP Package Privileges + Free Reels Unlocked";
-                    badgeEl.className = "text-[10px] font-extrabold text-emerald-400 uppercase bg-emerald-950/80 border border-emerald-500/50 px-4 py-2 rounded-full tracking-wider shadow-lg";
+                    badgeEl.innerText = "Free Reels & Canva E-Invite Unlocked";
+                    badgeEl.className = "text-[10px] font-extrabold text-emerald-400 uppercase bg-emerald-950/80 border border-emerald-500/50 px-3.5 py-1.5 rounded-full tracking-wider";
                 }
             } else if (hasCinematographer) {
                 items.push({ 
-                    title: "2 Trending Instagram Vertical Cinematic Reels (9:16 HD)",
-                    desc: "Edited vertical reels with popular musical tracks for fast social media sharing.", 
+                    title: "2 Trending Instagram Vertical Reels (HD)",
+                    desc: "Ready-to-post vertical reels created with popular trending songs for quick sharing on social media.", 
                     type: "gift" 
                 });
                 if(badgeEl) {
                     badgeEl.innerText = "2 Free Instagram Reels Unlocked";
-                    badgeEl.className = "text-[10px] font-extrabold text-emerald-400 uppercase bg-emerald-950/80 border border-emerald-500/50 px-4 py-2 rounded-full tracking-wider shadow-lg";
+                    badgeEl.className = "text-[10px] font-extrabold text-emerald-400 uppercase bg-emerald-950/80 border border-emerald-500/50 px-3.5 py-1.5 rounded-full tracking-wider";
                 }
             } else {
                 if(badgeEl) {
-                    badgeEl.innerText = "Choose Full Unit or Cinema to Unlock Free Reels & Gifts";
-                    badgeEl.className = "text-[10px] font-extrabold text-yellow-400 uppercase bg-yellow-950/80 border border-yellow-500/50 px-4 py-2 rounded-full tracking-wider shadow-lg";
+                    badgeEl.innerText = "Select Full Unit to Unlock Free Reels & Gifts";
+                    badgeEl.className = "text-[10px] font-extrabold text-yellow-400 uppercase bg-yellow-950/80 border border-yellow-500/50 px-3.5 py-1.5 rounded-full tracking-wider";
                 }
             }
 
@@ -1433,28 +1236,28 @@
                 if (i.type === 'gift') {
                     return `<div class="deliverable-card complimentary">
                         <div class="flex-1">
-                            <div class="flex items-center gap-2 mb-1.5">
-                                <span class="badge-gift">COMPLIMENTARY VIP PRIVILEGE</span>
-                                <span class="text-[9.5px] font-extrabold text-emerald-400 uppercase">₹0 Included Free</span>
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="badge-gift">FREE COMPLIMENTARY GIFT</span>
+                                <span class="text-[9px] font-extrabold text-emerald-400 uppercase">Included Free</span>
                             </div>
                             <h4 class="text-sm font-black text-white mb-1 flex items-center gap-1.5"><span class="text-emerald-400">✦</span> ${i.title}</h4>
-                            <p class="text-[11.5px] text-gray-200 font-medium leading-relaxed">${i.desc}</p>
+                            <p class="text-[11px] text-gray-200 font-medium leading-relaxed">${i.desc}</p>
                         </div>
                     </div>`;
                 }
                 return `<div class="deliverable-card">
                     <div class="flex-1">
                         <h4 class="text-sm font-black text-[#F4E0A5] mb-1 flex items-center gap-1.5"><span class="text-[#D4AF37]">✦</span> ${i.title}</h4>
-                        <p class="text-[11.5px] text-gray-200 font-medium leading-relaxed">${i.desc}</p>
+                        <p class="text-[11px] text-gray-200 font-medium leading-relaxed">${i.desc}</p>
                     </div>
                 </div>`;
             }).join('');
 
             if (!hasFullOrPremiumTeam && !hasCinematographer) {
-                htmlContent += `<div class="deliverable-card col-span-1 md:col-span-2 opacity-90 border-dashed border-yellow-500/50 bg-yellow-950/20 text-yellow-200">
+                htmlContent += `<div class="deliverable-card col-span-1 md:col-span-2 border-dashed border-yellow-500/50 bg-yellow-950/20 text-yellow-200">
                     <div>
-                        <span class="text-xs font-extrabold uppercase text-yellow-400 block mb-1">🎁 Unlock Signature Complimentary Gifts</span>
-                        <span class="text-xs text-gray-300">Upgrade to 'FULL UNIT' or 'CINEMA' team to automatically unlock 2 Free Instagram Reels, Archival Wooden Wall Frame & Digital E-Invite card!</span>
+                        <span class="text-xs font-extrabold uppercase text-yellow-400 block mb-1">🎁 Unlock Free Instagram Reels & Canva E-Invite</span>
+                        <span class="text-xs text-gray-300">Select 'FULL UNIT' or 'CINEMA' team to automatically unlock 2 Free Instagram Reels, Canva E-Invite Card & Wooden Wall Frame!</span>
                     </div>
                 </div>`;
             }
@@ -1465,7 +1268,7 @@
             printListEl.innerHTML = items.map(i => {
                 if (i.type === 'gift') {
                     return `<div class="p-deliverable-item complimentary">
-                        <div style="font-size: 6.8pt; font-weight: 900; color: #16a34a; text-transform: uppercase;">🎁 COMPLIMENTARY VIP PRIVILEGE</div>
+                        <div style="font-size: 6.8pt; font-weight: 900; color: #16a34a; text-transform: uppercase;">🎁 FREE COMPLIMENTARY BENEFIT</div>
                         <div style="font-weight: 800; font-size: 8.2pt; color: #064e3b; margin-top: 1px;">✦ ${i.title}</div>
                         <div style="font-size: 7.2pt; color: #334155; font-weight: 500; margin-top: 2px;">${i.desc}</div>
                     </div>`;
@@ -1477,7 +1280,6 @@
             }).join('');
         }
 
-        // OPTION 1: DOWNLOAD PDF PROPOSAL
         function generatePDF() {
             const originalTitle = document.title;
             const fileName = getFormattedFileName();
@@ -1492,11 +1294,9 @@
             }, 100);
         }
 
-        // OPTION 2: DIRECT SHARE (WhatsApp / Web Share API)
         function shareProposal() {
             const clientName = (state.clientName || "Valued Client").trim().toUpperCase();
             const fileName = getFormattedFileName();
-            const gross = document.getElementById('summary-gross-total').innerText;
             const final = document.getElementById('final-total').innerText;
             const eventCount = state.events.length;
 
@@ -1505,15 +1305,14 @@
                 return `• ${ev.name}${dt} - ${ev.location}`;
             }).join('\n');
 
-            const shareText = `*LUCKNOW WEDDING STUDIO - LUXURY WEDDING PROPOSAL*\n\n` +
-                `👤 *Client:* ${clientName}\n` +
-                `📅 *Total Events Covered:* ${eventCount}\n\n` +
-                `*Ceremonies Schedule:*\n${eventsListStr}\n\n` +
-                `📷 *Technology:* Sony M4, Sony FX & Nikon Z6 Professional Mirrorless Units\n` +
-                `📖 *Album:* Handcrafted Royal Leather Photobook with Velvet Leaves & Leather Box\n` +
-                `💰 *Net Investment:* ${final}\n` +
-                `🎬 *Complimentary Benefit:* 2 Free Instagram Reels + Cloud Drive Archive Handover\n\n` +
-                `📞 *Direct Line:* +91 7394019474, 8808808840\n` +
+            const shareText = `*LUCKNOW WEDDING STUDIO - WEDDING PROPOSAL*\n\n` +
+                `👤 *Client Name:* ${clientName}\n` +
+                `📅 *Functions Covered:* ${eventCount}\n\n` +
+                `*Ceremonies List:*\n${eventsListStr}\n\n` +
+                `📖 *Album Size:* Standard 12x36 Inch Premium Leather Album\n` +
+                `💰 *Net Amount:* ${final}\n` +
+                `🎬 *Included Benefit:* 2 Free Instagram Reels + Canva E-Invite + Google Drive Handover\n\n` +
+                `📞 *Contact Us:* +91 7394019474, 8808808840\n` +
                 `📍 *Studio Address:* 4th Floor, 94, MG Marg, Hazratganj, Lucknow`;
 
             if (navigator.share) {
@@ -1535,40 +1334,40 @@
 
         function render() {
             document.getElementById('category-buttons-container').innerHTML = ALL_EVENT_TYPES.map(t => 
-                `<button onclick="addEvent('${t}')" class="btn-category py-3.5 rounded-xl font-black">${t}</button>`
+                `<button onclick="addEvent('${t}')" class="btn-category py-3 rounded-xl font-black">${t}</button>`
             ).join('');
 
             const config = state.isCategorySectionVisible;
-            document.getElementById('section-toggle-btn').innerText = config ? "HIDE SETTINGS" : "CONFIGURE SELECTION";
+            document.getElementById('section-toggle-btn').innerText = config ? "HIDE OPTIONS" : "CONFIGURE OPTIONS";
             document.getElementById('category-section-wrapper').classList.toggle('hidden', !config);
             
             const priceToggle = document.getElementById('pdf-price-toggle');
             if(priceToggle) priceToggle.checked = state.showIndividualAmountsInPDF;
 
-            // Render Events list in UI
+            // Render Events list in UI - Clean, Compact, Minimal
             document.getElementById('events-container').innerHTML = state.events.map((ev, index) => {
                 const c = calculateEventCost(ev);
                 const crewList = getDetailedCrew(ev.teamSelections);
                 const teams = [ 
-                    {id:'half', label:'HALF UNIT'}, {id:'full', label:'FULL UNIT'}, {id:'premium', label:'PREMIUM CINEMA'}, 
+                    {id:'half', label:'HALF UNIT'}, {id:'full', label:'FULL UNIT'}, {id:'premium', label:'CINEMA UNIT'}, 
                     {id:'trad_photo', label:'T-PHOTO'}, {id:'trad_video', label:'T-VIDEO'}, 
                     {id:'candid_photo', label:'CANDID'}, {id:'cinematographer', label:'CINEMA'}, 
-                    {id:'drone', label:'DJI DRONE'}, {id:'led_wall', label:'LED WALL'}, {id:'crane', label:'JIB CRANE'} 
+                    {id:'drone', label:'DRONE'}, {id:'led_wall', label:'LED WALL'}, {id:'crane', label:'JIB CRANE'} 
                 ];
 
-                return `<div class="liquid-glass p-6 md:p-8">
-                    <div class="flex flex-col sm:flex-row justify-between items-start mb-4 gap-4">
+                return `<div class="liquid-glass p-5">
+                    <div class="flex flex-col sm:flex-row justify-between items-start mb-3 gap-3">
                         <div class="flex-1 w-full">
                             <div class="flex flex-wrap items-center gap-3 mb-2">
                                 ${ev.isEditingName ? 
-                                    `<input type="text" value="${ev.name}" oninput="updateEventField(${ev.id}, 'name', this.value)" class="input-glass text-lg font-black w-full sm:w-64 uppercase event-title-orange">` : 
-                                    `<h3 class="text-xl font-black font-serif-heading uppercase tracking-wide event-title-orange">${ev.name}</h3>`
+                                    `<input type="text" value="${ev.name}" oninput="updateEventField(${ev.id}, 'name', this.value)" class="input-glass text-base font-black w-full sm:w-56 uppercase event-title-orange">` : 
+                                    `<h3 class="text-lg font-black font-serif-heading uppercase tracking-wide event-title-orange">${ev.name}</h3>`
                                 }
-                                ${config ? `<button onclick="toggleEdit('event', ${ev.id}, 'name')" class="opacity-60 hover:opacity-100 text-xs text-[#D4AF37]">✏️ Edit</button>` : ''}
+                                ${config ? `<button onclick="toggleEdit('event', ${ev.id}, 'name')" class="opacity-60 hover:opacity-100 text-xs text-[#D4AF37]">✏️ Rename</button>` : ''}
                                 <button onclick="removeEvent(${ev.id})" class="text-xs text-red-400 opacity-60 hover:opacity-100 font-bold ml-auto sm:ml-0">✕ Remove</button>
                             </div>
 
-                            <div class="flex flex-wrap gap-3 items-center">
+                            <div class="flex flex-wrap gap-2.5 items-center">
                                 <div class="flex items-center gap-1.5 bg-white/5 border border-white/10 rounded-xl px-2.5 py-1">
                                     <span class="text-[10px] text-[#D4AF37] font-bold">📅</span>
                                     <input type="date" value="${ev.date}" onchange="updateEventField(${ev.id}, 'date', this.value)" class="bg-transparent text-[11px] font-extrabold text-white uppercase focus:outline-none cursor-pointer">
@@ -1576,53 +1375,36 @@
                                 
                                 ${index > 0 ? `
                                     <div class="flex items-center gap-1">
-                                        <button onclick="quickSetOffsetDate(${ev.id}, 0)" class="bg-white/10 hover:bg-[#D4AF37]/30 text-[9px] font-extrabold text-[#F4E0A5] px-2 py-1 rounded-lg border border-[#D4AF37]/20 transition-all">Same Date</button>
-                                        <button onclick="quickSetOffsetDate(${ev.id}, 1)" class="bg-white/10 hover:bg-[#D4AF37]/30 text-[9px] font-extrabold text-[#F4E0A5] px-2 py-1 rounded-lg border border-[#D4AF37]/20 transition-all">+1 Day</button>
-                                        <button onclick="quickSetOffsetDate(${ev.id}, 2)" class="bg-white/10 hover:bg-[#D4AF37]/30 text-[9px] font-extrabold text-[#F4E0A5] px-2 py-1 rounded-lg border border-[#D4AF37]/20 transition-all">+2 Days</button>
+                                        <button onclick="quickSetOffsetDate(${ev.id}, 0)" class="bg-white/10 hover:bg-[#D4AF37]/30 text-[9px] font-extrabold text-[#F4E0A5] px-2 py-0.5 rounded-lg border border-[#D4AF37]/20">Same Date</button>
+                                        <button onclick="quickSetOffsetDate(${ev.id}, 1)" class="bg-white/10 hover:bg-[#D4AF37]/30 text-[9px] font-extrabold text-[#F4E0A5] px-2 py-0.5 rounded-lg border border-[#D4AF37]/20">+1 Day</button>
                                     </div>
                                 ` : ''}
 
-                                <input type="text" value="${ev.location}" oninput="updateEventField(${ev.id}, 'location', this.value)" class="bg-white/5 border border-white/10 rounded-xl px-3 py-1.5 text-[10px] font-bold w-36 text-white" placeholder="Venue Location">
+                                <input type="text" value="${ev.location}" oninput="updateEventField(${ev.id}, 'location', this.value)" class="bg-white/5 border border-white/10 rounded-xl px-2.5 py-1 text-[10px] font-bold w-32 text-white" placeholder="Venue Location">
                             </div>
                         </div>
-                        <div class="flex items-center gap-3">
-                            <div class="flex items-center gap-2">
-                                ${ev.isEditingAmount ? 
-                                    `<input type="number" value="${ev.manualAmount || c.total}" oninput="updateEventField(${ev.id}, 'manualAmount', this.value)" class="input-glass w-36 text-right font-black">` : 
-                                    `<div class="text-2xl font-black text-[#D4AF37] font-serif-heading">₹${c.total.toLocaleString()}</div>`
-                                }
-                                ${config ? `<button onclick="toggleEdit('event', ${ev.id}, 'amount')" class="opacity-60 hover:opacity-100 text-xs">💰</button>` : ''}
-                            </div>
+                        <div class="flex items-center gap-2">
+                            ${ev.isEditingAmount ? 
+                                `<input type="number" value="${ev.manualAmount || c.total}" oninput="updateEventField(${ev.id}, 'manualAmount', this.value)" class="input-glass w-32 text-right font-black">` : 
+                                `<div class="text-xl font-black text-[#D4AF37] font-serif-heading">₹${c.total.toLocaleString()}</div>`
+                            }
+                            ${config ? `<button onclick="toggleEdit('event', ${ev.id}, 'amount')" class="opacity-60 hover:opacity-100 text-xs">💰</button>` : ''}
                         </div>
                     </div>
 
-                    <!-- Highlighted Crew & Mirrorless Photographer Allocation Section -->
-                    <div class="mt-4 pt-4 border-t border-white/10 bg-white/5 p-4 rounded-2xl border border-white/10">
-                        <div class="flex items-center justify-between mb-2.5">
-                            <span class="text-[10px] font-black text-[#D4AF37] uppercase tracking-wider flex items-center gap-1.5">
-                                <span>🎥</span> Active Photographer & Cinema Crew Allocation:
-                            </span>
-                            <span class="text-[9.5px] bg-[#D4AF37]/20 text-[#F4E0A5] font-extrabold px-2.5 py-0.5 rounded-full uppercase border border-[#D4AF37]/30">${crewList.length} Units Deployed</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2">
-                            ${crewList.map(member => {
-                                let tagClass = "photo";
-                                if (member.includes("Candid")) tagClass = "candid";
-                                else if (member.includes("Cinema") || member.includes("M4")) tagClass = "cinema";
-                                else if (member.includes("Lightman")) tagClass = "lightman";
-                                else if (member.includes("Assistant")) tagClass = "support";
-                                return `<span class="crew-tag ${tagClass}">✦ ${member}</span>`;
-                            }).join('')}
-                        </div>
+                    <!-- Compact Crew Summary -->
+                    <div class="flex items-center gap-2 flex-wrap text-xs text-gray-300 mt-2 pt-2 border-t border-white/10">
+                        <span class="text-[9.5px] font-bold text-[#D4AF37] uppercase">Assigned Team:</span>
+                        <span class="text-[10.5px] text-white font-medium">${crewList.join(' • ')}</span>
                     </div>
 
                     ${config ? `
-                        <div class="border-t border-white/10 pt-4 mt-4">
-                            <p class="text-[9.5px] font-black text-gray-400 uppercase tracking-widest mb-3">Adjust Crew Allocation for this Function</p>
-                            <div class="flex flex-wrap gap-2">
+                        <div class="border-t border-white/10 pt-3 mt-3">
+                            <p class="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-2">Team Selection Buttons</p>
+                            <div class="flex flex-wrap gap-1.5">
                                 ${teams.map(t => {
                                     const active = ev.teamSelections.includes(t.id);
-                                    return `<button onclick="updateEventField(${ev.id}, 'team', '${t.id}')" class="px-3.5 py-1.5 rounded-xl text-[9.5px] font-extrabold transition-all border ${active ? 'bg-[#997A15] text-white border-[#997A15]' : 'bg-white/5 text-white/70 border-white/10 hover:bg-white/10'}">${t.label}</button>`;
+                                    return `<button onclick="updateEventField(${ev.id}, 'team', '${t.id}')" class="px-3 py-1 rounded-lg text-[9px] font-extrabold border ${active ? 'bg-[#997A15] text-white border-[#997A15]' : 'bg-white/5 text-white/70 border-white/10 hover:bg-white/10'}">${t.label}</button>`;
                                 }).join('')}
                             </div>
                         </div>
@@ -1639,23 +1421,22 @@
 
                 albumContainer.innerHTML = state.albums.map(al => {
                     const albumCost = Math.round((al.sheets * 250) * scaleFactor);
-                    return `<div class="flex justify-between items-center bg-white/5 p-4 rounded-2xl border border-white/10 hover:border-[#D4AF37]/30 transition-all">
+                    return `<div class="flex justify-between items-center bg-white/5 p-3.5 rounded-xl border border-white/10">
                         <div>
-                            <span class="text-sm font-bold text-white uppercase font-serif-heading text-[#F4E0A5]">Handcrafted Royal Heritage Leather Photobook</span>
-                            <p class="text-[10.5px] text-gray-300 mt-0.5 font-medium">Genuine Imported Leather Box • Velvet Slipcover • Non-Tearable HD Matte-Velvet Leaves</p>
+                            <span class="text-xs font-bold text-white uppercase font-serif-heading text-[#F4E0A5]">12x36 Size Premium Photo Album</span>
+                            <p class="text-[10px] text-gray-300 mt-0.5">Standard 12x36 size • Matte-velvet leaves • Custom leather box</p>
                         </div>
-                        <div class="flex items-center gap-4">
-                            <div class="flex items-center gap-2">
-                                <input type="number" value="${al.sheets}" oninput="updateAlbumSheets(${al.id}, this.value)" class="input-glass w-20 text-center font-bold text-sm">
+                        <div class="flex items-center gap-3">
+                            <div class="flex items-center gap-1.5">
+                                <input type="number" value="${al.sheets}" oninput="updateAlbumSheets(${al.id}, this.value)" class="input-glass w-16 text-center font-bold text-xs">
                                 <span class="text-xs text-gray-400 font-bold">Sheets</span>
                             </div>
-                            <span class="text-lg font-black text-[#D4AF37] font-serif-heading">₹${albumCost.toLocaleString()}</span>
+                            <span class="text-base font-black text-[#D4AF37] font-serif-heading">₹${albumCost.toLocaleString()}</span>
                             <button onclick="removeAlbum(${al.id})" class="text-red-400 text-xs font-bold hover:opacity-100 opacity-60">✕</button>
                         </div>
                     </div>`;
                 }).join('');
             } else {
-                albumSection.classList.hidden = true;
                 albumSection.classList.add('hidden');
             }
 
