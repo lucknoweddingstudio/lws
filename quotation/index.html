@@ -1,8 +1,7 @@
-<!-- Chosen Palette: Warm Obsidian & Imperial Gold (Dark Luxury Atmosphere) -->
-<!-- Application Structure Plan: Single-page interactive proposal generator with instant calculations, dynamic event/crew selector, high-value project deliverables showcase, enlarged 'Team and Devices' gear matrix, and print-optimized PDF generation for Lucknow Wedding Studio. -->
-<!-- Visualization & Content Choices: Responsive cards, dynamic tags for crew, interactive pricing scale factor, and print CSS layout. NO SVG graphics used. NO Mermaid JS used. -->
+<!-- Chosen Palette: Luxury Gold & Obsidian Glass -->
+<!-- Application Structure Plan: Single-page dynamic quotation builder and interactive proposal system for Lucknow Wedding Studio. Structures client details, flexible event schedules, crew deployment with detailed camera/lens/accessory specs, deliverables, photobook album options, discount/scaling controls, and instantaneous PDF generation and WhatsApp direct sharing. -->
+<!-- Visualization & Content Choices: Uses custom glassmorphic HTML/Tailwind containers, responsive interactive controls, and print CSS for official print/PDF export. All equipment toolkits (Sony Alpha A7 IV, Sony FX Cinema, Nikon Z6, GM Lenses, LC/Studio Lights, Gimbals) and deliverables are expanded for high perceived value. NO SVG graphics or Mermaid JS used. -->
 <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,19 +15,21 @@
             --accent-gold: #D4AF37;
             --accent-gold-light: #F4E0A5;
             --accent-gold-dark: #997A15;
+            --accent-orange: #997A15;
+            --accent-orange-bright: #997A15;
             --bg-dark: #070709;
-            --glass-bg: rgba(18, 18, 24, 0.78);
-            --glass-border: rgba(212, 175, 55, 0.25);
-            --glass-border-hover: rgba(212, 175, 55, 0.55);
+            --glass-bg: rgba(18, 18, 24, 0.72);
+            --glass-border: rgba(212, 175, 55, 0.22);
+            --glass-border-hover: rgba(212, 175, 55, 0.5);
         }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background: var(--bg-dark);
             background-image: 
-                radial-gradient(circle at 15% 15%, rgba(212, 175, 55, 0.09) 0%, transparent 40%),
-                radial-gradient(circle at 85% 85%, rgba(212, 175, 55, 0.06) 0%, transparent 40%),
-                linear-gradient(rgba(7, 7, 9, 0.83), rgba(7, 7, 9, 0.9)), 
+                radial-gradient(circle at 15% 15%, rgba(212, 175, 55, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(212, 175, 55, 0.05) 0%, transparent 40%),
+                linear-gradient(rgba(7, 7, 9, 0.82), rgba(7, 7, 9, 0.88)), 
                 url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
@@ -50,7 +51,7 @@
             backdrop-filter: blur(30px) saturate(160%);
             -webkit-backdrop-filter: blur(30px) saturate(160%);
             border: 1px solid var(--glass-border);
-            border-top: 1px solid rgba(255, 255, 255, 0.22);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
             border-radius: 28px;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -58,12 +59,12 @@
 
         .liquid-glass:hover {
             border-color: var(--glass-border-hover);
-            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.14);
+            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.12);
         }
 
         .input-glass {
             background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             border-radius: 14px;
             padding: 12px 16px;
             color: white;
@@ -72,14 +73,14 @@
 
         .input-glass:focus {
             outline: none;
-            border-color: var(--accent-gold);
+            border-color: var(--accent-orange-bright);
             background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2);
+            box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.2);
         }
 
         .btn-category {
             background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(212, 175, 55, 0.22);
+            border: 1px solid rgba(212, 175, 55, 0.2);
             color: #e5e7eb;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             text-transform: uppercase;
@@ -89,48 +90,48 @@
         }
 
         .btn-category:hover {
-            background: linear-gradient(135deg, #D4AF37 0%, #997A15 100%);
-            color: #000000;
-            border-color: #D4AF37;
+            background: linear-gradient(135deg, var(--accent-orange-bright) 0%, #997A15 100%);
+            color: #ffffff;
+            border-color: var(--accent-orange-bright);
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.35);
+            box-shadow: 0 8px 20px rgba(249, 115, 22, 0.35);
         }
 
         .deliverable-card {
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(20, 20, 26, 0.75) 100%);
-            border: 1px solid rgba(212, 175, 55, 0.35);
-            border-left: 5px solid var(--accent-gold);
-            padding: 20px 22px;
-            border-radius: 20px;
-            font-size: 13px;
+            background: rgba(212, 175, 55, 0.06);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-left: 4px solid var(--accent-gold);
+            padding: 18px 22px;
+            border-radius: 18px;
+            font-size: 12px;
             font-weight: 700;
+            letter-spacing: 0.2px;
             color: #fff;
             display: flex;
             align-items: flex-start;
-            gap: 16px;
+            gap: 14px;
             transition: all 0.3s ease;
+            line-height: 1.6;
         }
 
         .deliverable-card:hover {
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.14) 0%, rgba(26, 26, 34, 0.85) 100%);
-            transform: translateX(5px);
-            border-color: rgba(212, 175, 55, 0.65);
-            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.12);
+            background: rgba(212, 175, 55, 0.12);
+            transform: translateX(4px);
         }
 
         .deliverable-card.complimentary {
-            background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(20, 26, 22, 0.75) 100%);
-            border: 1px solid rgba(34, 197, 94, 0.4);
-            border-left: 5px solid #22c55e;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.35);
+            border-left: 4px solid #22c55e;
         }
 
         .badge-gift {
             background: #22c55e;
             color: black;
-            font-size: 8.5px;
+            font-size: 8px;
             font-weight: 900;
-            padding: 3px 10px;
-            border-radius: 12px;
+            padding: 2px 8px;
+            border-radius: 10px;
             text-transform: uppercase;
             letter-spacing: 0.6px;
         }
@@ -151,20 +152,20 @@
             position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px;
             background-color: white; transition: .4s; border-radius: 50%;
         }
-        input:checked + .slider { background-color: var(--accent-gold); }
+        input:checked + .slider { background-color: var(--accent-orange-bright); }
         input:checked + .slider:before { transform: translateX(22px); background-color: black; }
 
         .btn-gold {
-            background: linear-gradient(135deg, #F4E0A5 0%, #D4AF37 50%, #997A15 100%);
-            color: #0b0b0d;
+            background: linear-gradient(135deg, #E6C667 0%, #D4AF37 50%, #B8860B 100%);
+            color: #0d0d0d;
             box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             font-weight: 800;
         }
         .btn-gold:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.55);
-            background: linear-gradient(135deg, #FFF0C2 0%, #E6C667 50%, #B8860B 100%);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5);
+            background: linear-gradient(135deg, #F4E0A5 0%, #E6C667 50%, #C59613 100%);
         }
 
         .btn-green {
@@ -188,58 +189,18 @@
             color: #D4AF37 !important;
         }
 
-        /* Specific Tag Highlights for Photographers, Cinematographers & Lightman Crew */
-        .crew-tag {
+        .gear-pill {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 8px;
+            padding: 4px 10px;
+            font-size: 11px;
+            color: #e2e8f0;
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: rgba(212, 175, 55, 0.14);
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            padding: 6px 14px;
-            border-radius: 9999px;
-            font-size: 11.5px;
-            font-weight: 800;
-            color: #F4E0A5;
-            letter-spacing: 0.3px;
-            transition: all 0.3s ease;
         }
 
-        .crew-tag:hover {
-            transform: translateY(-1px);
-            border-color: #D4AF37;
-        }
-
-        .crew-tag.photo {
-            background: rgba(59, 130, 246, 0.16);
-            border-color: rgba(96, 165, 250, 0.5);
-            color: #bfdbfe;
-        }
-
-        .crew-tag.candid {
-            background: rgba(236, 72, 153, 0.16);
-            border-color: rgba(244, 114, 182, 0.5);
-            color: #fbcfe8;
-        }
-
-        .crew-tag.cinema {
-            background: rgba(249, 115, 22, 0.16);
-            border-color: rgba(251, 146, 60, 0.5);
-            color: #ffedd5;
-        }
-
-        .crew-tag.support {
-            background: rgba(168, 85, 247, 0.16);
-            border-color: rgba(192, 132, 252, 0.5);
-            color: #f3e8ff;
-        }
-
-        .crew-tag.lightman {
-            background: rgba(234, 179, 8, 0.16);
-            border-color: rgba(250, 204, 21, 0.5);
-            color: #fef08a;
-        }
-
-        /* PRINT STYLES - OFFICIAL LUXURY PROPOSAL */
         @media print {
             @page { 
                 margin: 0; 
@@ -252,7 +213,7 @@
                 background-image: none !important;
                 height: auto !important;
                 overflow: visible !important;
-                font-size: 8.8pt !important;
+                font-size: 9pt !important;
                 font-family: 'Plus Jakarta Sans', sans-serif !important;
             }
             
@@ -263,7 +224,7 @@
                 width: 100%; 
                 overflow: visible !important;
                 height: auto !important;
-                padding: 10mm 11mm;
+                padding: 10mm 12mm;
                 box-sizing: border-box;
             }
             
@@ -289,7 +250,7 @@
                 width: 100%; 
                 border-collapse: collapse; 
                 margin: 10px 0; 
-                border: 1px solid #e2e8f0; 
+                border: 1px solid #cbd5e1; 
                 table-layout: fixed; 
             }
             .p-table th { 
@@ -298,18 +259,19 @@
                 font-weight: 800; 
                 text-transform: uppercase; 
                 font-size: 7.5pt; 
-                padding: 9px 11px; 
+                padding: 8px 10px; 
                 border: 1px solid #0f172a; 
                 text-align: left; 
                 letter-spacing: 0.8px;
             }
             .p-table td { 
-                padding: 9px 11px; 
-                border: 1px solid #e2e8f0; 
+                padding: 9px 10px; 
+                border: 1px solid #cbd5e1; 
                 vertical-align: top; 
-                font-size: 8.3pt; 
+                font-size: 8pt; 
                 word-wrap: break-word; 
-                line-height: 1.45;
+                overflow-wrap: break-word;
+                line-height: 1.5;
             }
             .p-table tr:nth-child(even) {
                 background: #f8fafc;
@@ -327,7 +289,7 @@
             }
 
             .p-client-name-print {
-                color: #997A15 !important;
+                color: #856404 !important;
                 font-family: 'Cinzel', serif;
                 font-weight: 900;
             }
@@ -338,18 +300,18 @@
                 color: #856404; 
                 text-transform: uppercase; 
                 border-bottom: 1.5px solid #D4AF37; 
-                padding-bottom: 4px; 
+                padding-bottom: 3px; 
                 margin-top: 14px; 
                 margin-bottom: 8px; 
-                font-size: 9.5pt; 
-                letter-spacing: 1.2px; 
+                font-size: 9pt; 
+                letter-spacing: 1px; 
                 break-after: avoid; 
                 display: flex;
                 align-items: center;
                 gap: 6px;
             }
             
-            .p-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 10px; }
+            .p-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 8px; }
             .p-grid > div { break-inside: avoid; } 
             
             .p-deliverables-grid {
@@ -364,9 +326,9 @@
                 background: #fffdf5; 
                 border: 1px solid #f2e3b6;
                 border-left: 3.5px solid #D4AF37; 
-                padding: 8px 11px; 
+                padding: 8px 10px; 
                 font-weight: 700; 
-                font-size: 8pt;
+                font-size: 7.5pt;
                 color: #1a1a1a;
                 break-inside: avoid;
                 display: flex;
@@ -374,6 +336,8 @@
                 justify-content: center;
                 min-height: 42px;
                 border-radius: 4px;
+                word-wrap: break-word;
+                line-height: 1.45;
             }
 
             .p-deliverable-item.complimentary {
@@ -382,26 +346,8 @@
                 border-left-color: #16a34a;
             }
 
-            .p-crew-badge-print {
-                display: inline-block;
-                background: #f1f5f9;
-                border: 1px solid #cbd5e1;
-                border-radius: 4px;
-                padding: 1px 6px;
-                font-size: 7pt;
-                font-weight: 800;
-                color: #0f172a;
-                margin-bottom: 3px;
-            }
-
-            .p-crew-badge-print.highlight {
-                background: #fef9c3;
-                border-color: #eab308;
-                color: #854d0e;
-            }
-
-            .p-footer { margin-top: 24px; border-top: 1px solid #e2e8f0; padding-top: 14px; page-break-inside: avoid; }
-            .p-summary-wrapper { display: flex; gap: 14px; margin-top: 14px; align-items: stretch; page-break-inside: avoid; }
+            .p-footer { margin-top: 20px; border-top: 1px solid #e2e8f0; padding-top: 12px; page-break-inside: avoid; }
+            .p-summary-wrapper { display: flex; gap: 12px; margin-top: 14px; align-items: stretch; page-break-inside: avoid; }
             .p-summary-left { flex: 1.4; background: #f8fafc; padding: 12px 14px; border-radius: 8px; border: 1px solid #e2e8f0; }
             .p-summary-right { 
                 flex: 1; 
@@ -417,16 +363,16 @@
                 -webkit-print-color-adjust: exact; 
             }
             
-            .p-breakdown-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #e2e8f0; }
+            .p-breakdown-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #f1f5f9; }
             .p-breakdown-label { color: #475569; font-size: 7.5pt; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
-            .p-breakdown-value { font-weight: 800; color: #0f172a; font-size: 8.5pt; }
+            .p-breakdown-value { font-weight: 800; color: #0f172a; font-size: 8pt; }
             
-            .sig-container { position: relative; width: 280px; height: 90px; margin-top: 4px; }
+            .sig-container { position: relative; width: 260px; height: 90px; margin-top: 2px; }
             .p-stamp {
-                position: absolute; top: 0; right: 30px; width: 75px; height: 75px; border: 2px dashed rgba(184, 134, 11, 0.6); border-radius: 50%;
-                display: flex; align-items: center; justify-content: center; text-align: center; color: rgba(184, 134, 11, 0.85); font-size: 6.5px; font-weight: 900; padding: 5px; transform: rotate(-12deg); z-index: 1;
+                position: absolute; top: 0; right: 25px; width: 75px; height: 75px; border: 2px dashed rgba(184, 134, 11, 0.6); border-radius: 50%;
+                display: flex; align-items: center; justify-content: center; text-align: center; color: rgba(184, 134, 11, 0.85); font-size: 6px; font-weight: 900; padding: 5px; transform: rotate(-12deg); z-index: 1;
             }
-            .p-signature { position: absolute; top: 8px; right: 15px; font-family: 'Mrs Saint Delafield', cursive; font-size: 32pt; color: #0b2545; z-index: 2; transform: rotate(-4deg); pointer-events: none; opacity: 0.95; }
+            .p-signature { position: absolute; top: 10px; right: 12px; font-family: 'Mrs Saint Delafield', cursive; font-size: 30pt; color: #0b2545; z-index: 2; transform: rotate(-4deg); pointer-events: none; opacity: 0.95; }
 
             tr { page-break-inside: avoid; page-break-after: auto; }
             thead { display: table-header-group; }
@@ -449,7 +395,7 @@
                 <h1 class="text-3xl md:text-5xl font-black font-serif-heading tracking-wider text-white">
                     LUCKNOW WEDDING <span class="text-[#D4AF37]">STUDIO</span>
                 </h1>
-                <p class="text-white/60 text-[11px] font-bold tracking-[0.35em] uppercase mt-2">Bespoke Quotation & Production Proposal Engine</p>
+                <p class="text-white/60 text-[11px] font-bold tracking-[0.35em] uppercase mt-2">Bespoke Quotation & Proposal Management System</p>
             </div>
             <div class="flex items-center gap-4">
                 <button onclick="toggleCategorySection()" id="section-toggle-btn" class="bg-white/5 hover:bg-white/15 text-white/90 px-6 py-3 rounded-full text-[11px] font-extrabold uppercase tracking-widest border border-white/15 transition-all shadow-lg backdrop-blur-md">Configure Selection</button>
@@ -490,7 +436,7 @@
                             </div>
                             <div class="flex items-center gap-2 w-full sm:w-auto">
                                 <input type="month" id="global-target-month" onchange="setGlobalBaseMonth(this.value)" class="bg-white/10 border border-[#D4AF37]/40 rounded-xl px-3 py-1.5 text-xs font-bold text-[#D4AF37] uppercase focus:outline-none">
-                                <button onclick="applyBaseMonthToAllEvents()" class="bg-[#997A15] hover:bg-[#D4AF37] hover:text-black text-white text-[10px] font-black uppercase px-3.5 py-2 rounded-xl transition-all shadow">Apply Month</button>
+                                <button onclick="applyBaseMonthToAllEvents()" class="bg-[#997A15] hover:bg-[#D4AF37] hover:text-black text-white text-[10px] font-black uppercase px-3 py-2 rounded-xl transition-all shadow">Apply Month</button>
                             </div>
                         </div>
                     </div>
@@ -501,8 +447,8 @@
                     <div class="liquid-glass p-6 md:p-8">
                         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
                             <div>
-                                <h2 class="text-[11px] font-black uppercase tracking-[0.25em] text-[#D4AF37]">Add Ritual Functions & Ceremonies</h2>
-                                <p class="text-[11px] text-gray-400 mt-0.5">Select ritual functions to assign dedicated mirrorless crew units</p>
+                                <h2 class="text-[11px] font-black uppercase tracking-[0.25em] text-[#D4AF37]">Add Service Functions</h2>
+                                <p class="text-[11px] text-gray-400 mt-0.5">Click to add ritual events and assign specialized crew units</p>
                             </div>
                             <div class="flex items-center gap-3 bg-white/5 px-4 py-2 rounded-2xl border border-white/10">
                                 <span class="text-[10px] font-extrabold text-gray-300 uppercase tracking-widest">Show Line Items in PDF</span>
@@ -516,12 +462,12 @@
                     </div>
 
                     <div class="liquid-glass p-6 md:p-8">
-                        <h2 class="text-[11px] font-black uppercase tracking-[0.25em] text-[#D4AF37] mb-2">Handcrafted Royal Heritage Leather Photobooks</h2>
-                        <p class="text-[11px] text-gray-300 mb-6">Ultra-luxurious flush-mount photobooks wrapped in genuine imported leather, equipped with non-tearable matte-velvet leaves & customized leather presentation cases</p>
+                        <h2 class="text-[11px] font-black uppercase tracking-[0.25em] text-[#D4AF37] mb-2">Heritage Royal Flush-Mount Photobook Albums (Handcrafted Luxury Edition)</h2>
+                        <p class="text-[11px] text-gray-300 mb-6 leading-relaxed">Artisan handcrafted photobooks with genuine Italian leather binding, custom gold embossing, non-tearable ultra-HD velvet leaves with archival coating, personalized leather carrying briefcase & luxury display box.</p>
                         <div class="flex flex-wrap gap-3">
-                            <button onclick="addAlbum(20)" class="flex-1 py-4 border border-[#D4AF37]/40 bg-gradient-to-br from-[#D4AF37]/10 to-transparent rounded-2xl text-[10.5px] font-black hover:bg-[#D4AF37] hover:text-black transition-all uppercase tracking-wider text-[#F4E0A5]">+ 20 Sheets Royal Leather Photobook</button>
-                            <button onclick="addAlbum(40)" class="flex-1 py-4 border border-[#D4AF37]/40 bg-gradient-to-br from-[#D4AF37]/10 to-transparent rounded-2xl text-[10.5px] font-black hover:bg-[#D4AF37] hover:text-black transition-all uppercase tracking-wider text-[#F4E0A5]">+ 40 Sheets Signature Leather Heirloom</button>
-                            <button onclick="addAlbum(50)" class="flex-1 py-4 border border-[#D4AF37]/40 bg-gradient-to-br from-[#D4AF37]/10 to-transparent rounded-2xl text-[10.5px] font-black hover:bg-[#D4AF37] hover:text-black transition-all uppercase tracking-wider text-[#F4E0A5]">+ 50 Sheets Sovereign Leather Grand Volume</button>
+                            <button onclick="addAlbum(20)" class="flex-1 py-4 border border-[#D4AF37]/40 bg-white/5 rounded-2xl text-[10.5px] font-black hover:bg-[#D4AF37] hover:text-black transition-all uppercase tracking-wider">+ 20 Sheets Royal Leather Album</button>
+                            <button onclick="addAlbum(40)" class="flex-1 py-4 border border-[#D4AF37]/40 bg-white/5 rounded-2xl text-[10.5px] font-black hover:bg-[#D4AF37] hover:text-black transition-all uppercase tracking-wider">+ 40 Sheets Royal Heritage Album</button>
+                            <button onclick="addAlbum(50)" class="flex-1 py-4 border border-[#D4AF37]/40 bg-white/5 rounded-2xl text-[10.5px] font-black hover:bg-[#D4AF37] hover:text-black transition-all uppercase tracking-wider">+ 50 Sheets Signature Grand Album</button>
                         </div>
                     </div>
                 </div>
@@ -529,24 +475,23 @@
                 <!-- Dynamic Events List -->
                 <div id="events-container" class="space-y-6"></div>
 
-                <!-- Dynamic Project Deliverables Section (High Impact, Value-Packed & Luxurious) -->
-                <div id="project-deliverables-section" class="liquid-glass p-7 md:p-10 border-[#D4AF37]/50 shadow-2xl">
-                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-3 border-b border-white/10 pb-5">
+                <!-- Dynamic Project Deliverables Section -->
+                <div id="project-deliverables-section" class="liquid-glass p-6 md:p-8">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-3">
                         <div>
-                            <span class="text-[10px] font-black uppercase tracking-[0.3em] text-[#D4AF37] block mb-1">VIP Inclusions & Comprehensive Handover</span>
-                            <h2 class="text-xl md:text-2xl font-black uppercase font-serif-heading text-white tracking-wider flex items-center gap-2">
-                                <span class="w-3 h-3 rounded-full bg-[#D4AF37] shadow-[0_0_12px_#D4AF37]"></span> Master Project Deliverables & VIP Privileges
+                            <h2 class="text-[11px] font-black uppercase tracking-[0.25em] text-[#D4AF37] flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-[#D4AF37]"></span> Guaranteed Master Deliverables & Premium Benefits
                             </h2>
-                            <p class="text-xs text-gray-300 mt-1.5 leading-relaxed">High-value production assets delivered directly via encrypted High-Speed Google Cloud Drive with permanent archiving.</p>
+                            <p class="text-[10.5px] text-gray-400 mt-1">High-value comprehensive package outputs delivered via High-Speed Dedicated Cloud Drive (Google Drive Storage Archive)</p>
                         </div>
-                        <span id="deliverable-badge-status" class="text-[10px] font-extrabold text-emerald-400 uppercase bg-emerald-950/80 border border-emerald-500/50 px-4 py-2 rounded-full tracking-wider shadow-lg">Cloud Drive Archival Delivery Guaranteed</span>
+                        <span id="deliverable-badge-status" class="text-[9.5px] font-extrabold text-emerald-400 uppercase bg-emerald-950/70 border border-emerald-500/40 px-3.5 py-1.5 rounded-full tracking-wider">Cloud Drive Delivery</span>
                     </div>
-                    <div id="deliverables-list" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
+                    <div id="deliverables-list" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
                 </div>
 
                 <!-- Selected Albums -->
                 <div id="album-section" class="liquid-glass p-6 md:p-8 hidden">
-                    <h2 class="text-[11px] font-black uppercase tracking-[0.25em] text-[#D4AF37] mb-6">Selected Royal Genuine Leather Albums</h2>
+                    <h2 class="text-[11px] font-black uppercase tracking-[0.25em] text-[#D4AF37] mb-6">Selected Royal Leather Flush-Mount Albums</h2>
                     <div id="albums-container" class="space-y-4"></div>
                 </div>
 
@@ -558,77 +503,10 @@
                     <textarea id="proposal-note" oninput="handleGlobalUpdate('note', this.value)" class="input-glass w-full h-28 text-sm font-medium focus:ring-1 focus:ring-[#D4AF37]" placeholder="e.g., Raw uncompressed digital photos and edited master videos will be delivered on high-speed cloud drive (Google Drive) within 10 days. Album sheets design selection will be conducted in coordination with the couple."></textarea>
                 </div>
 
-                <!-- Team and Devices Section (Prominently Enlarged, High Visual Impact) -->
-                <div class="liquid-glass p-8 md:p-11 border-[#D4AF37]/60 shadow-2xl relative overflow-hidden bg-gradient-to-br from-[#121218]/90 via-[#0a0a0f]/95 to-[#16140b]/90">
-                    <div class="absolute -top-12 -right-12 w-64 h-64 bg-[#D4AF37]/10 rounded-full filter blur-3xl pointer-events-none"></div>
-                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-white/10 pb-6 mb-8">
-                        <div>
-                            <span class="text-[11px] font-extrabold text-[#D4AF37] tracking-[0.35em] uppercase block mb-1">PRO-TIER HARDWARE & CREW SPECS</span>
-                            <h2 id="gear-inventory-title" class="text-2xl md:text-4xl font-black uppercase font-serif-heading text-white tracking-wider">Team and Devices</h2>
-                            <p class="text-xs text-gray-300 mt-1">Mirrorless camera technology & dedicated production grip units deployed for your wedding.</p>
-                        </div>
-                        <span class="text-[11px] font-extrabold px-4 py-2 rounded-full bg-[#D4AF37]/20 border border-[#D4AF37]/50 text-[#F4E0A5] tracking-widest uppercase shadow-lg">100% Professional Mirrorless Units</span>
-                    </div>
-
-                    <!-- Hardware Specification Matrix Cards (Expanded & Detailed) -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-gray-200">
-                        <!-- Camera Bodies Card -->
-                        <div class="bg-white/5 border border-[#D4AF37]/30 p-6 rounded-2xl flex flex-col justify-between hover:border-[#D4AF37] transition-all group shadow-xl">
-                            <div>
-                                <div class="flex items-center gap-3 text-[#D4AF37] mb-3">
-                                    <span class="text-2xl">📷</span>
-                                    <h4 class="font-black uppercase tracking-wider text-sm text-white group-hover:text-[#D4AF37] transition-colors">Camera Bodies & Units</h4>
-                                </div>
-                                <div class="text-xs text-gray-300 leading-relaxed space-y-2">
-                                    <p class="font-bold text-white text-sm">• Body: Sony M4, Sony FX or Nikon Z6 Professional Units</p>
-                                    <p class="text-gray-400">Traditional ceremonies covered on <strong>Nikon Z6 / Sony mirrorless bodies</strong>. Candid photography handled by <strong>upgraded Sony mirrorless cameras</strong>. Cinematic films captured on <strong>Sony M4 (A7 IV) & Sony FX Cinema line</strong> with dual card safety redundancy.</p>
-                                </div>
-                            </div>
-                            <div class="mt-5 pt-3 border-t border-white/10 flex items-center justify-between">
-                                <span class="text-[10px] font-black text-[#F4E0A5] uppercase tracking-wider">Dual Card Slot Backup Safety</span>
-                                <span class="text-[9px] bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded font-bold uppercase">Pro Mirrorless</span>
-                            </div>
-                        </div>
-
-                        <!-- Lenses Card -->
-                        <div class="bg-white/5 border border-[#D4AF37]/30 p-6 rounded-2xl flex flex-col justify-between hover:border-[#D4AF37] transition-all group shadow-xl">
-                            <div>
-                                <div class="flex items-center gap-3 text-[#D4AF37] mb-3">
-                                    <span class="text-2xl">🔍</span>
-                                    <h4 class="font-black uppercase tracking-wider text-sm text-white group-hover:text-[#D4AF37] transition-colors">Lenses & Optical Glass</h4>
-                                </div>
-                                <div class="text-xs text-gray-300 leading-relaxed space-y-2">
-                                    <p class="font-bold text-white text-sm">• Lenses: 24-70mm, 70-200mm, 50mm f/1.2, 50mm f/1.8, 35mm f/1.4, 85mm f/1.8</p>
-                                    <p class="text-gray-400">Master G-Master & S-Line cinema lenses providing buttery background bokeh, crisp portrait detail, and low-light night function clarity.</p>
-                                </div>
-                            </div>
-                            <div class="mt-5 pt-3 border-t border-white/10 flex items-center justify-between">
-                                <span class="text-[10px] font-black text-[#F4E0A5] uppercase tracking-wider">Fast Prime & Cinema Zoom Lenses</span>
-                                <span class="text-[9px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-bold uppercase">Prime Glass</span>
-                            </div>
-                        </div>
-
-                        <!-- Accessories & Support Crew Card -->
-                        <div class="bg-white/5 border border-[#D4AF37]/30 p-6 rounded-2xl flex flex-col justify-between hover:border-[#D4AF37] transition-all group shadow-xl">
-                            <div>
-                                <div class="flex items-center gap-3 text-[#D4AF37] mb-3">
-                                    <span class="text-2xl">💡</span>
-                                    <h4 class="font-black uppercase tracking-wider text-sm text-white group-hover:text-[#D4AF37] transition-colors">Accessories & On-Site Crew</h4>
-                                </div>
-                                <div class="text-xs text-gray-300 leading-relaxed space-y-2">
-                                    <p class="font-bold text-white text-sm">• Accessories: LC, Studio Lights, Camera Stands, Gimbals</p>
-                                    <p class="text-gray-400">Heavy-duty LC (Light Controls), high-power studio flashes, 3-axis motorized gimbals paired with on-site <strong>Dedicated Lightman & Technical Assistant</strong> crew.</p>
-                                </div>
-                            </div>
-                            <div class="mt-5 pt-3 border-t border-white/10 flex items-center justify-between">
-                                <span class="text-[10px] font-black text-[#F4E0A5] uppercase tracking-wider">Assistant & Lightman Included</span>
-                                <span class="text-[9px] bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded font-bold uppercase">Grip & Lighting</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Detailed Dynamic Equipment Summary -->
-                    <div id="gear-inventory-container" class="mt-8 pt-8 border-t border-white/10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 text-gray-300"></div>
+                <!-- Dynamic Kit & Device Inventory Summary -->
+                <div class="liquid-glass p-6 md:p-8">
+                    <h2 id="gear-inventory-title" class="text-[11px] font-black uppercase tracking-[0.25em] text-[#D4AF37] mb-6">Equipment, Camera Toolkits & Production Gear Inventory</h2>
+                    <div id="gear-inventory-container" class="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-300"></div>
                 </div>
             </div>
 
@@ -645,7 +523,7 @@
                             <span>Core Event Coverage</span><span id="summary-event-total" class="text-white font-extrabold text-sm">₹0</span>
                         </div>
                         <div class="flex justify-between items-center text-xs text-gray-400 font-bold uppercase tracking-wider">
-                            <span>Heritage Leather Albums</span><span id="summary-album-total" class="text-white font-extrabold text-sm">₹0</span>
+                            <span>Royal Leather Albums</span><span id="summary-album-total" class="text-white font-extrabold text-sm">₹0</span>
                         </div>
                         <div class="flex justify-between items-center text-xs text-gray-400 font-bold uppercase tracking-wider">
                             <span>Specialized Aerial & Gear</span><span id="summary-gear-total" class="text-white font-extrabold text-sm">₹0</span>
@@ -691,18 +569,18 @@
                         <p id="final-total" class="text-3xl md:text-4xl font-black text-white tracking-tight font-serif-heading">₹0</p>
                     </div>
 
-                    <!-- Share & Download Options -->
+                    <!-- Explicit Share & Download Options -->
                     <div class="mt-6 space-y-3">
                         <p class="text-[9.5px] font-black text-gray-400 uppercase tracking-widest text-center mb-1">Export & Share Quotation</p>
                         
-                        <!-- Option 1: Direct Share -->
+                        <!-- Action Option 1: Direct Share -->
                         <button class="w-full btn-green py-4 rounded-[18px] text-[10.5px] font-black uppercase tracking-widest flex items-center justify-center gap-2" onclick="shareProposal()">
                             <span>📲</span> Direct Share (WhatsApp / Web Share)
                         </button>
 
-                        <!-- Option 2: Download PDF -->
+                        <!-- Action Option 2: Download PDF -->
                         <button class="w-full btn-gold py-4 rounded-[18px] text-[10.5px] font-black uppercase tracking-widest flex items-center justify-center gap-2" onclick="generatePDF()">
-                            <span>📄</span> Download Official Proposal (PDF)
+                            <span>📄</span> Download Proposal (PDF)
                         </button>
                     </div>
                 </div>
@@ -715,51 +593,51 @@
         <div class="p-header">
             <div>
                 <h1 class="p-studio-name">LUCKNOW WEDDING <span style="color: #997A15;">STUDIO</span></h1>
-                <p style="margin: 4px 0 2px 0; font-size: 8.5pt; color: #1e293b; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">Premium Cinema & High-Resolution Mirrorless Photography</p>
-                <p style="margin: 0; font-size: 8pt; color: #64748b; text-transform: uppercase;">4th Floor, 94, MG Marg, Hazratganj, Lucknow | +91 7394019474, 8808808840</p>
+                <p style="margin: 3px 0 2px 0; font-size: 8.5pt; color: #1e293b; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">Premium Cinema & High Quality Wedding Photography</p>
+                <p style="margin: 0; font-size: 7.5pt; color: #64748b; text-transform: uppercase;">4th Floor, 94, MG Marg, Hazratganj, Lucknow | +91 7394019474, 8808808840</p>
             </div>
             <div style="text-align: right;">
-                <div style="background: #D4AF37; color: #000; padding: 7px 16px; font-weight: 900; font-size: 10.5pt; letter-spacing: 1px; font-family: 'Cinzel', serif; -webkit-print-color-adjust: exact;">OFFICIAL PROPOSAL</div>
-                <p style="margin-top:5px; font-size: 8.5pt;"><strong>DATE:</strong> <span id="print-doc-date"></span></p>
+                <div style="background: #D4AF37; color: #000; padding: 6px 16px; font-weight: 900; font-size: 10.5pt; letter-spacing: 1px; font-family: 'Cinzel', serif; -webkit-print-color-adjust: exact;">OFFICIAL PROPOSAL</div>
+                <p style="margin-top:4px; font-size: 8pt;"><strong>DATE:</strong> <span id="print-doc-date"></span></p>
             </div>
         </div>
 
         <div style="display: flex; justify-content: space-between; margin-bottom: 16px; align-items: stretch;">
-            <div style="border-left: 4px solid #997A15; padding-left: 16px; background: #fffaf0; padding-top: 8px; padding-bottom: 8px; padding-right: 20px; min-width: 320px; border-radius: 4px;">
-                <p style="margin: 0; font-size: 7.5pt; color: #64748b; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px;">PREPARED EXCLUSIVELY FOR:</p>
-                <p style="margin: 3px 0 0; font-size: 13pt;" class="p-client-name-print" id="print-client-name"></p>
+            <div style="border-left: 4px solid #997A15; padding-left: 14px; background: #fffaf0; padding-top: 8px; padding-bottom: 8px; padding-right: 18px; min-width: 300px; border-radius: 4px;">
+                <p style="margin: 0; font-size: 7pt; color: #64748b; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px;">PREPARED EXCLUSIVELY FOR:</p>
+                <p style="margin: 3px 0 0; font-size: 12pt;" class="p-client-name-print" id="print-client-name"></p>
                 <p style="margin: 2px 0 0; font-size: 8.5pt; color: #334155; font-weight: 700;" id="print-client-phone"></p>
             </div>
-            <div style="text-align: right; font-size: 8pt; background: #f8fafc; padding: 8px 14px; border-radius: 4px; border: 1px solid #e2e8f0; min-width: 210px;">
+            <div style="text-align: right; font-size: 8pt; background: #f8fafc; padding: 8px 14px; border-radius: 4px; border: 1px solid #e2e8f0; min-width: 200px;">
                 <p><strong>PROPOSAL REF:</strong> #LWS-2026-QT</p>
-                <p style="margin-top:2px;"><strong>STATUS:</strong> Verified Luxury Proposal</p>
+                <p style="margin-top:2px;"><strong>STATUS:</strong> Verified Quotation</p>
                 <p style="margin-top:2px;"><strong>VALIDITY:</strong> 30 Days from Issuance</p>
             </div>
         </div>
 
-        <div class="p-section-title">1. Event Schedule & Specialized Crew Allocation</div>
+        <div class="p-section-title">1. Event Schedule, Crew Deployment & Technical Equipment Allocation</div>
         <table id="print-events-table" class="p-table">
             <thead>
                 <tr id="print-events-header">
-                    <th style="width: 25%;">Event & Function</th>
-                    <th style="width: 26%;">Date, Duration & Venue</th>
-                    <th style="width: 35%;">Allocated Crew & Mirrorless Gear</th>
-                    <th style="width: 14%; text-align: right;">Investment</th>
+                    <th style="width: 22%;">Event & Ritual Function</th>
+                    <th style="width: 22%;">Date, Duration & Venue</th>
+                    <th style="width: 44%;">Allocated Crew & Specialized Equipment Toolkits</th>
+                    <th style="width: 12%; text-align: right;">Investment</th>
                 </tr>
             </thead>
             <tbody id="print-events-body"></tbody>
         </table>
 
-        <div class="p-section-title">2. Guaranteed Master Deliverables & VIP Privileges</div>
+        <div class="p-section-title">2. Guaranteed Master Deliverables & Premium Benefits</div>
         <div id="print-deliverables-body" class="p-deliverables-grid"></div>
 
         <div id="print-album-section" style="display:none;">
-            <div class="p-section-title">3. Handcrafted Heritage Genuine Leather Photobooks</div>
+            <div class="p-section-title">3. Heritage Royal Flush-Mount Photobook Albums</div>
             <table id="print-albums-table" class="p-table">
                 <thead>
                     <tr>
-                        <th style="width: 70%;">Album Specifications & Finishing Details</th>
-                        <th style="width: 15%;">Quantity</th>
+                        <th style="width: 70%;">Album Specifications & Artisan Luxury Features</th>
+                        <th style="width: 15%; text-align: center;">Quantity</th>
                         <th style="width: 15%; text-align: right;">Investment</th>
                     </tr>
                 </thead>
@@ -768,35 +646,35 @@
         </div>
 
         <div id="print-note-section" style="display: none; break-inside: avoid; margin-top: 12px;">
-            <div class="p-section-title">Special Notes & Production Guidelines</div>
-            <div style="background: #fafafa; border: 1px dashed #D4AF37; padding: 10px 12px; border-radius: 6px; font-size: 7.8pt; line-height: 1.45; color: #1e293b; white-space: pre-line;" id="print-note-body"></div>
+            <div class="p-section-title">Special Notes & Guidelines</div>
+            <div style="background: #fafafa; border: 1px dashed #D4AF37; padding: 10px 12px; border-radius: 6px; font-size: 7.5pt; line-height: 1.5; color: #1e293b; white-space: pre-line;" id="print-note-body"></div>
         </div>
 
         <div id="print-gear-section">
-            <div class="p-section-title" id="print-gear-title">4. Team and Devices Inventory</div>
-            <div style="background: #fafafa; padding: 12px 16px; border-radius: 6px; border: 1px solid #e2e8f0; margin-bottom: 12px;">
-                <ul id="print-gear-list" style="font-size: 8pt; line-height: 1.6; list-style: none; padding-left: 0; margin: 0; color: #1e293b;"></ul>
+            <div class="p-section-title" id="print-gear-title">4. Technical Equipment, Camera Toolkits & Production Gear Inventory</div>
+            <div style="background: #fafafa; padding: 10px 14px; border-radius: 6px; border: 1px solid #e2e8f0; margin-bottom: 12px;">
+                <div id="print-gear-list" style="font-size: 7.5pt; line-height: 1.55; color: #1e293b;"></div>
             </div>
         </div>
 
         <div class="p-grid">
             <div>
                 <div class="p-section-title">5. Payment Schedule</div>
-                <div style="font-size: 7.8pt; line-height: 1.5; color: #334155;">
-                    <div style="border-bottom: 1px solid #e2e8f0; padding: 2px 0;">• <strong>Booking Advance:</strong> 20% (To reserve dates & lock crew)</div>
+                <div style="font-size: 7.5pt; line-height: 1.55; color: #334155;">
+                    <div style="border-bottom: 1px solid #e2e8f0; padding: 2px 0;">• <strong>Booking Advance:</strong> 20% (To reserve dates)</div>
                     <div style="border-bottom: 1px solid #e2e8f0; padding: 2px 0;">• <strong>Pre-Event Milestone:</strong> 30% (30 days prior to event)</div>
-                    <div style="border-bottom: 1px solid #e2e8f0; padding: 2px 0;">• <strong>On-Site Payment:</strong> 40% (On first ceremony date)</div>
-                    <div style="padding: 2px 0;">• <strong>Final Handover:</strong> 10% (On Google Cloud Drive digital delivery)</div>
+                    <div style="border-bottom: 1px solid #e2e8f0; padding: 2px 0;">• <strong>On-Site Payment:</strong> 40% (On first function date)</div>
+                    <div style="padding: 2px 0;">• <strong>Final Delivery:</strong> 10% (On raw & edited Cloud Drive handover)</div>
                 </div>
             </div>
             <div>
-                <div class="p-section-title">6. Terms & Production Standards</div>
-                <div style="font-size: 7.2pt; line-height: 1.4; color: #475569;">
-                    <p>1. Advance token guarantees production team allocation & camera reservation.</p>
-                    <p>2. Coverage commences upon completion of scheduled payments.</p>
-                    <p>3. Raw high-res files & masters archived safely on Google Drive.</p>
-                    <p>4. Client approves photo selection for custom leather albums prior to printing.</p>
-                    <p>5. Outstation travel, lodging, and local transit provided by client.</p>
+                <div class="p-section-title">6. Terms & Conditions</div>
+                <div style="font-size: 7pt; line-height: 1.4; color: #475569;">
+                    <p>1. Booking token is non-refundable under any cancellation.</p>
+                    <p>2. Event coverage commences strictly upon receipt of 90% total payment.</p>
+                    <p>3. Lucknow Wedding Studio retains full intellectual property copyright.</p>
+                    <p>4. For outstation assignments, travel, lodging, and meals are covered by client.</p>
+                    <p>5. Delays in client photo selection for albums will not withhold final balance.</p>
                 </div>
             </div>
         </div>
@@ -805,8 +683,8 @@
             <div class="p-summary-left">
                 <div class="p-section-title" style="margin-top: 0; border-bottom: 2px solid #D4AF37;">Investment Breakdown</div>
                 <div class="p-breakdown-row"><span class="p-breakdown-label">Core Event Coverage:</span><span class="p-breakdown-value" id="print-breakdown-core">₹0</span></div>
-                <div class="p-breakdown-row"><span class="p-breakdown-label">Heritage Leather Albums:</span><span class="p-breakdown-value" id="print-breakdown-albums">₹0</span></div>
-                <div class="p-breakdown-row"><span class="p-breakdown-label">Aerial & Special Visual Units:</span><span class="p-breakdown-value" id="print-breakdown-gear">₹0</span></div>
+                <div class="p-breakdown-row"><span class="p-breakdown-label">Royal Leather Albums:</span><span class="p-breakdown-value" id="print-breakdown-albums">₹0</span></div>
+                <div class="p-breakdown-row"><span class="p-breakdown-label">Special Aerial & Technical Equipment:</span><span class="p-breakdown-value" id="print-breakdown-gear">₹0</span></div>
                 <div class="p-breakdown-row" id="print-breakdown-adj-row" style="display:none;"><span class="p-breakdown-label">Package Scaling (+ / -):</span><span class="p-breakdown-value" id="print-breakdown-adj">0%</span></div>
                 <div class="p-breakdown-row" style="margin-top: 3px; border-top: 1px solid #cbd5e1; padding-top: 5px;"><span class="p-breakdown-label">Gross Subtotal:</span><span class="p-breakdown-value" id="print-breakdown-gross">₹0</span></div>
                 <div class="p-breakdown-row"><span class="p-breakdown-label">Privilege Discount:</span><span class="p-breakdown-value" style="color: #b91c1c;" id="print-breakdown-discount">- ₹0</span></div>
@@ -816,7 +694,7 @@
             <div class="p-summary-right" style="-webkit-print-color-adjust: exact;">
                 <p style="margin: 0; text-transform: uppercase; font-size: 7.5pt; font-weight: 800; letter-spacing: 2px; color: #D4AF37;">Net Package Investment</p>
                 <h2 style="margin: 4px 0 0; font-size: 22pt; font-weight: 900; font-family: 'Cinzel', serif;" id="print-final-total"></h2>
-                <p style="font-size: 6.8pt; margin-top: 4px; opacity: 0.85; letter-spacing: 0.5px;">*ALL-INCLUSIVE BESPOKE CREW & MASTER DELIVERABLES</p>
+                <p style="font-size: 6.5pt; margin-top: 4px; opacity: 0.85; letter-spacing: 0.5px;">*ALL-INCLUSIVE PROFESSIONAL CREW & DELIVERABLES FEE</p>
             </div>
         </div>
 
@@ -838,23 +716,22 @@
         const PRICING = {
             trad_photo: 2500, trad_video: 2500, candid_photo: 5000, cinematographer: 5000, 
             drone: 5000, led_wall: 10000, crane: 10000, albumPerSheet: 250, premium_bonus: 5000,
-            assistant: 0, lightman: 0
+            assistant: 0 
         };
 
-        // Specific crew label mappings with explicit technology standards requested
+        /* Professional team labels with accurate Sony Alpha A7 IV, Sony FX Cinema Line, and Nikon Z6 specifications */
         const TEAM_LABELS = {
-            trad_photo: "Traditional Photographer (Nikon Z6 / Sony Mirrorless System)", 
-            trad_video: "Traditional Videographer (Sony Mirrorless 4K Unit)", 
-            candid_photo: "Candid Specialist (Upgraded Sony Mirrorless Camera)", 
-            cinematographer: "Cinematographer (Sony FX Cinema Camera & Sony M4 Body)", 
-            drone: "Aerial Pilot (DJI 4K Drone Unit)", 
-            led_wall: "Ultra-HD Live LED Display Wall", 
-            crane: "Heavy-Duty Jimmy Jib Crane System", 
-            half: "Traditional Mirrorless Unit (Photo + Video)", 
-            full: "Complete Full Unit (Traditional + Candid + Cinema)", 
-            premium: "Signature Cinema Elite Unit (Sony FX & Upgraded Mirrorless)",
-            assistant: "Technical Crew Assistant",
-            lightman: "Dedicated Lightman (Studio Lights & LC Lighting)"
+            trad_photo: "Traditional Photographer (Sony Alpha A7 IV / A7M4 / Nikon Z6 Unit)", 
+            trad_video: "Traditional Videographer (Sony Alpha A7 IV / A7M4 / Nikon Z6 Ultra HD Unit)", 
+            candid_photo: "Candid Photographer (Sony Alpha A7 IV / A7R Series with Premium GM Lenses)", 
+            cinematographer: "Cinematographer (Sony FX Cinema Line FX3/FX6 with Cinema Prime Lenses)", 
+            drone: "DJI Aerial Drone Unit (4K Cinematic Aerial Coverage)", 
+            led_wall: "High Quality LED Display Wall Setup", 
+            crane: "Jimmy Jib Crane Camera Unit", 
+            half: "Traditional Half Unit (Photo + Video Crew)", 
+            full: "Complete Full Unit (Traditional + Premium Candid & Cinema Crew)", 
+            premium: "Signature Cinema Elite Unit (Sony FX Cinema & GM Lens Toolkit)",
+            assistant: "Technical Crew & Studio Lighting Assistant"
         };
 
         const TEAM_EXPANSION = {
@@ -868,7 +745,7 @@
         let state = { 
             clientName: '', 
             clientContact: '', 
-            note: 'All raw uncompressed high-resolution digital photographs and 4K edited master videos will be delivered via high-speed encrypted Cloud Drive (Google Drive Archive) within 10 days. Album sheets design and custom photo curation will be conducted in coordination with the couple.', 
+            note: 'Raw uncompressed digital photos and edited master videos will be delivered on high-speed cloud drive (Google Drive) within 10 days. Album sheets design selection will be conducted in coordination with the couple.', 
             events: [], 
             albums: [], 
             travelCost: 0, 
@@ -1008,29 +885,72 @@
             } 
         }
 
-        // Expanded Crew: includes assistant AND lightman automatically with candid/cinema or full setups
         function getDetailedCrew(teamSelections) {
             let crew = [];
-            let needsCrewSupport = false;
-
+            let needsAssistant = false;
             teamSelections.forEach(sel => {
                 if (TEAM_EXPANSION[sel]) {
                     TEAM_EXPANSION[sel].forEach(exp => {
                         crew.push(TEAM_LABELS[exp]);
-                        if(['candid_photo', 'cinematographer'].includes(exp)) needsCrewSupport = true;
+                        if(['candid_photo', 'cinematographer'].includes(exp)) needsAssistant = true;
                     });
                 } else {
                     crew.push(TEAM_LABELS[sel]);
-                    if(['candid_photo', 'cinematographer'].includes(sel)) needsCrewSupport = true;
+                    if(['candid_photo', 'cinematographer'].includes(sel)) needsAssistant = true;
                 }
             });
+            if(needsAssistant) crew.push(TEAM_LABELS['assistant']);
+            return [...new Set(crew)];
+        }
 
-            if(needsCrewSupport || teamSelections.includes('half') || teamSelections.includes('full') || teamSelections.includes('premium')) {
-                crew.push(TEAM_LABELS['assistant']);
-                crew.push(TEAM_LABELS['lightman']);
+        /* Generates explicit equipment kit details based on crew selections for event cards and print tables */
+        function getEventKitBreakdown(teamSelections) {
+            let expanded = [];
+            teamSelections.forEach(s => {
+                if (TEAM_EXPANSION[s]) expanded.push(...TEAM_EXPANSION[s]);
+                else expanded.push(s);
+            });
+
+            let bodies = [];
+            let lenses = [];
+            let accessories = [];
+
+            if (expanded.includes('cinematographer') || expanded.includes('premium')) {
+                bodies.push("Sony FX Cinema Line (FX3 / FX6)");
+                lenses.push("24-70mm f/2.8 GM II", "70-200mm f/2.8 GM II", "50mm f/1.2 GM", "35mm f/1.4 GM");
+                accessories.push("DJI RS3/RS4 Pro Gimbal", "Continuous LC Lights", "Wireless Audio Receiver Systems");
+            }
+            if (expanded.includes('candid_photo')) {
+                bodies.push("Sony Alpha Mirrorless (A7 IV / A7R Series)");
+                lenses.push("85mm f/1.4 GM", "50mm f/1.2 GM", "35mm f/1.4 GM");
+                accessories.push("Studio Flash Lights", "Heavy Camera Stands", "High-Speed Dual Memory Cards");
+            }
+            if (expanded.includes('trad_photo') || expanded.includes('trad_video')) {
+                bodies.push("Sony Alpha A7 IV (A7M4) / Nikon Z6 Professional Units");
+                lenses.push("24-70mm f/2.8", "70-200mm f/2.8", "50mm f/1.8");
+                accessories.push("Continuous LC Lights", "Studio Flash", "Heavy-Duty Camera Stands");
+            }
+            if (expanded.includes('drone')) {
+                bodies.push("DJI Aerial Drone Fleet (4K Cinematic Unit)");
+                accessories.push("High-Capacity Intelligent Batteries", "ND Filters Toolkit");
+            }
+            if (expanded.includes('led_wall')) {
+                accessories.push("High-Resolution Indoor LED Wall Display System with Processor");
+            }
+            if (expanded.includes('crane')) {
+                accessories.push("Jimmy Jib Crane Heavy-Duty Camera Setup with Monitor Panel");
             }
 
-            return [...new Set(crew)];
+            // Default fallbacks if empty
+            if (bodies.length === 0) bodies.push("Sony Alpha A7 IV (A7M4) / Nikon Z6 Professional Units");
+            if (lenses.length === 0) lenses.push("24-70mm f/2.8 GM", "70-200mm f/2.8 GM", "50mm f/1.8");
+            if (accessories.length === 0) accessories.push("LC Lights", "Studio Flash", "Heavy Camera Stands", "DJI Gimbals");
+
+            return {
+                bodies: [...new Set(bodies)].join(", "),
+                lenses: [...new Set(lenses)].join(", "),
+                accessories: [...new Set(accessories)].join(", ")
+            };
         }
 
         function calculateEventCost(ev) {
@@ -1069,9 +989,9 @@
         function getFormattedFileName() {
             const clientName = (state.clientName || "").trim().toUpperCase();
             if (clientName) {
-                return `${clientName} - LUCKNOW WEDDING STUDIO QUOTATION`;
+                return `${clientName} - LUCKNOW WEDDING STUDIO QUOTATION SHARE`;
             }
-            return `LUCKNOW WEDDING STUDIO QUOTATION`;
+            return `LUCKNOW WEDDING STUDIO QUOTATION SHARE`;
         }
 
         function calculateAndRefreshTotals() {
@@ -1152,10 +1072,11 @@
                 albumsTable.classList.add('no-prices');
             }
 
-            // Render event rows in PDF
+            // Render event rows in PDF with full team, body, lens, and accessory details
             document.getElementById('print-events-body').innerHTML = state.events.map(ev => {
                 const c = calculateEventCost(ev); 
                 const crewDetailed = getDetailedCrew(ev.teamSelections);
+                const kit = getEventKitBreakdown(ev.teamSelections);
                 
                 let detailLines = [];
                 const expanded = [];
@@ -1165,42 +1086,44 @@
                 });
 
                 if(expanded.some(s => ['trad_photo', 'trad_video'].includes(s))) {
-                    detailLines.push("Traditional ritual coverage with Nikon Z6 / Sony Mirrorless units");
+                    detailLines.push("Covers complete traditional rituals & family ceremonies");
                 }
                 if(expanded.some(s => ['candid_photo', 'cinematographer'].includes(s))) {
-                    detailLines.push("Artistic couple portraits & candid coverage on Upgraded Sony Mirrorless & Sony FX Cinema cameras");
+                    detailLines.push("Includes artistic portraiture & couple getting-ready coverage");
                 }
 
                 const isWedding = ev.name.includes("WEDDING") && !ev.name.includes("PRE");
-                const weddingDuration = "From Evening (4:00 PM) to next morning Vidai ceremony";
-                const shortDuration = "Approximately 4 - 5 Hours of dedicated coverage";
+                const weddingDuration = "From 4:00 PM until next morning Vidai (7-8 AM)";
+                const shortDuration = "Approximately 4 - 5 Hours";
                 
                 const durationValue = isWedding ? weddingDuration : shortDuration;
                 const formattedDateStr = ev.date ? ev.date.split('-').reverse().join('.') : 'Date TBD';
 
                 return `<tr>
-                    <td>
+                    <td style="word-break: break-word;">
                         <strong class="p-event-title-print">${ev.name}</strong>
-                        ${detailLines.length > 0 ? `<br><span style="font-size: 7.2pt; color: #64748b; font-weight: 600;">${detailLines.join(' | ')}</span>` : ''}
+                        ${detailLines.length > 0 ? `<br><span style="font-size: 7.5pt; color: #475569; font-weight: 600;">${detailLines.join(' | ')}</span>` : ''}
                     </td>
-                    <td>
+                    <td style="word-break: break-word;">
                         <div style="font-size: 8pt; font-weight: 800; color: #997A15; margin-bottom: 2px;">📅 ${formattedDateStr}</div>
-                        <div style="font-size: 7.3pt; color: #334155;">${durationValue}</div>
-                        <div style="font-size: 7.8pt; font-weight: 800; color: #0f172a; margin-top: 2px;">📍 ${ev.location}</div>
+                        <div style="font-size: 7.5pt; color: #334155;">${durationValue}</div>
+                        <div style="font-size: 8pt; font-weight: 800; color: #0f172a; margin-top: 3px;">📍 ${ev.location}</div>
                     </td>
-                    <td>
-                        <div style="font-size: 7.3pt; line-height: 1.5; color: #1e293b;">
-                            ${crewDetailed.map(crew => {
-                                const isHighlighted = crew.includes("Sony") || crew.includes("Nikon") || crew.includes("Candid") || crew.includes("Cinematographer") || crew.includes("Lightman");
-                                return `<div>• <span class="${isHighlighted ? 'font-bold text-black' : ''}">${crew}</span></div>`;
-                            }).join('')}
+                    <td style="word-break: break-word;">
+                        <div style="font-size: 7.5pt; color: #0f172a; margin-bottom: 4px;">
+                            <strong>Team Units:</strong> ${crewDetailed.map(crew => `<span style="display:inline-block; font-weight:700; background:#f1f5f9; padding:1px 5px; border-radius:3px; margin:1px 2px; border:1px solid #e2e8f0;">• ${crew}</span>`).join('')}
+                        </div>
+                        <div style="font-size: 7pt; color: #334155; line-height: 1.45; border-top: 1px dashed #cbd5e1; padding-top: 4px; margin-top: 4px;">
+                            <div>• <strong>Bodies:</strong> ${kit.bodies}</div>
+                            <div>• <strong>Lenses:</strong> ${kit.lenses}</div>
+                            <div>• <strong>Accessories:</strong> ${kit.accessories}</div>
                         </div>
                     </td>
                     <td style="text-align:right; font-weight: 800; color: #0f172a;">₹${c.total.toLocaleString()}</td>
                 </tr>`;
             }).join('');
 
-            // Render album rows in PDF with luxury descriptors
+            // Render album rows in PDF
             const pAlbum = document.getElementById('print-album-section');
             if(state.albums.length > 0) {
                 pAlbum.style.display = 'block';
@@ -1208,13 +1131,11 @@
                     const cost = Math.round((al.sheets * 250) * scaleFactor);
                     return `<tr>
                         <td>
-                            <strong style="font-family: 'Cinzel', serif; font-size: 8.8pt; color: #856404;">Handcrafted Heritage Royal Leather Photobook Album</strong><br>
-                            <span style="font-size: 7.5pt; color: #475569; font-weight: 600; line-height: 1.4;">
-                                Bound in Imported Genuine Leather • Flush-Mount Custom Leather Presentation Box • Velvet Lined Hard Case & Tote Bag • Non-Tearable HD Matte-Velvet Leaves with Gold Foil Personalized Embossing.
-                            </span>
+                            <strong style="font-family: 'Cinzel', serif; font-size: 9pt; color: #856404;">Heritage Royal Flush-Mount Photobook Album (Handcrafted Genuine Leather Edition)</strong><br>
+                            <span style="font-size: 7.5pt; color: #334155; font-weight: 600; line-height: 1.45;">12x36 / 18x24 Large Format | Artisan Genuine Italian Leather Cover with Custom Gold Debossing | Personalized Leather Carrying Briefcase & Velvet Presentation Box | Non-Tearable Ultra-HD Velvet Sheets with Archival UV Coating</span>
                         </td>
-                        <td style="font-weight: 800; vertical-align: middle;">${al.sheets} Sheets (Double-Sided)</td>
-                        <td style="text-align:right; font-weight: 800; vertical-align: middle;">₹${cost.toLocaleString()}</td>
+                        <td style="font-weight: 800; text-align: center;">${al.sheets} Sheets</td>
+                        <td style="text-align:right; font-weight: 800; color: #0f172a;">₹${cost.toLocaleString()}</td>
                     </tr>`;
                 }).join('');
             } else {
@@ -1225,7 +1146,6 @@
             updateDynamicEquipmentInventory();
         }
 
-        // TEAM AND DEVICES SECTION - Enlarged & Detailed Hardware Specs
         function updateDynamicEquipmentInventory() {
             let hasCinema = false;
             let hasDrone = false;
@@ -1238,70 +1158,82 @@
                     else expanded.push(s);
                 });
 
-                if (expanded.includes('cinematographer')) hasCinema = true;
+                if (expanded.includes('cinematographer') || expanded.includes('premium')) hasCinema = true;
                 if (expanded.includes('drone')) hasDrone = true;
                 if (expanded.includes('trad_photo') || expanded.includes('candid_photo') || expanded.includes('trad_video')) hasPhoto = true;
             });
 
-            const dynamicTitleText = "Team and Devices";
+            // Dynamic Title Generation
+            let titleParts = [];
+            if (hasPhoto) titleParts.push("Photography");
+            if (hasCinema) titleParts.push("Cinematography");
+            if (hasDrone) titleParts.push("Aerial Drone");
+
+            const dynamicTitleText = titleParts.length > 0 
+                ? `${titleParts.join(" & ")} Camera Toolkits, Lenses & Accessories Inventory` 
+                : "Professional Camera Toolkits, Lenses & Accessories Inventory";
+
             document.getElementById('gear-inventory-title').innerText = dynamicTitleText;
             document.getElementById('print-gear-title').innerText = `4. ${dynamicTitleText}`;
 
-            let items = [];
-            
-            // Camera Bodies
-            items.push({
-                title: "Body: Sony M4, Sony FX or Nikon Z6 Professional Units",
-                desc: "100% Mirrorless camera technology featuring Sony A7 IV (M4), Sony Cinema Line (FX Series), and Nikon Z6 professional units equipped with dual slot memory card real-time backup safety."
-            });
+            let items = [
+                {
+                    title: "Camera Bodies & Primary Shooting Units",
+                    desc: "Sony Alpha A7 IV (A7M4) & Sony A7R Series Mirrorless Units for Ultra HD High-Resolution Photography & Video Coverage, supplemented by Nikon Z6 Professional Mirrorless Units."
+                }
+            ];
 
-            // Optical Lenses
-            items.push({
-                title: "Lenses: 24-70mm, 70-200mm, 50mm f/1.2, 50mm f/1.8, 35mm f/1.4, 85mm f/1.8",
-                desc: "High-aperture G-Master & S-Line professional zoom and prime lenses providing dreamy background bokeh, crisp portrait detail, and ultra-sharp low-light ritual captures."
-            });
-
-            // Accessories & Support Crew
-            items.push({
-                title: "Accessories: LC, Studio Lights, Camera Stands, Gimbals",
-                desc: "Heavy-duty Light Controls (LC), high-CRI studio flash units, camera stands, 3-axis motorized electronic gimbals paired on-site with dedicated Lightman & Technical Assistant Crew."
-            });
-
-            // Cinema Body specifics
             if (hasCinema) {
                 items.push({
-                    title: "Cinematography Unit & 4K Cinema Gear",
-                    desc: "Sony FX Cinema Series (FX3/FX6) paired with Sony M4 camera bodies, cinema lenses, 10-bit 4:2:2 color capture, 120 FPS high-frame-rate slow-motion, and pro XLR wireless audio systems."
+                    title: "Cinema Line Camera Systems",
+                    desc: "Sony FX Cinema Line Series (FX3 / FX6) Professional Cinema Cameras featuring 10-bit 4:2:2 4K Cinema Color Science, Dual Native ISO, and Professional Multi-Channel Audio Systems."
                 });
             }
 
-            // Aerial Units
+            items.push({
+                title: "Prime & Zoom Lens Toolkit",
+                desc: "High-End Sony G Master (GM) & Prime Optics including FE 24-70mm f/2.8 GM II, FE 70-200mm f/2.8 GM II, 50mm f/1.2 GM, 50mm f/1.8, 35mm f/1.4 GM, and 85mm f/1.4 / f/1.8 GM for artistic portraiture, buttery bokeh, and extreme low-light performance."
+            });
+
+            items.push({
+                title: "On-Site Production Accessories & Studio Lighting",
+                desc: "Continuous LC (Light Cutters) Lights, Studio Flash Lighting Systems, Heavy-Duty Camera Stands, DJI RS3/RS4 Pro Gimbals, Wireless Lavalier Microphones, High-Speed Dual Memory Cards, and Portable Storage Units."
+            });
+
             if (hasDrone) {
                 items.push({
-                    title: "DJI 4K Professional Aerial Drone Unit",
-                    desc: "DJI 4K Ultra-HD Drone Fleet operated by licensed aerial pilots for high-altitude venue sweeps, grand entry visuals, and epic ritual perspectives."
+                    title: "DJI Aerial Cinema Fleet",
+                    desc: "DJI Mavic / Mini Series 4K Aerial Drones with ND Filter Toolkits for sweeping cinematic venue perspectives and dynamic aerial shots."
                 });
             }
 
-            // Render in UI
+            // Render Web UI Gear Inventory
             document.getElementById('gear-inventory-container').innerHTML = items.map(i => `
-                <div class="border-l-3 border-[#D4AF37] pl-4 py-2 bg-white/5 rounded-r-2xl border-t border-b border-r border-white/10">
-                    <h4 class="text-white font-extrabold mb-1.5 uppercase tracking-wider text-xs text-[#F4E0A5]">${i.title}</h4>
-                    <p class="text-gray-300 text-[11.5px] leading-relaxed font-medium">${i.desc}</p>
+                <div class="border-l-2 border-[#D4AF37] pl-4 space-y-1">
+                    <h4 class="text-white font-black uppercase tracking-wider text-[11px]">${i.title}</h4>
+                    <p class="text-gray-300 text-[10.5px] leading-relaxed break-words">${i.desc}</p>
                 </div>
             `).join('');
 
-            // Render in Print PDF proposal
+            // Render PDF Print Gear Inventory
             document.getElementById('print-gear-list').innerHTML = `
-                <li style="margin-bottom: 5px;">• <strong>Body:</strong> Sony M4, Sony FX or Nikon Z6 Professional Units (Dual Memory Card Real-time Backup)</li>
-                <li style="margin-bottom: 5px;">• <strong>Lenses:</strong> 24-70mm, 70-200mm, 50mm f/1.2, 50mm f/1.8, 35mm f/1.4, 85mm f/1.8 Ultra-Fast Cinema & Prime Glass</li>
-                <li style="margin-bottom: 5px;">• <strong>Accessories:</strong> LC (Light Controls), Studio Lights, Camera Stands, Gimbals (3-Axis Electronic Stabilizers)</li>
-                <li style="margin-bottom: 5px;">• <strong>Support Crew:</strong> On-Site Technical Assistants & Dedicated Lightman deployed for studio-grade lighting</li>
-                ${hasDrone ? '<li style="margin-bottom: 5px;">• <strong>Aerial Drone:</strong> DJI 4K Ultra-HD Drone System operated by certified aerial pilots</li>' : ''}
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                    <div>
+                        <p style="margin:0 0 3px 0; font-weight:800; color:#856404;">• CAMERA BODIES:</p>
+                        <p style="margin:0 0 6px 0; color:#334155;">Sony Alpha A7 IV (A7M4), Sony FX Cinema Line (FX3 / FX6), Nikon Z6 Professional Mirrorless Units.</p>
+                        <p style="margin:0 0 3px 0; font-weight:800; color:#856404;">• PREMIUM LENSES:</p>
+                        <p style="margin:0; color:#334155;">Sony GM 24-70mm f/2.8, 70-200mm f/2.8, 50mm f/1.2, 50mm f/1.8, 35mm f/1.4, 85mm f/1.4 GM.</p>
+                    </div>
+                    <div>
+                        <p style="margin:0 0 3px 0; font-weight:800; color:#856404;">• ACCESSORIES & LIGHTING:</p>
+                        <p style="margin:0 0 6px 0; color:#334155;">Continuous LC Lights, Studio Flash Lights, Heavy-Duty Stands, DJI RS3/RS4 Pro Gimbals.</p>
+                        <p style="margin:0 0 3px 0; font-weight:800; color:#856404;">• AERIAL & DISPLAY:</p>
+                        <p style="margin:0; color:#334155;">DJI 4K Aerial Drone Units, Wireless Lavalier Audio, LED Display Walls & Jib Cranes.</p>
+                    </div>
+                </div>
             `;
         }
 
-        // PROJECT DELIVERABLES & HIGH VALUE-PACKED PRESENTATION
         function updateProjectDeliverables() {
             const listEl = document.getElementById('deliverables-list');
             const printListEl = document.getElementById('print-deliverables-body');
@@ -1321,110 +1253,63 @@
                 ev.teamSelections.includes('full') || ev.teamSelections.includes('premium')
             );
 
-            const hasCinematographer = allSelections.includes("cinematographer");
+            const hasCinematographer = allSelections.includes("cinematographer") || allSelections.includes("premium");
+            const hasAlbum = state.albums.length > 0;
 
-            // Super-rich, compelling deliverables wording with maximum client value
             if (hasCinematographer) { 
-                items.push({ 
-                    title: "4K Signature Cinematic Teaser & Highlight Film",
-                    desc: "04 - 05 Minutes 4K Ultra-HD cinematic film teaser featuring custom licensed music, emotional audio storytelling & magazine-grade color grading.", 
-                    type: "standard" 
-                });
-                items.push({ 
-                    title: "Feature-Length Master Cinematic Wedding Documentary",
-                    desc: "60 - 90 Minutes seamless high-definition documentary film capturing full ceremonies, family interviews, emotional moments & ritual festivities in crystal clear audio.", 
-                    type: "standard" 
-                });
+                items.push({ text: "Exclusive Cinema Teaser & Cinematic Highlight Film (4 - 5 Minutes Master Cut in Ultra HD 4K with Custom Color Grading)", type: "standard" });
+                items.push({ text: "Feature-Length Cinematic Wedding Documentary Film with Multi-Cam Sync, Professional Audio Mastering & Sound Design", type: "standard" });
             } else if (allSelections.includes("trad_video")) {
-                items.push({ 
-                    title: "Comprehensive Traditional Master Wedding Film",
-                    desc: "Full chronological ceremony coverage of all traditional rituals, stage blessings, and family celebrations edited with rich titles and musical highlights.", 
-                    type: "standard" 
-                });
-            }
-
-            if (allSelections.includes("candid_photo")) {
-                items.push({ 
-                    title: "Artistic High-Fashion Couple Portrait Suite",
-                    desc: "40 - 50 Masterfully retouched high-fashion social portraits curated for luxury magazine sharing and high-resolution printing.", 
-                    type: "standard" 
-                });
-                items.push({ 
-                    title: "Complete Candid Emotional Expressions Collection",
-                    desc: "Spontaneous laughter, tearful blessings, intimate family bonds, and celebratory moments captured naturally across all events.", 
-                    type: "standard" 
-                });
-            }
-
-            if (allSelections.includes("trad_photo")) {
-                items.push({ 
-                    title: "Exhaustive High-Resolution Ceremonial Photo Archive",
-                    desc: "Every single guest, family group photo, stage greeting, and Vedic ritual recorded in uncompressed high-resolution mirrorless clarity.", 
-                    type: "standard" 
-                });
+                items.push({ text: "Full-Length Traditional Wedding Documentary Video with Complete Ritual & Stage Coverage (Ultra HD)", type: "standard" });
             }
 
             if (allSelections.includes("drone")) {
-                items.push({ 
-                    title: "DJI 4K Aerial Cinematic Sequence Footage",
-                    desc: "Sweeping venue landscapes, grand bridal/groom entries, and bird's eye perspectives integrated directly into your cinematic film.", 
-                    type: "standard" 
-                });
+                items.push({ text: "DJI Ultra-HD 4K Aerial Drone Cinema Sequences & Venue Perspective Shots", type: "standard" });
             }
 
-            // Albums Description (Highlighting Genuine Leather Box, Velvet Leaves)
-            if (state.albums.length > 0) {
-                items.push({ 
-                    title: "Handcrafted Royal Heritage Leather Photobook",
-                    desc: "Wrapped in genuine imported leather, featuring non-tearable high-definition matte-velvet pages, custom gold foil monogramming, luxury presentation box & protective slipcase.", 
-                    type: "standard" 
-                });
+            if (allSelections.includes("candid_photo")) {
+                items.push({ text: "Unlimited Fine-Art Candid Photographs with High-End Color Correction & Professional Post-Processing", type: "standard" });
+                items.push({ text: "50 Signature Magazine-Grade Retouched High-Fashion Portraiture Edits for Print & Social Media", type: "standard" });
+            } else if (allSelections.includes("trad_photo")) {
+                items.push({ text: "Comprehensive Traditional High-Resolution Event Photographs (Color Corrected & Print Ready)", type: "standard" });
             }
 
-            // Google Cloud Drive Archive
             if (allSelections.length > 0) {
-                items.push({ 
-                    title: "100% Uncompressed Master Data Cloud Archive Handover",
-                    desc: "Complete raw camera footage, edited high-resolution stills, and full master films delivered via a dedicated encrypted Google Cloud Drive link for instant global family sharing.", 
-                    type: "standard" 
-                });
+                items.push({ text: "Complete Raw High-Resolution Photos & Uncompressed Master Video Assets Handed Over via Dedicated High-Speed Cloud Drive Archive (Google Drive)", type: "standard" });
             }
 
-            // VIP FREE COMPLIMENTARY PRIVILEGES
+            if (hasAlbum) {
+                items.push({ text: "Heritage Royal Flush-Mount Photobook Album with Genuine Handcrafted Italian Leather Cover & Personalized Gold Debossing", type: "standard" });
+                items.push({ text: "Custom Leather Carrying Briefcase & Velvet Presentation Display Box with Non-Tearable Ultra-HD Velvet Sheets & UV Archival Coating", type: "standard" });
+            }
+
+            // COMPLIMENTARY GIFTS PHRASING:
             if (hasFullOrPremiumTeam || (hasCinematographer && hasFullOrPremiumTeam)) {
-                items.push({ 
-                    title: "2 Trending Instagram Vertical Cinematic Reels (9:16 HD)",
-                    desc: "Specially edited vertical reels with trending music ready for instant viral sharing on Instagram, WhatsApp & TikTok.", 
-                    type: "gift" 
-                });
-                items.push({ 
-                    title: "Designer Digital E-Invite Card & Story Reel Layout",
-                    desc: "Customized typography and animated aesthetic wedding announcement creative for digital invitations.", 
-                    type: "gift" 
-                });
-                items.push({ 
-                    title: "Grand Archival Custom Framed Photo Portrait",
-                    desc: "Enlarged luxury photographic print mounted inside a premium wooden showcase frame for your living room showcase.", 
-                    type: "gift" 
-                });
+                items.push({ text: "2 Exclusive Trending Instagram Cinematic Reels (Complimentary Gift with Beat-Sync Edit)", type: "gift" });
+                items.push({ text: "Bespoke Animated Digital E-Invite / Save-The-Date Video Reel (Complimentary Gift)", type: "gift" });
+                if (hasAlbum) {
+                    items.push({ text: "Enlarged Royal Archival Wooden Canvas Wall Frame (18x24 Premium Keepsake)", type: "gift" });
+                }
                 if(badgeEl) {
-                    badgeEl.innerText = "VIP Package Privileges + Free Reels Unlocked";
-                    badgeEl.className = "text-[10px] font-extrabold text-emerald-400 uppercase bg-emerald-950/80 border border-emerald-500/50 px-4 py-2 rounded-full tracking-wider shadow-lg";
+                    badgeEl.innerText = hasAlbum ? "Full Team + Luxury Album Gifts Unlocked" : "Full Team + Cinematic Reels Unlocked";
+                    badgeEl.className = "text-[9.5px] font-extrabold text-emerald-400 uppercase bg-emerald-950/70 border border-emerald-500/40 px-3.5 py-1.5 rounded-full tracking-wider";
                 }
             } else if (hasCinematographer) {
-                items.push({ 
-                    title: "2 Trending Instagram Vertical Cinematic Reels (9:16 HD)",
-                    desc: "Edited vertical reels with popular musical tracks for fast social media sharing.", 
-                    type: "gift" 
-                });
+                items.push({ text: "2 Exclusive Trending Instagram Cinematic Reels (Complimentary Gift with Beat-Sync Edit)", type: "gift" });
+                if (hasAlbum) {
+                    items.push({ text: "Enlarged Royal Archival Wooden Canvas Wall Frame (18x24 Premium Keepsake)", type: "gift" });
+                }
                 if(badgeEl) {
-                    badgeEl.innerText = "2 Free Instagram Reels Unlocked";
-                    badgeEl.className = "text-[10px] font-extrabold text-emerald-400 uppercase bg-emerald-950/80 border border-emerald-500/50 px-4 py-2 rounded-full tracking-wider shadow-lg";
+                    badgeEl.innerText = hasAlbum ? "Reels + Wall Frame Unlocked" : "Cinematic Reels Unlocked";
+                    badgeEl.className = "text-[9.5px] font-extrabold text-emerald-400 uppercase bg-emerald-950/70 border border-emerald-500/40 px-3.5 py-1.5 rounded-full tracking-wider";
                 }
             } else {
+                if (hasAlbum) {
+                    items.push({ text: "Enlarged Royal Archival Wooden Canvas Wall Frame (18x24 Premium Keepsake)", type: "gift" });
+                }
                 if(badgeEl) {
-                    badgeEl.innerText = "Choose Full Unit or Cinema to Unlock Free Reels & Gifts";
-                    badgeEl.className = "text-[10px] font-extrabold text-yellow-400 uppercase bg-yellow-950/80 border border-yellow-500/50 px-4 py-2 rounded-full tracking-wider shadow-lg";
+                    badgeEl.innerText = hasAlbum ? "Wall Frame Gift Unlocked with Album" : "Select Full Team / Cinema / Album for Free Gifts";
+                    badgeEl.className = "text-[9.5px] font-extrabold text-yellow-400 uppercase bg-yellow-950/70 border border-yellow-500/40 px-3.5 py-1.5 rounded-full tracking-wider";
                 }
             }
 
@@ -1433,28 +1318,24 @@
                 if (i.type === 'gift') {
                     return `<div class="deliverable-card complimentary">
                         <div class="flex-1">
-                            <div class="flex items-center gap-2 mb-1.5">
-                                <span class="badge-gift">COMPLIMENTARY VIP PRIVILEGE</span>
-                                <span class="text-[9.5px] font-extrabold text-emerald-400 uppercase">₹0 Included Free</span>
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="badge-gift">COMPLIMENTARY GIFT</span>
+                                <span class="text-[9px] font-extrabold text-emerald-400">₹0 FREE BENEFIT</span>
                             </div>
-                            <h4 class="text-sm font-black text-white mb-1 flex items-center gap-1.5"><span class="text-emerald-400">✦</span> ${i.title}</h4>
-                            <p class="text-[11.5px] text-gray-200 font-medium leading-relaxed">${i.desc}</p>
+                            <span class="leading-relaxed">✦ ${i.text}</span>
                         </div>
                     </div>`;
                 }
                 return `<div class="deliverable-card">
-                    <div class="flex-1">
-                        <h4 class="text-sm font-black text-[#F4E0A5] mb-1 flex items-center gap-1.5"><span class="text-[#D4AF37]">✦</span> ${i.title}</h4>
-                        <p class="text-[11.5px] text-gray-200 font-medium leading-relaxed">${i.desc}</p>
-                    </div>
+                    <span class="leading-relaxed">✦ ${i.text}</span>
                 </div>`;
             }).join('');
 
-            if (!hasFullOrPremiumTeam && !hasCinematographer) {
-                htmlContent += `<div class="deliverable-card col-span-1 md:col-span-2 opacity-90 border-dashed border-yellow-500/50 bg-yellow-950/20 text-yellow-200">
+            if (!hasFullOrPremiumTeam && !hasCinematographer && !hasAlbum) {
+                htmlContent += `<div class="deliverable-card col-span-1 md:col-span-2 opacity-80 border-dashed border-yellow-500/40 bg-yellow-950/20 text-yellow-200">
                     <div>
-                        <span class="text-xs font-extrabold uppercase text-yellow-400 block mb-1">🎁 Unlock Signature Complimentary Gifts</span>
-                        <span class="text-xs text-gray-300">Upgrade to 'FULL UNIT' or 'CINEMA' team to automatically unlock 2 Free Instagram Reels, Archival Wooden Wall Frame & Digital E-Invite card!</span>
+                        <span class="text-[10px] font-extrabold uppercase text-yellow-400 block mb-0.5">💡 Unlock Free Cinematic Reels & Royal Gifts</span>
+                        <span class="text-[11px] font-medium">Select 'FULL UNIT', 'PREMIUM CINEMA' or 'CINEMA' team for 2 Free Instagram Reels & Digital E-Invite! Add a Royal Album to unlock a Free Wooden Wall Frame!</span>
                     </div>
                 </div>`;
             }
@@ -1465,19 +1346,14 @@
             printListEl.innerHTML = items.map(i => {
                 if (i.type === 'gift') {
                     return `<div class="p-deliverable-item complimentary">
-                        <div style="font-size: 6.8pt; font-weight: 900; color: #16a34a; text-transform: uppercase;">🎁 COMPLIMENTARY VIP PRIVILEGE</div>
-                        <div style="font-weight: 800; font-size: 8.2pt; color: #064e3b; margin-top: 1px;">✦ ${i.title}</div>
-                        <div style="font-size: 7.2pt; color: #334155; font-weight: 500; margin-top: 2px;">${i.desc}</div>
+                        <div style="font-size: 6.5pt; font-weight: 900; color: #16a34a; text-transform: uppercase;">🎁 COMPLIMENTARY GIFT</div>
+                        <div>✦ ${i.text}</div>
                     </div>`;
                 }
-                return `<div class="p-deliverable-item">
-                    <div style="font-weight: 800; font-size: 8.2pt; color: #856404;">✦ ${i.title}</div>
-                    <div style="font-size: 7.2pt; color: #475569; font-weight: 500; margin-top: 2px;">${i.desc}</div>
-                </div>`;
+                return `<div class="p-deliverable-item">✦ ${i.text}</div>`;
             }).join('');
         }
 
-        // OPTION 1: DOWNLOAD PDF PROPOSAL
         function generatePDF() {
             const originalTitle = document.title;
             const fileName = getFormattedFileName();
@@ -1492,11 +1368,9 @@
             }, 100);
         }
 
-        // OPTION 2: DIRECT SHARE (WhatsApp / Web Share API)
         function shareProposal() {
             const clientName = (state.clientName || "Valued Client").trim().toUpperCase();
             const fileName = getFormattedFileName();
-            const gross = document.getElementById('summary-gross-total').innerText;
             const final = document.getElementById('final-total').innerText;
             const eventCount = state.events.length;
 
@@ -1505,16 +1379,16 @@
                 return `• ${ev.name}${dt} - ${ev.location}`;
             }).join('\n');
 
-            const shareText = `*LUCKNOW WEDDING STUDIO - LUXURY WEDDING PROPOSAL*\n\n` +
+            const shareText = `*LUCKNOW WEDDING STUDIO - OFFICIAL QUOTATION*\n\n` +
                 `👤 *Client:* ${clientName}\n` +
-                `📅 *Total Events Covered:* ${eventCount}\n\n` +
-                `*Ceremonies Schedule:*\n${eventsListStr}\n\n` +
-                `📷 *Technology:* Sony M4, Sony FX & Nikon Z6 Professional Mirrorless Units\n` +
-                `📖 *Album:* Handcrafted Royal Leather Photobook with Velvet Leaves & Leather Box\n` +
-                `💰 *Net Investment:* ${final}\n` +
-                `🎬 *Complimentary Benefit:* 2 Free Instagram Reels + Cloud Drive Archive Handover\n\n` +
-                `📞 *Direct Line:* +91 7394019474, 8808808840\n` +
-                `📍 *Studio Address:* 4th Floor, 94, MG Marg, Hazratganj, Lucknow`;
+                `📅 *Total Functions:* ${eventCount}\n\n` +
+                `*Event Schedule:*\n${eventsListStr}\n\n` +
+                `🎥 *Camera Toolkits:* Sony Alpha A7 IV (A7M4), Sony FX Cinema Series, Nikon Z6 with Premium GM Lenses\n` +
+                `💰 *Total Investment:* ${final}\n` +
+                `🎬 *Complimentary Benefit:* Free Instagram Cinematic Reels included with Cinematic coverage!\n` +
+                `☁️ *Delivery:* High-Speed Cloud Drive Storage\n\n` +
+                `📞 *Contact:* +91 7394019474, 8808808840\n` +
+                `📍 *Address:* 4th Floor, 94, MG Marg, Hazratganj, Lucknow`;
 
             if (navigator.share) {
                 navigator.share({
@@ -1548,7 +1422,7 @@
             // Render Events list in UI
             document.getElementById('events-container').innerHTML = state.events.map((ev, index) => {
                 const c = calculateEventCost(ev);
-                const crewList = getDetailedCrew(ev.teamSelections);
+                const kit = getEventKitBreakdown(ev.teamSelections);
                 const teams = [ 
                     {id:'half', label:'HALF UNIT'}, {id:'full', label:'FULL UNIT'}, {id:'premium', label:'PREMIUM CINEMA'}, 
                     {id:'trad_photo', label:'T-PHOTO'}, {id:'trad_video', label:'T-VIDEO'}, 
@@ -1557,28 +1431,28 @@
                 ];
 
                 return `<div class="liquid-glass p-6 md:p-8">
-                    <div class="flex flex-col sm:flex-row justify-between items-start mb-4 gap-4">
+                    <div class="flex flex-col sm:flex-row justify-between items-start mb-6 gap-4">
                         <div class="flex-1 w-full">
                             <div class="flex flex-wrap items-center gap-3 mb-2">
                                 ${ev.isEditingName ? 
                                     `<input type="text" value="${ev.name}" oninput="updateEventField(${ev.id}, 'name', this.value)" class="input-glass text-lg font-black w-full sm:w-64 uppercase event-title-orange">` : 
                                     `<h3 class="text-xl font-black font-serif-heading uppercase tracking-wide event-title-orange">${ev.name}</h3>`
                                 }
-                                ${config ? `<button onclick="toggleEdit('event', ${ev.id}, 'name')" class="opacity-60 hover:opacity-100 text-xs text-[#D4AF37]">✏️ Edit</button>` : ''}
+                                ${config ? `<button onclick="toggleEdit('event', ${ev.id}, 'name')" class="opacity-50 hover:opacity-100 text-xs text-[#D4AF37]">✏️ Edit</button>` : ''}
                                 <button onclick="removeEvent(${ev.id})" class="text-xs text-red-400 opacity-60 hover:opacity-100 font-bold ml-auto sm:ml-0">✕ Remove</button>
                             </div>
 
                             <div class="flex flex-wrap gap-3 items-center">
-                                <div class="flex items-center gap-1.5 bg-white/5 border border-white/10 rounded-xl px-2.5 py-1">
+                                <div class="flex items-center gap-1.5 bg-white/5 border border-white/10 rounded-xl px-2 py-1">
                                     <span class="text-[10px] text-[#D4AF37] font-bold">📅</span>
                                     <input type="date" value="${ev.date}" onchange="updateEventField(${ev.id}, 'date', this.value)" class="bg-transparent text-[11px] font-extrabold text-white uppercase focus:outline-none cursor-pointer">
                                 </div>
                                 
                                 ${index > 0 ? `
                                     <div class="flex items-center gap-1">
-                                        <button onclick="quickSetOffsetDate(${ev.id}, 0)" class="bg-white/10 hover:bg-[#D4AF37]/30 text-[9px] font-extrabold text-[#F4E0A5] px-2 py-1 rounded-lg border border-[#D4AF37]/20 transition-all">Same Date</button>
-                                        <button onclick="quickSetOffsetDate(${ev.id}, 1)" class="bg-white/10 hover:bg-[#D4AF37]/30 text-[9px] font-extrabold text-[#F4E0A5] px-2 py-1 rounded-lg border border-[#D4AF37]/20 transition-all">+1 Day</button>
-                                        <button onclick="quickSetOffsetDate(${ev.id}, 2)" class="bg-white/10 hover:bg-[#D4AF37]/30 text-[9px] font-extrabold text-[#F4E0A5] px-2 py-1 rounded-lg border border-[#D4AF37]/20 transition-all">+2 Days</button>
+                                        <button onclick="quickSetOffsetDate(${ev.id}, 0)" class="bg-white/10 hover:bg-[#D4AF37]/30 text-[9px] font-extrabold text-[#D4AF37] px-2 py-1 rounded-lg border border-[#D4AF37]/20 transition-all">Same Date</button>
+                                        <button onclick="quickSetOffsetDate(${ev.id}, 1)" class="bg-white/10 hover:bg-[#D4AF37]/30 text-[9px] font-extrabold text-[#D4AF37] px-2 py-1 rounded-lg border border-[#D4AF37]/20 transition-all">+1 Day</button>
+                                        <button onclick="quickSetOffsetDate(${ev.id}, 2)" class="bg-white/10 hover:bg-[#D4AF37]/30 text-[9px] font-extrabold text-[#D4AF37] px-2 py-1 rounded-lg border border-[#D4AF37]/20 transition-all">+2 Days</button>
                                     </div>
                                 ` : ''}
 
@@ -1591,39 +1465,35 @@
                                     `<input type="number" value="${ev.manualAmount || c.total}" oninput="updateEventField(${ev.id}, 'manualAmount', this.value)" class="input-glass w-36 text-right font-black">` : 
                                     `<div class="text-2xl font-black text-[#D4AF37] font-serif-heading">₹${c.total.toLocaleString()}</div>`
                                 }
-                                ${config ? `<button onclick="toggleEdit('event', ${ev.id}, 'amount')" class="opacity-60 hover:opacity-100 text-xs">💰</button>` : ''}
+                                ${config ? `<button onclick="toggleEdit('event', ${ev.id}, 'amount')" class="opacity-50 hover:opacity-100 text-xs">💰</button>` : ''}
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- Highlighted Crew & Mirrorless Photographer Allocation Section -->
-                    <div class="mt-4 pt-4 border-t border-white/10 bg-white/5 p-4 rounded-2xl border border-white/10">
-                        <div class="flex items-center justify-between mb-2.5">
-                            <span class="text-[10px] font-black text-[#D4AF37] uppercase tracking-wider flex items-center gap-1.5">
-                                <span>🎥</span> Active Photographer & Cinema Crew Allocation:
-                            </span>
-                            <span class="text-[9.5px] bg-[#D4AF37]/20 text-[#F4E0A5] font-extrabold px-2.5 py-0.5 rounded-full uppercase border border-[#D4AF37]/30">${crewList.length} Units Deployed</span>
-                        </div>
-                        <div class="flex flex-wrap gap-2">
-                            ${crewList.map(member => {
-                                let tagClass = "photo";
-                                if (member.includes("Candid")) tagClass = "candid";
-                                else if (member.includes("Cinema") || member.includes("M4")) tagClass = "cinema";
-                                else if (member.includes("Lightman")) tagClass = "lightman";
-                                else if (member.includes("Assistant")) tagClass = "support";
-                                return `<span class="crew-tag ${tagClass}">✦ ${member}</span>`;
-                            }).join('')}
                         </div>
                     </div>
 
                     ${config ? `
                         <div class="border-t border-white/10 pt-4 mt-4">
-                            <p class="text-[9.5px] font-black text-gray-400 uppercase tracking-widest mb-3">Adjust Crew Allocation for this Function</p>
-                            <div class="flex flex-wrap gap-2">
+                            <p class="text-[9.5px] font-black text-gray-400 uppercase tracking-widest mb-3">Allocated Crew Teams & Camera Equipment</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
                                 ${teams.map(t => {
                                     const active = ev.teamSelections.includes(t.id);
                                     return `<button onclick="updateEventField(${ev.id}, 'team', '${t.id}')" class="px-3.5 py-1.5 rounded-xl text-[9.5px] font-extrabold transition-all border ${active ? 'bg-[#997A15] text-white border-[#997A15]' : 'bg-white/5 text-white/70 border-white/10 hover:bg-white/10'}">${t.label}</button>`;
                                 }).join('')}
+                            </div>
+
+                            <!-- Dedicated Body, Lenses & Accessories breakdown in UI -->
+                            <div class="bg-white/5 p-4 rounded-2xl border border-white/10 space-y-2 text-[11px]">
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <span class="text-[#D4AF37] font-extrabold uppercase text-[10px]">📷 Camera Bodies:</span>
+                                    <span class="text-gray-200 font-bold">${kit.bodies}</span>
+                                </div>
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <span class="text-[#D4AF37] font-extrabold uppercase text-[10px]">🔍 Premium Lenses:</span>
+                                    <span class="text-gray-200 font-bold">${kit.lenses}</span>
+                                </div>
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <span class="text-[#D4AF37] font-extrabold uppercase text-[10px]">⚡ Lighting & Accessories:</span>
+                                    <span class="text-gray-200 font-bold">${kit.accessories}</span>
+                                </div>
                             </div>
                         </div>
                     ` : ''}
@@ -1639,12 +1509,12 @@
 
                 albumContainer.innerHTML = state.albums.map(al => {
                     const albumCost = Math.round((al.sheets * 250) * scaleFactor);
-                    return `<div class="flex justify-between items-center bg-white/5 p-4 rounded-2xl border border-white/10 hover:border-[#D4AF37]/30 transition-all">
+                    return `<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white/5 p-4 rounded-2xl border border-white/10 gap-3">
                         <div>
-                            <span class="text-sm font-bold text-white uppercase font-serif-heading text-[#F4E0A5]">Handcrafted Royal Heritage Leather Photobook</span>
-                            <p class="text-[10.5px] text-gray-300 mt-0.5 font-medium">Genuine Imported Leather Box • Velvet Slipcover • Non-Tearable HD Matte-Velvet Leaves</p>
+                            <span class="text-sm font-bold uppercase font-serif-heading text-[#D4AF37]">Heritage Royal Flush-Mount Photobook Album</span>
+                            <p class="text-[10.5px] text-gray-300 mt-0.5 leading-relaxed">Handcrafted Italian Leather Binding, Custom Gold Debossing, Velvet Display Box & Personalized Leather Carrying Briefcase (Non-Tearable Velvet Sheets with Archival UV Coating)</p>
                         </div>
-                        <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end">
                             <div class="flex items-center gap-2">
                                 <input type="number" value="${al.sheets}" oninput="updateAlbumSheets(${al.id}, this.value)" class="input-glass w-20 text-center font-bold text-sm">
                                 <span class="text-xs text-gray-400 font-bold">Sheets</span>
@@ -1663,7 +1533,6 @@
         }
 
         window.onload = function() {
-            addEvent('WEDDING');
             render();
         };
     </script>

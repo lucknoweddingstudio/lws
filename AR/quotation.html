@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="hi" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR Home Beauty Salon - Official Quotation & Estimate Generator</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: High-End Luxury Typography Pairings -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- html2pdf.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fdf8f6',
+                            100: '#f4eae6',
+                            200: '#e5d1cb',
+                            500: '#b8860b', // Luxury Dark Gold
+                            600: '#966d08',
+                            700: '#755405',
+                            800: '#231815', // Obsidian Charcoal
+                            900: '#140d0b',
+                        },
+                        rose: {
+                            500: '#e07a5f',
+                            600: '#d16043',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Cormorant Garamond', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        
+        /* Strict 1-Page Printable Canvas Settings */
+        #pdf-template {
+            width: 794px; /* Standard A4 width at 96 DPI */
+            height: 1120px; /* Standard A4 height at 96 DPI */
+            box-sizing: border-box;
+            font-feature-settings: "tnum";
+        }
+    </style>
+</head>
+<body class="font-sans text-slate-800 bg-slate-100 min-h-screen flex flex-col">
+
+    <!-- Navigation Header -->
+    <header class="bg-gradient-to-r from-slate-900 via-brand-800 to-slate-900 text-white shadow-lg sticky top-0 z-30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-300 font-bold font-serif shadow-inner text-xl">
+                    AR
+                </div>
+                <div>
+                    <h1 class="font-serif text-xl sm:text-2xl font-bold tracking-wide text-amber-100">AR HOME BEAUTY SALON</h1>
+                    <p class="text-[11px] text-amber-200/70 font-display tracking-widest uppercase font-medium">Doorstep & Salon Beauty Quote Builder • Lucknow</p>
+                </div>
+            </div>
+            <div class="hidden md:flex items-center space-x-4">
+                <span class="text-xs text-slate-300 bg-slate-800/80 px-3 py-1.5 rounded-full border border-slate-700 font-mono">
+                    <i class="fa-regular fa-clock mr-1.5 text-amber-400"></i><span id="current-date-time">--</span>
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main App Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- Left Column: Customer Form & Service Selection Menu (7 Cols) -->
+        <section class="lg:col-span-7 space-y-6">
+
+            <!-- Customer Details Form -->
+            <div class="bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-slate-200/80 relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-1.5 h-full bg-amber-600"></div>
+                <h2 class="font-display text-lg font-bold text-slate-900 mb-4 flex items-center tracking-tight">
+                    <i class="fa-solid fa-user-gear text-amber-600 mr-2.5"></i> Customer & Estimate Details
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5 font-display">Client Full Name *</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400"><i class="fa-solid fa-user text-sm"></i></span>
+                            <input type="text" id="client-name" placeholder="Enter client's full name" class="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-sm transition" value="">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5 font-display">Phone Number *</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400"><i class="fa-solid fa-phone text-sm"></i></span>
+                            <input type="tel" id="client-phone" placeholder="Enter 10-digit phone number" class="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-sm transition font-mono" value="">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5 font-display">Quotation No.</label>
+                        <input type="text" id="quote-number" class="w-full px-3 py-2 bg-slate-100 border border-slate-200 text-slate-700 rounded-xl text-sm font-mono font-semibold cursor-not-allowed" readonly>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5 font-display">Estimated Date</label>
+                        <input type="date" id="quote-date" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-amber-500 text-sm font-mono">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service Catalog Header & Filters -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/80 space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div>
+                        <h2 class="font-display text-lg font-bold text-slate-900 flex items-center tracking-tight">
+                            <i class="fa-solid fa-list-check text-amber-600 mr-2.5"></i> Select Services Menu
+                        </h2>
+                        <p class="text-xs text-slate-500">Tap service to add/remove from quote</p>
+                    </div>
+
+                    <!-- Search Input -->
+                    <div class="relative w-full sm:w-64">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400"><i class="fa-solid fa-magnifying-glass text-xs"></i></span>
+                        <input type="text" id="search-input" placeholder="Search facial, haircut, wax..." class="w-full pl-8 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:bg-white">
+                    </div>
+                </div>
+
+                <!-- Category Filter Pills -->
+                <div class="flex items-center space-x-2 overflow-x-auto pb-1 custom-scrollbar text-xs font-medium" id="category-pills">
+                    <!-- Dynamic categories generated via JavaScript -->
+                </div>
+
+                <!-- Services List Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[520px] overflow-y-auto pr-1 custom-scrollbar pt-1" id="services-grid">
+                    <!-- Service cards rendered dynamically -->
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Right Column: Live Quotation Summary & Printable Preview (5 Cols) -->
+        <section class="lg:col-span-5 flex flex-col space-y-6">
+
+            <div class="bg-white rounded-2xl p-5 sm:p-6 shadow-xl border border-slate-200/90 flex flex-col flex-1 sticky top-20">
+                <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+                    <div>
+                        <h3 class="font-display font-bold text-slate-900 text-lg tracking-tight">Quotation Summary</h3>
+                        <p class="text-xs text-slate-500">Selected Items & Price Breakdown</p>
+                    </div>
+                    <span id="selected-count-badge" class="px-3 py-1 rounded-full text-xs font-bold font-mono bg-amber-100 text-amber-900 border border-amber-300">
+                        0 Items
+                    </span>
+                </div>
+
+                <!-- Selected Services Container -->
+                <div class="py-4 space-y-2.5 flex-1 max-h-[320px] overflow-y-auto custom-scrollbar" id="selected-services-list">
+                    <!-- Empty State Placeholder -->
+                    <div id="empty-state" class="py-12 text-center text-slate-400 space-y-3">
+                        <div class="w-14 h-14 mx-auto rounded-full bg-slate-100 flex items-center justify-center text-slate-300">
+                            <i class="fa-solid fa-basket-shopping text-2xl"></i>
+                        </div>
+                        <p class="text-sm font-medium text-slate-600">No services selected yet</p>
+                        <p class="text-xs text-slate-400">Choose services from the menu on the left to build quote</p>
+                    </div>
+                </div>
+
+                <!-- Cost Summary Section -->
+                <div class="border-t border-slate-200 pt-4 space-y-2.5 bg-slate-50/80 p-4 rounded-xl border">
+                    <div class="flex justify-between text-xs text-slate-600">
+                        <span class="font-medium">Total Est. Duration:</span>
+                        <span id="summary-duration" class="font-semibold text-slate-800 font-mono">0 Mins</span>
+                    </div>
+                    <div class="flex justify-between text-xs text-slate-600">
+                        <span class="font-medium">Subtotal (Taxes Incl.):</span>
+                        <span id="summary-subtotal" class="font-bold text-slate-800 font-mono">₹0</span>
+                    </div>
+
+                    <!-- Discount Field -->
+                    <div class="flex items-center justify-between text-xs text-slate-600 pt-1">
+                        <span class="font-medium">Special Discount (₹):</span>
+                        <input type="number" id="discount-input" min="0" value="0" class="w-24 px-2 py-1 text-right bg-white border border-slate-300 rounded-lg text-xs font-bold font-mono focus:ring-2 focus:ring-amber-500">
+                    </div>
+
+                    <!-- Additional Note -->
+                    <div class="pt-1">
+                        <input type="text" id="custom-note" placeholder="Add custom note (e.g. Special bridal discount)" class="w-full text-xs px-3 py-1.5 border border-slate-300 rounded-lg bg-white focus:ring-2 focus:ring-amber-500">
+                    </div>
+
+                    <div class="border-t-2 border-dashed border-slate-200 pt-3 flex justify-between items-center text-slate-900">
+                        <div>
+                            <span class="block text-xs uppercase font-extrabold text-amber-900 tracking-wider font-display">Grand Total</span>
+                            <span class="text-[10px] text-emerald-700 font-semibold uppercase tracking-wider">All Taxes Included</span>
+                        </div>
+                        <span id="summary-grand-total" class="text-3xl font-extrabold text-amber-700 font-display tracking-tight">₹0</span>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="pt-4 grid grid-cols-2 gap-3">
+                    <button id="btn-clear" onclick="clearSelectedServices()" class="px-3 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-semibold text-xs hover:bg-slate-100 transition flex items-center justify-center">
+                        <i class="fa-solid fa-rotate-left mr-1.5"></i> Clear All
+                    </button>
+                    <button id="btn-whatsapp" onclick="shareWhatsApp()" class="px-3 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs shadow-md transition flex items-center justify-center">
+                        <i class="fa-brands fa-whatsapp text-sm mr-1.5"></i> WhatsApp
+                    </button>
+                    <button id="btn-pdf" onclick="generatePDF()" class="col-span-2 py-3.5 rounded-xl bg-gradient-to-r from-amber-600 via-amber-700 to-brand-800 hover:from-amber-700 hover:to-slate-900 text-white font-bold text-sm shadow-xl shadow-amber-900/10 transition flex items-center justify-center space-x-2 tracking-wide font-display">
+                        <i class="fa-solid fa-file-pdf text-lg"></i>
+                        <span>Generate & Print PDF Quotation</span>
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- HIDDEN A4 PDF TEMPLATE CONTAINER (Strictly 1 Page PDF, Executive Fonts, Vector Styling, Zero Images) -->
+    <div class="fixed left-[-9999px] top-[-9999px] overflow-hidden">
+        <div id="pdf-template" class="bg-white text-slate-900 p-10 flex flex-col justify-between font-sans relative box-sizing-border">
+            
+            <!-- Top Branding Graphics -->
+            <div class="absolute top-0 right-0 w-72 h-72 bg-amber-500/10 rounded-bl-full -z-10"></div>
+            <div class="absolute bottom-0 left-0 w-72 h-72 bg-slate-900/5 rounded-tr-full -z-10"></div>
+
+            <!-- PDF Header -->
+            <div>
+                <div class="flex justify-between items-start pb-6 border-b-2 border-amber-600">
+                    <div>
+                        <!-- Typography Logo -->
+                        <div class="flex items-center space-x-3">
+                            <div class="w-11 h-11 rounded-full bg-slate-900 text-amber-400 flex items-center justify-center font-serif font-bold text-2xl border-2 border-amber-500 shadow-sm">
+                                AR
+                            </div>
+                            <div>
+                                <h1 class="font-serif font-bold text-2xl text-slate-900 tracking-wider uppercase leading-tight">AR HOME BEAUTY SALON</h1>
+                                <p class="text-[10px] text-amber-700 font-display font-bold tracking-widest uppercase">DOORSTEP & SALON BEAUTY SERVICES</p>
+                            </div>
+                        </div>
+                        <p class="text-[11px] text-slate-600 mt-2 max-w-xs leading-relaxed font-sans">
+                            4th Floor, Moti Mahal deluxe 94, Mahatma Gandhi Marg, Raj Bhavan Colony, Hazratganj, Lucknow, Uttar Pradesh 226001<br>
+                            Phone: +91 9696939316 | Web: arhomebeautysalon.netlify.app
+                        </p>
+                    </div>
+
+                    <div class="text-right">
+                        <span class="inline-block px-3 py-1 bg-amber-100 text-amber-900 text-[11px] font-display font-extrabold rounded uppercase tracking-widest mb-2 border border-amber-300">
+                            OFFICIAL SERVICE ESTIMATE
+                        </span>
+                        <table class="text-xs text-right ml-auto space-y-1">
+                            <tr>
+                                <td class="text-slate-500 pr-2 font-display uppercase text-[10px] font-bold">Quote No:</td>
+                                <td class="font-mono font-bold text-slate-900 text-xs" id="pdf-quote-no">#EST-ARH-001</td>
+                            </tr>
+                            <tr>
+                                <td class="text-slate-500 pr-2 font-display uppercase text-[10px] font-bold">Date:</td>
+                                <td class="font-mono font-semibold text-slate-800 text-xs" id="pdf-quote-date">09/09/2026</td>
+                            </tr>
+                            <tr>
+                                <td class="text-slate-500 pr-2 font-display uppercase text-[10px] font-bold">Valid Until:</td>
+                                <td class="font-mono font-semibold text-slate-800 text-xs" id="pdf-quote-valid">16/09/2026</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Client Info Bar -->
+                <div class="mt-6 bg-slate-50 rounded-xl p-4 border border-slate-200/90 flex justify-between items-center">
+                    <div>
+                        <p class="text-[10px] uppercase tracking-widest font-display font-bold text-amber-700">PREPARED FOR CLIENT</p>
+                        <p class="text-lg font-bold font-display text-slate-900" id="pdf-client-name">—</p>
+                        <p class="text-xs font-mono text-slate-600 mt-0.5" id="pdf-client-phone">—</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-[10px] uppercase tracking-widest font-display font-bold text-slate-500">ESTIMATED TOTAL DURATION</p>
+                        <p class="text-sm font-semibold font-mono text-slate-900 bg-amber-100/60 px-2.5 py-1 rounded border border-amber-200 mt-1 inline-block" id="pdf-total-duration">0 mins</p>
+                    </div>
+                </div>
+
+                <!-- Services Table -->
+                <div class="mt-6">
+                    <table class="w-full text-left text-xs">
+                        <thead>
+                            <tr class="bg-slate-900 text-amber-300 font-display font-bold uppercase tracking-wider text-[10px]">
+                                <th class="py-3 px-3.5 rounded-l-lg">S.No.</th>
+                                <th class="py-3 px-3.5">Service Details</th>
+                                <th class="py-3 px-3.5">Category</th>
+                                <th class="py-3 px-3.5 text-center">Duration</th>
+                                <th class="py-3 px-3.5 text-right rounded-r-lg">Amount (₹)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pdf-table-body" class="divide-y divide-slate-200 text-slate-800">
+                            <!-- Dynamic rows appended via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- PDF Footer & Total Summary -->
+            <div>
+                <!-- Totals Grid -->
+                <div class="flex justify-between items-end pt-5 border-t-2 border-slate-300">
+                    <div class="max-w-xs">
+                        <p class="text-xs font-display font-bold text-slate-900 uppercase tracking-wider mb-1">Notes & Instructions:</p>
+                        <p class="text-[11px] text-slate-600 leading-relaxed font-sans" id="pdf-custom-notes">
+                            • All listed prices are inclusive of applicable GST taxes.<br>
+                            • Doorstep services are provided with utmost hygienic equipment.<br>
+                            • Prior confirmation is requested to lock your time slot.
+                        </p>
+                    </div>
+
+                    <div class="w-72 bg-slate-50 p-4 rounded-xl border-2 border-slate-200 space-y-2 text-xs">
+                        <div class="flex justify-between text-slate-600 font-medium">
+                            <span>Subtotal Amount:</span>
+                            <span class="font-mono font-bold text-slate-900" id="pdf-subtotal">₹0</span>
+                        </div>
+                        <div class="flex justify-between text-slate-600 font-medium" id="pdf-discount-row">
+                            <span>Special Discount:</span>
+                            <span class="font-mono font-bold text-emerald-600" id="pdf-discount">-₹0</span>
+                        </div>
+                        <div class="border-t-2 border-slate-300 pt-2 flex justify-between items-center">
+                            <span class="font-display font-extrabold text-amber-900 text-sm uppercase tracking-wider">Grand Total</span>
+                            <span class="font-display font-extrabold text-2xl text-amber-800 tracking-tight" id="pdf-grand-total">₹0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Terms and Signatures -->
+                <div class="mt-8 pt-4 border-t border-slate-200 grid grid-cols-2 gap-4 items-end">
+                    <div class="text-[10px] text-slate-500 space-y-1 font-sans">
+                        <p class="font-display font-bold text-slate-700 uppercase tracking-wider text-[9px]">Terms & Conditions:</p>
+                        <p>1. Quotation estimate is valid for 7 calendar days from issuance date.</p>
+                        <p>2. Actual slot availability is subject to booking confirmation.</p>
+                    </div>
+                    <div class="text-right">
+                        <div class="h-10 border-b border-slate-400 w-40 ml-auto mb-1"></div>
+                        <p class="text-[11px] font-display font-bold text-slate-900 uppercase tracking-wider">Authorized Signatory</p>
+                        <p class="text-[9px] text-slate-500 font-display">AR Home Beauty Salon Manager</p>
+                    </div>
+                </div>
+
+                <!-- Footer Bar -->
+                <div class="mt-6 text-center text-[10px] font-display font-semibold text-slate-500 pt-3 border-t border-slate-200 tracking-wider uppercase">
+                    Thank you for choosing AR Home Beauty Salon • Lucknow
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Full Salon Service Catalog Data
+        const SALON_SERVICES = [
+            // Waxing Normal
+            { id: 1, category: "Waxing Normal", name: "Normal Underarms Waxing", duration: 10, price: 49 },
+            { id: 2, category: "Waxing Normal", name: "Normal Full Hand Waxing", duration: 20, price: 149 },
+            { id: 3, category: "Waxing Normal", name: "Normal Bikini Waxing", duration: 35, price: 249 },
+            { id: 4, category: "Waxing Normal", name: "Normal Full Leg Waxing", duration: 30, price: 299 },
+            { id: 5, category: "Waxing Normal", name: "Normal Full Body Waxing", duration: 75, price: 899 },
+
+            // Rica Wax
+            { id: 6, category: "Rica Wax", name: "Premium Rica Underarms Waxing", duration: 10, price: 99 },
+            { id: 7, category: "Rica Wax", name: "Premium Rica Full Hand Waxing", duration: 25, price: 349 },
+            { id: 8, category: "Rica Wax", name: "Premium Rica Bikini Waxing", duration: 40, price: 449 },
+            { id: 9, category: "Rica Wax", name: "Premium Rica Full Leg Waxing", duration: 35, price: 499 },
+            { id: 10, category: "Rica Wax", name: "Premium Rica Full Body Waxing", duration: 90, price: 1499 },
+
+            // Manicure & Pedicure
+            { id: 11, category: "Manicure & Pedicure", name: "Basic Manicure/Pedicure Combo", duration: 40, price: 349 },
+            { id: 12, category: "Manicure & Pedicure", name: "Deluxe Restorative Manicure/Pedicure", duration: 55, price: 499 },
+            { id: 13, category: "Manicure & Pedicure", name: "Aroma Therapeutic Manicure/Pedicure", duration: 60, price: 599 },
+
+            // Fruits Bleach
+            { id: 14, category: "Fruits Bleach", name: "Face & Neck Fruit Bleach", duration: 20, price: 199 },
+            { id: 15, category: "Fruits Bleach", name: "Oxy Bleach Face & Neck Treatment", duration: 25, price: 249 },
+            { id: 16, category: "Fruits Bleach", name: "Full Body Radiance Bleach", duration: 50, price: 499 },
+
+            // Threading & Detan
+            { id: 17, category: "Threading & Detan", name: "Threading: Chin Care", duration: 5, price: 19 },
+            { id: 18, category: "Threading & Detan", name: "Threading: Forehead", duration: 5, price: 19 },
+            { id: 19, category: "Threading & Detan", name: "Threading: Upperlips", duration: 5, price: 19 },
+            { id: 20, category: "Threading & Detan", name: "Threading: Neck Area", duration: 5, price: 19 },
+            { id: 21, category: "Threading & Detan", name: "Threading: Precision Eyebrow", duration: 8, price: 29 },
+            { id: 22, category: "Threading & Detan", name: "Skin Brightening Underarms Detan", duration: 15, price: 79 },
+            { id: 23, category: "Threading & Detan", name: "Face & Neck Premium Detan", duration: 20, price: 149 },
+            { id: 24, category: "Threading & Detan", name: "Full Hands Hydrating Detan", duration: 30, price: 249 },
+
+            // Cleanup
+            { id: 25, category: "Cleanup", name: "Organic Fruits Refreshing Cleanup", duration: 25, price: 149 },
+            { id: 26, category: "Cleanup", name: "Soothe Pearl Glow Cleanup", duration: 25, price: 149 },
+            { id: 27, category: "Cleanup", name: "Pure Gold Lustre Cleanup", duration: 30, price: 199 },
+            { id: 28, category: "Cleanup", name: "Diamond Radiance Shield Cleanup", duration: 30, price: 249 },
+            { id: 29, category: "Cleanup", name: "Activated Charcoal Deep Cleanup", duration: 30, price: 249 },
+
+            // Facial
+            { id: 30, category: "Facial", name: "Organic Fruits Nourishing Facial", duration: 45, price: 449 },
+            { id: 31, category: "Facial", name: "Pure Gold Bridal Glow Facial", duration: 50, price: 499 },
+            { id: 32, category: "Facial", name: "Pearl Radiance Whitening Facial", duration: 50, price: 499 },
+            { id: 33, category: "Facial", name: "Diamond Youth Restoration Facial", duration: 50, price: 499 },
+            { id: 34, category: "Facial", name: "Vitamin C Brightening Facial", duration: 55, price: 599 },
+            { id: 35, category: "Facial", name: "Red Wine Age Defying Facial", duration: 60, price: 699 },
+            { id: 36, category: "Facial", name: "Lotus Whitening Elite Therapy", duration: 60, price: 699 },
+
+            // Haircuts
+            { id: 37, category: "Haircuts", name: "Elite Straight Hair Cut", duration: 20, price: 99 },
+            { id: 38, category: "Haircuts", name: "Creative U-Shape Hair Cut", duration: 25, price: 149 },
+            { id: 39, category: "Haircuts", name: "Premium V-Shape Styling Cut", duration: 30, price: 179 },
+
+            // Body Polishing
+            { id: 40, category: "Body Polishing", name: "Premium Full Body Polishing", duration: 120, price: 1599 }
+        ];
+
+        // State variables
+        let selectedServiceIds = new Set([30]); // Pre-select initial sample service
+        let activeCategory = "All";
+        let searchQuery = "";
+
+        window.onload = function() {
+            // Set current Date & Time
+            const now = new Date();
+            document.getElementById('current-date-time').textContent = now.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+            document.getElementById('quote-date').valueAsDate = now;
+
+            // Generate Quote ID
+            const randomId = Math.floor(1000 + Math.random() * 9000);
+            document.getElementById('quote-number').value = `EST-ARH-${randomId}`;
+
+            // Render categories and services
+            renderCategories();
+            renderServices();
+            updateSummary();
+
+            // Event listener for Search
+            document.getElementById('search-input').addEventListener('input', (e) => {
+                searchQuery = e.target.value.toLowerCase().trim();
+                renderServices();
+            });
+
+            // Event listener for Discount Input
+            document.getElementById('discount-input').addEventListener('input', updateSummary);
+        };
+
+        function renderCategories() {
+            const categories = ["All", ...new Set(SALON_SERVICES.map(s => s.category))];
+            const container = document.getElementById('category-pills');
+            
+            container.innerHTML = categories.map(cat => {
+                const isActive = activeCategory === cat;
+                return `
+                    <button onclick="setCategory('${cat}')" class="px-3 py-1.5 rounded-full font-medium transition whitespace-nowrap ${
+                        isActive 
+                        ? 'bg-amber-600 text-white shadow-sm' 
+                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                    }">
+                        ${cat}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function setCategory(cat) {
+            activeCategory = cat;
+            renderCategories();
+            renderServices();
+        }
+
+        function renderServices() {
+            const grid = document.getElementById('services-grid');
+            
+            const filtered = SALON_SERVICES.filter(service => {
+                const matchesCategory = activeCategory === "All" || service.category === activeCategory;
+                const matchesSearch = service.name.toLowerCase().includes(searchQuery) || service.category.toLowerCase().includes(searchQuery);
+                return matchesCategory && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full py-8 text-center text-slate-400 text-xs">
+                        <i class="fa-solid fa-magnifying-glass text-lg mb-1"></i>
+                        <p>No matching services found</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(service => {
+                const isSelected = selectedServiceIds.has(service.id);
+                return `
+                    <div onclick="toggleService(${service.id})" class="cursor-pointer p-3.5 rounded-xl border transition-all flex flex-col justify-between ${
+                        isSelected 
+                        ? 'bg-amber-50/70 border-amber-500 shadow-sm ring-1 ring-amber-500' 
+                        : 'bg-white border-slate-200/80 hover:border-amber-300 hover:bg-slate-50/50'
+                    }">
+                        <div>
+                            <div class="flex items-start justify-between gap-2">
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-amber-700 bg-amber-100/60 px-2 py-0.5 rounded">
+                                    ${service.category}
+                                </span>
+                                <span class="text-[11px] text-slate-500 font-medium flex items-center">
+                                    <i class="fa-regular fa-clock text-[10px] mr-1 text-slate-400"></i>${service.duration} Mins
+                                </span>
+                            </div>
+                            <h4 class="font-semibold text-slate-900 text-xs mt-2 leading-snug">${service.name}</h4>
+                        </div>
+
+                        <div class="flex items-center justify-between mt-3 pt-2 border-t border-slate-100">
+                            <span class="font-bold text-slate-900 text-sm">₹${service.price}</span>
+                            <button class="px-2.5 py-1 rounded-lg text-xs font-semibold transition flex items-center ${
+                                isSelected 
+                                ? 'bg-rose-500 text-white hover:bg-rose-600' 
+                                : 'bg-slate-900 text-white hover:bg-amber-600'
+                            }">
+                                <i class="fa-solid ${isSelected ? 'fa-minus' : 'fa-plus'} mr-1 text-[10px]"></i>
+                                ${isSelected ? 'Remove' : 'Add'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Toggle service selection
+        function toggleService(id) {
+            if (selectedServiceIds.has(id)) {
+                selectedServiceIds.delete(id);
+            } else {
+                selectedServiceIds.add(id);
+            }
+            renderServices();
+            updateSummary();
+        }
+
+        function updateSummary() {
+            const listContainer = document.getElementById('selected-services-list');
+            const emptyState = document.getElementById('empty-state');
+            const selectedServices = SALON_SERVICES.filter(s => selectedServiceIds.has(s.id));
+
+            document.getElementById('selected-count-badge').textContent = `${selectedServices.length} Items`;
+
+            if (selectedServices.length === 0) {
+                listContainer.innerHTML = '';
+                listContainer.appendChild(emptyState);
+                document.getElementById('summary-duration').textContent = '0 Mins';
+                document.getElementById('summary-subtotal').textContent = '₹0';
+                document.getElementById('summary-grand-total').textContent = '₹0';
+                return;
+            }
+
+            // Calculate Totals
+            const totalDurationMins = selectedServices.reduce((acc, curr) => acc + curr.duration, 0);
+            const subtotal = selectedServices.reduce((acc, curr) => acc + curr.price, 0);
+            const discount = parseFloat(document.getElementById('discount-input').value) || 0;
+            const grandTotal = Math.max(0, subtotal - discount);
+
+            // Duration format helper
+            const hours = Math.floor(totalDurationMins / 60);
+            const mins = totalDurationMins % 60;
+            const durationStr = hours > 0 ? `${hours} hr ${mins} mins` : `${mins} mins`;
+
+            document.getElementById('summary-duration').textContent = durationStr;
+            document.getElementById('summary-subtotal').textContent = `₹${subtotal.toLocaleString('en-IN')}`;
+            document.getElementById('summary-grand-total').textContent = `₹${grandTotal.toLocaleString('en-IN')}`;
+
+            // Render selected items list
+            listContainer.innerHTML = selectedServices.map(service => `
+                <div class="flex items-center justify-between p-2.5 bg-slate-50 rounded-xl border border-slate-200/60 hover:bg-slate-100/80 transition text-xs">
+                    <div class="pr-2">
+                        <p class="font-semibold text-slate-800 leading-tight">${service.name}</p>
+                        <p class="text-[10px] text-slate-500 mt-0.5">${service.category} • ${service.duration} mins</p>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="font-bold text-slate-900">₹${service.price}</span>
+                        <button onclick="toggleService(${service.id})" class="text-slate-400 hover:text-rose-500 p-1">
+                            <i class="fa-solid fa-xmark text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Clear all selected items
+        function clearSelectedServices() {
+            selectedServiceIds.clear();
+            renderServices();
+            updateSummary();
+        }
+
+        function shareWhatsApp() {
+            const clientName = document.getElementById('client-name').value || "Valued Client";
+            const phone = document.getElementById('client-phone').value.replace(/\D/g, '');
+            const selectedServices = SALON_SERVICES.filter(s => selectedServiceIds.has(s.id));
+            
+            if (selectedServices.length === 0) {
+                alert("Please select at least one service before sharing.");
+                return;
+            }
+
+            const subtotal = selectedServices.reduce((acc, curr) => acc + curr.price, 0);
+            const discount = parseFloat(document.getElementById('discount-input').value) || 0;
+            const grandTotal = Math.max(0, subtotal - discount);
+
+            let serviceListStr = selectedServices.map((s, idx) => `${idx + 1}. ${s.name} - ₹${s.price}`).join('%0A');
+
+            let message = `Hello *${clientName}*,%0A%0AThank you for contacting *AR Home Beauty Salon*! Here is your custom service estimate:%0A%0A*Selected Services:*%0A${serviceListStr}%0A%0A*Estimated Total:* ₹${grandTotal}%0A%0AWe offer convenient doorstep beauty services! Reply to confirm your booking slot.`;
+
+            let waUrl = phone ? `https://wa.me/${phone}?text=${message}` : `https://wa.me/?text=${message}`;
+            window.open(waUrl, '_blank');
+        }
+
+        function generatePDF() {
+            const selectedServices = SALON_SERVICES.filter(s => selectedServiceIds.has(s.id));
+            
+            if (selectedServices.length === 0) {
+                alert("Please select at least one service to generate PDF quotation.");
+                return;
+            }
+
+            // Client Info details (Default fallback if fields left empty)
+            const clientNameInput = document.getElementById('client-name').value.trim();
+            const clientPhoneInput = document.getElementById('client-phone').value.trim();
+            const clientName = clientNameInput ? clientNameInput : "Valued Customer";
+            const clientPhone = clientPhoneInput ? clientPhoneInput : "N/A";
+            
+            const quoteNo = document.getElementById('quote-number').value;
+            const quoteDateVal = document.getElementById('quote-date').value;
+            const customNotesVal = document.getElementById('custom-note').value;
+
+            // Date Formats
+            const qDate = quoteDateVal ? new Date(quoteDateVal) : new Date();
+            const validDate = new Date(qDate);
+            validDate.setDate(validDate.getDate() + 7);
+
+            document.getElementById('pdf-client-name').textContent = clientName;
+            document.getElementById('pdf-client-phone').textContent = `Phone: ${clientPhone}`;
+            document.getElementById('pdf-quote-no').textContent = quoteNo;
+            document.getElementById('pdf-quote-date').textContent = qDate.toLocaleDateString('en-IN');
+            document.getElementById('pdf-quote-valid').textContent = validDate.toLocaleDateString('en-IN');
+
+            if (customNotesVal.trim()) {
+                document.getElementById('pdf-custom-notes').innerHTML = `• Note: ${customNotesVal}<br>• Prices are inclusive of applicable GST taxes.`;
+            } else {
+                document.getElementById('pdf-custom-notes').innerHTML = `• All listed prices are inclusive of applicable GST taxes.<br>• Doorstep services are provided with utmost hygienic equipment.<br>• Prior confirmation is requested to lock your time slot.`;
+            }
+
+            // Populate PDF Table
+            const tbody = document.getElementById('pdf-table-body');
+            tbody.innerHTML = selectedServices.map((s, index) => `
+                <tr class="${index % 2 === 0 ? 'bg-white' : 'bg-slate-50/70'}">
+                    <td class="py-2.5 px-3.5 font-mono font-semibold text-slate-500">${index + 1}</td>
+                    <td class="py-2.5 px-3.5 font-bold font-display text-slate-900">${s.name}</td>
+                    <td class="py-2.5 px-3.5 text-slate-600 font-medium">${s.category}</td>
+                    <td class="py-2.5 px-3.5 text-center font-mono text-slate-700">${s.duration} mins</td>
+                    <td class="py-2.5 px-3.5 text-right font-mono font-bold text-slate-900">₹${s.price}</td>
+                </tr>
+            `).join('');
+
+            // Calculate Totals for PDF
+            const totalDurationMins = selectedServices.reduce((acc, curr) => acc + curr.duration, 0);
+            const subtotal = selectedServices.reduce((acc, curr) => acc + curr.price, 0);
+            const discount = parseFloat(document.getElementById('discount-input').value) || 0;
+            const grandTotal = Math.max(0, subtotal - discount);
+
+            const hours = Math.floor(totalDurationMins / 60);
+            const mins = totalDurationMins % 60;
+            const durationStr = hours > 0 ? `${hours} hr ${mins} mins` : `${mins} mins`;
+
+            document.getElementById('pdf-total-duration').textContent = durationStr;
+            document.getElementById('pdf-subtotal').textContent = `₹${subtotal.toLocaleString('en-IN')}`;
+            document.getElementById('pdf-discount').textContent = `-₹${discount.toLocaleString('en-IN')}`;
+            document.getElementById('pdf-grand-total').textContent = `₹${grandTotal.toLocaleString('en-IN')}`;
+
+            // Render PDF options
+            const element = document.getElementById('pdf-template');
+            
+            const opt = {
+                margin: 0,
+                filename: `AR_Home_Salon_Quote_${clientName.replace(/\s+/g, '_')}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true, logging: false },
+                jsPDF: { unit: 'pt', format: 'a4', orientation: 'portrait' }
+            };
+
+            // Trigger Loading state on button
+            const btnPdf = document.getElementById('btn-pdf');
+            const originalContent = btnPdf.innerHTML;
+            btnPdf.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-2 text-lg"></i> Generating PDF...`;
+            btnPdf.disabled = true;
+
+            html2pdf().set(opt).from(element).save().then(() => {
+                btnPdf.innerHTML = originalContent;
+                btnPdf.disabled = false;
+            }).catch(err => {
+                console.error("PDF Generation error: ", err);
+                btnPdf.innerHTML = originalContent;
+                btnPdf.disabled = false;
+            });
+        }
+    </script>
+</body>
+</html>
